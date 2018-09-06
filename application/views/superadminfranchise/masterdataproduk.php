@@ -30,24 +30,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <link href=<?php echo base_url("assets/fonts/font.css")?> rel='stylesheet' type='text/css'>
 
-    
-        <script src=<?php echo base_url("assets/js/lib/data-table/jquery-1.12.4.js"); ?>></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
     <script src=<?php echo base_url("assets/js/plugins.js")?>></script>
     <script src=<?php echo base_url("assets/js/main.js")?>></script>
+    <script src=<?php echo base_url("assets/js/jquery.dataTables.min.js")?>></script>
+    <script src=<?php echo base_url("assets/js/dataTables.bootstrap.min.js")?>></script>
 
-    <link rel="stylesheet" href=<?php echo base_url("assets/css/lib/datatable/dataTables.bootstrap.min.css") ?>>
-    <script src=<?php echo base_url("assets/js/lib/data-table/jquery.dataTables.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/datatables.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.bootstrap.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.buttons.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.bootstrap.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/jszip.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/pdfmake.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/vfs_fonts.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.html5.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.print.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.colVis.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/datatables-init.js"); ?>></script>
     <!-- <script type="text/javascript" src=<echo base_url("https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js")?>></script> -->
 
 </head>

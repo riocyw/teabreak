@@ -21,7 +21,7 @@
       initComplete: function() {
         var api = this.api();
         $('#mytable_filter input')
-        .on('.DT')
+        .off('.DT')
         .on('keyup.DT', function(e) {
           if (e.keyCode == 13) {
             api.search(this.value).draw();
@@ -31,6 +31,7 @@
       oLanguage: {
         sProcessing: "loading..."
       },
+      processing: true,
       serverSide: true,
       ajax: {"url": "<?php echo base_url('welcome/produk_data');?>", "type": "POST"},
       columns: 
