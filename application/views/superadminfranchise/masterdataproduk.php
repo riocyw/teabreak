@@ -1,5 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Methods: GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
 
 ?>
 <!doctype html>
@@ -10,8 +13,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Teabreak Management System</title>
-    <meta name="description" content="Teabreak Management System">
+    <title>Tea Break Super Admin Franchise</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href=<?php echo base_url("apple-icon.png")?>>
@@ -24,27 +27,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href=<?php echo base_url("assets/css/themify-icons.css")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/css/flag-icon.min.css")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/css/cs-skin-elastic.css")?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/css/lib/datatable/dataTables.bootstrap.min.css") ?>>
     <!-- <link rel="stylesheet" href=<echo base_url("assets/css/bootstrap-select.less")?>> -->
     <link rel="stylesheet" href=<?php echo base_url("assets/scss/style.css")?>>
     <link href=<?php echo base_url("assets/css/lib/vector-map/jqvmap.min.css")?> rel="stylesheet">
 
-    <link href=<?php echo base_url("assets/fonts/font.css")?> rel='stylesheet' type='text/css'>
-
-    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-    <script src=<?php echo base_url("assets/js/plugins.js")?>></script>
-    <script src=<?php echo base_url("assets/js/main.js")?>></script>
-    <script src=<?php echo base_url("assets/js/jquery.dataTables.min.js")?>></script>
-    <script src=<?php echo base_url("assets/js/dataTables.bootstrap.min.js")?>></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- <script type="text/javascript" src=<echo base_url("https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js")?>></script> -->
 
 </head>
-<style type="text/css">
-    .row{
-        margin-left: 0px!important;
-    }
-</style>
 <body>
 
 
@@ -58,20 +50,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand" href="./">Tea Break</a>
-                <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+                <a class="navbar-brand hidden" href="./">T</a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li >
-                        <a href="dashboardsuperadmin"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                        <a href=""> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">PRODUK</h3><!-- /.menu-title -->
-                    <li class="active">
+                    <li>
                         <a href="masterdataproduk"> <i class="menu-icon fa fa-glass"></i>Master Data Produk </a>
                     </li>
                     <h3 class="menu-title">STAN</h3><!-- /.menu-title -->
-                    <li>
+                    <li class="active">
                         <a href="masterdatastan"> <i class="menu-icon ti-home"></i>Master Data Stan </a>
                     </li>
                     <li>
@@ -152,13 +144,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </a>
 
                         <div class="user-menu dropdown-menu">
-
                                 <a class="nav-link" href="gantipassword"><i class="fa fa -cog"></i>Ganti Password</a>
 
                                 <a class="nav-link" href="logout"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
-
 
                 </div>
             </div>
@@ -167,63 +157,121 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- Header-->
 
         <div class="breadcrumbs">
-            <div class="page-header float-left">
-                <div class="page-title">
-                    <h1>Master Data Produk Jadi</h1>
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Master Data Stan</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li class="active">Semua Data Stan</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="content">
-            <div class="card-body" style="background: white;">
-                <h6>Tambah Produk</h6>
-                <hr>
+        <div class="content mt-3">
+            <div class="animated fadeIn">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="row">
-                            <label for="kode_barang">Kode Barang</label>
+                  <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Tambah Produk</strong>
                         </div>
-                        <div class="row">
-                            <input maxlength="250" type="text" name="kode_barang" id="kode_barang">
-                        </div>    
-                    </div>
-                    <div class="col-md-3">
-                        <div class="row">
-                            <label for="nama_barang">Nama Barang</label>
+                        <div class="card-body">
+                          <!-- Credit Card -->
+                          <div id="pay-invoice">
+                            <div class="card-body card-block">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <label for="kode_barang">Kode Barang</label>
+                                        </div>
+                                        <div class="row">
+                                            <input maxlength="250" type="text" name="kode_barang" id="kode_barang">
+                                        </div>    
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <label for="nama_barang">Nama Barang</label>
+                                        </div>
+                                        <div class="row">
+                                            <input maxlength="250" type="text" name="nama_barang" id="nama_barang">
+                                        </div>  
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 50px;">
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <label for="nama_barang">Kategori Barang</label>
+                                        </div>
+                                        <div class="row">
+                                            <input class="col-md-7" maxlength="250" type="text" name="kategori" id="kategori">
+                                            <input class="btn btn-secondary col-md-3" type="submit" name="submit" value="Tambah Produk">
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>    
+                          </div>
+
                         </div>
-                        <div class="row">
-                            <input maxlength="250" type="text" name="nama_barang" id="nama_barang">
-                        </div>  
-                    </div>
-                </div>
-                <div class="row" style="margin-top: 50px;">
-                    <div class="col-md-9">
-                        <div class="row">
-                            <label for="nama_barang">Kategori Barang</label>
+                    </div> <!-- .card -->
+
+                  </div><!--/.col-->
+
+                  <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Data Produk</strong>
                         </div>
-                        <div class="row">
-                            <input class="col-md-7" maxlength="250" type="text" name="kategori" id="kategori">
-                            <input class="btn btn-secondary col-md-3" type="submit" name="submit" value="Tambah Produk">
-                        </div>  
-                    </div>
-                </div>
-                <div>
-                    <table id="mytable" class="table-responsive display" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th>Kode Barang</th>
-                                <th>Nama barang</th>
+                        <div class="card-body">
+                          <table id="mytable" class="table table-striped table-bordered">
+                            <thead>
+                              <tr>
+                                <th>ID Produk</th>
+                                <th>Nama Produk</th>
                                 <th>Kategori</th>
-                                <th>Hapus</th>
-                            </tr>
-                        </thead>
-                    </table>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                              </tr>
+                            </thead>
+                          </table>
+                        </div>
+                    </div> <!-- .card -->
+
+                  </div><!--/.col-->
                 </div>
             </div>
+
+
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
+
+    <script src=<?php echo base_url("assets/js/vendor/jquery-2.1.4.min.js")?>></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src=<?php echo base_url("assets/js/main.js")?>></script>
+
+    <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.js")?>></script>
+    <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.min.js")?>></script>
+    <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.sampledata.js")?>></script>
+    <script src=<?php echo base_url("assets/js/lib/vector-map/country/jquery.vmap.world.js")?>></script>
+    <script src=<?php echo base_url("assets/js/lib/data-table/datatables.min.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.bootstrap.min.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.buttons.min.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.bootstrap.min.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/lib/data-table/jszip.min.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/lib/data-table/vfs_fonts.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.html5.min.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.print.min.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.colVis.min.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/lib/data-table/datatables-init.js"); ?>></script>
 
 </body>
 </html>

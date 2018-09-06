@@ -192,21 +192,21 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="company" class=" form-control-label">ID Stan</label>
-                                            <input type="text" id="company" placeholder="Masukkan ID Stan" class="form-control">
+                                            <label for="id" class=" form-control-label">ID Stan</label>
+                                            <input type="text" id="id" placeholder="Masukkan ID Stan" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group">
-                                            <label for="company" class=" form-control-label">Nama Stan</label>
-                                            <input type="text" id="company" placeholder="Masukkan Nama Stan" class="form-control">
+                                            <label for="nama" class=" form-control-label">Nama Stan</label>
+                                            <input type="text" id="nama" placeholder="Masukkan Nama Stan" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group">
-                                            <label for="company" class=" form-control-label">Password</label>
+                                            <label for="password" class=" form-control-label">Password</label>
                                             <div class="input-group">
-                                                <input type="Password" id="input2-group2" name="input2-group2" placeholder="Masukkan Password" class="form-control">
+                                                <input type="Password" id="password" name="password" placeholder="Masukkan Password" class="form-control">
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-primary">
                                                         <i class="fa fa-eye"></i></button>
@@ -220,8 +220,8 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                                 <div class="row">
                                     <div class="col-md-10">
                                         <div class="form-group">
-                                            <label for="company" class=" form-control-label">Alamat</label>
-                                            <input type="text" id="company" placeholder="Masukkan Alamat Stan" class="form-control">
+                                            <label for="alamat" class=" form-control-label">Alamat</label>
+                                            <input type="text" id="alamat" placeholder="Masukkan Alamat Stan" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -248,19 +248,17 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                             <strong class="card-title">Data Stan</strong>
                         </div>
                         <div class="card-body">
-                          <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                          <table id="mytable" class="table table-striped table-bordered">
                             <thead>
                               <tr>
                                 <th>ID Stan</th>
                                 <th>Nama Stan</th>
                                 <th>Alamat</th>
                                 <th>Password</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
                               </tr>
                             </thead>
-                            <tbody>
-                              
-                            </tbody>
-
                           </table>
                         </div>
                     </div> <!-- .card -->
@@ -277,13 +275,8 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
 
     <script src=<?php echo base_url("assets/js/vendor/jquery-2.1.4.min.js")?>></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-    <script src=<?php echo base_url("assets/js/plugins.js")?>></script>
     <script src=<?php echo base_url("assets/js/main.js")?>></script>
 
-
-    <script src=<?php echo base_url("assets/js/lib/chart-js/Chart.bundle.js")?>></script>
-    <script src=<?php echo base_url("assets/js/dashboard.js")?>></script>
-    <script src=<?php echo base_url("assets/js/widgets.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.min.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.sampledata.js")?>></script>
@@ -293,90 +286,81 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.buttons.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/buttons.bootstrap.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/jszip.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/pdfmake.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/vfs_fonts.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/buttons.html5.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/buttons.print.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/buttons.colVis.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/datatables-init.js"); ?>></script>
     <script>
-        ( function ( $ ) {
-            "use strict";
+  var tabeldata ;
+  function edit_stan(id){
+    alert(id);
+}
 
-            jQuery( '#vmap' ).vectorMap( {
-                map: 'world_en',
-                backgroundColor: null,
-                color: '#ffffff',
-                hoverOpacity: 0.7,
-                selectedColor: '#1de9b6',
-                enableZoom: true,
-                showTooltip: true,
-                values: sample_data,
-                scaleColors: [ '#1de9b6', '#03a9f5' ],
-                normalizeFunction: 'polynomial'
-            } );
-        } )( jQuery );
+function delete_stan(id){
+    alert(id);
+}
 
-            var datatablestan ;
+  jQuery( document ).ready(function( $ ) {
+    $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
+    {
+      return {
+        "iStart": oSettings._iDisplayStart,
+        "iEnd": oSettings.fnDisplayEnd(),
+        "iLength": oSettings._iDisplayLength,
+        "iTotal": oSettings.fnRecordsTotal(),
+        "iFilteredTotal": oSettings.fnRecordsDisplay(),
+        "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+        "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+      };
+    };
 
-          jQuery( document ).ready(function( $ ) {
-            $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
-            {
-              return {
-                "iStart": oSettings._iDisplayStart,
-                "iEnd": oSettings.fnDisplayEnd(),
-                "iLength": oSettings._iDisplayLength,
-                "iTotal": oSettings.fnRecordsTotal(),
-                "iFilteredTotal": oSettings.fnRecordsDisplay(),
-                "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
-                "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
-              };
-            };
+    tabeldata = $("#mytable").dataTable({
 
-            datatablestan = $("#bootstrap-data-table").dataTable({
-
-              initComplete: function() {
-                var api = this.api();
-                $('#mytable_filter input')
-                .off('.DT')
-                .on('keyup.DT', function(e) {
-                  if (e.keyCode == 13) {
-                    api.search(this.value).draw();
-                  }
-                });
-              },
-              oLanguage: {
-                sProcessing: "loading..."
-              },
-              processing: true,
-              serverSide: true,
-              ajax: {"url": "<?php echo base_url('superadminfranchise/datastan');?>", "type": "POST"},
-              columns: 
-              [
-
-              {"data": "id_stan",
-              "orderable": false},
-              {"data": "nama_stan"},
-              {"data": "alamat"},
-              {"data": "password",
-              "orderable": false},
-
-              ],
-
-              rowCallback: function(row, data, iDisplayIndex) {
-                var info = this.fnPagingInfo();
-                var page = info.iPage;
-                var length = info.iLength;
-                var index = page * length + (iDisplayIndex + 1);
-                $('td:eq(0)', row).html(index);
-              }
-            });
-
+      initComplete: function() {
+        var api = this.api();
+        $('#mytable_filter input')
+        .on('.DT')
+        .on('keyup.DT', function(e) {
+          if (e.keyCode == 13) {
+            api.search(this.value).draw();
+          }
         });
+      },
+      oLanguage: {
+        sProcessing: "loading..."
+      },
+      serverSide: true,
+      ajax: {"url": "<?php echo base_url('superadminfranchise/datastan');?>", "type": "POST"},
+      columns: 
+      [
+      {"data": "id_stan",
+      "orderable": false},
+      {"data": "nama_stan"},
+      {"data": "alamat"},
+      {"data": "password"},
+      {"data": "delete",
+      "orderable": false},
+      {"data": "edit",
+      "orderable": false},
+      ],
 
-        function reload_table(){
-          datatablestan.api().ajax.reload(null,false);
-        }
+      rowCallback: function(row, data, iDisplayIndex) {
+        var info = this.fnPagingInfo();
+        var page = info.iPage;
+        var length = info.iLength;
+        var index = page * length + (iDisplayIndex + 1);
+        $('td:eq(0)', row).html(index);
+      }
+    });
+
+
+});
+
+function reload_table(){
+  tabeldata.api().ajax.reload(null,false);
+}
+
 
     </script>
 

@@ -13,6 +13,7 @@ class SuperAdminFranchise extends CI_Controller {
 	    parent::__construct();
 	    $this->load->helper('url');
 	    $this->load->model('Post');
+	    $this->load->model('Produk');
   	}
   	
 	public function dashboard()
@@ -39,8 +40,14 @@ class SuperAdminFranchise extends CI_Controller {
 		$this->load->library('datatables');
 		$this->datatables->select('id_produk,nama_produk,kategori');
 		$this->datatables->from('produk');
-		$this->datatables->add_column('delete', ' <a type=button onclick=reload_table() class="btn btn-danger" style="color:white;">Hapus</a> ','id_produk');
+		$this->datatables->add_column('edit', '<a type="button" onclick=edit_produk("$1") class="btn btn-warning" style="color:white;">Edit</a> ','id_produk');
+		$this->datatables->add_column('delete', '<a type="button" onclick=delete_produk("$1") class="btn btn-danger" style="color:white;">Delete</a> ','id_produk');
 		echo $this->datatables->generate();
+	}
+
+	public function delete_produk(){
+		$id = $this->input->post('id');
+		$this->Produk->Delete('produk',$id);
 	}
 
 	public function masterdatastan(){
@@ -58,9 +65,9 @@ class SuperAdminFranchise extends CI_Controller {
 		$this->datatables->select('id_stan,nama_stan,alamat,password');
 		$this->datatables->from('stan');
 		//bagian id_stan maksud e opo?
-		$this->datatables->add_column('Edit', '<button class="btn btn-warning">Edit</button> ','id_stan');
-		$this->datatables->add_column('Delete', '<button class="btn btn-danger">Delete</button> ','id_stan');
-		echo $this->datatables->generate();
+		$this->datatables->add_column('edit', '<a type="button" onclick=edit_stan("$1") class="btn btn-warning" style="color:white;">Edit</a> ','id_stan');
+		$this->datatables->add_column('delete', '<a type="button" onclick=delete_stan("$1") class="btn btn-danger" style="color:white;">Delete</a> ','id_stan');
+		echo$this->datatables->generate();
 	}
 
 	public function gajibonusstan(){
