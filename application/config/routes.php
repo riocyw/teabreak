@@ -55,6 +55,7 @@ $route['404_override'] = '';
 
 $route['masterdataproduk'] = 'superadminfranchise/masterdataproduk';
 $route['masterdatastan'] = 'superadminfranchise/masterdatastan';
+$route['datastan'] = 'superadminfranchise/datastan';
 $route['gajibonusstan'] = 'superadminfranchise/gajibonusstan';
 $route['skemapromo'] = 'superadminfranchise/skemapromo';
 $route['masterdatakaryawan'] = 'superadminfranchise/masterdatakaryawan';

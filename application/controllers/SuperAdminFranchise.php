@@ -44,18 +44,23 @@ class SuperAdminFranchise extends CI_Controller {
 	}
 
 	public function masterdatastan(){
-		$data = [];
-      $alldata = $this->Post->getAllData("stan");
-      foreach ($alldata as $value) {
-      	array_push($data, array($value["id_stan"],$value["nama_stan"],$value["alamat"],$value["password"],"<button class='btn btn-warning'>Edit</button>","<button class='btn btn-danger'>Delete</button>"));
-      }
-      var_dump(json_encode($data));
+		// $data = [];
+  //     $alldata = $this->Post->getAllData("stan");
+  //     foreach ($alldata as $value) {
+  //     	array_push($data, array($value["id_stan"],$value["nama_stan"],$value["alamat"],$value["password"],"<button class='btn btn-warning'>Edit</button>","<button class='btn btn-danger'>Delete</button>"));
+  //     }
+      // var_dump(json_encode($data));
 		$this->load->view('superadminfranchise/masterdatastan');
 	}
 
 	public function datastan(){
-		
-      echo json_encode($data);
+		$this->load->library('datatables');
+		$this->datatables->select('id_stan,nama_stan,alamat,password');
+		$this->datatables->from('stan');
+		//bagian id_stan maksud e opo?
+		$this->datatables->add_column('Edit', '<button class="btn btn-warning">Edit</button> ','id_stan');
+		$this->datatables->add_column('Delete', '<button class="btn btn-danger">Delete</button> ','id_stan');
+		echo $this->datatables->generate();
 	}
 
 	public function gajibonusstan(){
