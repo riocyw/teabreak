@@ -50,7 +50,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand" href="./">Tea Break</a>
-                <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+                <a class="navbar-brand hidden" href="./">T</a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -248,16 +248,19 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                             <strong class="card-title">Data Stan</strong>
                         </div>
                         <div class="card-body">
-                          <table id="mytable" class="table table-striped table-bordered">
+                          <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
                               <tr>
-                                <th>Kode Barang</th>
-                                <th>Nama barang</th>
-                                <th>Kategori</th>
-                                <th>Hapus</th>
+                                <th>ID Stan</th>
+                                <th>Nama Stan</th>
+                                <th>Alamat</th>
+                                <th>Password</th>
                               </tr>
                             </thead>
-                            
+                            <tbody>
+                              
+                            </tbody>
+
                           </table>
                         </div>
                     </div> <!-- .card -->
@@ -285,7 +288,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.min.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.sampledata.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/country/jquery.vmap.world.js")?>></script>
-        <script src=<?php echo base_url("assets/js/lib/data-table/datatables.min.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/lib/data-table/datatables.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.bootstrap.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.buttons.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/buttons.bootstrap.min.js"); ?>></script>
@@ -314,9 +317,23 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
             } );
         } )( jQuery );
 
-        $(document).ready(function() {
-          $('#bootstrap-data-table').DataTable();
-        } );
+          $('#bootstrap-data-table').DataTable({
+            // oLanguage: {
+            //     sProcessing: "loading..."
+            // },
+            // "ajax": {
+            //     "url" : "datastan",
+            //     "type" : 'POST'
+            // },
+            // "processing": true,
+            // "serverSide": true,
+            // "columns": [
+            //     { "data": "ID Stan" },
+            //     { "data": "Nama Stan" },
+            //     { "data": "Alamat" },
+            //     { "data": "Password" },
+            // ]
+          });
 
     </script>
 
