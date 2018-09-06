@@ -2,6 +2,33 @@
 <script type="text/javascript">
   var tabeldata ;
 
+  function edit_produk(id){
+    alert(id);
+  }
+
+  function delete_produk(id){
+     if(confirm('Apakah anda yakin ingin menghapus data ini??'))
+    {
+      $.ajax(
+                {
+                    type:"post",
+                    url: "<?php echo base_url('superadminfranchise/delete_produk')?>/",
+                    data:{ id:id},
+                    success:function(response)
+                    {
+                         reload_table();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                      alert(errorThrown);
+                    }
+                }
+            );
+
+      }
+  }
+
+
   jQuery( document ).ready(function( $ ) {
     $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
     {
@@ -31,19 +58,19 @@
       oLanguage: {
         sProcessing: "loading..."
       },
-      processing: true,
       serverSide: true,
-      ajax: {"url": "<?php echo base_url('welcome/produk_data');?>", "type": "POST"},
+      ajax: {"url": "<?php echo base_url('superadminfranchise/produk_data');?>", "type": "POST"},
       columns: 
       [
 
       {"data": "id_produk",
-      "orderable": false,"width":200},
-      {"data": "nama_produk","width":200},
-      {"data": "kategori","width":200},
-      {"data": "delete",
-      "orderable": false,"width":200},
-
+      "orderable": false},
+      {"data": "nama_produk"},
+      {"data": "kategori"},
+      {"data": "edit",
+      "orderable": false},
+{"data": "delete",
+      "orderable": false},
       ],
 
       rowCallback: function(row, data, iDisplayIndex) {
