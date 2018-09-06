@@ -39,7 +39,7 @@ class SuperAdminFranchise extends CI_Controller {
 		$this->load->library('datatables');
 		$this->datatables->select('id_produk,nama_produk,kategori');
 		$this->datatables->from('produk');
-		$this->datatables->add_column('delete', ' <a type=button onclick=reload_table() class="btn btn-danger">Hapus</a> ','id_produk');
+		$this->datatables->add_column('delete', ' <a type=button onclick=reload_table() class="btn btn-danger" style="color:white;">Hapus</a> ','id_produk');
 		echo $this->datatables->generate();
 	}
 
