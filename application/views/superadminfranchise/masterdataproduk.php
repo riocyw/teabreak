@@ -30,6 +30,8 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <link rel="stylesheet" href=<?php echo base_url("assets/css/lib/datatable/dataTables.bootstrap.min.css") ?>>
     <!-- <link rel="stylesheet" href=<echo base_url("assets/css/bootstrap-select.less")?>> -->
     <link rel="stylesheet" href=<?php echo base_url("assets/scss/style.css")?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/css/cs-skin-elastic.css")?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/css/lib/chosen/chosen.min.css")?>>
     <link href=<?php echo base_url("assets/css/lib/vector-map/jqvmap.min.css")?> rel="stylesheet">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
@@ -59,11 +61,11 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                         <a href=""> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">PRODUK</h3><!-- /.menu-title -->
-                    <li>
+                    <li  class="active">
                         <a href="masterdataproduk"> <i class="menu-icon fa fa-glass"></i>Master Data Produk </a>
                     </li>
                     <h3 class="menu-title">STAN</h3><!-- /.menu-title -->
-                    <li class="active">
+                    <li>
                         <a href="masterdatastan"> <i class="menu-icon ti-home"></i>Master Data Stan </a>
                     </li>
                     <li>
@@ -189,31 +191,41 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                             <div class="card-body card-block">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <div class="row">
-                                            <label for="kode_barang">Kode Barang</label>
+                                        <div class="form-group">
+                                            <label for="id" class=" form-control-label">Kode Barang</label>
+                                            <input type="text" id="id" placeholder="Masukkan Kode Barang" class="form-control">
                                         </div>
-                                        <div class="row">
-                                            <input maxlength="250" type="text" name="kode_barang" id="kode_barang">
-                                        </div>    
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="row">
-                                            <label for="nama_barang">Nama Barang</label>
+                                        <div class="form-group">
+                                            <label for="id" class=" form-control-label">Nama Barang</label>
+                                            <input type="text" id="id" placeholder="Masukkan Nama Barang" class="form-control">
                                         </div>
-                                        <div class="row">
-                                            <input maxlength="250" type="text" name="nama_barang" id="nama_barang">
-                                        </div>  
                                     </div>
                                 </div>
-                                <div class="row" style="margin-top: 50px;">
-                                    <div class="col-md-9">
-                                        <div class="row">
-                                            <label for="nama_barang">Kategori Barang</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="id" class=" form-control-label">Kategori Barang</label>
+                                            <select data-placeholder="Choose a country..." tabindex="1" class="standardSelect form-control">
+                                                <option value=""></option>
+                                                <option value="United States">United States</option>
+                                                <option value="United Kingdom">United Kingdom</option>
+                                                <option value="Afghanistan">Afghanistan</option>
+                                                <option value="Aland Islands">Aland Islands</option>
+                                                <option value="Albania">Albania</option>
+                                                <option value="Algeria">Algeria</option>
+                                                <option value="American Samoa">American Samoa</option>
+                                                <option value="Andorra">Andorra</option>
+                                                <option value="Angola">Angola</option>
+                                                <option value="Anguilla">Anguilla</option>
+                                                <option value="Antarctica">Antarctica</option>
+                                            </select>
                                         </div>
-                                        <div class="row">
-                                            <input class="col-md-7" maxlength="250" type="text" name="kategori" id="kategori">
-                                            <input class="btn btn-secondary col-md-3" type="submit" name="submit" value="Tambah Produk">
-                                        </div>  
+                                        <div class="input-group">
+                                            
+                                            <div class="input-group-btn"><button class="btn btn-success">Tambah Produk</button></div>
+                                        </div> 
                                     </div>
                                 </div>
                             </div>    
@@ -262,6 +274,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.min.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.sampledata.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/country/jquery.vmap.world.js")?>></script>
+    <script src=<?php echo base_url("assets/js/widgets.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/datatables.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.bootstrap.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.buttons.min.js"); ?>></script>
@@ -272,6 +285,18 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <script src=<?php echo base_url("assets/js/lib/data-table/buttons.print.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/buttons.colVis.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/datatables-init.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/popper.min.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/plugins.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/lib/chosen/chosen.jquery.min.js"); ?>></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery(".standardSelect").chosen({
+                disable_search_threshold: 10,
+                no_results_text: "Oops, nothing found!",
+                width: "100%"
+            });
+        });
+    </script>
 
 </body>
 </html>

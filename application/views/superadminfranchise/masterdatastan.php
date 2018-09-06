@@ -1,8 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Methods: GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
 
 ?>
 <!doctype html>
@@ -56,7 +53,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li >
-                        <a href=""> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                        <a href="dashboardsuperadmin"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">PRODUK</h3><!-- /.menu-title -->
                     <li>
@@ -275,12 +272,15 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
 
     <script src=<?php echo base_url("assets/js/vendor/jquery-2.1.4.min.js")?>></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src=<?php echo base_url("assets/js/plugins.js")?>></script>
     <script src=<?php echo base_url("assets/js/main.js")?>></script>
 
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.min.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.sampledata.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/country/jquery.vmap.world.js")?>></script>
+        <script src=<?php echo base_url("assets/js/dashboard.js")?>></script>
+        <script src=<?php echo base_url("assets/js/widgets.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/datatables.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.bootstrap.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.buttons.min.js"); ?>></script>
@@ -292,7 +292,24 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <script src=<?php echo base_url("assets/js/lib/data-table/buttons.colVis.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/datatables-init.js"); ?>></script>
     <script>
+
   var tabeldata ;
+  ( function ( $ ) {
+            "use strict";
+
+            jQuery( '#vmap' ).vectorMap( {
+                map: 'world_en',
+                backgroundColor: null,
+                color: '#ffffff',
+                hoverOpacity: 0.7,
+                selectedColor: '#1de9b6',
+                enableZoom: true,
+                showTooltip: true,
+                values: sample_data,
+                scaleColors: [ '#1de9b6', '#03a9f5' ],
+                normalizeFunction: 'polynomial'
+            } );
+        } )( jQuery );
   function edit_stan(id){
     alert(id);
 }
@@ -339,9 +356,9 @@ function delete_stan(id){
       {"data": "nama_stan"},
       {"data": "alamat"},
       {"data": "password"},
-      {"data": "delete",
-      "orderable": false},
       {"data": "edit",
+      "orderable": false},
+      {"data": "delete",
       "orderable": false},
       ],
 
@@ -350,7 +367,7 @@ function delete_stan(id){
         var page = info.iPage;
         var length = info.iLength;
         var index = page * length + (iDisplayIndex + 1);
-        $('td:eq(0)', row).html(index);
+        // $('td:eq(0)', row).html(index);
       }
     });
 

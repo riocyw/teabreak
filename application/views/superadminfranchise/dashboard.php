@@ -1,8 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Methods: GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
 
 ?>
 <!doctype html>
@@ -31,7 +28,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <link rel="stylesheet" href=<?php echo base_url("assets/scss/style.css")?>>
     <link href=<?php echo base_url("assets/css/lib/vector-map/jqvmap.min.css")?> rel="stylesheet">
 
-    <link href=<?php echo base_url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800')?> rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- <script type="text/javascript" src=<echo base_url("https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js")?>></script> -->
 
@@ -564,7 +561,10 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <script src=<?php echo base_url("assets/js/plugins.js")?>></script>
     <script src=<?php echo base_url("assets/js/main.js")?>></script>
 
-
+    <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.js")?>></script>
+    <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.min.js")?>></script>
+    <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.sampledata.js")?>></script>
+    <script src=<?php echo base_url("assets/js/lib/vector-map/country/jquery.vmap.world.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/chart-js/Chart.bundle.js")?>></script>
     <script src=<?php echo base_url("assets/js/dashboard.js")?>></script>
     <script src=<?php echo base_url("assets/js/widgets.js")?>></script>
