@@ -33,12 +33,21 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <link rel="stylesheet" href=<?php echo base_url("assets/css/cs-skin-elastic.css")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/css/lib/chosen/chosen.min.css")?>>
     <link href=<?php echo base_url("assets/css/lib/vector-map/jqvmap.min.css")?> rel="stylesheet">
-
+    <link rel="stylesheet" href=<?php echo base_url("assets/css/easy-autocomplete.min.css")?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/css/easy-autocomplete.themes.css")?>>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- <script type="text/javascript" src=<echo base_url("https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js")?>></script> -->
 
 </head>
+<style type="text/css">
+    .error{
+    border: 2px solid red!important;
+}
+.easy-autocomplete{
+    width: auto!important;
+}
+</style>
 <body>
 
 
@@ -198,33 +207,20 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="id" class=" form-control-label">Nama Barang</label>
-                                            <input type="text" id="id" placeholder="Masukkan Nama Barang" class="form-control">
+                                            <label for="nama" class=" form-control-label">Nama Barang</label>
+                                            <input type="text" id="nama" placeholder="Masukkan Nama Barang" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="id" class=" form-control-label">Kategori Barang</label>
-                                            <select data-placeholder="Choose a country..." tabindex="1" class="standardSelect form-control">
-                                                <option value=""></option>
-                                                <option value="United States">United States</option>
-                                                <option value="United Kingdom">United Kingdom</option>
-                                                <option value="Afghanistan">Afghanistan</option>
-                                                <option value="Aland Islands">Aland Islands</option>
-                                                <option value="Albania">Albania</option>
-                                                <option value="Algeria">Algeria</option>
-                                                <option value="American Samoa">American Samoa</option>
-                                                <option value="Andorra">Andorra</option>
-                                                <option value="Angola">Angola</option>
-                                                <option value="Anguilla">Anguilla</option>
-                                                <option value="Antarctica">Antarctica</option>
-                                            </select>
+                                            <label for="kategori" class=" form-control-label">Kategori Barang</label>
+                                            <input type="text" id="kategori" placeholder="Masukkan Kategori Barang" class="form-control">
                                         </div>
                                         <div class="input-group">
                                             
-                                            <div class="input-group-btn"><button class="btn btn-success">Tambah Produk</button></div>
+                                            <div class="input-group-btn"><button onclick="tambahproduk()" class="btn btn-success">Tambah Produk</button></div>
                                         </div> 
                                     </div>
                                 </div>
@@ -263,7 +259,44 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
 
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
-
+        <div class="modal fade" id="modal_edit" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id" class=" form-control-label">Kode Barang</label>
+                                    <input type="text" id="editid" placeholder="Masukkan Kode Barang" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nama" class=" form-control-label">Nama Barang</label>
+                                    <input type="text" id="editnama" placeholder="Masukkan Nama Barang" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="kategori" class=" form-control-label">Kategori Barang</label>
+                                    <input type="text" id="editkategori" placeholder="Masukkan Kategori Barang" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
+                        <button type="button" onclick="simpanedit()" class="btn add_field_button btn-info">Tambah Luaran</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     <!-- Right Panel -->
 
     <script src=<?php echo base_url("assets/js/vendor/jquery-2.1.4.min.js")?>></script>
@@ -288,6 +321,8 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <script src=<?php echo base_url("assets/js/popper.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/plugins.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/chosen/chosen.jquery.min.js"); ?>></script>
+
+    <script src=<?php echo base_url("assets/js/jquery.easy-autocomplete.js")?>></script>
     <script type="text/javascript">
         jQuery(document).ready(function() {
             jQuery(".standardSelect").chosen({
@@ -296,6 +331,31 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                 width: "100%"
             });
         });
+
+        var option = {
+            url : "<?php echo base_url('superadminfranchise/data_kategori');?>",
+            dataType:"json",
+             getValue: "kategori",
+            list :{
+                maxNumberOfElements: 10,
+                showAnimation:{
+                    type:"fade",
+                    time:400,
+                    callback:function(){}
+                },
+                hideAnimation:{
+                    type:"slide",
+                    time:400,
+                    callback:function(){}
+                },
+                match: {
+                    enabled: true
+                },
+            }
+
+        }
+        $("#kategori").easyAutocomplete(option);
+        $("#editkategori").easyAutocomplete(option);
     </script>
 
 </body>

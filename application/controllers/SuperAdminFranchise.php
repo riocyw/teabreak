@@ -27,13 +27,23 @@ class SuperAdminFranchise extends CI_Controller {
 		$this->load->view('superadminfranchise/datatable_produk');
 	}
 
-	//FUNCTION FOR MASTER DATA PRODUK (HELPER)
-	public function json(){
-        $this->load->library('datatables');
-        $this->datatables->select('*');
-        $this->datatables->from('produk');
-        return print_r($this->datatables->generate());
-    }
+	public function tambah_produk(){
+		$id = $this->input->post('id');
+		$kategori = $this->input->post('kategori');
+		$nama =$this->input->post('nama');
+		$data = array(
+	        'id_produk' => $id,
+	        'nama_produk' => $nama,
+	        'kategori' => $kategori,
+	        'harga_jual' => 0
+	         );
+		$this->Produk->insert('produk',$data);
+	}
+
+	public function data_kategori(){
+		$data = $this->db->distinct()->select('kategori')->from('produk')->get();
+		echo json_encode($data->result());
+	}
 
     //FUNCTION FOR MASTER DATA PRODUK (HELPER)
 	public function produk_data(){
@@ -43,6 +53,24 @@ class SuperAdminFranchise extends CI_Controller {
 		$this->datatables->add_column('edit', '<a type="button" onclick=edit_produk("$1") class="btn btn-warning" style="color:white;">Edit</a> ','id_produk');
 		$this->datatables->add_column('delete', '<a type="button" onclick=delete_produk("$1") class="btn btn-danger" style="color:white;">Delete</a> ','id_produk');
 		echo $this->datatables->generate();
+	}
+
+	public function select_edit_produk(){
+		$id = $this->input->post('id');
+		$data = $this->Produk->getData("id_produk='".$id."'",'produk');
+		echo json_encode($data);
+	}
+
+	public function edit_produk(){
+		$id = $this->input->post('id');
+		$where = array('id_produk' => $id);
+
+		$data = array(
+			'id_produk' => $id,
+	        'nama_produk' => $this->input->post('nama'),
+	        'kategori' => $this->input->post('kategori')
+	         );
+		$this->Post->Update('produk',$data,$where);
 	}
 
 	public function delete_produk(){

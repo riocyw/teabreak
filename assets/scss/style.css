@@ -12,6 +12,7 @@
 --------------------------------------------------------- */
 /* Bootstrap */
 @import url(../css/animate.css);
+
 .gaugejs-wrap {
   position: relative;
   margin: 0 auto; }
