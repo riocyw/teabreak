@@ -307,7 +307,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                     </div>
                     <div class="modal-footer">
                         <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
-                        <button type="button" onclick="simpanedit()" class="btn add_field_button btn-info">Tambah Produk</button>
+                        <button type="button" onclick="simpanedit()" class="btn add_field_button btn-info">Simpan</button>
                     </div>
                 </div>
             </div>

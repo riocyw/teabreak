@@ -124,6 +124,40 @@ class SuperAdminFranchise extends CI_Controller {
 		echo$this->datatables->generate();
 	}
 
+	public function tambah_stan(){
+		$data = array(
+	        'id_stan' => $this->input->post('id'),
+	        'nama_stan' => $this->input->post('nama'),
+	        'alamat' => $this->input->post('alamat'),
+	        'password' => $this->input->post('password')
+	         );
+		$this->Produk->insert('stan',$data);
+	}
+
+	public function delete_stan(){
+		$id = $this->input->post('id');
+		$this->Produk->delete_stan('stan',$id);
+	}
+
+	public function select_edit_stan(){
+		$id = $this->input->post('id');
+		$data = $this->Produk->getData("id_stan='".$id."'",'stan');
+		echo json_encode($data);
+	}
+
+	public function edit_stan(){
+		$id = $this->input->post('id');
+		$where = array('id_stan' => $id);
+
+		$data = array(
+			'id_stan' => $id,
+	        'nama_stan' => $this->input->post('nama'),
+	        'alamat' => $this->input->post('alamat'),
+	        'password' => $this->input->post('password')
+	         );
+		$this->Post->Update('stan',$data,$where);
+	}
+
 	public function gajibonusstan(){
 		
 	}
