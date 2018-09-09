@@ -233,20 +233,33 @@
       },
       responsive: true,
       serverSide: true,
-      ajax: {"url": "<?php echo base_url('superadminfranchise/produk_data');?>", "type": "POST"},
-      columns: 
-      [
-
-      {"data": "id_produk",
-      "orderable": false},
-      {"data": "nama_produk"},
-      {"data": "kategori"},
-      {"data": "harga_jual"},
-      {"data": "edit",
-      "orderable": false},
-{"data": "delete",
-      "orderable": false},
-      ],
+      ajax: {
+    "type"   : "POST",
+    "url"    : "<?php echo base_url('superadminfranchise/produk_data');?>",
+    "dataSrc": function (json) {
+      var return_data = new Array();
+      console.log(json.data.length);
+      for(var i=0;i< json.data.length; i++){
+        return_data.push({
+          'id_produk': json.data[i].id_produk,
+          'nama_produk'  : json.data[i].nama_produk,
+          'kategori' : json.data[i].kategori,
+          'harga_jual' : "Rp "+currency(json.data[i].harga_jual),
+          'edit' : '<a type="button" onclick=edit_produk("'+json.data[i].id_produk+'") class="btn btn-warning" style="color:white;">Edit</a> ',
+          'hapus' : '<a type="button" onclick=delete_produk("'+json.data[i].id_produk+'") class="btn btn-danger" style="color:white;">Delete</a>'
+        })
+      }
+      return return_data;
+    }
+  },
+  "columns"    : [
+    {'data': 'id_produk'},
+    {'data': 'nama_produk'},
+    {'data': 'kategori'},
+    {'data': 'harga_jual'},
+    {'data': 'edit','orderable':false},
+    {'data': 'hapus','orderable':false}
+  ],
 
       rowCallback: function(row, data, iDisplayIndex) {
         var info = this.fnPagingInfo();

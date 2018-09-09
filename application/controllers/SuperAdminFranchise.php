@@ -46,11 +46,38 @@ class SuperAdminFranchise extends CI_Controller {
     //FUNCTION FOR MASTER DATA PRODUK (HELPER)
 	public function produk_data(){
 		$this->load->library('datatables');
-		$datatable = $this->datatables->select('id_produk,nama_produk,kategori,harga_jual')->from('produk')->add_column('edit', '<a type="button" onclick=edit_produk("$1") class="btn btn-warning" style="color:white;">Edit</a> ','id_produk')->add_column('delete', '<a type="button" onclick=delete_produk("$1") class="btn btn-danger" style="color:white;">Delete</a> ','id_produk');
-		foreach ($datatable as $d) {
-			$d->harga_jual = number_format($d->harga_jual,0,",",".");
-		}
+		$this->datatables->select('id_produk,nama_produk,kategori,harga_jual');
+		$this->datatables->from('produk');
+		$this->datatables->add_column('edit', '<a type="button" onclick=edit_produk("$1") class="btn btn-warning" style="color:white;">Edit</a> ','id_produk');
+		$this->datatables->add_column('delete', '<a type="button" onclick=delete_produk("$1") class="btn btn-danger" style="color:white;">Delete</a> ','id_produk');
+		
 		echo $this->datatables->generate();
+
+		// Datatables Variables (Cara Manual*)
+		// $draw = intval($this->input->get("draw"));
+		// $start = intval($this->input->get("start"));
+		// $length = intval($this->input->get("length"));
+		// $produk = $this->Produk->getProduk('produk');
+		// $data = array();
+
+		// foreach ($produk->result() as $d) {
+		// 	$d->harga_jual = number_format($d->harga_jual,0,",",".");
+		// 	$data[] = array(
+		// 		$d->id_produk,
+		// 		$d->nama_produk,
+		// 		$d->kategori,
+		// 		$d->harga_jual,
+		// 	);
+		// }
+
+		// $output = array(
+		// 	"draw" => $draw,
+		// 	"recordsTotal" => $produk->num_rows(),
+		// 	"recordsFiltered" => $produk->num_rows(),
+		// 	"data" => $data,
+		// );
+		// echo json_encode($output);
+		// exit();
 	}
 
 	public function select_edit_produk(){
