@@ -28,14 +28,12 @@ class SuperAdminFranchise extends CI_Controller {
 	}
 
 	public function tambah_produk(){
-		$id = $this->input->post('id');
-		$kategori = $this->input->post('kategori');
-		$nama =$this->input->post('nama');
+		
 		$data = array(
-	        'id_produk' => $id,
-	        'nama_produk' => $nama,
-	        'kategori' => $kategori,
-	        'harga_jual' => 0
+	        'id_produk' => $this->input->post('id'),
+	        'nama_produk' => $this->input->post('kategori'),
+	        'kategori' => $this->input->post('nama'),
+	        'harga_jual' => $this->input->post('harga')
 	         );
 		$this->Produk->insert('produk',$data);
 	}
@@ -48,10 +46,10 @@ class SuperAdminFranchise extends CI_Controller {
     //FUNCTION FOR MASTER DATA PRODUK (HELPER)
 	public function produk_data(){
 		$this->load->library('datatables');
-		$this->datatables->select('id_produk,nama_produk,kategori');
-		$this->datatables->from('produk');
-		$this->datatables->add_column('edit', '<a type="button" onclick=edit_produk("$1") class="btn btn-warning" style="color:white;">Edit</a> ','id_produk');
-		$this->datatables->add_column('delete', '<a type="button" onclick=delete_produk("$1") class="btn btn-danger" style="color:white;">Delete</a> ','id_produk');
+		$datatable = $this->datatables->select('id_produk,nama_produk,kategori,harga_jual')->from('produk')->add_column('edit', '<a type="button" onclick=edit_produk("$1") class="btn btn-warning" style="color:white;">Edit</a> ','id_produk')->add_column('delete', '<a type="button" onclick=delete_produk("$1") class="btn btn-danger" style="color:white;">Delete</a> ','id_produk');
+		foreach ($datatable as $d) {
+			$d->harga_jual = number_format($d->harga_jual,0,",",".");
+		}
 		echo $this->datatables->generate();
 	}
 
@@ -68,7 +66,8 @@ class SuperAdminFranchise extends CI_Controller {
 		$data = array(
 			'id_produk' => $id,
 	        'nama_produk' => $this->input->post('nama'),
-	        'kategori' => $this->input->post('kategori')
+	        'kategori' => $this->input->post('kategori'),
+	        'harga_jual' => $this->input->post('harga')
 	         );
 		$this->Post->Update('produk',$data,$where);
 	}

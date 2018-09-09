@@ -2,19 +2,32 @@
 <script type="text/javascript">
   var tabeldata ;
 
-  function simpanedit(){
+  $('#harga').on('input propertychange paste', function (e) {
+    var reg = /^0+/gi;
+    if (this.value.match(reg)) {
+      this.value = this.value.replace(reg, '');
+    }
+  });
+  function currency(x) {
+    var retVal=x.toString().replace(/[^\d]/g,'');
+    while(/(\d+)(\d{3})/.test(retVal)) {
+      retVal=retVal.replace(/(\d+)(\d{3})/,'$1'+'.'+'$2');
+    }
+    return retVal;
   }
 
   function tambahproduk(){
     var id = $("#id").val();
     var nama = $("#nama").val();
     var kategori = $("#kategori").val();
-    if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3&&kategori.replace(/\s/g, '').length>3) {
+    var harga = $("#harga").val();
+    harga = harga.replace(".","");
+    if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3&&kategori.replace(/\s/g, '').length>3&&harga.replace(/\s/g, '').length>0) {
         $.ajax(
             {
                 type:"post",
                 url: "<?php echo base_url('superadminfranchise/tambah_produk')?>/",
-                data:{ id:id,nama:nama,kategori:kategori},
+                data:{ id:id,nama:nama,kategori:kategori,harga:harga},
                 success:function(response)
                 {
                   reload_table();
@@ -27,9 +40,13 @@
                   if($('#kategori').has("error")){
                     $('#kategori').removeClass("error");
                   }
+                  if($('#harga').has("error")){
+                    $('#harga').removeClass("error");
+                  }
                   $("#id").val('');
                   $("#nama").val('');
                   $("#kategori").val('');
+                  $("#harga").val('');
                   $("#id").focus();
                   alert('Berhasil menambahkan produk');
                 },
@@ -56,6 +73,14 @@
             }
         }
 
+        if (harga.replace(/\s/g, '').length<=3) {
+            $('#harga').addClass("error");
+        }else{
+            if($('#harga').has("error")){
+                $('#harga').removeClass("error");
+            }
+        }
+
         if (kategori.replace(/\s/g, '').length<=3) {
             $('#kategori').addClass("error");
         }else{
@@ -79,6 +104,7 @@
             $("#editid").val(response[0].id_produk);
             $("#editkategori").val(response[0].kategori);
             $("#editnama").val(response[0].nama_produk);
+            $("#editharga").val(currency(response[0].harga_jual));
             $("#modal_edit").modal('show');
           },
           error: function (jqXHR, textStatus, errorThrown)
@@ -93,11 +119,13 @@
     var id = $("#editid").val();
     var kategori = $("#editkategori").val();
     var nama =  $("#editnama").val();
-    if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3&&kategori.replace(/\s/g, '').length>3) {
+    var harga = $("#editharga").val();
+    harga = harga.replace(".","");
+    if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3&&kategori.replace(/\s/g, '').length>3&&harga.replace(/\s/g, '').length>3) {
     $.ajax({
           type:"post",
           url: "<?php echo base_url('superadminfranchise/edit_produk')?>/",
-          data:{ id:id,kategori:kategori,nama:nama},
+          data:{ id:id,kategori:kategori,nama:nama,harga:harga},
           success:function(response)
           {
             $("#modal_edit").modal('hide');
@@ -109,6 +137,9 @@
             }
             if($('#editkategori').has("error")){
               $('#editkategori').removeClass("error");
+            }
+            if($('#editharga').has("error")){
+              $('#editharga').removeClass("error");
             }
             reload_table();
             alert("Berhasil mengubah data!");
@@ -138,6 +169,13 @@
       }else{
         if($('#editkategori').has("error")){
           $('#editkategori').removeClass("error");
+        }
+      }
+      if (harga.replace(/\s/g, '').length<=3) {
+        $('#editharga').addClass("error");
+      }else{
+        if($('#editharga').has("error")){
+          $('#editharga').removeClass("error");
         }
       }
       alert("Silahkan periksa kembali inputan anda!");
@@ -203,6 +241,7 @@
       "orderable": false},
       {"data": "nama_produk"},
       {"data": "kategori"},
+      {"data": "harga_jual"},
       {"data": "edit",
       "orderable": false},
 {"data": "delete",

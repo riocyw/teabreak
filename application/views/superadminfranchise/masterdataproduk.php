@@ -211,6 +211,12 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                                             <input type="text" id="nama" placeholder="Masukkan Nama Barang" class="form-control">
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="harga" class=" form-control-label">Harga Jual</label>
+                                            <input type="text" id="harga" onkeyup="this.value=currency(this.value);" placeholder="Masukkan Harga Barang" class="form-control">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -244,6 +250,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                                 <th>ID Produk</th>
                                 <th>Nama Produk</th>
                                 <th>Kategori</th>
+                                <th>Harga Jual</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                               </tr>
@@ -270,21 +277,29 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="id" class=" form-control-label">Kode Barang</label>
+                                    <label for="editid" class=" form-control-label">Kode Barang</label>
                                     <input type="text" id="editid" placeholder="Masukkan Kode Barang" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="nama" class=" form-control-label">Nama Barang</label>
+                                    <label for="editnama" class=" form-control-label">Nama Barang</label>
                                     <input type="text" id="editnama" placeholder="Masukkan Nama Barang" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="editharga" class=" form-control-label">Harga Jual</label>
+                                    <input type="text" id="editharga" placeholder="Masukkan Harga Barang" class="form-control">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="form-group">
-                                    <label for="kategori" class=" form-control-label">Kategori Barang</label>
+                                    <label for="editkategori" class=" form-control-label">Kategori Barang</label>
                                     <input type="text" id="editkategori" placeholder="Masukkan Kategori Barang" class="form-control">
                                 </div>
                             </div>
