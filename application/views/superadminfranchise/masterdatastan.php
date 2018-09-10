@@ -34,6 +34,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- <script type="text/javascript" src=<echo base_url("https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js")?>></script> -->
 
 </head>
+<style type="text/css">
+    .error{
+    border: 2px solid red!important;
+}
+.easy-autocomplete{
+    width: auto!important;
+}
+</style>
 <body>
 
 
@@ -203,9 +211,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <div class="form-group">
                                             <label for="password" class=" form-control-label">Password</label>
                                             <div class="input-group">
-                                                <input type="Password" id="password" name="password" placeholder="Masukkan Password" class="form-control">
+                                                <input type="password" id="password" name="password" placeholder="Masukkan Password" class="form-control">
                                                 <div class="input-group-btn">
-                                                    <button class="btn btn-primary">
+                                                    <button onclick="showpwd('password')" class="btn btn-primary">
                                                         <i class="fa fa-eye"></i></button>
                                                 </div>
                                             </div>
@@ -224,8 +232,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="company" class=" form-control-label">Action</label>
-                                            <button type="submit" class="btn btn-success btn-md form-control">
-                                              <i class="fa fa-floppy-o"></i> SAVE
+                                            <button type="submit" onclick="tambahstan()" class="btn btn-success btn-md form-control">
+                                              <i class="fa fa-floppy-o"></i> TAMBAH
                                             </button>
                                         </div>
                                         
@@ -263,24 +271,74 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   </div><!--/.col-->
                 </div>
             </div>
-
-
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
+    <div class="modal fade" id="modal_edit" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit</h4>
+                    </div>
+                    <div class="modal-body">
+                       <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="id" class=" form-control-label">ID Stan</label>
+                                    <input type="text" id="editid" placeholder="Masukkan ID Stan" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nama" class=" form-control-label">Nama Stan</label>
+                                    <input type="text" id="editnama" placeholder="Masukkan Nama Stan" class="form-control">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="password" class=" form-control-label">Password</label>
+                                    <div class="input-group">
+                                        <input type="password" id="editpassword" name="editpassword" placeholder="Masukkan Password" class="form-control">
+                                        <div class="input-group-btn">
+                                            <button onclick="showpwd('editpassword')" class="btn btn-primary">
+                                                <i class="fa fa-eye"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label for="alamat" class=" form-control-label">Alamat</label>
+                                    <input type="text" id="editalamat" placeholder="Masukkan Alamat Stan" class="form-control">
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
+                        <button type="button" onclick="simpanedit()" class="btn add_field_button btn-info">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <!-- Right Panel -->
-
+ 
     <script src=<?php echo base_url("assets/js/vendor/jquery-2.1.4.min.js")?>></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-    <script src=<?php echo base_url("assets/js/plugins.js")?>></script>
     <script src=<?php echo base_url("assets/js/main.js")?>></script>
 
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.min.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.sampledata.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/country/jquery.vmap.world.js")?>></script>
-        <script src=<?php echo base_url("assets/js/dashboard.js")?>></script>
-        <script src=<?php echo base_url("assets/js/widgets.js")?>></script>
+    <script src=<?php echo base_url("assets/js/widgets.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/datatables.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.bootstrap.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.buttons.min.js"); ?>></script>
@@ -291,9 +349,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src=<?php echo base_url("assets/js/lib/data-table/buttons.print.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/buttons.colVis.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/datatables-init.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/popper.min.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/plugins.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/lib/chosen/chosen.jquery.min.js"); ?>></script>
     <script>
 
   var tabeldata ;
+<<<<<<< HEAD
   // ( function ( $ ) {
   //           "use strict";
 
@@ -310,13 +372,201 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   //               normalizeFunction: 'polynomial'
   //           } );
   //       } )( jQuery );
+=======
+
+>>>>>>> ca1dc8a1ff74dce12b8071c40b968b5cce4da635
   function edit_stan(id){
-    alert(id);
-}
+    $.ajax({
+          type:"post",
+          url: "<?php echo base_url('superadminfranchise/select_edit_stan')?>/",
+          data:{ id:id},
+          dataType:"json",
+          success:function(response)
+          {
+            $("#editid").val(response[0].id_stan);
+            $("#editalamat").val(response[0].alamat);
+            $("#editnama").val(response[0].nama_stan);
+            $("#editpassword").val(response[0].password);
+            $("#modal_edit").modal('show');
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+            alert(errorThrown);
+          }
+      }
+    );
+  }
+
+  function simpanedit(){
+    var id = $("#editid").val();
+    var alamat = $("#editalamat").val();
+    var nama =  $("#editnama").val();
+    var password = $("#editpassword").val();
+    if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3&&alamat.replace(/\s/g, '').length>3&&password.replace(/\s/g, '').length>3) {
+    $.ajax({
+          type:"post",
+          url: "<?php echo base_url('superadminfranchise/edit_stan')?>/",
+          data:{ id:id,alamat:alamat,nama:nama,password:password},
+          success:function(response)
+          {
+            $("#modal_edit").modal('hide');
+            if($('#editid').has("error")){
+              $('#editid').removeClass("error");
+            }
+            if($('#editnama').has("error")){
+              $('#editnama').removeClass("error");
+            }
+            if($('#editalamat').has("error")){
+              $('#editalamat').removeClass("error");
+            }
+            if($('#editpassword').has("error")){
+              $('#editpassword').removeClass("error");
+            }
+            reload_table();
+            alert("Berhasil mengubah data!");
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+            alert(errorThrown);
+          }
+      });
+    }else{
+      if (id.replace(/\s/g, '').length<=3) {
+        $('#editid').addClass("error");
+      }else{
+        if($('#editid').has("error")){
+          $('#editid').removeClass("error");
+        }
+      }
+      if (nama.replace(/\s/g, '').length<=3) {
+        $('#editnama').addClass("error");
+      }else{
+        if($('#editnama').has("error")){
+          $('#editnama').removeClass("error");
+        }
+      }
+      if (alamat.replace(/\s/g, '').length<=3) {
+        $('#editalamat').addClass("error");
+      }else{
+        if($('#editalamat').has("error")){
+          $('#editalamat').removeClass("error");
+        }
+      }
+      if (password.replace(/\s/g, '').length<=3) {
+        $('#editpassword').addClass("error");
+      }else{
+        if($('#editpassword').has("error")){
+          $('#editpassword').removeClass("error");
+        }
+      }
+      alert("Silahkan periksa kembali inputan anda!");
+    }
+  }
 
 function delete_stan(id){
-    alert(id);
+     if(confirm('Apakah anda yakin ingin menghapus data ini??')){
+      $.ajax({
+              type:"post",
+              url: "<?php echo base_url('superadminfranchise/delete_stan')?>/",
+              data:{ id:id},
+              success:function(response)
+              {
+                   reload_table();
+              },
+              error: function (jqXHR, textStatus, errorThrown)
+              {
+                alert(errorThrown);
+              }
+          }
+      );
+    }
+  }
+
+function showpwd(id){
+    var pwd = document.getElementById(id);
+
+    if (pwd.type === "password") {
+        pwd.type = "text";
+    } else {
+        pwd.type = "password";
+    }
 }
+
+function tambahstan(){
+    var id = $("#id").val();
+    var nama = $("#nama").val();
+    var alamat = $("#alamat").val();
+    var password = $("#password").val();
+    if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3&&alamat.replace(/\s/g, '').length>3&&password.replace(/\s/g, '').length>0) {
+        $.ajax(
+            {
+                type:"post",
+                url: "<?php echo base_url('superadminfranchise/tambah_stan')?>/",
+                data:{ id:id,nama:nama,alamat:alamat,password:password},
+                success:function(response)
+                {
+                  reload_table();
+                  if($('#id').has("error")){
+                    $('#id').removeClass("error");
+                  }
+                  if($('#nama').has("error")){
+                    $('#nama').removeClass("error");
+                  }
+                  if($('#alamat').has("error")){
+                    $('#alamat').removeClass("error");
+                  }
+                  if($('#password').has("error")){
+                    $('#password').removeClass("error");
+                  }
+                  $("#id").val('');
+                  $("#nama").val('');
+                  $("#alamat").val('');
+                  $("#password").val('');
+                  $("#id").focus();
+                  alert('Berhasil menambahkan produk');
+                },
+                error: function (jqXHR, textStatus, errorThrown)
+                {
+                  alert(errorThrown);
+                }
+            }
+        );
+    }else{
+        if (id.replace(/\s/g, '').length<=3) {
+            $('#id').addClass("error");
+        }else{
+            if($('#id').has("error")){
+                $('#id').removeClass("error");
+            }
+        }
+
+        if (nama.replace(/\s/g, '').length<=3) {
+            $('#nama').addClass("error");
+        }else{
+            if($('#nama').has("error")){
+                $('#nama').removeClass("error");
+            }
+        }
+
+        if (password.replace(/\s/g, '').length<=3) {
+            $('#password').addClass("error");
+        }else{
+            if($('#password').has("error")){
+                $('#password').removeClass("error");
+            }
+        }
+
+        if (alamat.replace(/\s/g, '').length<=3) {
+            $('#alamat').addClass("error");
+        }else{
+            if($('#alamat').has("error")){
+                $('#alamat').removeClass("error");
+            }
+        }
+
+        alert("Silahkan periksa kembali inputan anda!");
+    }
+  }
 
   jQuery( document ).ready(function( $ ) {
     $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
@@ -351,8 +601,7 @@ function delete_stan(id){
       ajax: {"url": "<?php echo base_url('superadminfranchise/datastan');?>", "type": "POST"},
       columns: 
       [
-      {"data": "id_stan",
-      "orderable": false},
+      {"data": "id_stan"},
       {"data": "nama_stan"},
       {"data": "alamat"},
       {"data": "password"},
