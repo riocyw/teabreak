@@ -121,7 +121,7 @@
     var nama =  $("#editnama").val();
     var harga = $("#editharga").val();
     harga = harga.replace(".","");
-    if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3&&kategori.replace(/\s/g, '').length>3&&harga.replace(/\s/g, '').length>3) {
+    if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3&&kategori.replace(/\s/g, '').length>3&&harga>=0) {
     $.ajax({
           type:"post",
           url: "<?php echo base_url('superadminfranchise/edit_produk')?>/",
@@ -238,7 +238,6 @@
     "url"    : "<?php echo base_url('superadminfranchise/produk_data');?>",
     "dataSrc": function (json) {
       var return_data = new Array();
-      console.log(json.data.length);
       for(var i=0;i< json.data.length; i++){
         return_data.push({
           'id_produk': json.data[i].id_produk,
