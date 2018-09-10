@@ -41,5 +41,10 @@ class Produk extends CI_Model{
         $this->db->where('id_produk',$id);
         $this->db->delete($table);
     }
+
+    public function delete_stan($table, $id){
+        $this->db->where('id_stan',$id);
+        $this->db->delete($table);
+    }
 }
 ?>
