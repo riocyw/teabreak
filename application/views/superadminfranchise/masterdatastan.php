@@ -355,7 +355,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script>
 
   var tabeldata ;
+<<<<<<< HEAD
+  // ( function ( $ ) {
+  //           "use strict";
 
+  //           jQuery( '#vmap' ).vectorMap( {
+  //               map: 'world_en',
+  //               backgroundColor: null,
+  //               color: '#ffffff',
+  //               hoverOpacity: 0.7,
+  //               selectedColor: '#1de9b6',
+  //               enableZoom: true,
+  //               showTooltip: true,
+  //               values: sample_data,
+  //               scaleColors: [ '#1de9b6', '#03a9f5' ],
+  //               normalizeFunction: 'polynomial'
+  //           } );
+  //       } )( jQuery );
+=======
+
+>>>>>>> ca1dc8a1ff74dce12b8071c40b968b5cce4da635
   function edit_stan(id){
     $.ajax({
           type:"post",
