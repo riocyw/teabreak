@@ -1,8 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Methods: GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
 
 ?>
 <!doctype html>
@@ -30,11 +27,8 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <link rel="stylesheet" href=<?php echo base_url("assets/css/lib/datatable/dataTables.bootstrap.min.css") ?>>
     <!-- <link rel="stylesheet" href=<echo base_url("assets/css/bootstrap-select.less")?>> -->
     <link rel="stylesheet" href=<?php echo base_url("assets/scss/style.css")?>>
-    <link rel="stylesheet" href=<?php echo base_url("assets/css/cs-skin-elastic.css")?>>
-    <link rel="stylesheet" href=<?php echo base_url("assets/css/lib/chosen/chosen.min.css")?>>
     <link href=<?php echo base_url("assets/css/lib/vector-map/jqvmap.min.css")?> rel="stylesheet">
-    <link rel="stylesheet" href=<?php echo base_url("assets/css/easy-autocomplete.min.css")?>>
-    <link rel="stylesheet" href=<?php echo base_url("assets/css/easy-autocomplete.themes.css")?>>
+
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- <script type="text/javascript" src=<echo base_url("https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js")?>></script> -->
@@ -67,14 +61,14 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li >
-                        <a href=""> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                        <a href="dashboardsuperadmin"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">PRODUK</h3><!-- /.menu-title -->
-                    <li  class="active">
+                    <li>
                         <a href="masterdataproduk"> <i class="menu-icon fa fa-glass"></i>Master Data Produk </a>
                     </li>
                     <h3 class="menu-title">STAN</h3><!-- /.menu-title -->
-                    <li>
+                    <li class="active">
                         <a href="masterdatastan"> <i class="menu-icon ti-home"></i>Master Data Stan </a>
                     </li>
                     <li>
@@ -171,16 +165,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Master Data Stan</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li class="active">Semua Data Stan</li>
-                        </ol>
+                        <h1>Skema Promo / Diskon</h1>
                     </div>
                 </div>
             </div>
@@ -188,85 +173,47 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
 
         <div class="content mt-3">
             <div class="animated fadeIn">
+
+
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Tambah Produk</strong>
+                            <strong class="card-title">Data Promo</strong>
                         </div>
                         <div class="card-body">
-                          <!-- Credit Card -->
-                          <div id="pay-invoice">
-                            <div class="card-body card-block">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="id" class=" form-control-label">Kode Barang</label>
-                                            <input type="text" id="id" placeholder="Masukkan Kode Barang" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="nama" class=" form-control-label">Nama Barang</label>
-                                            <input type="text" id="nama" placeholder="Masukkan Nama Barang" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="harga" class=" form-control-label">Harga Jual</label>
-                                            <input type="text" id="harga" onkeyup="this.value=currency(this.value);" placeholder="Masukkan Harga Barang" class="form-control">
-                                        </div>
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input type="button" class="btn btn-success" name="tambah" id="tambah" value="Tambah Promo">
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="kategori" class=" form-control-label">Kategori Barang</label>
-                                            <input type="text" id="kategori" placeholder="Masukkan Kategori Barang" class="form-control">
-                                        </div>
-                                        <div class="input-group">
-                                            
-                                            <div class="input-group-btn"><button onclick="tambahproduk()" class="btn btn-success">Tambah Produk</button></div>
-                                        </div> 
-                                    </div>
-                                </div>
-                            </div>    
-                          </div>
-
-                        </div>
-                    </div> <!-- .card -->
-
-                  </div><!--/.col-->
-
-                  <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Data Produk</strong>
-                        </div>
-                        <div class="card-body">
-                          <table id="mytable" class="table table-striped table-bordered">
-                            <thead>
-                              <tr>
-                                <th>ID Produk</th>
-                                <th>Nama Produk</th>
-                                <th>Kategori</th>
-                                <th>Harga Jual</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                              </tr>
-                            </thead>
-                          </table>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <table id="mytable" class="table table-striped table-bordered">
+                                    <thead>
+                                      <tr>
+                                        <th>Nama Promo</th>
+                                        <th>Nama Stan</th>
+                                        <th>Jenis Promo</th>
+                                        <th>Tanggal Mulai</th>
+                                        <th>Tanggal Akhir</th>
+                                        <th>Hari</th>
+                                        <th>Waktu</th>
+                                        <th>Edit</th>
+                                        <th>Status</th>
+                                      </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div> <!-- .card -->
 
                   </div><!--/.col-->
                 </div>
             </div>
-
-
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
-        <div class="modal fade" id="modal_edit" role="dialog">
+    <div class="modal fade" id="modal_edit" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="header">
@@ -274,36 +221,44 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                         <h4 class="modal-title">Edit</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row">
+                       <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="editid" class=" form-control-label">Kode Barang</label>
-                                    <input type="text" id="editid" placeholder="Masukkan Kode Barang" class="form-control">
+                                    <label for="id" class=" form-control-label">ID Stan</label>
+                                    <input type="text" id="editid" placeholder="Masukkan ID Stan" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="editnama" class=" form-control-label">Nama Barang</label>
-                                    <input type="text" id="editnama" placeholder="Masukkan Nama Barang" class="form-control">
+                                    <label for="nama" class=" form-control-label">Nama Stan</label>
+                                    <input type="text" id="editnama" placeholder="Masukkan Nama Stan" class="form-control">
                                 </div>
                             </div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="editharga" class=" form-control-label">Harga Jual</label>
-                                    <input type="text" id="editharga" placeholder="Masukkan Harga Barang" class="form-control">
+                                    <label for="password" class=" form-control-label">Password</label>
+                                    <div class="input-group">
+                                        <input type="password" id="editpassword" name="editpassword" placeholder="Masukkan Password" class="form-control">
+                                        <div class="input-group-btn">
+                                            <button onclick="showpwd('editpassword')" class="btn btn-primary">
+                                                <i class="fa fa-eye"></i></button>
+                                        </div>
+                                    </div>
                                 </div>
+                                
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-9">
+                            <div class="col-md-10">
                                 <div class="form-group">
-                                    <label for="editkategori" class=" form-control-label">Kategori Barang</label>
-                                    <input type="text" id="editkategori" placeholder="Masukkan Kategori Barang" class="form-control">
+                                    <label for="alamat" class=" form-control-label">Alamat</label>
+                                    <input type="text" id="editalamat" placeholder="Masukkan Alamat Stan" class="form-control">
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                     <div class="modal-footer">
                         <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
@@ -312,8 +267,9 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                 </div>
             </div>
         </div>
-    <!-- Right Panel -->
 
+    <!-- Right Panel -->
+ 
     <script src=<?php echo base_url("assets/js/vendor/jquery-2.1.4.min.js")?>></script>
     <script src=<?php echo base_url("assets/js/main.js")?>></script>
 
@@ -321,7 +277,6 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.min.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.sampledata.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/country/jquery.vmap.world.js")?>></script>
-    <script src=<?php echo base_url("assets/js/widgets.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/datatables.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.bootstrap.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.buttons.min.js"); ?>></script>
@@ -335,42 +290,5 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <script src=<?php echo base_url("assets/js/popper.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/plugins.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/chosen/chosen.jquery.min.js"); ?>></script>
-
-    <script src=<?php echo base_url("assets/js/jquery.easy-autocomplete.js")?>></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-            jQuery(".standardSelect").chosen({
-                disable_search_threshold: 10,
-                no_results_text: "Oops, nothing found!",
-                width: "100%"
-            });
-        });
-
-        var option = {
-            url : "<?php echo base_url('superadminfranchise/data_kategori');?>",
-            dataType:"json",
-             getValue: "kategori",
-            list :{
-                maxNumberOfElements: 10,
-                showAnimation:{
-                    type:"fade",
-                    time:400,
-                    callback:function(){}
-                },
-                hideAnimation:{
-                    type:"slide",
-                    time:400,
-                    callback:function(){}
-                },
-                match: {
-                    enabled: true
-                },
-            }
-
-        }
-        $("#kategori").easyAutocomplete(option);
-        $("#editkategori").easyAutocomplete(option);
-    </script>
-
 </body>
 </html>

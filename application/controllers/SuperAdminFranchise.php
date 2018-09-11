@@ -43,13 +43,19 @@ class SuperAdminFranchise extends CI_Controller {
 		echo json_encode($data->result());
 	}
 
+	public function promo_data(){
+		$this->load->library('datatables');
+		$this->datatables->select('*');
+		$this->datatables->from('diskon');
+		
+		echo $this->datatables->generate();
+	}
+
     //FUNCTION FOR MASTER DATA PRODUK (HELPER)
 	public function produk_data(){
 		$this->load->library('datatables');
 		$this->datatables->select('id_produk,nama_produk,kategori,harga_jual');
 		$this->datatables->from('produk');
-		$this->datatables->add_column('edit', '<a type="button" onclick=edit_produk("$1") class="btn btn-warning" style="color:white;">Edit</a> ','id_produk');
-		$this->datatables->add_column('delete', '<a type="button" onclick=delete_produk("$1") class="btn btn-danger" style="color:white;">Delete</a> ','id_produk');
 		
 		echo $this->datatables->generate();
 
@@ -112,6 +118,7 @@ class SuperAdminFranchise extends CI_Controller {
   //     }
       // var_dump(json_encode($data));
 		$this->load->view('superadminfranchise/masterdatastan');
+		$this->load->view('superadminfranchise/datatable_stan');
 	}
 
 	public function datastan(){
@@ -163,7 +170,8 @@ class SuperAdminFranchise extends CI_Controller {
 	}
 
 	public function skemapromo(){
-		
+		$this->load->view('superadminfranchise/skemapromo');
+		$this->load->view('superadminfranchise/datatable_promo');
 	}
 
 	public function masterdatakaryawan(){
