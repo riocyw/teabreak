@@ -46,9 +46,28 @@ class SuperAdminFranchise extends CI_Controller {
 
 	public function promo_data(){
 		$this->load->library('datatables');
-		$this->datatables->select('*');
+		$this->datatables->select('id_diskon,nama_diskon,jenis_diskon,tanggal_mulai,tanggal_akhir,hari,jam_mulai,jam_akhir');
 		$this->datatables->from('diskon');
-		
+		echo $this->datatables->generate();
+	}
+
+	//SHOW DATATABLE DETAIL DISKON - STAN
+
+	public function promo_detail_stan(){
+		$this->load->library('datatables');
+		$this->datatables->select('id_stan');
+		$this->datatables->from('detail_stan_diskon');
+		$this->datatables->where('id_diskon',"".$this->input->post('id_diskon'));
+		echo $this->datatables->generate();
+	}
+
+	//SHOW DATATABLE DETAIL DISKON - PRODUK
+
+	public function promo_detail_produk(){
+		$this->load->library('datatables');
+		$this->datatables->select('id_produk');
+		$this->datatables->from('detail_barang_diskon');
+		$this->datatables->where('id_diskon',"".$this->input->post('id_diskon'));
 		echo $this->datatables->generate();
 	}
 
@@ -147,6 +166,7 @@ class SuperAdminFranchise extends CI_Controller {
 		$this->Produk->delete_stan('stan',$id);
 	}
 
+
 	public function select_edit_stan(){
 		$id = $this->input->post('id');
 		$data = $this->Produk->getData("id_stan='".$id."'",'stan');
@@ -175,21 +195,14 @@ class SuperAdminFranchise extends CI_Controller {
 		$this->load->view('superadminfranchise/datatable_promo');
 	}
 
-	public function datapromo(){
-		$this->load->library('datatables');
-		$this->datatables->select('nama_diskon,jenis_diskon,tanggal_mulai,tanggal_akhir,status');
-		$this->datatables->from('diskon');
-		//bagian id_stan maksud e opo?
-		$this->datatables->add_column('edit', '<button onclick=edit_diskon("$1") class="btn btn-warning" style="color:white;">Edit</button> ','id_diskon');
-		$this->datatables->add_column('status', '<button onclick=change_status_diskon("$1") class="btn btn-danger" style="color:white;">$2</button> ','id_diskon','status');
-		echo $this->datatables->generate();
-	}
-
+	//GET DATA PROMO YANG AKAN DIEDIT
 	public function select_edit_promo(){
 		$id = $this->input->post('id');
-		$data = $this->Produk->getData("id_diskon='".$id."'",'stan');
+		$data = $this->Produk->getData("id_diskon='".$id."'",'diskon');
 		echo json_encode($data);
 	}
+
+	//TAMBAH PROMO
 
 	public function tambah_promo(){
 		//add to promo table
@@ -199,8 +212,6 @@ class SuperAdminFranchise extends CI_Controller {
 		}else{
 			$jenis = $this->input->post('jenis');
 		}
-
-		// <input type="checkbox" class="ids" name="ids[]" value="2">
 		
 		
 		$data = array(
@@ -216,18 +227,28 @@ class SuperAdminFranchise extends CI_Controller {
         );
 		$this->Produk->insert('diskon',$data);
 
+		$stan = $this->input->post('stan_list');
+		$produk = $this->input->post('produk_list');
 
 		//add to detail stan table
-
-
-		$data = array(
-	        'id_diskon' => $id
-        );
-		$this->Produk->insert('detail_stan_diskon',$data);
+		foreach ($stan as $value) {
+			$data = array(
+		        'id_diskon' => $id,
+		        'id_stan' => $value
+	        );
+			$this->Produk->insert('detail_stan_diskon',$data);
+		}
 
 		//add to detail product table
 
-
+		foreach ($produk as $value) {
+			$data = array(
+		        'id_diskon' => $id,
+		        'id_produk' => $value
+	        );
+			$this->Produk->insert('detail_barang_diskon',$data);
+		}
+		
 
 	}
 

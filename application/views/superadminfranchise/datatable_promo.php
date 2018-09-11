@@ -38,7 +38,6 @@
       for(var i=0;i< json.data.length; i++){
         return_data.push({
           'nama_diskon': json.data[i].nama_diskon,
-          'nama_stan'  : json.data[i].nama_stan,
           'jenis_diskon' : json.data[i].jenis_diskon,
           'tanggal_mulai' : json.data[i].tanggal_mulai,
           'tanggal_akhir' : json.data[i].tanggal_akhir,
@@ -53,7 +52,6 @@
   },
   "columns"    : [
     {'data': 'nama_diskon'},
-    {'data': 'nama_stan'},
     {'data': 'jenis_diskon'},
     {'data': 'tanggal_mulai'},
     {'data': 'tanggal_akhir'},

@@ -193,7 +193,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <thead>
                                       <tr>
                                         <th>Nama Promo</th>
-                                        <th>Nama Stan</th>
                                         <th>Jenis Promo</th>
                                         <th>Tanggal Mulai</th>
                                         <th>Tanggal Akhir</th>
