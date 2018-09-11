@@ -224,7 +224,21 @@ function tambahstan(){
         sProcessing: "loading..."
       },
       serverSide: true,
-      ajax: {"url": "<?php echo base_url('superadminfranchise/datastan');?>", "type": "POST"},
+      ajax: {"url": "<?php echo base_url('superadminfranchise/datastan');?>", "type": "POST",
+    "dataSrc": function (json) {
+      var return_data = new Array();
+      for(var i=0;i< json.data.length; i++){
+        return_data.push({
+          'id_stan': json.data[i].id_stan,
+          'nama_stan' : json.data[i].nama_stan,
+          'alamat' : json.data[i].alamat,
+          'password' : json.data[i].password,
+          'edit' : '<button onclick=edit_stan("'+json.data[i].id_stan+'") class="btn btn-warning" style="color:white;">Edit</button> ',
+          'delete' : '<button onclick=delete_stan("'+json.data[i].id_stan+'") class="btn btn-info" style="color:white;">Delete</button>'
+        })
+      }
+      return return_data;
+    }},
       columns: 
       [
       {"data": "id_stan"},

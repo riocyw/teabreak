@@ -145,9 +145,6 @@ class SuperAdminFranchise extends CI_Controller {
 		$this->load->library('datatables');
 		$this->datatables->select('id_stan,nama_stan,alamat,password');
 		$this->datatables->from('stan');
-		//bagian id_stan maksud e opo?
-		$this->datatables->add_column('edit', '<button onclick=edit_stan("$1") class="btn btn-warning" style="color:white;">Edit</button> ','id_stan');
-		$this->datatables->add_column('delete', '<button onclick=delete_stan("$1") class="btn btn-danger" style="color:white;">Delete</button> ','id_stan');
 		echo$this->datatables->generate();
 	}
 

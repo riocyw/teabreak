@@ -43,8 +43,8 @@
           'tanggal_akhir' : json.data[i].tanggal_akhir,
           'hari' : json.data[i].hari,
           'waktu' : json.data[i].jam_mulai+' - '+json.data[i].jam_akhir,
-          'edit' : '<a type="button" onclick=edit_diskon("'+json.data[i].id_diskon+'") class="btn btn-warning" style="color:white;">Edit</a> ',
-          'status' : '<a type="button" onclick=status_diskon("'+json.data[i].id_diskon+'") class="btn btn-info" style="color:white;">'+statuspromo(json.data[i].status)+'</a>'
+          'edit' : '<button onclick=edit_diskon("'+json.data[i].id_diskon+'") class="btn btn-warning" style="color:white;">Edit</button> ',
+          'status' : '<button onclick=status_diskon("'+json.data[i].id_diskon+'") class="btn btn-info" style="color:white;">'+statuspromo(json.data[i].status)+'</button>'
         })
       }
       return return_data;
