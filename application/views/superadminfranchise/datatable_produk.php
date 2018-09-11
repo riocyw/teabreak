@@ -251,13 +251,13 @@
       return return_data;
     }
   },
-  "columns"    : [
+  columns: [
     {'data': 'id_produk'},
     {'data': 'nama_produk'},
     {'data': 'kategori'},
     {'data': 'harga_jual'},
-    {'data': 'edit','orderable':false},
-    {'data': 'hapus','orderable':false}
+    {'data': 'edit','orderable':false,'searchable':false},
+    {'data': 'hapus','orderable':false,'searchable':false}
   ],
 
       rowCallback: function(row, data, iDisplayIndex) {
