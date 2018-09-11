@@ -31,8 +31,8 @@ class SuperAdminFranchise extends CI_Controller {
 		
 		$data = array(
 	        'id_produk' => $this->input->post('id'),
-	        'nama_produk' => $this->input->post('kategori'),
-	        'kategori' => $this->input->post('nama'),
+	        'nama_produk' => $this->input->post('nama'),
+	        'kategori' => $this->input->post('kategori'),
 	        'harga_jual' => $this->input->post('harga')
 	         );
 		$this->Produk->insert('produk',$data);
@@ -172,6 +172,27 @@ class SuperAdminFranchise extends CI_Controller {
 	public function skemapromo(){
 		$this->load->view('superadminfranchise/skemapromo');
 		$this->load->view('superadminfranchise/datatable_promo');
+	}
+
+	public function tambah_promo(){
+
+		
+		$data = array(
+	        'id_diskon' => $this->input->post('id'),
+	        'nama_diskon' => $this->input->post('nama'),
+	        'jenis_diskon' => $this->input->post('jenis'),
+	        'tanggal_mulai' => $this->input->post('tanggal_mulai'),
+	        'tanggal_akhir' => $this->input->post('tanggal_akhir'),
+	        'jam_mulai' => $this->input->post('jam_mulai'),
+	        'jam_akhir' => $this->input->post('jam_akhir'),
+	        'hari' => $this->input->post('hari'),
+	        'status' => "active"
+        );
+		$this->Produk->insert('stan',$data);
+	}
+
+	public function edit_promo(){
+		
 	}
 
 	public function masterdatakaryawan(){
