@@ -12,6 +12,7 @@ class SuperAdminFranchise extends CI_Controller {
 	public function __construct(){
 	    parent::__construct();
 	    $this->load->helper('url');
+	    $this->load->helper('site_helper');
 	    $this->load->model('Post');
 	    $this->load->model('Produk');
   	}
@@ -174,13 +175,38 @@ class SuperAdminFranchise extends CI_Controller {
 		$this->load->view('superadminfranchise/datatable_promo');
 	}
 
-	public function tambah_promo(){
+	public function datapromo(){
+		$this->load->library('datatables');
+		$this->datatables->select('nama_diskon,jenis_diskon,tanggal_mulai,tanggal_akhir,status');
+		$this->datatables->from('diskon');
+		//bagian id_stan maksud e opo?
+		$this->datatables->add_column('edit', '<button onclick=edit_diskon("$1") class="btn btn-warning" style="color:white;">Edit</button> ','id_diskon');
+		$this->datatables->add_column('status', '<button onclick=change_status_diskon("$1") class="btn btn-danger" style="color:white;">$2</button> ','id_diskon','status');
+		echo $this->datatables->generate();
+	}
 
+	public function select_edit_promo(){
+		$id = $this->input->post('id');
+		$data = $this->Produk->getData("id_diskon='".$id."'",'stan');
+		echo json_encode($data);
+	}
+
+	public function tambah_promo(){
+		//add to promo table
+		$id = IDPromoGenerator();
+		if ($this->input->post('jenis') == 'diskon') {
+			$jenis = $this->input->post('jenis').$this->input->post('nilai_promo');
+		}else{
+			$jenis = $this->input->post('jenis');
+		}
+
+		// <input type="checkbox" class="ids" name="ids[]" value="2">
+		
 		
 		$data = array(
-	        'id_diskon' => $this->input->post('id'),
+	        'id_diskon' => $id,
 	        'nama_diskon' => $this->input->post('nama'),
-	        'jenis_diskon' => $this->input->post('jenis'),
+	        'jenis_diskon' => $jenis,
 	        'tanggal_mulai' => $this->input->post('tanggal_mulai'),
 	        'tanggal_akhir' => $this->input->post('tanggal_akhir'),
 	        'jam_mulai' => $this->input->post('jam_mulai'),
@@ -188,7 +214,21 @@ class SuperAdminFranchise extends CI_Controller {
 	        'hari' => $this->input->post('hari'),
 	        'status' => "active"
         );
-		$this->Produk->insert('stan',$data);
+		$this->Produk->insert('diskon',$data);
+
+
+		//add to detail stan table
+
+
+		$data = array(
+	        'id_diskon' => $id
+        );
+		$this->Produk->insert('detail_stan_diskon',$data);
+
+		//add to detail product table
+
+
+
 	}
 
 	public function edit_promo(){
