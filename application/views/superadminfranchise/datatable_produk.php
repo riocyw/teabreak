@@ -102,6 +102,7 @@
           success:function(response)
           {
             $("#editid").val(response[0].id_produk);
+            $("#id_lama").val(response[0].id_produk);
             $("#editkategori").val(response[0].kategori);
             $("#editnama").val(response[0].nama_produk);
             $("#editharga").val(currency(response[0].harga_jual));
@@ -117,6 +118,7 @@
 
   function simpanedit(){
     var id = $("#editid").val();
+    var idlama = $("#id_lama").val();
     var kategori = $("#editkategori").val();
     var nama =  $("#editnama").val();
     var harga = $("#editharga").val();
@@ -125,7 +127,7 @@
     $.ajax({
           type:"post",
           url: "<?php echo base_url('superadminfranchise/edit_produk')?>/",
-          data:{ id:id,kategori:kategori,nama:nama,harga:harga},
+          data:{ id:id,kategori:kategori,nama:nama,harga:harga,idlama:idlama},
           success:function(response)
           {
             $("#modal_edit").modal('hide');

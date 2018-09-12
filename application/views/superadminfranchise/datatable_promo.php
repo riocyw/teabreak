@@ -29,6 +29,7 @@
       oLanguage: {
         sProcessing: "loading..."
       },
+      responsive: true,
       serverSide: true,
       ajax: {
     "type"   : "POST",
@@ -57,8 +58,8 @@
     {'data': 'tanggal_akhir'},
     {'data': 'hari'},
     {'data': 'waktu','orderable':false},
-    {'data': 'edit','orderable':false},
-    {'data': 'status','orderable':false}
+    {'data': 'edit','orderable':false,'searchable':false},
+    {'data': 'status','orderable':false,'searchable':false}
   ],
 
       rowCallback: function(row, data, iDisplayIndex) {
