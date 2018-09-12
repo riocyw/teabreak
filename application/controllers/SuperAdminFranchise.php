@@ -12,6 +12,7 @@ class SuperAdminFranchise extends CI_Controller {
 	public function __construct(){
 	    parent::__construct();
 	    $this->load->helper('url');
+	    $this->load->helper('site_helper');
 	    $this->load->model('Post');
 	    $this->load->model('Produk');
   	}
@@ -31,8 +32,8 @@ class SuperAdminFranchise extends CI_Controller {
 		
 		$data = array(
 	        'id_produk' => $this->input->post('id'),
-	        'nama_produk' => $this->input->post('kategori'),
-	        'kategori' => $this->input->post('nama'),
+	        'nama_produk' => $this->input->post('nama'),
+	        'kategori' => $this->input->post('kategori'),
 	        'harga_jual' => $this->input->post('harga')
 	         );
 		$this->Produk->insert('produk',$data);
@@ -45,9 +46,28 @@ class SuperAdminFranchise extends CI_Controller {
 
 	public function promo_data(){
 		$this->load->library('datatables');
-		$this->datatables->select('*');
+		$this->datatables->select('id_diskon,nama_diskon,jenis_diskon,tanggal_mulai,tanggal_akhir,hari,jam_mulai,jam_akhir');
 		$this->datatables->from('diskon');
-		
+		echo $this->datatables->generate();
+	}
+
+	//SHOW DATATABLE DETAIL DISKON - STAN
+
+	public function promo_detail_stan(){
+		$this->load->library('datatables');
+		$this->datatables->select('id_stan');
+		$this->datatables->from('detail_stan_diskon');
+		$this->datatables->where('id_diskon',"".$this->input->post('id_diskon'));
+		echo $this->datatables->generate();
+	}
+
+	//SHOW DATATABLE DETAIL DISKON - PRODUK
+
+	public function promo_detail_produk(){
+		$this->load->library('datatables');
+		$this->datatables->select('id_produk');
+		$this->datatables->from('detail_barang_diskon');
+		$this->datatables->where('id_diskon',"".$this->input->post('id_diskon'));
 		echo $this->datatables->generate();
 	}
 
@@ -125,9 +145,6 @@ class SuperAdminFranchise extends CI_Controller {
 		$this->load->library('datatables');
 		$this->datatables->select('id_stan,nama_stan,alamat,password');
 		$this->datatables->from('stan');
-		//bagian id_stan maksud e opo?
-		$this->datatables->add_column('edit', '<button onclick=edit_stan("$1") class="btn btn-warning" style="color:white;">Edit</button> ','id_stan');
-		$this->datatables->add_column('delete', '<button onclick=delete_stan("$1") class="btn btn-danger" style="color:white;">Delete</button> ','id_stan');
 		echo$this->datatables->generate();
 	}
 
@@ -143,8 +160,9 @@ class SuperAdminFranchise extends CI_Controller {
 
 	public function delete_stan(){
 		$id = $this->input->post('id');
-		$this->Produk->delete_stan('stan',$id);
+		$this->Produk->delete('stan',$id);
 	}
+
 
 	public function select_edit_stan(){
 		$id = $this->input->post('id');
@@ -174,7 +192,110 @@ class SuperAdminFranchise extends CI_Controller {
 		$this->load->view('superadminfranchise/datatable_promo');
 	}
 
-	public function masterdatakaryawan(){
+	//GET DATA PROMO YANG AKAN DIEDIT
+	public function select_edit_promo(){
+		$id = $this->input->post('id');
+		$data = $this->Produk->getData("id_diskon='".$id."'",'diskon');
+		echo json_encode($data);
+	}
+
+	//TAMBAH PROMO
+
+	public function tambah_promo(){
+		//add to promo table
+		$id = IDPromoGenerator();
+		if ($this->input->post('jenis') == 'diskon') {
+			$jenis = $this->input->post('jenis').$this->input->post('nilai_promo');
+		}else{
+			$jenis = $this->input->post('jenis');
+		}
 		
+		
+		$data = array(
+	        'id_diskon' => $id,
+	        'nama_diskon' => $this->input->post('nama'),
+	        'jenis_diskon' => $jenis,
+	        'tanggal_mulai' => $this->input->post('tanggal_mulai'),
+	        'tanggal_akhir' => $this->input->post('tanggal_akhir'),
+	        'jam_mulai' => $this->input->post('jam_mulai'),
+	        'jam_akhir' => $this->input->post('jam_akhir'),
+	        'hari' => $this->input->post('hari'),
+	        'status' => "active"
+        );
+		$this->Produk->insert('diskon',$data);
+
+		$stan = $this->input->post('stan_list');
+		$produk = $this->input->post('produk_list');
+
+		//add to detail stan table
+		foreach ($stan as $value) {
+			$data = array(
+		        'id_diskon' => $id,
+		        'id_stan' => $value
+	        );
+			$this->Produk->insert('detail_stan_diskon',$data);
+		}
+
+		//add to detail product table
+
+		foreach ($produk as $value) {
+			$data = array(
+		        'id_diskon' => $id,
+		        'id_produk' => $value
+	        );
+			$this->Produk->insert('detail_barang_diskon',$data);
+		}
+		
+
+	}
+
+	public function edit_promo(){
+		$id = $this->input->post('id');
+		$where = array('id_diskon' => $id);
+
+		$data = array(
+			'id_diskon' => $id,
+	        'nama_diskon' => $this->input->post('nama'),
+	        'jenis_diskonn' => $this->input->post('jenis'),
+	        'tanggal_mulai' => $this->input->post('tanggal_mulai'),
+	        'tanggal_akhir'=> $this->input->post('tanggal_akhir'),
+	        'jam_mulai'=> $this->input->post('jam_mulai'),
+	        'jam_akhir'=> $this->input->post('jam_akhir'),
+	        'hari'=> $this->input->post('hari'),
+	        'status'=> $this->input->post('status')
+	    );
+		$this->Produk->update('diskon',$data,$where);
+
+		$stan = $this->input->post('stan_list');
+		$produk = $this->input->post('produk_list');
+
+		$this->Produk->delete('detail_stan_diskon',$id);
+		$this->Produk->delete('detail_barang_diskon',$id);
+
+		//add to detail stan table
+		foreach ($stan as $value) {
+
+
+			$data = array(
+		        'id_diskon' => $id,
+		        'id_stan' => $value
+	        );
+			$this->Produk->insert('detail_stan_diskon',$data);
+		}
+
+		//add to detail product table
+
+		foreach ($produk as $value) {
+			$data = array(
+		        'id_diskon' => $id,
+		        'id_produk' => $value
+	        );
+			$this->Produk->insert('detail_barang_diskon',$data);
+		}
+	}
+
+	public function masterdatakaryawan(){
+		$this->load->view('superadminfranchise/masterdatakaryawan');
+		$this->load->view('superadminfranchise/datatable_karyawan');
 	}
 }

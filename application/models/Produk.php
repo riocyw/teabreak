@@ -2,6 +2,9 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
  
 class Produk extends CI_Model{
+
+    
+
     public function getAllData($table){
         $res=$this->db->get($table);
         return $res->result();
@@ -38,12 +41,10 @@ class Produk extends CI_Model{
     }
  
     public function delete($table, $id){
-        $this->db->where('id_produk',$id);
-        $this->db->delete($table);
-    }
 
-    public function delete_stan($table, $id){
-        $this->db->where('id_stan',$id);
+        $listpk = array("stan"=>"id_stan","produk"=>"id_produk","nota"=>"id_nota","diskon"=>"id_diskon","detail_nota"=>"id_detail_nota","detail_stan_diskon"=>"id_diskon","detail_barang_diskon"=>"id_diskon");
+
+        $this->db->where($listpk[$table.""],$id);
         $this->db->delete($table);
     }
 }

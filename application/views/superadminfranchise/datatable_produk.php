@@ -244,8 +244,8 @@
           'nama_produk'  : json.data[i].nama_produk,
           'kategori' : json.data[i].kategori,
           'harga_jual' : "Rp "+currency(json.data[i].harga_jual),
-          'edit' : '<a type="button" onclick=edit_produk("'+json.data[i].id_produk+'") class="btn btn-warning" style="color:white;">Edit</a> ',
-          'hapus' : '<a type="button" onclick=delete_produk("'+json.data[i].id_produk+'") class="btn btn-danger" style="color:white;">Delete</a>'
+          'edit' : '<button onclick=edit_produk("'+json.data[i].id_produk+'") class="btn btn-warning" style="color:white;">Edit</button> ',
+          'hapus' : '<button onclick=delete_produk("'+json.data[i].id_produk+'") class="btn btn-danger" style="color:white;">Delete</button>'
         })
       }
       return return_data;
