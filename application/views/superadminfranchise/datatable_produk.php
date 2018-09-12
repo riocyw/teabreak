@@ -253,6 +253,23 @@
       return return_data;
     }
   },
+   dom: 'Bfrtlip',
+        buttons: [
+            'copyHtml5',
+             {
+                extend: 'excelHtml5',
+                text: 'Excel',
+                className: 'exportExcel',
+                filename: 'Export excel',
+                exportOptions: {
+                  columns:[0,1,2,3]
+                }
+              },
+            'csvHtml5',
+            'pdfHtml5',
+            'print'
+        ],
+        "lengthChange": true,
   columns: [
     {'data': 'id_produk'},
     {'data': 'nama_produk'},
