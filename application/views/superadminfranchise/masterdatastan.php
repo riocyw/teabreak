@@ -276,9 +276,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="modal fade" id="modal_edit" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="header modal-header">
                         <h4 class="modal-title">Edit</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                        <div class="row">

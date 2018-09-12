@@ -174,7 +174,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="content mt-3">
             <div class="animated fadeIn">
 
-
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="card">
@@ -188,7 +187,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                             </div>
                             <br>
-                            <div class="row">
                                 <table id="mytable" class="table table-striped table-bordered">
                                     <thead>
                                       <tr>
@@ -203,7 +201,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       </tr>
                                     </thead>
                                 </table>
-                            </div>
                         </div>
                     </div> <!-- .card -->
 

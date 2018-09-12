@@ -57,7 +57,7 @@
     {'data': 'tanggal_mulai'},
     {'data': 'tanggal_akhir'},
     {'data': 'hari'},
-    {'data': 'waktu','orderable':false},
+    {'data': 'waktu','orderable':false,'searchable':false},
     {'data': 'edit','orderable':false,'searchable':false},
     {'data': 'status','orderable':false,'searchable':false}
   ],
