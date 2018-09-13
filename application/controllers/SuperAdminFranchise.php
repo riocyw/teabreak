@@ -154,8 +154,11 @@ class SuperAdminFranchise extends CI_Controller {
 	        'nama_stan' => $this->input->post('nama'),
 	        'alamat' => $this->input->post('alamat'),
 	        'password' => $this->input->post('password')
-	         );
+	    );
+
 		$this->Produk->insert('stan',$data);
+
+
 	}
 
 	public function delete_stan(){
