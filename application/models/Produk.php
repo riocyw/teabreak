@@ -10,6 +10,11 @@ class Produk extends CI_Model{
         return $res->result();
     }
 
+    public function getRowCount($table,$where){
+        $res = $this->db->get_where($table,$where);
+        return $res->num_rows();
+    }
+
     public function getDataLimit($table,$limit){
         $res = $this->db->get($table,$limit,0);
         return $res->result();

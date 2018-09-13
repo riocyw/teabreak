@@ -86,4 +86,8 @@ function statuspromo(status){
   }
 }
 
+ function edit_promo(id){
+
+  }
+
 </script>
