@@ -51,7 +51,24 @@
       return return_data;
     }
   },
-  "columns"    : [
+  dom: 'Bfrtlip',
+        buttons: [
+            'copyHtml5',
+             {
+                extend: 'excelHtml5',
+                text: 'Excel',
+                className: 'exportExcel',
+                filename: 'Export excel',
+                exportOptions: {
+                  columns:[0,1,2,3]
+                }
+              },
+            'csvHtml5',
+            'pdfHtml5',
+            'print'
+        ],
+        "lengthChange": true,
+  columns    : [
     {'data': 'nama_diskon'},
     {'data': 'jenis_diskon'},
     {'data': 'tanggal_mulai'},
