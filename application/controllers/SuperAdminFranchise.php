@@ -113,11 +113,11 @@ class SuperAdminFranchise extends CI_Controller {
 	}
 
 	public function edit_produk(){
-		$id = $this->input->post('id');
+		$id = $this->input->post('id_lama');
 		$where = array('id_produk' => $id);
 
 		$data = array(
-			'id_produk' => $id,
+			'id_produk' => $this->input->post('id'),
 	        'nama_produk' => $this->input->post('nama'),
 	        'kategori' => $this->input->post('kategori'),
 	        'harga_jual' => $this->input->post('harga')
@@ -184,6 +184,7 @@ class SuperAdminFranchise extends CI_Controller {
 	        'password' => $this->input->post('password')
 	         );
 		$this->Post->Update('stan',$data,$where);
+		return mysql_error();
 	}
 
 	public function gajibonusstan(){

@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href=<?php echo base_url("assets/css/themify-icons.css")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/css/flag-icon.min.css")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/css/cs-skin-elastic.css")?>>
-    <link rel="stylesheet" href=<?php echo base_url("assets/css/lib/datatable/dataTables.bootstrap.min.css") ?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/datatable/datatables.css") ?>>
     <!-- <link rel="stylesheet" href=<echo base_url("assets/css/bootstrap-select.less")?>> -->
     <link rel="stylesheet" href=<?php echo base_url("assets/scss/style.css")?>>
     <link href=<?php echo base_url("assets/css/lib/vector-map/jqvmap.min.css")?> rel="stylesheet">
@@ -276,9 +276,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="modal fade" id="modal_edit" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="header modal-header">
                         <h4 class="modal-title">Edit</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                        <div class="row">
@@ -330,24 +330,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <!-- Right Panel -->
  
-    <script src=<?php echo base_url("assets/js/vendor/jquery-2.1.4.min.js")?>></script>
-    <script src=<?php echo base_url("assets/js/main.js")?>></script>
-
+    <script src=<?php echo base_url("assets/js/jquery.min.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.min.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.sampledata.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/country/jquery.vmap.world.js")?>></script>
-    <script src=<?php echo base_url("assets/js/widgets.js")?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/datatables.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.bootstrap.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.buttons.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.bootstrap.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/jszip.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/vfs_fonts.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.html5.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.print.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.colVis.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/datatables-init.js"); ?>></script>
+    <script src=<?php echo base_url("assets/datatable/datatables.js")?>></script>
     <script src=<?php echo base_url("assets/js/popper.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/plugins.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/chosen/chosen.jquery.min.js"); ?>></script>

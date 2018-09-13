@@ -223,6 +223,7 @@ function tambahstan(){
       oLanguage: {
         sProcessing: "loading..."
       },
+      responsive: true,
       serverSide: true,
       ajax: {"url": "<?php echo base_url('superadminfranchise/datastan');?>", "type": "POST",
     "dataSrc": function (json) {
@@ -245,10 +246,8 @@ function tambahstan(){
       {"data": "nama_stan"},
       {"data": "alamat"},
       {"data": "password"},
-      {"data": "edit",
-      "orderable": false},
-      {"data": "delete",
-      "orderable": false},
+      {"data": "edit","orderable": false,"searchable": false},
+      {"data": "delete","orderable": false,"searchable": false},
       ],
 
       rowCallback: function(row, data, iDisplayIndex) {

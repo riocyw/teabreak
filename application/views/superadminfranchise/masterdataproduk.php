@@ -16,7 +16,6 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <title>Tea Break Super Admin Franchise</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="apple-touch-icon" href=<?php echo base_url("apple-icon.png")?>>
     <link rel="shortcut icon" href=<?php echo base_url("favicon.ico")?>>
 
@@ -27,7 +26,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
     <link rel="stylesheet" href=<?php echo base_url("assets/css/themify-icons.css")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/css/flag-icon.min.css")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/css/cs-skin-elastic.css")?>>
-    <link rel="stylesheet" href=<?php echo base_url("assets/css/lib/datatable/dataTables.bootstrap.min.css") ?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/datatable/datatables.css") ?>>
     <!-- <link rel="stylesheet" href=<echo base_url("assets/css/bootstrap-select.less")?>> -->
     <link rel="stylesheet" href=<?php echo base_url("assets/scss/style.css")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/css/cs-skin-elastic.css")?>>
@@ -269,9 +268,9 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
         <div class="modal fade" id="modal_edit" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="header modal-header">
                         <h4 class="modal-title">Edit</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -279,6 +278,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                                 <div class="form-group">
                                     <label for="editid" class=" form-control-label">Kode Barang</label>
                                     <input type="text" id="editid" placeholder="Masukkan Kode Barang" class="form-control">
+                                    <input type="hidden" name="id_lama" id="id_lama">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -292,7 +292,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="editharga" class=" form-control-label">Harga Jual</label>
-                                    <input type="text" id="editharga" placeholder="Masukkan Harga Barang" class="form-control">
+                                    <input type="text" onkeyup="this.value=currency(this.value);" id="editharga" placeholder="Masukkan Harga Barang" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -314,27 +314,23 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
         </div>
     <!-- Right Panel -->
 
-    <script src=<?php echo base_url("assets/js/vendor/jquery-2.1.4.min.js")?>></script>
-    <script src=<?php echo base_url("assets/js/main.js")?>></script>
-
+    <script src=<?php echo base_url("assets/js/jquery.min.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.min.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.sampledata.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/country/jquery.vmap.world.js")?>></script>
-    <script src=<?php echo base_url("assets/js/widgets.js")?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/datatables.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.bootstrap.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/dataTables.buttons.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.bootstrap.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/jszip.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/vfs_fonts.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.html5.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.print.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/buttons.colVis.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/js/lib/data-table/datatables-init.js"); ?>></script>
+    <script src=<?php echo base_url("assets/datatable/datatables.js")?>></script>
     <script src=<?php echo base_url("assets/js/popper.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/plugins.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/chosen/chosen.jquery.min.js"); ?>></script>
+    <script src=<?php echo base_url("assets/datatable/Buttons-1.5.2/js/dataTables.buttons.js")?>></script>
+    <script src=<?php echo base_url("assets/datatable/Buttons-1.5.2/js/buttons.print.js")?>></script>
+    <script src=<?php echo base_url("assets/datatable/Buttons-1.5.2/js/buttons.html5.js")?>></script>
+    <script src=<?php echo base_url("assets/datatable/Buttons-1.5.2/js/buttons.flash.js")?>></script>
+    <script src=<?php echo base_url("assets/datatable/JSZip-2.5.0/jszip.js")?>></script>
+    <script src=<?php echo base_url("assets/datatable/pdfmake-0.1.36/pdfmake.js")?>></script>
+    <script src=<?php echo base_url("assets/datatable/pdfmake-0.1.36/vfs_fonts.js")?>></script>
+    
 
     <script src=<?php echo base_url("assets/js/jquery.easy-autocomplete.js")?>></script>
     <script type="text/javascript">
