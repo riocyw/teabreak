@@ -29,14 +29,24 @@ class SuperAdminFranchise extends CI_Controller {
 	}
 
 	public function tambah_produk(){
-		
-		$data = array(
+		$id = $this->input->post('id');
+		$where = array('id_produk' => $id);
+		$count = $this->Produk->getRowCount('produk',$where);
+
+		if ($count>0) {
+			return "ID Data Sudah ada di dalam database";
+		}else{
+			$data = array(
 	        'id_produk' => $this->input->post('id'),
 	        'nama_produk' => $this->input->post('nama'),
 	        'kategori' => $this->input->post('kategori'),
 	        'harga_jual' => $this->input->post('harga')
 	         );
-		$this->Produk->insert('produk',$data);
+			$this->Produk->insert('produk',$data);
+			return "Berhasil Disimpan";
+		}
+		
+		
 	}
 
 	public function data_kategori(){
@@ -116,13 +126,24 @@ class SuperAdminFranchise extends CI_Controller {
 		$id = $this->input->post('id_lama');
 		$where = array('id_produk' => $id);
 
-		$data = array(
+		$idbaru = $this->input->post('id');
+		$wherebaru = array('id_produk' => $idbaru);
+		$count = $this->Produk->getRowCount('produk',$wherebaru);
+
+		if ($count>0) {
+			return "Update Error! ID Data Sudah ada di dalam database";
+		}else{
+			$data = array(
 			'id_produk' => $this->input->post('id'),
 	        'nama_produk' => $this->input->post('nama'),
 	        'kategori' => $this->input->post('kategori'),
 	        'harga_jual' => $this->input->post('harga')
 	         );
-		$this->Post->Update('produk',$data,$where);
+			$this->Post->Update('produk',$data,$where);
+			return "Berhasil Diupdate";
+		}
+
+		
 	}
 
 	public function delete_produk(){
@@ -149,16 +170,23 @@ class SuperAdminFranchise extends CI_Controller {
 	}
 
 	public function tambah_stan(){
-		$data = array(
-	        'id_stan' => $this->input->post('id'),
-	        'nama_stan' => $this->input->post('nama'),
-	        'alamat' => $this->input->post('alamat'),
-	        'password' => $this->input->post('password')
-	    );
+		$id = $this->input->post('id');
+		$where = array('id_stan' => $id);
+		$count = $this->Produk->getRowCount('stan',$where);
 
-		$this->Produk->insert('stan',$data);
+		if ($count>0) {
+			return "ID Data Sudah ada di dalam database";
+		}else{
+			$data = array(
+		        'id_stan' => $this->input->post('id'),
+		        'nama_stan' => $this->input->post('nama'),
+		        'alamat' => $this->input->post('alamat'),
+		        'password' => $this->input->post('password')
+		    );
 
-
+			$this->Produk->insert('stan',$data);
+			return "Berhasil Disimpan";
+		}
 	}
 
 	public function delete_stan(){
@@ -174,17 +202,26 @@ class SuperAdminFranchise extends CI_Controller {
 	}
 
 	public function edit_stan(){
-		$id = $this->input->post('id');
+
+		$id = $this->input->post('id_lama');
 		$where = array('id_stan' => $id);
 
-		$data = array(
-			'id_stan' => $id,
-	        'nama_stan' => $this->input->post('nama'),
-	        'alamat' => $this->input->post('alamat'),
-	        'password' => $this->input->post('password')
-	         );
-		$this->Post->Update('stan',$data,$where);
-		return mysql_error();
+		$idbaru = $this->input->post('id');
+		$wherebaru = array('id_stan' => $idbaru);
+		$count = $this->Produk->getRowCount('stan',$wherebaru);
+
+		if ($count>0 && $id != $idbaru) {
+			echo "Update Error! ID Data Sudah ada di dalam database";
+		}else{
+			$data = array(
+				'id_stan' => $idbaru,
+		        'nama_stan' => $this->input->post('nama'),
+		        'alamat' => $this->input->post('alamat'),
+		        'password' => $this->input->post('password')
+		    );
+			$this->Post->Update('stan',$data,$where);
+			echo "Berhasil Diupdate";
+		}
 	}
 
 	public function gajibonusstan(){

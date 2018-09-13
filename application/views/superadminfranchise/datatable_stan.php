@@ -10,6 +10,7 @@
           success:function(response)
           {
             $("#editid").val(response[0].id_stan);
+            $("#editidlama").val(response[0].id_stan);
             $("#editalamat").val(response[0].alamat);
             $("#editnama").val(response[0].nama_stan);
             $("#editpassword").val(response[0].password);
@@ -27,29 +28,32 @@
     var id = $("#editid").val();
     var alamat = $("#editalamat").val();
     var nama =  $("#editnama").val();
+    var id_lama = $("#editidlama").val();
     var password = $("#editpassword").val();
     if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3&&alamat.replace(/\s/g, '').length>3&&password.replace(/\s/g, '').length>3) {
     $.ajax({
           type:"post",
           url: "<?php echo base_url('superadminfranchise/edit_stan')?>/",
-          data:{ id:id,alamat:alamat,nama:nama,password:password},
+          data:{ id_lama:id_lama,id:id,alamat:alamat,nama:nama,password:password},
           success:function(response)
           {
-            $("#modal_edit").modal('hide');
-            if($('#editid').has("error")){
-              $('#editid').removeClass("error");
+            if(response == 'Berhasil Diupdate'){
+              $("#modal_edit").modal('hide');
+              if($('#editid').has("error")){
+                $('#editid').removeClass("error");
+              }
+              if($('#editnama').has("error")){
+                $('#editnama').removeClass("error");
+              }
+              if($('#editalamat').has("error")){
+                $('#editalamat').removeClass("error");
+              }
+              if($('#editpassword').has("error")){
+                $('#editpassword').removeClass("error");
+              }
+              reload_table();
             }
-            if($('#editnama').has("error")){
-              $('#editnama').removeClass("error");
-            }
-            if($('#editalamat').has("error")){
-              $('#editalamat').removeClass("error");
-            }
-            if($('#editpassword').has("error")){
-              $('#editpassword').removeClass("error");
-            }
-            reload_table();
-            alert("Berhasil mengubah data!");
+            alert(response);
           },
           error: function (jqXHR, textStatus, errorThrown)
           {

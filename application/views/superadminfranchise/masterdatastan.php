@@ -286,6 +286,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="form-group">
                                     <label for="id" class=" form-control-label">ID Stan</label>
                                     <input type="text" id="editid" placeholder="Masukkan ID Stan" class="form-control">
+                                    <input type="hidden" id="editidlama">
                                 </div>
                             </div>
                             <div class="col-md-6">
