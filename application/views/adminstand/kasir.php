@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Tea Break Super Admin Franchise</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="apple-touch-icon" href=<?php echo base_url("apple-icon.png")?>>
     <link rel="shortcut icon" href=<?php echo base_url("favicon.ico")?>>
@@ -76,44 +76,178 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 
 <div class="container-fluid">
-    <div class="col-md-2" style="border-right: 1px solid red;height: 768px;">
-        <div class="col-md-7 offset-md-5" style="text-align: center;font-size: 20px;font-weight: 700;">
+    <div class="col-lg-2 col-md-4 col-sm-12 section1">
+        <div class="col-lg-7 offset-lg-5 col-md-6 offset-md-3 judul">
             MENU
         </div>
-        <div class="kategori col-md-7 offset-md-5">
+        <div class="kategori col-lg-7 offset-lg-5 col-sm-12 col-md-10 offset-md-1">
             <a href="#">Thai Tea</a>
         </div>
-        <div class="kategori col-md-7 offset-md-5">
+        <div class="kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1">
             <a href="#">Milk Tea</a>
         </div>
-        <div class="kategori col-md-7 offset-md-5">
+        <div class="kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1">
             <a href="#">Appetizer</a>
         </div>
+        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        </div>
+        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        </div>
+        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        </div>
+        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        </div>
+        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        </div>
+        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        </div>
+        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        </div>
+        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        </div>
+        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        </div>
+        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        </div>
+        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        </div>
     </div>
 
-    <div class="col-md-3" style="border-right: 1px solid red;height: 768px;">
-        <div class="col-md-12" style="text-align: center;font-size: 20px;font-weight: 700;">
+    <div class="col-lg-3 col-md-6 col-sm-12 section2">
+        <div class="col-md-11 offset-md-1 judul">
             KATEGORI
         </div>
-        <div class="menu col-md-5 offset-md-1">
+        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1">
             <a href="#">Thai Tea</a>
         </div>
-        <div class="menu col-md-5 offset-md-1">
+        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1">
             <a href="#">Thai Tea</a>
         </div>
-        <div class="menu col-md-5 offset-md-1">
+        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1">
             <a href="#">Thai Tea</a>
         </div>
-        <div class="menu col-md-5 offset-md-1">
+        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1">
             <a href="#">Thai Tea</a>
         </div>
-        <div class="menu col-md-5 offset-md-1">
+        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1">
             <a href="#">Thai Tea</a>
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        </div>
+        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
         </div>
     </div>
 
-    <div class="col-md-6" style="border-right: 1px solid red;height: : 768px;">
-
+    <div class="col-lg-6 col-md-12 col-sm-12 section3">
+        <div class="judul">
+            BILL
+        </div>
+        <div class="billsection">
+            <div class="row divnamap">
+                <label class="col-lg-3 offset-lg-1 jnama" for="nama_pelanggan">Nama Pelanggan </label>
+                <input class="col-lg-7" type="text" name="nama_pelanggan" id="nama_pelanggan" placeholder="Masukkan Nama Pelanggan...">
+            </div>
+            <div class="divbill table-responsive">
+                <table id="billtable" class="table" width="100%">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">Nama</th>
+                            <th style="width: 15%;">Topping</th>
+                            <th style="width: 25%;">Qty</th>
+                            <th style="width: 15%;">Satuan</th>
+                            <th style="width: 25%;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="#p1">
+                            <td><p id="#nama_produk1">Teh Matcha</p></td>
+                            <td><p id="topping1">-</p></td>
+                            <td> <div class="row"><button class="btn center btn-default btnqty col-md-2 offset-md-2">-</button><p id="qty1" class=" col-md-4 qtyitem">2</p><button class="btn center btn-default col-md-2 btnqty">+</button></div></td>
+                            <td><p id="satuan1">Rp 50.000</p></td>
+                            <td><div class="row"><p class="col-lg-9" id="total1">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove">X</button></div></td>
+                        </tr>
+                        <tr id="#p2">
+                            <td><p id="#nama_produk2">Teh Tarik</p></td>
+                            <td><p id="topping2">-</p></td>
+                            <td> <div class="row"><button class="btn center btn-default btnqty col-md-2 offset-md-2">-</button><p id="qty2" class=" col-md-4 qtyitem">2</p><button class="btn center btn-default col-md-2 btnqty">+</button></div></td>
+                            <td><p id="satuan2">Rp 50.000</p></td>
+                            <td><div class="row"><p class="col-lg-9" id="total2">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove">X</button></div></td>
+                        </tr>
+                        <tr id="#p2">
+                            <td><p id="#nama_produk2">Teh Tarik</p></td>
+                            <td><p id="topping2">-</p></td>
+                            <td> <div class="row"><button class="btn center btn-default btnqty col-md-2 offset-md-2">-</button><p id="qty2" class=" col-md-4 qtyitem">2</p><button class="btn center btn-default col-md-2 btnqty">+</button></div></td>
+                            <td><p id="satuan2">Rp 50.000</p></td>
+                            <td><div class="row"><p class="col-lg-9" id="total2">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove">X</button></div></td>
+                        </tr>
+                        <tr id="#p2">
+                            <td><p id="#nama_produk2">Teh Tarik</p></td>
+                            <td><p id="topping2">-</p></td>
+                            <td> <div class="row"><button class="btn center btn-default btnqty col-md-2 offset-md-2">-</button><p id="qty2" class=" col-md-4 qtyitem">2</p><button class="btn center btn-default col-md-2 btnqty">+</button></div></td>
+                            <td><p id="satuan2">Rp 50.000</p></td>
+                            <td><div class="row"><p class="col-lg-9" id="total2">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove">X</button></div></td>
+                        </tr>
+                        <tr id="#p2">
+                            <td><p id="#nama_produk2">Teh Tarik</p></td>
+                            <td><p id="topping2">-</p></td>
+                            <td> <div class="row"><button class="btn center btn-default btnqty col-md-2 offset-md-2">-</button><p id="qty2" class=" col-md-4 qtyitem">2</p><button class="btn center btn-default col-md-2 btnqty">+</button></div></td>
+                            <td><p id="satuan2">Rp 50.000</p></td>
+                            <td><div class="row"><p class="col-lg-9" id="total2">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove">X</button></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="paysection">
+            <div class="row">
+                <div class="col-lg-8">
+                    <table id="bayar" style="text-align: left!important;">
+                        <tr>
+                            <td>Sub Total </td>
+                            <td>:</td>
+                            <td>Rp 20.000</td>
+                        </tr>
+                        <tr>
+                            <td>Diskon </td>
+                            <td>:</td>
+                            <td>Rp 0</td>
+                        </tr>
+                        <tr>
+                            <td>TOTAL</td>
+                            <td>:</td>
+                            <td><h4>Rp 20.000</h4></td>
+                        </tr>
+                    </table>
+                </div>
+                <button class="btn btn-info col-lg-3 btnpay">BAYAR</button>
+            </div>
+        </div>
     </div>
 </div>
 <script src=<?php echo base_url("assets/js/jquery.min.js")?>></script>
