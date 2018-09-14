@@ -5,6 +5,77 @@
   padding: 10px 10px;
 }
 
+body{
+  background-color: #e6e6e6!important;
+}
+
+.judul{
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.btnremove{
+  max-width: 2vh;
+}
+
+.jnama{
+  text-align: center;
+  font-weight: 600;
+}
+
+.qtyitem{
+  margin:auto;
+}
+
+.center{
+  text-align: center!important;
+  min-width: 5vh;
+}
+
+#billtable th{
+  font-weight: 600px;
+  font-size: 16px;
+}
+
+#billtable{
+  overflow: hidden;
+}
+
+#billtable th, td {
+    text-align: center;
+    padding: 8px;
+}
+
+.btnqty{
+  border-radius: 13px!important;
+}
+
+.divbill{
+  margin-top: 3vh;
+  border: 1px #cccccc solid;
+  max-height: 40vh;
+  overflow: auto;
+  min-height: 40vh;
+}
+
+.btnpay{
+  min-height: 12vh!important;
+    font-weight: 700;
+}
+
+.paysection{
+  background-color: white;
+  padding: 2vh;
+  min-height: 20vh;
+}
+
+.billsection{
+  background-color: white;
+  padding: 2vh;
+  margin-top: 1.5vh;
+}
+
 .dropdown {
   float: left;
   color: black;
@@ -17,10 +88,24 @@
   border-radius: 4px;
 }
 
+.none-kategori{
+  background-color: #bfbfbf!important;
+}
+
+.none-kategori:hover{
+  background-color: #bfbfbf!important;
+}
+
+.kategori:hover{
+  background-color: #666666;
+}
+
 .kategori{
+  min-height: 5vh!important;
   text-align: center;
-  background: #4a4749;
+  background: #808080;
   border-radius: 10px;
+  border:1px #b3b3b3 solid;
   text-align: center;
   padding: 1vh;
   margin-top: 1vh!important;
@@ -35,13 +120,22 @@
 }
 
 .menu{
-  border:1px black solid;
+  min-height: 7vh!important;
+  border:1px #b3b3b3 solid;
   display: inline-block;
-  padding: 2vh;
-  background: #f1f2f7;
+  padding: 1vh;
+  background-color: #ffffff;
   border-radius: 10px;
   text-align: center;
   margin-top: 1.5vh!important;
+}
+
+.none-menu{
+  background-color: #f2f2f2;
+}
+
+.none-menu:hover{
+  background-color: #f2f2f2!important;
 }
 
 .menu a {
@@ -49,13 +143,9 @@
 }
 
 .menu:hover{
-  background: #bec5d1;
+  background: #ffffe6;
 }
 
-.menu a:hover {
-  background: #bec5d1;
-  color: black;
-}
 
 .dropdown:hover {
   background-color: #ddd;
@@ -71,13 +161,20 @@
   float: left;
 }
 
-@media screen and (max-width: 500px) {
-  .dropdown {
-    float: none;
-    display: block;
-    text-align: left;
+@media only all and (max-width: 768px) {
+  .judul{
+    margin-top: 2vh;
   }
-  .header-left {
-    float: none;
+}
+
+@media only all and (max-width: 800px) {
+  .nouse{
+    display: none;
+  }
+}
+
+@media all and (max-width: 1200px) and (min-width: 990px){
+  .kategori, .none-kategori{
+    max-width: 80%!important;
   }
 }
