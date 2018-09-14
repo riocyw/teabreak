@@ -34,7 +34,7 @@ class SuperAdminFranchise extends CI_Controller {
 		$count = $this->Produk->getRowCount('produk',$where);
 
 		if ($count>0) {
-			return "ID Data Sudah ada di dalam database";
+			echo "ID Data Sudah ada di dalam database";
 		}else{
 			$data = array(
 	        'id_produk' => $this->input->post('id'),
@@ -43,7 +43,7 @@ class SuperAdminFranchise extends CI_Controller {
 	        'harga_jual' => $this->input->post('harga')
 	         );
 			$this->Produk->insert('produk',$data);
-			return "Berhasil Disimpan";
+			echo "Berhasil Ditambahkan";
 		}
 		
 		
@@ -123,15 +123,15 @@ class SuperAdminFranchise extends CI_Controller {
 	}
 
 	public function edit_produk(){
-		$id = $this->input->post('id_lama');
+		$id = $this->input->post('idlama');
 		$where = array('id_produk' => $id);
 
 		$idbaru = $this->input->post('id');
 		$wherebaru = array('id_produk' => $idbaru);
 		$count = $this->Produk->getRowCount('produk',$wherebaru);
 
-		if ($count>0) {
-			return "Update Error! ID Data Sudah ada di dalam database";
+		if ($count>0 && $id != $idbaru) {
+			echo "Update Error! ID Data Sudah ada di dalam database";
 		}else{
 			$data = array(
 			'id_produk' => $this->input->post('id'),
@@ -140,10 +140,8 @@ class SuperAdminFranchise extends CI_Controller {
 	        'harga_jual' => $this->input->post('harga')
 	         );
 			$this->Post->Update('produk',$data,$where);
-			return "Berhasil Diupdate";
+			echo "Berhasil Diupdate";
 		}
-
-		
 	}
 
 	public function delete_produk(){
@@ -175,7 +173,7 @@ class SuperAdminFranchise extends CI_Controller {
 		$count = $this->Produk->getRowCount('stan',$where);
 
 		if ($count>0) {
-			return "ID Data Sudah ada di dalam database";
+			echo "ID Data Sudah ada di dalam database";
 		}else{
 			$data = array(
 		        'id_stan' => $this->input->post('id'),
@@ -185,7 +183,7 @@ class SuperAdminFranchise extends CI_Controller {
 		    );
 
 			$this->Produk->insert('stan',$data);
-			return "Berhasil Disimpan";
+			echo "Berhasil Ditambahkan";
 		}
 	}
 
@@ -338,5 +336,10 @@ class SuperAdminFranchise extends CI_Controller {
 	public function masterdatakaryawan(){
 		$this->load->view('superadminfranchise/masterdatakaryawan');
 		$this->load->view('superadminfranchise/datatable_karyawan');
+	}
+
+	public function lappenjstan(){
+		$this->load->view('superadminfranchise/lappenjstan');
+		$this->load->view('superadminfranchise/datatable_lappenjstan');
 	}
 }

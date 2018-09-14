@@ -30,25 +30,35 @@
                 data:{ id:id,nama:nama,kategori:kategori,harga:harga},
                 success:function(response)
                 {
-                  reload_table();
-                  if($('#id').has("error")){
-                    $('#id').removeClass("error");
+                  if(response == 'Berhasil Ditambahkan'){
+                    reload_table();
+                    if($('#id').has("error")){
+                      $('#id').removeClass("error");
+                    }
+                    if($('#nama').has("error")){
+                      $('#nama').removeClass("error");
+                    }
+                    if($('#kategori').has("error")){
+                      $('#kategori').removeClass("error");
+                    }
+                    if($('#harga').has("error")){
+                      $('#harga').removeClass("error");
+                    }
+                    $("#id").val('');
+                    $("#nama").val('');
+                    $("#kategori").val('');
+                    $("#harga").val('');
+                    $("#id").focus();
+                    alert(response);
+                  }else if(response =='ID Data Sudah ada di dalam database'){
+
+                    $('#id').addClass("error");
+                    
+                    alert(response);
+                  }else{
+                    alert('unknown error is happen! try again.');
                   }
-                  if($('#nama').has("error")){
-                    $('#nama').removeClass("error");
-                  }
-                  if($('#kategori').has("error")){
-                    $('#kategori').removeClass("error");
-                  }
-                  if($('#harga').has("error")){
-                    $('#harga').removeClass("error");
-                  }
-                  $("#id").val('');
-                  $("#nama").val('');
-                  $("#kategori").val('');
-                  $("#harga").val('');
-                  $("#id").focus();
-                  alert('Berhasil menambahkan produk');
+                  
                 },
                 error: function (jqXHR, textStatus, errorThrown)
                 {
@@ -130,21 +140,30 @@
           data:{ id:id,kategori:kategori,nama:nama,harga:harga,idlama:idlama},
           success:function(response)
           {
-            $("#modal_edit").modal('hide');
-            if($('#editid').has("error")){
-              $('#editid').removeClass("error");
+            if(response == 'Berhasil Diupdate'){
+              $("#modal_edit").modal('hide');
+              if($('#editid').has("error")){
+                $('#editid').removeClass("error");
+              }
+              if($('#editnama').has("error")){
+                $('#editnama').removeClass("error");
+              }
+              if($('#editkategori').has("error")){
+                $('#editkategori').removeClass("error");
+              }
+              if($('#editharga').has("error")){
+                $('#editharga').removeClass("error");
+              }
+              reload_table();
+              alert(response);
+            }else if(response=='Update Error! ID Data Sudah ada di dalam database'){
+
+              $('#editid').addClass("error");
+              alert(response);
+            }else{
+              alert('unknown error is happen! try again.');
             }
-            if($('#editnama').has("error")){
-              $('#editnama').removeClass("error");
-            }
-            if($('#editkategori').has("error")){
-              $('#editkategori').removeClass("error");
-            }
-            if($('#editharga').has("error")){
-              $('#editharga').removeClass("error");
-            }
-            reload_table();
-            alert("Berhasil mengubah data!");
+            
           },
           error: function (jqXHR, textStatus, errorThrown)
           {

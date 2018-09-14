@@ -52,6 +52,8 @@
                 $('#editpassword').removeClass("error");
               }
               reload_table();
+            }else{
+              $('#editid').addClass("error");
             }
             alert(response);
           },
@@ -135,25 +137,33 @@ function tambahstan(){
                 data:{ id:id,nama:nama,alamat:alamat,password:password},
                 success:function(response)
                 {
-                  reload_table();
-                  if($('#id').has("error")){
-                    $('#id').removeClass("error");
+
+                  if(response == 'Berhasil Ditambahkan'){
+                    reload_table();
+                    if($('#id').has("error")){
+                      $('#id').removeClass("error");
+                    }
+                    if($('#nama').has("error")){
+                      $('#nama').removeClass("error");
+                    }
+                    if($('#alamat').has("error")){
+                      $('#alamat').removeClass("error");
+                    }
+                    if($('#password').has("error")){
+                      $('#password').removeClass("error");
+                    }
+                    $("#id").val('');
+                    $("#nama").val('');
+                    $("#alamat").val('');
+                    $("#password").val('');
+                    $("#id").focus();
+                    alert(response);
+                  }else if(response == 'ID Data Sudah ada di dalam database'){
+                    $('#id').addClass("error");
+                    alert(response);
+                  }else{
+                    alert('unknown error is happen! try again.');
                   }
-                  if($('#nama').has("error")){
-                    $('#nama').removeClass("error");
-                  }
-                  if($('#alamat').has("error")){
-                    $('#alamat').removeClass("error");
-                  }
-                  if($('#password').has("error")){
-                    $('#password').removeClass("error");
-                  }
-                  $("#id").val('');
-                  $("#nama").val('');
-                  $("#alamat").val('');
-                  $("#password").val('');
-                  $("#id").focus();
-                  alert('Berhasil menambahkan produk');
                 },
                 error: function (jqXHR, textStatus, errorThrown)
                 {
