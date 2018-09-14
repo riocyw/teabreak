@@ -60,5 +60,7 @@ $route['gajibonusstan'] = 'superadminfranchise/gajibonusstan';
 $route['skemapromo'] = 'superadminfranchise/skemapromo';
 $route['masterdatakaryawan'] = 'superadminfranchise/masterdatakaryawan';
 
+$route['kasir'] = 'adminstand/kasir';
+
 $route['json'] = 'superadminfranchise/json';
 $route['translate_uri_dashes'] = FALSE;
