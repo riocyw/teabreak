@@ -91,7 +91,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
 
                     <h3 class="menu-title">LAPORAN</h3><!-- /.menu-title -->
                     <li>
-                        <a href=""> <i class="menu-icon ti-receipt"></i>Laporan A</a>
+                        <a href=""> <i class="menu-icon ti-receipt"></i>Laporan Penjualan Stand</a>
                     </li>
                     <li>
                         <a href=""> <i class="menu-icon ti-receipt"></i>Laporan B</a>

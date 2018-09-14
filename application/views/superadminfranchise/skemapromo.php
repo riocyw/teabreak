@@ -68,14 +68,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a href="masterdataproduk"> <i class="menu-icon fa fa-glass"></i>Master Data Produk </a>
                     </li>
                     <h3 class="menu-title">STAN</h3><!-- /.menu-title -->
-                    <li class="active">
+                    <li>
                         <a href="masterdatastan"> <i class="menu-icon ti-home"></i>Master Data Stan </a>
                     </li>
                     <li>
                         <a href="gajibonusstan"> <i class="menu-icon ti-money"></i>Gaji Bonus Stan </a>
                     </li>
                     <h3 class="menu-title">PROMO</h3><!-- /.menu-title -->
-                    <li>
+                    <li class="active">
                         <a href="skemapromo"> <i class="menu-icon fa fa-percent"></i>Skema Promo </a>
                     </li>
 
@@ -86,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     <h3 class="menu-title">LAPORAN</h3><!-- /.menu-title -->
                     <li>
-                        <a href=""> <i class="menu-icon ti-receipt"></i>Laporan A</a>
+                        <a href=""> <i class="menu-icon ti-receipt"></i>Laporan Penjualan Stand</a>
                     </li>
                     <li>
                         <a href=""> <i class="menu-icon ti-receipt"></i>Laporan B</a>
@@ -183,7 +183,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <input type="button" class="btn btn-success" name="tambah" id="tambah" value="Tambah Promo">
+                                    <input type="button" data-toggle="modal" data-target="#modaltambah" class="btn btn-success" name="tambah" id="tambah" value="Tambah Promo">
                                 </div>
                             </div>
                             <br>
@@ -259,6 +259,147 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="modal-footer">
                         <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
                         <button type="button" onclick="simpanedit()" class="btn add_field_button btn-info">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Tambah Promo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12">
+                                <div class="form-group">
+                                    <label class=" form-control-label">Nama Promo</label>
+                                    <input type="text" id="nama_promo" placeholder="Nama Promo" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class=" form-control-label">Tanggal Mulai</label>
+                                    <input type="date" id="tanggal_mulai" placeholder="Tanggal Mulai" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class=" form-control-label">Tanggal Akhir</label>
+                                    <input type="date" id="tanggal_mulai" placeholder="Tanggal Akhir" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class=" form-control-label">Jam Mulai</label>
+                                    <input type="time" id="tanggal_mulai" placeholder="Jam Mulai" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class=" form-control-label">Jam Akhir</label>
+                                    <input type="time" id="tanggal_mulai" placeholder="Jam Akhir" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class=" form-control-label">Hari</label>
+
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-check">
+                                                <div class="checkbox">
+                                                  <label for="checkbox1" class="form-check-label ">
+                                                    <input type="checkbox" id="senin" name="checkbox1" value="senin" class="form-check-input"> Senin
+                                                  </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                  <label for="checkbox2" class="form-check-label ">
+                                                    <input type="checkbox" id="selasa" name="checkbox2" value="selasa" class="form-check-input"> Selasa
+                                                  </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                  <label for="checkbox3" class="form-check-label ">
+                                                    <input type="checkbox" id="rabu" name="checkbox3" value="rabu" class="form-check-input"> Rabu
+                                                  </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                  <label for="checkbox3" class="form-check-label ">
+                                                    <input type="checkbox" id="kamis" name="checkbox3" value="kamis" class="form-check-input"> Kamis
+                                                  </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-check">
+                                                <div class="checkbox">
+                                                  <label for="checkbox1" class="form-check-label ">
+                                                    <input type="checkbox" id="jumat" name="checkbox1" value="jumat" class="form-check-input"> Jumat
+                                                  </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                  <label for="checkbox2" class="form-check-label ">
+                                                    <input type="checkbox" id="sabtu" name="checkbox2" value="sabtu" class="form-check-input"> Sabtu
+                                                  </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                  <label for="checkbox3" class="form-check-label ">
+                                                    <input type="checkbox" id="minggu" name="checkbox3" value="minggu" class="form-check-input"> Minggu
+                                                  </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class=" form-control-label">Jenis Promo</label>
+                                    <select name="selectSm" id="SelectLm" class="form-control-sm form-control">
+                                        <option value="0">Jenis Promo</option>
+                                        <option value="1">Option #1</option>
+                                        <option value="2">Option #2</option>
+                                        <option value="3">Option #3</option>
+                                        <option value="4">Option #4</option>
+                                        <option value="5">Option #5</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class=" form-control-label">Nilai Promo</label>
+                                    <input type="number" id="nilai_promo" placeholder="Nilai Promo" class="form-control">
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-8 col-sm-12">
+                                <label class="form-control-label">List Stan</label>
+                                <table id="tableliststan" class="table table-striped table-bordered">
+                                    <thead>
+                                      <tr>
+                                        <th>ID Stan</th>
+                                        <th>Nama Stan</th>
+                                        <th>Alamat</th>
+                                        <th>Pilih</th>
+                                      </tr>
+                                    </thead>
+                                </table>
+
+                                <label class="form-control-label">List Produk</label>
+                                <table id="tablelistproduk" class="table table-striped table-bordered">
+                                    <thead>
+                                      <tr>
+                                        <th>ID Barang</th>
+                                        <th>Nama Barang</th>
+                                        <th>Harga Beli</th>
+                                        <th>Harga Jual</th>
+                                        <th>Pilih</th>
+                                      </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Confirm</button>
                     </div>
                 </div>
             </div>

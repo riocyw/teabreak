@@ -96,7 +96,7 @@ function reload_table(){
 }
 
 function statuspromo(status){
-  if(status==1){
+  if(status=='active'){
     return "Aktif"
   }else{
     return "Tidak Aktif"
@@ -105,6 +105,10 @@ function statuspromo(status){
 
  function edit_promo(id){
 
+  }
+
+  function tambahpromo(){
+    
   }
 
 </script>
