@@ -170,7 +170,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Master Data Stan</h1>
+                        <h1>Master Data Produk</h1>
                     </div>
                 </div>
             </div>
@@ -178,7 +178,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li class="active">Semua Data Stan</li>
+                            <li class="active">Semua Data Produk</li>
                         </ol>
                     </div>
                 </div>

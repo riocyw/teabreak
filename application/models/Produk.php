@@ -32,12 +32,12 @@ class Produk extends CI_Model{
  
     public function insert($table,$data){
         $res = $this->db->insert($table, $data);
-        return $res;
+        return ($this->db->affected_rows() < 1) ? false : true;
     }
  
     public function update($table, $data, $where){
         $res = $this->db->update($table, $data, $where);
-        return $res;
+        return ($this->db->affected_rows() < 1) ? false : true;
     }
 
     public function getData($where,$table){
