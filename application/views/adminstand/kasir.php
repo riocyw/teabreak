@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="apple-touch-icon" href=<?php echo base_url("apple-icon.png")?>>
-    <link rel="shortcut icon" href=<?php echo base_url("favicon.ico")?>>
+    <link rel="shortcut icon" href=<?php echo base_url("assets/logo.ico")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/css/normalize.css")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/css/navbar.css")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/css/bootstrap.css")?>>
@@ -25,6 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href=<?php echo base_url("assets/css/flag-icon.min.css")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/css/cs-skin-elastic.css")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/datatable/datatables.css") ?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/css/calculator.css") ?>>
     <!-- <link rel="stylesheet" href=<echo base_url("assets/css/bootstrap-select.less")?>> -->
     <link rel="stylesheet" href=<?php echo base_url("assets/scss/style.css")?>>
     <link href=<?php echo base_url("assets/css/lib/vector-map/jqvmap.min.css")?> rel="stylesheet">
@@ -75,47 +76,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
 
-<div class="container-fluid">
+<div class="section">
     <div class="col-lg-2 col-md-4 col-sm-12 section1">
-        <div class="col-lg-7 offset-lg-5 col-md-6 offset-md-3 judul">
-            MENU
+        <div style="padding: 0px;" class="col-lg-8 offset-lg-4 col-md-6 offset-md-3 judul">
+            KATEGORI
         </div>
-        <div class="kategori col-lg-7 offset-lg-5 col-sm-12 col-md-10 offset-md-1">
+        <div class="kategori col-lg-8 offset-lg-4 col-sm-12 col-md-10 offset-md-1">
             <a href="#">Thai Tea</a>
         </div>
-        <div class="kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1">
+        <div class="kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1">
             <a href="#">Milk Tea</a>
         </div>
-        <div class="kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1">
+        <div class="kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1">
             <a href="#">Appetizer</a>
         </div>
-        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
         </div>
-        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
         </div>
-        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
         </div>
-        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
         </div>
-        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
         </div>
-        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
         </div>
-        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
         </div>
-        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
         </div>
-        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
         </div>
-        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
         </div>
-        <div class="kategori none-kategori col-lg-7 offset-lg-5 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
         </div>
     </div>
 
     <div class="col-lg-3 col-md-6 col-sm-12 section2">
         <div class="col-md-11 offset-md-1 judul">
-            KATEGORI
+            MENU
         </div>
         <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1">
             <a href="#">Thai Tea</a>
@@ -164,7 +165,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
 
-    <div class="col-lg-6 col-md-12 col-sm-12 section3">
+    <div class="col-lg-7 col-md-12 col-sm-12 section3">
         <div class="judul">
             BILL
         </div>
@@ -177,11 +178,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <table id="billtable" class="table" width="100%">
                     <thead>
                         <tr>
-                            <th style="width: 20%;">Nama</th>
+                            <th style="width: 15%;">Nama</th>
                             <th style="width: 15%;">Topping</th>
-                            <th style="width: 25%;">Qty</th>
-                            <th style="width: 15%;">Satuan</th>
-                            <th style="width: 25%;">Total</th>
+                            <th style="width: 20%;">Qty</th>
+                            <th style="width: 20%;">Satuan</th>
+                            <th style="width: 30%;">Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -245,11 +246,109 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </tr>
                     </table>
                 </div>
-                <button class="btn btn-info col-lg-3 btnpay">BAYAR</button>
+                <button class="btn btn-info col-lg-3 btnpay" onclick="pembayaran()">BAYAR</button>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal_bayar" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="header modal-header">
+                <h4 class="modal-title">Pembayaran</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="row">
+                        <button class="btn btn-calc col-lg-3">7
+                        </button>
+                        <button class="btn btn-calc col-lg-3 offset-lg-1">8
+                        </button>
+                        <button class="btn btn-calc col-lg-3 offset-lg-1">9
+                        </button>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-calc col-lg-3">4
+                        </button>
+                        <button class="btn btn-calc col-lg-3 offset-lg-1">5
+                        </button>
+                        <button class="btn btn-calc col-lg-3 offset-lg-1">6
+                        </button>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-calc col-lg-3">1
+                        </button>
+                        <button class="btn btn-calc col-lg-3 offset-lg-1">2
+                        </button>
+                        <button class="btn btn-calc col-lg-3 offset-lg-1">3
+                        </button>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-calc col-lg-3">0
+                        </button>
+                        <button class="btn btn-calc col-lg-3 offset-lg-1">00
+                        </button>
+                        <button class="btn btn-calc col-lg-3 offset-lg-1"><
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="row jumlahuang">
+                        Jumlah Uang
+                    </div>
+                    <div class="row">
+                        <p id="total_bayar" class="form-control">100.000</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p class="totaljudul">Total :</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <p id="harus_bayar">Rp 20.000</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p class="kembalianjudul">Kembalian :</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <p id="kembalian">Rp 80.000</p>
+                        </div>
+                    </div>
+                    <hr class="garis">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <input type="radio" name="tipe_bayar" checked="true" value="cash"><label> Cash</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="radio" name="tipe_bayar" value="debit"><label> Debit</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <input type="radio" name="tipe_bayar" value="ovo"><label> Ovo</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="text" name="keterangan" id="keterangan" class="form-control col-lg-4 offset-lg-4" placeholder="keterangan...">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <button class="btn btn-auto">Auto</button>
+                        </div>
+                        <div class="col-lg-3 offset-lg-1">
+                            <button class="btn btn-kembali">Kembali</button>
+                        </div>
+                        <div class="col-lg-3">
+                            <button class="btn btn-cetak-dis">Cetak Nota</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src=<?php echo base_url("assets/js/jquery.min.js")?>></script>
 <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.js")?>></script>
 <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.min.js")?>></script>
@@ -274,6 +373,11 @@ var x = document.getElementById("myTopnav");
     } else {
         x.className = "topnav";
     }
+}
+
+function pembayaran(){
+    $("#modal_bayar").modal('show');
+
 }
 </script>
 </body>

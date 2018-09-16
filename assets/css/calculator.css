@@ -1,0 +1,80 @@
+.btn-calc
+{
+    border-radius: 8px!important;
+    font-size: 6vh;
+    color: black;
+    font-weight: 620!important;
+    background-color: white;
+    border: 1px solid #b3b3b3;
+    margin: 1vh;
+}
+
+.jumlahuang
+{
+	font-size: 4vh;
+	font-weight: 500!important;
+	margin: 1vh;
+}
+
+.rowbayar
+{
+	border: 1px solid #b3b3b3;
+	border-radius: 5px!important;
+}
+
+#total_bayar
+{
+	text-align: right;
+	font-size: 4.4vh;
+	font-weight: 700!important;
+}
+.totaljudul, .kembalianjudul
+{
+	text-align: left;
+	font-size: 2.5vh;
+}
+#harus_bayar, #kembalian
+{
+	font-size: 2.5vh;
+	font-weight: 500!important;
+	text-align: right;
+}
+.garis
+{
+	width: 100%;
+	border: 1px solid #b3b3b3;
+	margin: 0px;
+}
+.btn-auto
+{
+	background-color: #808080;
+	color: white;
+	font-size: 3vh;
+	font-weight: 600!important;
+	padding: 3vh;
+	border-radius: 6px!important;
+	margin-top: 1vh;
+}
+
+.btn-kembali
+{
+	background-color: white;
+    color: black;
+    height: 8vh;
+    font-weight: 400!important;
+    border: 1px solid #b3b3b3;
+    margin-top: 2vh;
+    border-radius: 8px!important;
+}
+
+.btn-cetak-dis
+{
+	border-radius: 8px!important;
+	word-break: break-all;
+	background-color: #666666;
+	height: 8vh;
+	color: white;
+	font-size: 3vh;
+	margin-top: 2vh;
+	font-weight: 500!important;
+}
