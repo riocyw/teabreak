@@ -96,7 +96,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     <h3 class="menu-title">LAPORAN</h3><!-- /.menu-title -->
                     <li>
-                        <a href=""> <i class="menu-icon ti-receipt"></i>Laporan Penjualan Stand</a>
+                        <a href="lappenjstan"> <i class="menu-icon ti-receipt"></i>Laporan Penjualan Stand</a>
                     </li>
                     <li>
                         <a href=""> <i class="menu-icon ti-receipt"></i>Laporan B</a>
@@ -362,7 +362,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <div class="form-group">
                                     <label class=" form-control-label">Jenis Promo</label>
-                                    <select name ="jenispromo" id="jenispromo" class="form-control-sm form-control" onchange="changeNilaiPromo()">
+                                    <select name ="jenispromo" id="jenispromo" class="form-control-sm form-control" onchange="changeNilaiPromo(this.id)">
                                         <option value="buy1get1" selected="selected">Buy 1 Get 1</option>
                                         <option value="buy2get1">Buy 2 Get 1</option>
                                         <option value="persen">Potongan (persen)</option>
@@ -374,7 +374,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <label id="labelnilaipromo" class=" form-control-label">Nilai Promo</label>
 
                                     <div class="input-group">
-                                        <input type="text" disabled="" id="nilai_promo" placeholder="" class="form-control" onkeyup="this.value=currency(this.value);">
+                                        <input type="text" disabled="" id="nilai_promo" placeholder="" class="form-control" onkeyup="this.value=currency(this.value,'jenispromo');">
                                         <div class="input-group-addon" id="labelnilaipromo2"></div>
                                     </div>
                                 </div>
@@ -470,7 +470,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
 
                                 <div class="form-group">
-                                    <label class=" form-control-label" id="labelhari">Hari</label>
+                                    <label class=" form-control-label" id="labelhari_edit">Hari</label>
 
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6">
@@ -520,7 +520,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <div class="form-group">
                                     <label class=" form-control-label">Jenis Promo</label>
-                                    <select name ="jenispromo" id="jenispromo_edit" class="form-control-sm form-control" onchange="changeNilaiPromo()">
+                                    <select name ="jenispromo" id="jenispromo_edit" class="form-control-sm form-control" onchange="changeNilaiPromo(this.id)">
                                         <option value="buy1get1" selected="selected">Buy 1 Get 1</option>
                                         <option value="buy2get1">Buy 2 Get 1</option>
                                         <option value="persen">Potongan (persen)</option>
@@ -532,7 +532,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <label id="labelnilaipromo_edit" class=" form-control-label">Nilai Promo</label>
 
                                     <div class="input-group">
-                                        <input type="text" disabled="" id="nilai_promo_edit" placeholder="" class="form-control" onkeyup="this.value=currency(this.value);">
+                                        <input type="text" disabled="" id="nilai_promo_edit" placeholder="" class="form-control" onkeyup="this.value=currency(this.value,'jenispromo_edit');">
                                         <div class="input-group-addon" id="labelnilaipromo2_edit"></div>
                                     </div>
                                 </div>
@@ -581,6 +581,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         
                     </div>
                     <div class="modal-footer">
+                        <input type="hidden" id="simpaneditpromo">
+                        <input type="hidden" id="statuseditpromo">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-success" onclick="simpaneditpromo()">Simpan</button>
                     </div>
