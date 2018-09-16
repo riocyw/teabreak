@@ -90,19 +90,40 @@
   },
   dom: 'Bfrtlip',
         buttons: [
-            'copyHtml5',
-             {
+            {
+                extend: 'copyHtml5',
+                text: 'Copy',
+                filename: 'Data Promo',
+                exportOptions: {
+                  columns:[0,1,2,3,4,5]
+                }
+            },{
                 extend: 'excelHtml5',
                 text: 'Excel',
                 className: 'exportExcel',
-                filename: 'Export excel',
+                filename: 'Data Promo',
                 exportOptions: {
-                  columns:[0,1,2,3]
+                  columns:[0,1,2,3,4,5]
                 }
-              },
-            'csvHtml5',
-            'pdfHtml5',
-            'print'
+            },{
+                extend: 'csvHtml5',
+                filename: 'Data Promo',
+                exportOptions: {
+                  columns:[0,1,2,3,4,5]
+                }
+            },{
+                extend: 'pdfHtml5',
+                filename: 'Data Promo',
+                exportOptions: {
+                  columns:[0,1,2,3,4,5]
+                }
+            },{
+                extend: 'print',
+                filename: 'Data Promo',
+                exportOptions: {
+                  columns:[0,1,2,3,4,5]
+                }
+            }
         ],
         "lengthChange": true,
   columns    : [
