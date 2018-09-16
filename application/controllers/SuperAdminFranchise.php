@@ -56,7 +56,7 @@ class SuperAdminFranchise extends CI_Controller {
 
 	public function promo_data(){
 		$this->load->library('datatables');
-		$this->datatables->select('id_diskon,nama_diskon,jenis_diskon,tanggal_mulai,tanggal_akhir,hari,jam_mulai,jam_akhir');
+		$this->datatables->select('id_diskon,nama_diskon,jenis_diskon,tanggal_mulai,tanggal_akhir,hari,jam_mulai,jam_akhir,status');
 		$this->datatables->from('diskon');
 		echo $this->datatables->generate();
 	}
@@ -238,6 +238,20 @@ class SuperAdminFranchise extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	public function select_edit_datatable_produk_promo()
+	{
+		$id = $this->input->post('id');
+		$data = $this->Produk->getData("id_diskon='".$id."'",'detail_barang_diskon');
+		echo json_encode($data);
+	}
+
+	public function select_edit_datatable_stan_promo()
+	{
+		$id = $this->input->post('id');
+		$data = $this->Produk->getData("id_diskon='".$id."'",'detail_stan_diskon');
+		echo json_encode($data);
+	}
+
 	//TAMBAH PROMO
 
 	public function tambah_promo(){
@@ -364,6 +378,24 @@ class SuperAdminFranchise extends CI_Controller {
 	        );
 			$this->Produk->insert('detail_barang_diskon',$data);
 		}
+	}
+
+	public function change_status_diskon()
+	{
+		$id = $this->input->post('id');
+		$status = $this->input->post('status');
+
+		if ($status == 'active') {
+			$status = 'inactive';
+		}else{
+			$status = 'active';
+		}
+
+		$where = array('id_diskon' => $id);
+
+		$data = array('status' => $status);
+		$this->Post->Update('diskon',$data,$where);
+		echo "Berhasil Diupdate";
 	}
 
 	public function show_list_stan()
