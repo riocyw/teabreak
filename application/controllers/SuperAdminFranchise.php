@@ -56,7 +56,7 @@ class SuperAdminFranchise extends CI_Controller {
 
 	public function promo_data(){
 		$this->load->library('datatables');
-		$this->datatables->select('id_diskon,nama_diskon,jenis_diskon,tanggal_mulai,tanggal_akhir,hari,jam_mulai,jam_akhir');
+		$this->datatables->select('id_diskon,nama_diskon,jenis_diskon,tanggal_mulai,tanggal_akhir,hari,jam_mulai,jam_akhir,status');
 		$this->datatables->from('diskon');
 		echo $this->datatables->generate();
 	}
@@ -238,53 +238,100 @@ class SuperAdminFranchise extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	public function select_edit_datatable_produk_promo()
+	{
+		$id = $this->input->post('id');
+		$data = $this->Produk->getData("id_diskon='".$id."'",'detail_barang_diskon');
+		echo json_encode($data);
+	}
+
+	public function select_edit_datatable_stan_promo()
+	{
+		$id = $this->input->post('id');
+		$data = $this->Produk->getData("id_diskon='".$id."'",'detail_stan_diskon');
+		echo json_encode($data);
+	}
+
 	//TAMBAH PROMO
 
 	public function tambah_promo(){
+		$statusalladd = false;
+		$deleteall = false;
 		//add to promo table
 		$id = IDPromoGenerator();
-		if ($this->input->post('jenis') == 'diskon') {
+		if ($this->input->post('jenis') == 'nominal' || $this->input->post('jenis') == 'persen') {
 			$jenis = $this->input->post('jenis').$this->input->post('nilai_promo');
 		}else{
 			$jenis = $this->input->post('jenis');
 		}
+
+		$tanggal_mulai = $this->input->post('tanggal_mulai');
+		$tanggal_akhir = $this->input->post('tanggal_akhir');
+
+		$tanggal_mulai = strtotime($tanggal_mulai);
+		$tanggal_mulai = date('Y-m-d',$tanggal_mulai);
+
+		$tanggal_akhir = strtotime($tanggal_akhir);
+		$tanggal_akhir = date('Y-m-d',$tanggal_akhir);
 		
-		
+		// nama_promo:nama_promo,tanggal_mulai:tanggal_mulai,tanggal_akhir:tanggal_akhir,jam_mulai:jam_mulai,jam_akhir:jam_akhir,hariall:hariall,jenis:jenis,nilai_promo:nilai_promo,stanall:stanall,produkall:produkall
 		$data = array(
 	        'id_diskon' => $id,
-	        'nama_diskon' => $this->input->post('nama'),
+	        'nama_diskon' => $this->input->post('nama_promo'),
 	        'jenis_diskon' => $jenis,
-	        'tanggal_mulai' => $this->input->post('tanggal_mulai'),
-	        'tanggal_akhir' => $this->input->post('tanggal_akhir'),
+	        'tanggal_mulai' => $tanggal_mulai,
+	        'tanggal_akhir' => $tanggal_akhir,
 	        'jam_mulai' => $this->input->post('jam_mulai'),
 	        'jam_akhir' => $this->input->post('jam_akhir'),
-	        'hari' => $this->input->post('hari'),
+	        'hari' => $this->input->post('hariall'),
 	        'status' => "active"
         );
-		$this->Produk->insert('diskon',$data);
+		$statusalladd = $this->Produk->insert('diskon',$data);
 
-		$stan = $this->input->post('stan_list');
-		$produk = $this->input->post('produk_list');
+		if ($statusalladd == true) {
+			$stanall = $this->input->post('stanall');
+			$produkall = $this->input->post('produkall');
 
-		//add to detail stan table
-		foreach ($stan as $value) {
-			$data = array(
-		        'id_diskon' => $id,
-		        'id_stan' => $value
-	        );
-			$this->Produk->insert('detail_stan_diskon',$data);
+			$stan = explode(",",$stanall);
+			$produk = explode(",",$produkall);
+			//add to detail stan table
+			foreach ($stan as $value) {
+				$data = array(
+			        'id_diskon' => $id,
+			        'id_stan' => $value
+		        );
+				$statusalladd = $this->Produk->insert('detail_stan_diskon',$data);
+				if ($statusalladd == false) {
+					$deleteall = true;
+				}
+			}
+
+			//add to detail product table
+
+			foreach ($produk as $value) {
+				$data = array(
+			        'id_diskon' => $id,
+			        'id_produk' => $value
+		        );
+				$statusalladd = $this->Produk->insert('detail_barang_diskon',$data);
+				if ($statusalladd == false) {
+					$deleteall = true;
+				}
+			}
+		}else{
+			$deleteall = true;
 		}
 
-		//add to detail product table
-
-		foreach ($produk as $value) {
-			$data = array(
-		        'id_diskon' => $id,
-		        'id_produk' => $value
-	        );
-			$this->Produk->insert('detail_barang_diskon',$data);
+		if ($deleteall == true) {
+			$this->Produk->delete('diskon',$id);
+			$this->Produk->delete('detail_barang_diskon',$id);
+			$this->Produk->delete('detail_stan_diskon',$id);
 		}
-		
+		if ($deleteall == true) {
+			echo false;
+		}else{
+			echo true;
+		}
 
 	}
 
@@ -331,6 +378,42 @@ class SuperAdminFranchise extends CI_Controller {
 	        );
 			$this->Produk->insert('detail_barang_diskon',$data);
 		}
+	}
+
+	public function change_status_diskon()
+	{
+		$id = $this->input->post('id');
+		$status = $this->input->post('status');
+
+		if ($status == 'active') {
+			$status = 'inactive';
+		}else{
+			$status = 'active';
+		}
+
+		$where = array('id_diskon' => $id);
+
+		$data = array('status' => $status);
+		$this->Post->Update('diskon',$data,$where);
+		echo "Berhasil Diupdate";
+	}
+
+	public function show_list_stan()
+	{
+		$this->load->library('datatables');
+		$this->datatables->select('id_stan,nama_stan,alamat');
+		$this->datatables->from('stan');
+		
+		echo $this->datatables->generate();
+	}
+
+	public function show_list_produk()
+	{
+		$this->load->library('datatables');
+		$this->datatables->select('id_produk,nama_produk,harga_jual');
+		$this->datatables->from('produk');
+		
+		echo $this->datatables->generate();
 	}
 
 	public function masterdatakaryawan(){

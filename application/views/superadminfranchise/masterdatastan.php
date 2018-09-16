@@ -115,7 +115,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="header-menu">
 
                 <div class="col-sm-7">
-                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
+                    <a i    d="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
 
                         <div class="dropdown for-notification">

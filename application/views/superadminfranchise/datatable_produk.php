@@ -274,19 +274,40 @@
   },
    dom: 'Bfrtlip',
         buttons: [
-            'copyHtml5',
-             {
-                extend: 'excelHtml5',
-                text: 'Excel',
-                className: 'exportExcel',
-                filename: 'Export excel',
+            {
+                extend: 'copyHtml5',
+                text: 'Copy',
+                filename: 'Produk Data',
                 exportOptions: {
                   columns:[0,1,2,3]
                 }
-              },
-            'csvHtml5',
-            'pdfHtml5',
-            'print'
+            },{
+                extend: 'excelHtml5',
+                text: 'Excel',
+                className: 'exportExcel',
+                filename: 'Produk Data',
+                exportOptions: {
+                  columns:[0,1,2,3]
+                }
+            },{
+                extend: 'csvHtml5',
+                filename: 'Produk Data',
+                exportOptions: {
+                  columns:[0,1,2,3]
+                }
+            },{
+                extend: 'pdfHtml5',
+                filename: 'Produk Data',
+                exportOptions: {
+                  columns:[0,1,2,3]
+                }
+            },{
+                extend: 'print',
+                filename: 'Produk Data',
+                exportOptions: {
+                  columns:[0,1,2,3]
+                }
+            }
         ],
         "lengthChange": true,
   columns: [

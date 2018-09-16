@@ -32,12 +32,20 @@ class Produk extends CI_Model{
  
     public function insert($table,$data){
         $res = $this->db->insert($table, $data);
-        return $res;
+        return ($this->db->affected_rows() < 1) ? false : true;
     }
  
     public function update($table, $data, $where){
         $res = $this->db->update($table, $data, $where);
-        return $res;
+        return ($this->db->affected_rows() < 1) ? false : true;
+    }
+
+    public function updateOneColumn($table, $data, $where){
+        $listpk = array("stan"=>"id_stan","produk"=>"id_produk","nota"=>"id_nota","diskon"=>"id_diskon","detail_nota"=>"id_detail_nota","detail_stan_diskon"=>"id_diskon","detail_barang_diskon"=>"id_diskon");
+
+        $res = $this->db->where($where);
+        $res = $this->db->update($table, $data);
+        return ($this->db->affected_rows() < 1) ? false : true;
     }
 
     public function getData($where,$table){
