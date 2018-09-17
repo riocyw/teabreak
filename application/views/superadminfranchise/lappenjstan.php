@@ -85,7 +85,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a href="gajibonusstan"> <i class="menu-icon ti-money"></i>Gaji Bonus Stan </a>
                     </li>
                     <h3 class="menu-title">PROMO</h3><!-- /.menu-title -->
-                    <li class="active">
+                    <li>
                         <a href="skemapromo"> <i class="menu-icon fa fa-percent"></i>Skema Promo </a>
                     </li>
 
@@ -95,7 +95,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </li>
 
                     <h3 class="menu-title">LAPORAN</h3><!-- /.menu-title -->
-                    <li>
+                    <li  class="active">
                         <a href="lappenjstan"> <i class="menu-icon ti-receipt"></i>Laporan Penjualan Stand</a>
                     </li>
                     <li>
@@ -226,7 +226,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </table>
                         </div>
                         <div class="card-footer">
-                            <h2>Total Penjualan Rp ,-</h2>
+                            <h2 id="total_harga_akhir">Total Penjualan Rp ,-</h2>
                         </div>
                     </div> <!-- .card -->
 
@@ -235,7 +235,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
-
+    <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mediumModalLabel">Medium Modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- DETAIL -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Right Panel -->
  
     <script src=<?php echo base_url("assets/js/jquery.min.js")?>></script>

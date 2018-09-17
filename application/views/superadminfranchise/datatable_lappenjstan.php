@@ -44,6 +44,7 @@
 			    "url"    : "<?php echo base_url('superadminfranchise/notaData');?>",
 			    "dataSrc": function (json) {
 			      var return_data = new Array();
+			      var total_harga_akhir = 0;
 
 			      for(var i=0;i< json.length; i++){
 
@@ -53,7 +54,19 @@
 			          'total_harga_jual' : "Rp "+currency(json[i].total_harga),
 			          'detail' : '<button onclick=detail_nota("'+json[i].id_nota+'") class="btn btn-warning" style="color:white;">Detail</button> '
 			        });
+		    		total_harga_akhir = total_harga_akhir + parseInt(json[i].total_harga);
 			      }
+			      $("#total_harga_akhir").html('Total Penjualan Rp '+currency(parseInt(total_harga_akhir))+',-');
+
+			     //  var eachharga = tabeldata.columns( 2 ).data().eq( 0 );
+			    	
+			    	// for (var i = eachharga.length - 1; i >= 0; i--) {
+			    	// 	alert(eachharga[i]);
+			    	// 	var nominal = eachharga[i].replace('Rp ','');
+			    	// 	nominal = nominal.replace('.','');
+			    	// 	total_harga_akhir = total_harga_akhir + nominal;
+			    	// }
+			    	
 			      return return_data;
 			    }
 			  },
@@ -126,4 +139,28 @@
 	    }
 	    return retVal;
 	  }
+
+	 function detail_nota(id) {
+	 	$.ajax({
+	          type:"post",
+	          url: "<?php echo base_url('superadminfranchise/select_detail_nota')?>/",
+	          data:{ id:id},
+	          dataType:"json",
+	          success:function(response)
+	          {
+	            // $("#editid").val(response[0].id_produk);
+	            // $("#id_lama").val(response[0].id_produk);
+	            // $("#editkategori").val(response[0].kategori);
+	            // $("#editnama").val(response[0].nama_produk);
+	            // $("#editharga").val(currency(response[0].harga_jual));
+	            //DETAILLLL
+	            $("#modalDetail").modal('toggle');
+	          },
+	          error: function (jqXHR, textStatus, errorThrown)
+	          {
+	            alert(errorThrown);
+	          }
+	      }
+	    );
+	 }
 </script>

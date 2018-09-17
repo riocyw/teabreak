@@ -508,4 +508,12 @@ class SuperAdminFranchise extends CI_Controller {
 		// var_dump($data);
 		echo json_encode($data);
 	}
+
+	public function select_detail_nota()
+	{
+		$id = $this->input->post('id');
+		$array = array('id_nota' => $id);
+		$data = $this->Produk->getData($array,'nota');
+		//DETAIL
+	}
 }
