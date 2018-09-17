@@ -124,7 +124,7 @@
     );
 
     function refreshTable() {
-    	alert('reload');
+    	
     	reload_table();
     }
 
