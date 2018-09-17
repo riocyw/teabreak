@@ -1,93 +1,129 @@
 <script type="text/javascript">
 	var tabeldata;
-	tabeldata = $("#mytable").dataTable({
+	
+	$.ajax({
+          type:"post",
+          url: "<?php echo base_url('superadminfranchise/get_list_stan')?>/",
+          data:{},
+          dataType:"json",
+          success:function(response)
+          {
+          	var htmlinsideselect = '';
+          	for (var j = response.length - 1; j >= 0; j--) {
+          		if (j==response.length-1) {
+          			htmlinsideselect = htmlinsideselect + '<option selected="selected" value="'+response[j].id_stan+'">'+response[j].nama_stan +' ( '+response[j].alamat+' )' +'</option>';
+          		}else{
+          			htmlinsideselect = htmlinsideselect + '<option value="'+response[j].id_stan+'">'+response[j].nama_stan +' ( '+response[j].alamat+' )' +'</option>';
+          		}
+          		
+	        }
+	        $("#select_stan").html(htmlinsideselect);
+	        
+	        tabeldata = $("#mytable").DataTable({
+		      initComplete: function() {
+		        var api = this.api();
+		        $('#mytable_filter input')
+		        .on('.DT')
+		        .on('keyup.DT', function(e) {
+		          if (e.keyCode == 13) {
+		            api.search(this.value).draw();
+		          }
+		        });
+		      },
+		      oLanguage: {
+		        sProcessing: "loading..."
+		      },
+		      responsive: true,
+		      ajax: {
+			    "type"   : "POST",
+			    "data": function(data) {
+				  data.tanggal_awal = $('#tanggal_awal').val();
+				  data.tanggal_akhir = $('#tanggal_akhir').val();
+				  data.id_nota = $('#select_stan').val();
+				},
+			    "url"    : "<?php echo base_url('superadminfranchise/notaData');?>",
+			    "dataSrc": function (json) {
+			      var return_data = new Array();
 
-	  //     initComplete: function() {
-	  //       var api = this.api();
-	  //       $('#mytable_filter input')
-	  //       .on('.DT')
-	  //       .on('keyup.DT', function(e) {
-	  //         if (e.keyCode == 13) {
-	  //           api.search(this.value).draw();
-	  //         }
-	  //       });
-	  //     },
-	  //     oLanguage: {
-	  //       sProcessing: "loading..."
-	  //     },
-	  //     responsive: true,
-	  //     serverSide: true,
-	  //     ajax: {
-	  //   "type"   : "POST",
-	  //   "url"    : "<?php echo base_url('superadminfranchise/produk_data');?>",
-	  //   "dataSrc": function (json) {
-	  //     var return_data = new Array();
-	  //     for(var i=0;i< json.data.length; i++){
-	  //       return_data.push({
-	  //         'id_produk': json.data[i].id_produk,
-	  //         'nama_produk'  : json.data[i].nama_produk,
-	  //         'kategori' : json.data[i].kategori,
-	  //         'harga_jual' : "Rp "+currency(json.data[i].harga_jual),
-	  //         'edit' : '<button onclick=edit_produk("'+json.data[i].id_produk+'") class="btn btn-warning" style="color:white;">Edit</button> ',
-	  //         'hapus' : '<button onclick=delete_produk("'+json.data[i].id_produk+'") class="btn btn-danger" style="color:white;">Delete</button>'
-	  //       })
-	  //     }
-	  //     return return_data;
-	  //   }
-	  // },
-	  //  dom: 'Bfrtlip',
-	  //       buttons: [
-	  //           {
-	  //               extend: 'copyHtml5',
-	  //               text: 'Copy',
-	  //               filename: 'Produk Data',
-	  //               exportOptions: {
-	  //                 columns:[0,1,2,3]
-	  //               }
-	  //           },{
-	  //               extend: 'excelHtml5',
-	  //               text: 'Excel',
-	  //               className: 'exportExcel',
-	  //               filename: 'Produk Data',
-	  //               exportOptions: {
-	  //                 columns:[0,1,2,3]
-	  //               }
-	  //           },{
-	  //               extend: 'csvHtml5',
-	  //               filename: 'Produk Data',
-	  //               exportOptions: {
-	  //                 columns:[0,1,2,3]
-	  //               }
-	  //           },{
-	  //               extend: 'pdfHtml5',
-	  //               filename: 'Produk Data',
-	  //               exportOptions: {
-	  //                 columns:[0,1,2,3]
-	  //               }
-	  //           },{
-	  //               extend: 'print',
-	  //               filename: 'Produk Data',
-	  //               exportOptions: {
-	  //                 columns:[0,1,2,3]
-	  //               }
-	  //           }
-	  //       ],
-	  //       "lengthChange": true,
-	  // columns: [
-	  //   {'data': 'id_produk'},
-	  //   {'data': 'nama_produk'},
-	  //   {'data': 'kategori'},
-	  //   {'data': 'harga_jual'},
-	  //   {'data': 'edit','orderable':false,'searchable':false},
-	  //   {'data': 'hapus','orderable':false,'searchable':false}
-	  // ],
+			      for(var i=0;i< json.length; i++){
 
-	  //     rowCallback: function(row, data, iDisplayIndex) {
-	  //       var info = this.fnPagingInfo();
-	  //       var page = info.iPage;
-	  //       var length = info.iLength;
-	  //       var index = page * length + (iDisplayIndex + 1);
-	  //       // $('td:eq(0)', row).html(index);
-	  //     }
-	    });
+			        return_data.push({
+			          'id_nota': json[i].id_nota,
+			          'tanggal_nota'  : json[i].tanggal_nota,
+			          'total_harga_jual' : "Rp "+currency(json[i].total_harga),
+			          'detail' : '<button onclick=detail_nota("'+json[i].id_nota+'") class="btn btn-warning" style="color:white;">Detail</button> '
+			        });
+			      }
+			      return return_data;
+			    }
+			  },
+		   dom: 'Bfrtlip',
+		        buttons: [
+		            {
+		                extend: 'copyHtml5',
+		                text: 'Copy',
+		                filename: 'Produk Data',
+		                exportOptions: {
+		                  columns:[0,1,2]
+		                }
+		            },{
+		                extend: 'excelHtml5',
+		                text: 'Excel',
+		                className: 'exportExcel',
+		                filename: 'Produk Data',
+		                exportOptions: {
+		                  columns:[0,1,2]
+		                }
+		            },{
+		                extend: 'csvHtml5',
+		                filename: 'Produk Data',
+		                exportOptions: {
+		                  columns:[0,1,2]
+		                }
+		            },{
+		                extend: 'pdfHtml5',
+		                filename: 'Produk Data',
+		                exportOptions: {
+		                  columns:[0,1,2]
+		                }
+		            },{
+		                extend: 'print',
+		                filename: 'Produk Data',
+		                exportOptions: {
+		                  columns:[0,1,2]
+		                }
+		            }
+		        ],
+		        "lengthChange": true,
+		  columns: [
+		    {'data': 'id_nota'},
+		    {'data': 'tanggal_nota'},
+		    {'data': 'total_harga_jual'},
+		    {'data': 'detail','orderable':false,'searchable':false}
+		  ],
+	    	});
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+            alert(errorThrown);
+          }
+      }
+    );
+
+    function refreshTable() {
+    	alert('reload');
+    	reload_table();
+    }
+
+    function reload_table(){
+	  tabeldata.ajax.reload();
+	}
+
+	function currency(x) {
+	    var retVal=x.toString().replace(/[^\d]/g,'');
+	    while(/(\d+)(\d{3})/.test(retVal)) {
+	      retVal=retVal.replace(/(\d+)(\d{3})/,'$1'+'.'+'$2');
+	    }
+	    return retVal;
+	  }
 </script>

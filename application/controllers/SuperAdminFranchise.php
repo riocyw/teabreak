@@ -268,6 +268,11 @@ class SuperAdminFranchise extends CI_Controller {
 		$tanggal_mulai = $this->input->post('tanggal_mulai');
 		$tanggal_akhir = $this->input->post('tanggal_akhir');
 
+		$parttanggalmulai = explode('/', $tanggal_mulai);
+		$parttanggalakhir = explode('/', $tanggal_akhir);
+		$tanggal_mulai = $parttanggalmulai[2].'/'.$parttanggalmulai[1].'/'.$parttanggalmulai[0];
+		$tanggal_akhir = $parttanggalakhir[2].'/'.$parttanggalakhir[1].'/'.$parttanggalakhir[0];
+
 		$tanggal_mulai = strtotime($tanggal_mulai);
 		$tanggal_mulai = date('Y-m-d',$tanggal_mulai);
 
@@ -449,6 +454,18 @@ class SuperAdminFranchise extends CI_Controller {
 		echo $this->datatables->generate();
 	}
 
+	public function get_list_stan()
+	{
+		$data = $this->Produk->getAllData('stan');
+		echo json_encode($data);
+	}
+
+	public function get_list_produk()
+	{
+		$data = $this->Produk->getAllData('produk');
+		echo json_encode($data);
+	}
+
 	public function masterdatakaryawan(){
 		$this->load->view('superadminfranchise/masterdatakaryawan');
 		$this->load->view('superadminfranchise/datatable_karyawan');
@@ -457,5 +474,38 @@ class SuperAdminFranchise extends CI_Controller {
 	public function lappenjstan(){
 		$this->load->view('superadminfranchise/lappenjstan');
 		$this->load->view('superadminfranchise/datatable_lappenjstan');
+	}
+
+	public function notaData(){
+		$tanggal_awal = $this->input->post('tanggal_awal');
+		$tanggal_akhir = $this->input->post('tanggal_akhir');
+		$id_nota = 'asdasd';
+
+		if ($tanggal_awal =='') {
+			$tanggal_awal = '01/01/1970';
+		}
+
+		if ($tanggal_akhir =='') {
+			$tanggal_akhir = '01/01/1970';
+		}
+
+		$parttanggalawal = explode('/', $tanggal_awal);
+		$parttanggalakhir = explode('/', $tanggal_akhir);
+
+		$tanggal_awal = $parttanggalawal[2].'/'.$parttanggalawal[1].'/'.$parttanggalawal[0];
+		$tanggal_akhir = $parttanggalakhir[2].'/'.$parttanggalakhir[1].'/'.$parttanggalakhir[0];
+		$tanggal_akhir = strtotime($tanggal_akhir);
+		$tanggal_akhir = date('Y-m-d',$tanggal_akhir);
+
+		$tanggal_awal = strtotime($tanggal_awal);
+		$tanggal_awal = date('Y-m-d',$tanggal_awal);
+
+		// var_dump($tanggal_akhir);
+
+		$array = array('id_nota' => $id_nota, 'tanggal_nota >=' => $tanggal_awal, 'tanggal_nota <=' => $tanggal_akhir);
+
+		$data = $this->Produk->getData($array,'nota');
+		// var_dump($data);
+		echo json_encode($data);
 	}
 }

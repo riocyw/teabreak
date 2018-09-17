@@ -195,11 +195,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="id" class=" form-control-label">Stan</label>
-                                        <select name="select" id="select" class="form-control">
-                                            <option value="0">Please select</option>
-                                            <option value="1">Option #1</option>
-                                            <option value="2">Option #2</option>
-                                            <option value="3">Option #3</option>
+                                        <select name="select" id="select_stan" class="form-control" onchange="refreshTable()">
+
                                         </select>
                                     </div>
                                 </div>
@@ -268,7 +265,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- bootstrap-datetimepicker -->    
     <script src=<?php echo base_url("assets/vendors/Date-Time-Picker-Bootstrap-4/build/js/bootstrap-datetimepicker.min.js")?>></script>
     <script type="text/javascript">
-        alert($("#tanggal_awal").val());
+        // alert($("#tanggal_awal").val());
         //TAMBAH DATA
         $('#tanggal_awal').datetimepicker({
             format: 'DD/MM/YYYY',
@@ -281,10 +278,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         });
 
         $("#tanggal_awal").on("dp.change", function(e) {
+            refreshTable()
             $('#tanggal_akhir').data("DateTimePicker").minDate(e.date);
         });
 
         $("#tanggal_akhir").on("dp.change", function(e) {
+            refreshTable()
             $('#tanggal_awal').data("DateTimePicker").maxDate(e.date);
         });
 

@@ -20,6 +20,9 @@
   var tabeldata ;
   var listprodukadd;
   var liststanadd;
+  var listprodukaddedit;
+  var liststanaddedit;
+
   jQuery( document ).ready(function( $ ) {
     $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
     {
@@ -274,190 +277,202 @@ function status_diskon(id,status) {
           }
       }
     );
-
-    if ( ! $.fn.DataTable.isDataTable( '#tableliststan_edit' ) ) {
-      liststanadd = $("#tableliststan_edit").dataTable({
-          initComplete: function() {
-            var api = this.api();
-            $('#mytable_filter input')
-            .on('.DT')
-            .on('keyup.DT', function(e) {
-              if (e.keyCode == 13) {
-                api.search(this.value).draw();
-              }
-            });
-          },
-          oLanguage: {
-            sProcessing: "loading..."
-          },
-          responsive: false,
-          serverSide: true,
-          "searching": false,
-          paging:false,
-          ordering:false,
-          scrollX:true,
-          "scrollY":"300px",
-          "scrollCollapse": true,
-          ajax: {
-        "type"   : "POST",
-        "url"    : "<?php echo base_url('superadminfranchise/show_list_stan');?>",
-        "dataSrc": function (json) {
-          var return_data = new Array();
-          for(var i=0;i< json.data.length; i++){
-            return_data.push({
-              'id_stan': json.data[i].id_stan,
-              'nama_stan' : json.data[i].nama_stan,
-              'alamat' : json.data[i].alamat,
-              'pilih' : '<input type="checkbox" name="stanpilihan_edit[]" value="'+json.data[i].id_stan+'" class="">',
-            })
-          }
-          return return_data;
-        }
-      },
-      columns    : [
-        {'data': 'id_stan'},
-        {'data': 'nama_stan'},
-        {'data': 'alamat'},
-        {'data': 'pilih','orderable':false,'searchable':false},
-      ],
-      'columnDefs': [
-        {
-            "targets": 3, // your case first column
-            "className": "text-center",
-            // "width": "4%"
-       }],
-
-          rowCallback: function(row, data, iDisplayIndex) {
-            var info = this.fnPagingInfo();
-            var page = info.iPage;
-            var length = info.iLength;
-            var index = page * length + (iDisplayIndex + 1);
-            // $('td:eq(0)', row).html(index);
-          }
-        });  
-    }
-
-    if ( ! $.fn.DataTable.isDataTable( '#tablelistproduk_edit' ) ) {
-      listprodukadd = $("#tablelistproduk_edit").dataTable({
-          initComplete: function() {
-            var api = this.api();
-            $('#mytable_filter input')
-            .on('.DT')
-            .on('keyup.DT', function(e) {
-              if (e.keyCode == 13) {
-                api.search(this.value).draw();
-              }
-            });
-          },
-          oLanguage: {
-            sProcessing: "loading..."
-          },
-          responsive: false,
-          serverSide: true,
-          "searching": false,
-          paging:false,
-          ordering:false,
-          "scrollX": true,
-          "scrollY":"300px",
-          "scrollCollapse": true,
-          ajax: {
-        "type"   : "POST",
-        "url"    : "<?php echo base_url('superadminfranchise/show_list_produk');?>",
-        "dataSrc": function (json) {
-          var return_data = new Array();
-          for(var i=0;i< json.data.length; i++){
-            return_data.push({
-              'id_produk': json.data[i].id_produk,
-              'nama_produk' : json.data[i].nama_produk,
-              'harga_jual' : json.data[i].harga_jual,
-              'pilih' : '<input type="checkbox" name="produkpilihan_edit[]" value="'+json.data[i].id_produk+'" class="">'
-            })
-          }
-          return return_data;
-        }
-      },
-      columns    : [
-        {'data': 'id_produk'},
-        {'data': 'nama_produk'},
-        {'data': 'harga_jual'},
-        {'data': 'pilih','orderable':false,'searchable':false},
-      ],
-      'columnDefs': [
-        {
-            "targets": 3, // your case first column
-            "className": "text-center",
-            // "width": "4%"
-       }],
-
-          rowCallback: function(row, data, iDisplayIndex) {
-            var info = this.fnPagingInfo();
-            var page = info.iPage;
-            var length = info.iLength;
-            var index = page * length + (iDisplayIndex + 1);
-            // $('td:eq(0)', row).html(index);
-          }
-        });
-    }
-
-    $.ajax({
-          type:"post",
-          url: "<?php echo base_url('superadminfranchise/select_edit_datatable_stan_promo')?>/",
-          data:{ id:id},
-          dataType:"json",
-          success:function(response)
-          {
-            var stan = document.getElementsByName('stanpilihan_edit[]');
-            for (var i=0, n=stan.length;i<n;i++) 
-            {
-                stan[i].checked = false;
-                for (var j = response.length - 1; j >= 0; j--) {
-                  
-                  if (stan[i].value == response[j].id_stan) 
-                  {
-                      stan[i].checked = true;
-                  }
-                }
-            }
-          },
-          error: function (jqXHR, textStatus, errorThrown)
-          {
-            if (openall == true) {
-              openall = false;
-            }
-            alert(errorThrown);
-          }
-      }
-    );
+        var checkedstan;
+        var allstan;
+        var checkedproduk;
+        var allproduk;
 
         $.ajax({
           type:"post",
-          url: "<?php echo base_url('superadminfranchise/select_edit_datatable_produk_promo')?>/",
+          url: "<?php echo base_url('superadminfranchise/get_list_stan')?>/",
           data:{ id:id},
           dataType:"json",
-          success:function(response)
+          success:function(responsealldata)
           {
-            var produk = document.getElementsByName('produkpilihan_edit[]');
-            for (var i=0, n=produk.length;i<n;i++) 
-            {
-                produk[i].checked = false;
-                for (var j = response.length - 1; j >= 0; j--) {
-                  
-                  if (produk[i].value == response[j].id_produk) 
-                  {
-                      produk[i].checked = true;
-                  }
+              allstan = responsealldata;
+              $.ajax({
+                    type:"post",
+                    url: "<?php echo base_url('superadminfranchise/select_edit_datatable_stan_promo')?>/",
+                    data:{ id:id},
+                    dataType:"json",
+                    success:function(response)
+                    {
+                      checkedstan = response;
+                      // var stan = document.getElementsByName('stanpilihan_edit[]');
+                      // for (var i=0, n=stan.length;i<n;i++) 
+                      // {
+                      //     stan[i].checked = false;
+                      //     for (var j = response.length - 1; j >= 0; j--) {
+                            
+                      //       if (stan[i].value == response[j].id_stan) 
+                      //       {
+                      //           stan[i].checked = true;
+                      //       }
+                      //     }
+                      // }
+                          if ( $.fn.DataTable.isDataTable( '#tableliststan_edit' ) ) {
+                              $('#tableliststan_edit').DataTable().destroy();
+                          }else{
+
+                          }
+                          $('#tableliststan_edit').DataTable().destroy();
+                          liststanaddedit = $("#tableliststan_edit").dataTable({
+
+                            "aaData" : allstan,
+                            "aoColumns": [
+                                { "mDataProp": "id_stan" },
+                                { "mDataProp": "nama_stan" },
+                                { "mDataProp": "alamat" },
+                                { "mDataProp": "id_stan" }
+                            ],
+                            oLanguage: {
+                              sProcessing: "loading..."
+                            },
+                            responsive: true,
+                            // "scrollX": true,
+                            // "scrollY":"300px",
+                            // "scrollCollapse": true,
+                            'columnDefs': [{
+                               'targets': 3,
+                               'searchable': false,
+                               'orderable': false,
+                               'className': 'dt-body-center',
+                               'render': function (data, type, full, meta){
+                                  var statuss = false;
+                                  for (var j = checkedstan.length - 1; j >= 0; j--) {
+                        
+                                    if (full.id_stan == checkedstan[j].id_stan) 
+                                    {
+                                        statuss = true;
+                                    }
+                                  }
+
+                                  if (statuss) {
+                                    return '<input type="checkbox" name="stanpilihan_edit[]" value="' + $('<div/>').text(data).html() + '" checked>';
+                                  }else{
+                                    return '<input type="checkbox" name="stanpilihan_edit[]" value="' + $('<div/>').text(data).html() + '">';
+                          
+                                  }
+                                }
+                            }],
+                            'order': [[1, 'asc']]
+                          });  
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                      if (openall == true) {
+                        openall = false;
+                      }
+                      alert(errorThrown);
+                    }
                 }
-            }
+              );
+
           },
           error: function (jqXHR, textStatus, errorThrown)
           {
-            if (openall == true) {
-              openall = false;
-            }
             alert(errorThrown);
           }
-      }
-    );
+        });
+
+
+
+
+        $.ajax({
+          type:"post",
+          url: "<?php echo base_url('superadminfranchise/get_list_produk')?>/",
+          data:{ id:id},
+          dataType:"json",
+          success:function(responsealldata1)
+          {
+              allproduk = responsealldata1;
+
+              $.ajax({
+                    type:"post",
+                    url: "<?php echo base_url('superadminfranchise/select_edit_datatable_produk_promo')?>/",
+                    data:{ id:id},
+                    dataType:"json",
+                    success:function(response1)
+                    {
+                      checkedproduk = response1;
+                      // var produk = document.getElementsByName('produkpilihan_edit[]');
+                      // for (var i=0, n=produk.length;i<n;i++) 
+                      // {
+                      //     produk[i].checked = false;
+                      //     for (var j = response.length - 1; j >= 0; j--) {
+                            
+                      //       if (produk[i].value == response[j].id_produk) 
+                      //       {
+                      //           produk[i].checked = true;
+                      //       }
+                      //     }
+                      // }
+
+                      if ( ! $.fn.DataTable.isDataTable( '#tablelistproduk_edit' ) ) {
+                        
+                      }else{
+                        $("#tablelistproduk_edit").DataTable().destroy();
+                      }
+                      $('#tablelistproduk_edit').DataTable().destroy();
+                      listprodukaddedit = $("#tablelistproduk_edit").dataTable({
+                            "aaData" : allproduk,
+                                "aoColumns": [
+                                    { "mDataProp": "id_produk" },
+                                    { "mDataProp": "nama_produk" },
+                                    { "mDataProp": "harga_jual" },
+                                    { "mDataProp": "id_produk" }
+                                ],
+                                oLanguage: {
+                                  sProcessing: "loading..."
+                                },
+                                responsive: true,
+                                // "scrollX": true,
+                                // "scrollY":"300px",
+                                // "scrollCollapse": true,
+                                'columnDefs': [{
+                                   'targets': 3,
+                                   'searchable': false,
+                                   'orderable': false,
+                                   'className': 'dt-body-center',
+                                   'render': function (data, type, full, meta){
+                                      var statusss = false;
+                                      for (var j = checkedproduk.length - 1; j >= 0; j--) {
+                            
+                                        if (full.id_produk == checkedproduk[j].id_produk) 
+                                        {
+                                            statusss = true;
+                                        }
+                                      }
+
+                                      if (statusss) {
+                                        // return full.id_produk+'v';
+                                        return '<input type="checkbox" name="produkpilihan_edit[]" value="' + $('<div/>').text(data).html() + '" checked>';
+                                      }else{
+                                        // return full.id_produk+'x';
+                                        return '<input type="checkbox" name="produkpilihan_edit[]" value="' + $('<div/>').text(data).html() + '">';
+                              
+                                      }
+                                    }
+                                }],
+                                'order': [[1, 'asc']]
+                          });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                      if (openall == true) {
+                        openall = false;
+                      }
+                      alert(errorThrown);
+                    }
+                }
+              );
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+            alert(errorThrown);
+          }
+        });
 
     if (openall == true) {
       $("#modaledit").modal('toggle');
@@ -1231,3 +1246,149 @@ function status_diskon(id,status) {
   }
 
 </script>
+
+
+
+
+
+
+<!-- 
+    if ( ! $.fn.DataTable.isDataTable( '#tableliststan_edit' ) ) {
+      liststanadd = $("#tableliststan_edit").dataTable({
+          initComplete: function() {
+            var api = this.api();
+            $('#mytable_filter input')
+            .on('.DT')
+            .on('keyup.DT', function(e) {
+              if (e.keyCode == 13) {
+                api.search(this.value).draw();
+              }
+            });
+          },
+          oLanguage: {
+            sProcessing: "loading..."
+          },
+          responsive: true,
+          serverSide: true,
+          // "searching": false,
+          // paging:false,
+          // ordering:false,
+          // scrollX:true,
+          // "scrollY":"300px",
+          // "scrollCollapse": true,
+          ajax: {
+        "type"   : "POST",
+        "url"    : "<?php echo base_url('superadminfranchise/show_list_stan');?>",
+        "dataSrc": function (json) {
+          var return_data = new Array();
+          for(var i=0;i< json.data.length; i++){
+            return_data.push({
+              'id_stan': json.data[i].id_stan,
+              'nama_stan' : json.data[i].nama_stan,
+              'alamat' : json.data[i].alamat,
+              'pilih' : json.data[i].id_stan,
+            })
+          }
+          return return_data;
+        }
+      },
+      columns    : [
+        {'data': 'id_stan'},
+        {'data': 'nama_stan'},
+        {'data': 'alamat'},
+        {'data': 'pilih','orderable':false,'searchable':false},
+      ],
+      'columnDefs': [
+        {
+            "targets": 3, // your case first column
+            "className": "text-center",
+            'render': function (data, type, full, meta){
+                  var status = false;
+                  for (var j = response.length - 1; j >= 0; j--) {
+                    
+                    if (full[3] == response[j].id_stan) 
+                    {
+                       status = true;
+                    }
+                  }
+
+                  if (status == true) {
+                    return '<input type="checkbox" name="stanpilihan_edit[]" value="' + full[3] + '" checked="true">';
+                  }else{
+                    return '<input type="checkbox" name="stanpilihan_edit[]" value="' + full[3] + '">';
+                  }
+                 
+             }
+       }],
+
+          rowCallback: function(row, data, iDisplayIndex) {
+            var info = this.fnPagingInfo();
+            var page = info.iPage;
+            var length = info.iLength;
+            var index = page * length + (iDisplayIndex + 1);
+            // $('td:eq(0)', row).html(index);
+          }
+        });  
+    }
+
+
+    if ( ! $.fn.DataTable.isDataTable( '#tablelistproduk_edit' ) ) {
+      listprodukadd = $("#tablelistproduk_edit").dataTable({
+          initComplete: function() {
+            var api = this.api();
+            $('#mytable_filter input')
+            .on('.DT')
+            .on('keyup.DT', function(e) {
+              if (e.keyCode == 13) {
+                api.search(this.value).draw();
+              }
+            });
+          },
+          oLanguage: {
+            sProcessing: "loading..."
+          },
+          responsive: false,
+          serverSide: true,
+          "searching": false,
+          paging:false,
+          ordering:false,
+          "scrollX": true,
+          "scrollY":"300px",
+          "scrollCollapse": true,
+          ajax: {
+        "type"   : "POST",
+        "url"    : "<?php echo base_url('superadminfranchise/show_list_produk');?>",
+        "dataSrc": function (json) {
+          var return_data = new Array();
+          for(var i=0;i< json.data.length; i++){
+            return_data.push({
+              'id_produk': json.data[i].id_produk,
+              'nama_produk' : json.data[i].nama_produk,
+              'harga_jual' : json.data[i].harga_jual,
+              'pilih' : '<input type="checkbox" name="produkpilihan_edit[]" value="'+json.data[i].id_produk+'" class="">'
+            })
+          }
+          return return_data;
+        }
+      },
+      columns    : [
+        {'data': 'id_produk'},
+        {'data': 'nama_produk'},
+        {'data': 'harga_jual'},
+        {'data': 'pilih','orderable':false,'searchable':false},
+      ],
+      'columnDefs': [
+        {
+            "targets": 3, // your case first column
+            "className": "text-center",
+            // "width": "4%"
+       }],
+
+          rowCallback: function(row, data, iDisplayIndex) {
+            var info = this.fnPagingInfo();
+            var page = info.iPage;
+            var length = info.iLength;
+            var index = page * length + (iDisplayIndex + 1);
+            // $('td:eq(0)', row).html(index);
+          }
+        }); -->
