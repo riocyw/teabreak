@@ -77,89 +77,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 
 <div class="section">
-    <div class="col-lg-2 col-md-4 col-sm-12 section1">
+    <div id="kategorisection" class="col-lg-2 col-md-4 col-sm-12 section1">
         <div style="padding: 0px;" class="col-lg-8 offset-lg-4 col-md-6 offset-md-3 judul">
             KATEGORI
         </div>
-        <div class="kategori col-lg-8 offset-lg-4 col-sm-12 col-md-10 offset-md-1">
-            <a href="#">Thai Tea</a>
+        <div class="kategori col-lg-8 offset-lg-4 col-sm-12 col-md-10 offset-md-1" onclick="pilih_kategori('Thai Tea')">
+            Thai Tea
         </div>
-        <div class="kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1">
-            <a href="#">Milk Tea</a>
+        <div class="kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1" onclick="pilih_kategori('Milk Tea')">
+            Milk Tea
         </div>
-        <div class="kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1">
-            <a href="#">Appetizer</a>
-        </div>
-        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
-        </div>
-        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
-        </div>
-        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
-        </div>
-        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
-        </div>
-        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
-        </div>
-        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
-        </div>
-        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
-        </div>
-        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
-        </div>
-        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
-        </div>
-        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        <div class="kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1" onclick="pilih_kategori('Appetizer')">
+            Appetizer
         </div>
         <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
         </div>
     </div>
 
-    <div class="col-lg-3 col-md-6 col-sm-12 section2">
+    <div id="menusection" class="col-lg-3 col-md-6 col-sm-12 section2">
         <div class="col-md-11 offset-md-1 judul">
             MENU
         </div>
-        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1">
+        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1" onclick="pilih_topping('Teh Matcha')">Teh Matcha
+        </div>
+        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1" onclick="pilih_topping('Thai Tea')">
             <a href="#">Thai Tea</a>
         </div>
-        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1">
+        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1" onclick="pilih_topping('Thai Tea')">
             <a href="#">Thai Tea</a>
         </div>
-        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1">
+        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1" onclick="pilih_topping('Thai Tea')">
             <a href="#">Thai Tea</a>
         </div>
-        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1">
+        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1" onclick="pilih_topping('Thai Tea')">
             <a href="#">Thai Tea</a>
-        </div>
-        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1">
-            <a href="#">Thai Tea</a>
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
         </div>
         <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
         </div>
@@ -189,37 +140,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr id="#p1">
                             <td><p id="#nama_produk1">Teh Matcha</p></td>
                             <td><p id="topping1">-</p></td>
-                            <td> <div class="row"><button class="btn center btn-default btnqty col-md-2 offset-md-2">-</button><p id="qty1" class=" col-md-4 qtyitem">2</p><button class="btn center btn-default col-md-2 btnqty">+</button></div></td>
+                            <td><button class="btn center btn-default btnmin btnqty" onclick="minus('qty1',this)">-</button><p id="qty1" class="qtyitem btnqty">2</p><button class="btn center btn-default btnplus btnqty" onclick="plus('qty1')">+</button></td>
                             <td><p id="satuan1">Rp 50.000</p></td>
-                            <td><div class="row"><p class="col-lg-9" id="total1">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove">X</button></div></td>
+                            <td><div class="row"><p class="col-lg-9" id="totalharga1">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove" onclick="removeBtn(this);">X</button></div></td>
                         </tr>
                         <tr id="#p2">
-                            <td><p id="#nama_produk2">Teh Tarik</p></td>
+                            <td><p id="#nama_produk2">Teh Matcha</p></td>
                             <td><p id="topping2">-</p></td>
-                            <td> <div class="row"><button class="btn center btn-default btnqty col-md-2 offset-md-2">-</button><p id="qty2" class=" col-md-4 qtyitem">2</p><button class="btn center btn-default col-md-2 btnqty">+</button></div></td>
+                            <td><button class="btn center btn-default btnmin btnqty" onclick="minus('qty2',this)">-</button><p id="qty2" class="qtyitem btnqty">1</p><button class="btn center btn-default btnplus btnqty" onclick="plus('qty1')">+</button></td>
                             <td><p id="satuan2">Rp 50.000</p></td>
-                            <td><div class="row"><p class="col-lg-9" id="total2">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove">X</button></div></td>
-                        </tr>
-                        <tr id="#p2">
-                            <td><p id="#nama_produk2">Teh Tarik</p></td>
-                            <td><p id="topping2">-</p></td>
-                            <td> <div class="row"><button class="btn center btn-default btnqty col-md-2 offset-md-2">-</button><p id="qty2" class=" col-md-4 qtyitem">2</p><button class="btn center btn-default col-md-2 btnqty">+</button></div></td>
-                            <td><p id="satuan2">Rp 50.000</p></td>
-                            <td><div class="row"><p class="col-lg-9" id="total2">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove">X</button></div></td>
-                        </tr>
-                        <tr id="#p2">
-                            <td><p id="#nama_produk2">Teh Tarik</p></td>
-                            <td><p id="topping2">-</p></td>
-                            <td> <div class="row"><button class="btn center btn-default btnqty col-md-2 offset-md-2">-</button><p id="qty2" class=" col-md-4 qtyitem">2</p><button class="btn center btn-default col-md-2 btnqty">+</button></div></td>
-                            <td><p id="satuan2">Rp 50.000</p></td>
-                            <td><div class="row"><p class="col-lg-9" id="total2">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove">X</button></div></td>
-                        </tr>
-                        <tr id="#p2">
-                            <td><p id="#nama_produk2">Teh Tarik</p></td>
-                            <td><p id="topping2">-</p></td>
-                            <td> <div class="row"><button class="btn center btn-default btnqty col-md-2 offset-md-2">-</button><p id="qty2" class=" col-md-4 qtyitem">2</p><button class="btn center btn-default col-md-2 btnqty">+</button></div></td>
-                            <td><p id="satuan2">Rp 50.000</p></td>
-                            <td><div class="row"><p class="col-lg-9" id="total2">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove">X</button></div></td>
+                            <td><div class="row"><p class="col-lg-9" id="totalharga2">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove" onclick="removeBtn(this);">X</button></div></td>
                         </tr>
                     </tbody>
                 </table>
@@ -349,6 +279,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 </div>
 
+<div class="modal fade" id="modal_topping" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="header modal-header">
+                <h4 class="modal-title">Edit</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="kategori itemtopping">
+                            Buble
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="kategori itemtopping">
+                            Cheese
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="kategori itemtopping">
+                            Rumput Laut
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="kategori itemtopping">
+                            Tidak Pakai
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
+                <button type="button" onclick="tambah_item()" class="btn add_field_button btn-info">Tambah Item</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src=<?php echo base_url("assets/js/jquery.min.js")?>></script>
 <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.js")?>></script>
 <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.min.js")?>></script>
@@ -366,6 +337,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src=<?php echo base_url("assets/datatable/pdfmake-0.1.36/pdfmake.js")?>></script>
 <script src=<?php echo base_url("assets/datatable/pdfmake-0.1.36/vfs_fonts.js")?>></script>
 <script type="text/javascript">
+var nama_produk;
+var topping = new Array();
+var order = new Array();
+
 function myFunction() {
 var x = document.getElementById("myTopnav");
     if (x.className === "topnav") {
@@ -377,8 +352,93 @@ var x = document.getElementById("myTopnav");
 
 function pembayaran(){
     $("#modal_bayar").modal('show');
-
 }
+
+function removeBtn(rowid){
+    var i = rowid.parentNode.parentNode.parentNode.rowIndex;
+    document.getElementById("billtable").deleteRow(i);
+}
+
+$('.itemtopping').click(function(){
+    $(this).toggleClass("activetopping");
+});
+
+function tambah_item(){
+    var table = document.getElementById("billtable");
+    $.each($('.activetopping'), function (index, item) {
+        topping.push(item.innerHTML.trim());
+  });
+    if (topping.length<1) {
+        topping.push("-");   
+    }
+    var row = table.insertRow(1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+    cell1.innerHTML = '<p id="#nama_produk'+table.rows.length+'">'+nama_produk+'</p>';
+    cell2.innerHTML = '<p id="topping'+table.rows.length+'">'+topping.toString()+'</p>';
+    cell3.innerHTML = '<button class="btn center btn-default btnmin btnqty">-</button><p id="qty'+table.rows.length+'" class="qtyitem btnqty">1</p><button class="btn center btn-default btnplus btnqty">+</button>';
+    cell4.innerHTML = '<p id="satuan'+table.rows.length+'">Rp 50.000</p>';
+    cell5.innerHTML = '<div class="row"><p class="col-lg-9" id="totalharga'+table.rows.length+'">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove" onclick="removeBtn(this);">X</button></div>';
+    $("#modal_topping").modal('hide');
+    // var item = new Array();
+    // item.nama_produk = nama_produk;
+    // item.topping = topping.toString();
+    // item.qty = 1;
+    // item.satuan = 50000;
+    // item.total = 50000;
+    // order.push(item);
+    // console.log(order);
+    nama_produk="";
+    topping = [];
+    $.each($('.activetopping'), function (index, item) {
+        $(this).toggleClass("activetopping");
+    });
+}
+
+function plus(id){
+    var value = $("#"+id).text();
+    value = parseInt(value)+1;
+    $("#"+id).text(value);
+}
+
+function minus(id,rowid){
+    var value = $("#"+id).text();
+    if (parseInt(value)>1) {
+        value = parseInt(value)-1;
+        $("#"+id).text(value);
+    }else{
+        var i = rowid.parentNode.parentNode.rowIndex;
+        document.getElementById("billtable").deleteRow(i);
+    }
+}
+
+function pilih_topping(produk){
+    nama_produk = produk;
+    $("#modal_topping").modal('show');
+}
+
+function pilih_kategori(id){
+    alert(id);
+    $.ajax({
+          type:"post",
+          url: "<?php echo base_url('')?>/",
+          data:{ id:id},
+          dataType:"json",
+          success:function(response)
+          {
+
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+            alert(errorThrown);
+          }
+      }
+    );
+}
+
 </script>
 </body>
 </html>

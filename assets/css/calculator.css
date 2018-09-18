@@ -9,6 +9,33 @@
     margin: 1vh;
 }
 
+
+@media all and (min-width: 1465px){
+  .btnplus
+  {
+  	max-width: 3vw;
+  	margin-left: 1vh;
+  }
+  .btnmin
+  {
+  	max-width: 3vw;
+  	margin-right: 1vh;
+  }
+}
+
+@media all and (max-width: 1464px){
+  .btnplus
+  {
+  	max-width: 3vw;
+  	margin-left: 0.5vh;
+  }
+  .btnmin
+  {
+  	max-width: 3vw;
+  	margin-right: 0.5vh;
+  }
+}
+
 .jumlahuang
 {
 	font-size: 4vh;
@@ -77,4 +104,9 @@
 	font-size: 3vh;
 	margin-top: 2vh;
 	font-weight: 500!important;
+}
+
+.activetopping
+{
+	border: 2px red solid;
 }

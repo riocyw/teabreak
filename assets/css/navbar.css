@@ -30,7 +30,6 @@ body{
 
 .center{
   text-align: center!important;
-  min-width: 5vh;
 }
 
 #billtable th{
@@ -48,7 +47,7 @@ body{
 }
 
 .btnqty{
-  border-radius: 13px!important;
+  display: inline-block!important;
 }
 
 .divbill{
@@ -101,6 +100,7 @@ body{
 }
 
 .kategori{
+  color: white;
   min-height: 5vh!important;
   text-align: center;
   background: #808080;
@@ -109,14 +109,7 @@ body{
   text-align: center;
   padding: 1vh;
   margin-top: 1vh!important;
-}
-
-.kategori a {
-  color: white;
-}
-
-.kategori a:hover {
-  color: white;
+  cursor: pointer;
 }
 
 .menu{
@@ -128,6 +121,8 @@ body{
   border-radius: 10px;
   text-align: center;
   margin-top: 1.5vh!important;
+  color: black;
+  cursor: pointer;
 }
 
 .none-menu{
@@ -136,10 +131,6 @@ body{
 
 .none-menu:hover{
   background-color: #f2f2f2!important;
-}
-
-.menu a {
-  color: black;
 }
 
 .menu:hover{
