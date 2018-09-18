@@ -20,6 +20,9 @@
   var tabeldata ;
   var listprodukadd;
   var liststanadd;
+  var listprodukaddedit;
+  var liststanaddedit;
+
   jQuery( document ).ready(function( $ ) {
     $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
     {
@@ -223,7 +226,8 @@ function status_diskon(id,status) {
             var allhari = response[0].hari;
             allhari = allhari.split(','); 
                 
-
+            $("#simpaneditpromo").val(response[0].id_diskon);
+            $("#statuseditpromo").val(response[0].status);
             $("#nama_promo_edit").val(response[0].nama_diskon);
             $("#tanggal_mulai_edit").val(tanggaleditmulai);
             $("#tanggal_akhir_edit").val(tanggaleditakhir);
@@ -273,179 +277,202 @@ function status_diskon(id,status) {
           }
       }
     );
+        var checkedstan;
+        var allstan;
+        var checkedproduk;
+        var allproduk;
 
-    if ( ! $.fn.DataTable.isDataTable( '#tableliststan_edit' ) ) {
-      liststanadd = $("#tableliststan_edit").dataTable({
-          initComplete: function() {
-            var api = this.api();
-            $('#mytable_filter input')
-            .on('.DT')
-            .on('keyup.DT', function(e) {
-              if (e.keyCode == 13) {
-                api.search(this.value).draw();
-              }
-            });
-          },
-          oLanguage: {
-            sProcessing: "loading..."
-          },
-          responsive: true,
-          serverSide: true,
-          "searching": false,
-          ajax: {
-        "type"   : "POST",
-        "url"    : "<?php echo base_url('superadminfranchise/show_list_stan');?>",
-        "dataSrc": function (json) {
-          var return_data = new Array();
-          for(var i=0;i< json.data.length; i++){
-            return_data.push({
-              'id_stan': json.data[i].id_stan,
-              'nama_stan' : json.data[i].nama_stan,
-              'alamat' : json.data[i].alamat,
-              'pilih' : '<input type="checkbox" name="stanpilihan_edit[]" value="'+json.data[i].id_stan+'" class="">',
-            })
-          }
-          return return_data;
-        }
-      },
-      columns    : [
-        {'data': 'id_stan'},
-        {'data': 'nama_stan'},
-        {'data': 'alamat'},
-        {'data': 'pilih','orderable':false,'searchable':false},
-      ],
-      'columnDefs': [
-        {
-            "targets": 3, // your case first column
-            "className": "text-center",
-            // "width": "4%"
-       }],
+        $.ajax({
+          type:"post",
+          url: "<?php echo base_url('superadminfranchise/get_list_stan')?>/",
+          data:{ id:id},
+          dataType:"json",
+          success:function(responsealldata)
+          {
+              allstan = responsealldata;
+              $.ajax({
+                    type:"post",
+                    url: "<?php echo base_url('superadminfranchise/select_edit_datatable_stan_promo')?>/",
+                    data:{ id:id},
+                    dataType:"json",
+                    success:function(response)
+                    {
+                      checkedstan = response;
+                      // var stan = document.getElementsByName('stanpilihan_edit[]');
+                      // for (var i=0, n=stan.length;i<n;i++) 
+                      // {
+                      //     stan[i].checked = false;
+                      //     for (var j = response.length - 1; j >= 0; j--) {
+                            
+                      //       if (stan[i].value == response[j].id_stan) 
+                      //       {
+                      //           stan[i].checked = true;
+                      //       }
+                      //     }
+                      // }
+                          if ( $.fn.DataTable.isDataTable( '#tableliststan_edit' ) ) {
+                              $('#tableliststan_edit').DataTable().destroy();
+                          }else{
 
-          rowCallback: function(row, data, iDisplayIndex) {
-            var info = this.fnPagingInfo();
-            var page = info.iPage;
-            var length = info.iLength;
-            var index = page * length + (iDisplayIndex + 1);
-            // $('td:eq(0)', row).html(index);
-          }
-        });  
-    }
+                          }
+                          $('#tableliststan_edit').DataTable().destroy();
+                          liststanaddedit = $("#tableliststan_edit").dataTable({
 
-    if ( ! $.fn.DataTable.isDataTable( '#tablelistproduk_edit' ) ) {
-      listprodukadd = $("#tablelistproduk_edit").dataTable({
-          initComplete: function() {
-            var api = this.api();
-            $('#mytable_filter input')
-            .on('.DT')
-            .on('keyup.DT', function(e) {
-              if (e.keyCode == 13) {
-                api.search(this.value).draw();
-              }
-            });
-          },
-          oLanguage: {
-            sProcessing: "loading..."
-          },
-          responsive: true,
-          serverSide: true,
-          ajax: {
-        "type"   : "POST",
-        "url"    : "<?php echo base_url('superadminfranchise/show_list_produk');?>",
-        "dataSrc": function (json) {
-          var return_data = new Array();
-          for(var i=0;i< json.data.length; i++){
-            return_data.push({
-              'id_produk': json.data[i].id_produk,
-              'nama_produk' : json.data[i].nama_produk,
-              'harga_jual' : json.data[i].harga_jual,
-              'pilih' : '<input type="checkbox" name="produkpilihan_edit[]" value="'+json.data[i].id_produk+'" class="">'
-            })
-          }
-          return return_data;
-        }
-      },
-      columns    : [
-        {'data': 'id_produk'},
-        {'data': 'nama_produk'},
-        {'data': 'harga_jual'},
-        {'data': 'pilih','orderable':false,'searchable':false},
-      ],
-      'columnDefs': [
-        {
-            "targets": 3, // your case first column
-            "className": "text-center",
-            // "width": "4%"
-       }],
+                            "aaData" : allstan,
+                            "aoColumns": [
+                                { "mDataProp": "id_stan" },
+                                { "mDataProp": "nama_stan" },
+                                { "mDataProp": "alamat" },
+                                { "mDataProp": "id_stan" }
+                            ],
+                            oLanguage: {
+                              sProcessing: "loading..."
+                            },
+                            responsive: true,
+                            // "scrollX": true,
+                            // "scrollY":"300px",
+                            // "scrollCollapse": true,
+                            'columnDefs': [{
+                               'targets': 3,
+                               'searchable': false,
+                               'orderable': false,
+                               'className': 'dt-body-center',
+                               'render': function (data, type, full, meta){
+                                  var statuss = false;
+                                  for (var j = checkedstan.length - 1; j >= 0; j--) {
+                        
+                                    if (full.id_stan == checkedstan[j].id_stan) 
+                                    {
+                                        statuss = true;
+                                    }
+                                  }
 
-          rowCallback: function(row, data, iDisplayIndex) {
-            var info = this.fnPagingInfo();
-            var page = info.iPage;
-            var length = info.iLength;
-            var index = page * length + (iDisplayIndex + 1);
-            // $('td:eq(0)', row).html(index);
+                                  if (statuss) {
+                                    return '<input type="checkbox" name="stanpilihan_edit[]" value="' + $('<div/>').text(data).html() + '" checked>';
+                                  }else{
+                                    return '<input type="checkbox" name="stanpilihan_edit[]" value="' + $('<div/>').text(data).html() + '">';
+                          
+                                  }
+                                }
+                            }],
+                            'order': [[1, 'asc']]
+                          });  
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                      if (openall == true) {
+                        openall = false;
+                      }
+                      alert(errorThrown);
+                    }
+                }
+              );
+
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+            alert(errorThrown);
           }
         });
-    }
 
-    $.ajax({
+
+
+
+        $.ajax({
           type:"post",
-          url: "<?php echo base_url('superadminfranchise/select_edit_datatable_produk_promo')?>/",
+          url: "<?php echo base_url('superadminfranchise/get_list_produk')?>/",
           data:{ id:id},
           dataType:"json",
-          success:function(response)
+          success:function(responsealldata1)
           {
-            var produk = document.getElementsByName('produkpilihan_edit[]');
-            for (var i=0, n=produk.length;i<n;i++) 
-            {
-                produk[i].checked = false;
-                for (var j = response.length - 1; j >= 0; j--) {
-                  
-                  if (produk[i].value == response[j].id_produk) 
-                  {
-                      produk[i].checked = true;
-                  }
+              allproduk = responsealldata1;
+
+              $.ajax({
+                    type:"post",
+                    url: "<?php echo base_url('superadminfranchise/select_edit_datatable_produk_promo')?>/",
+                    data:{ id:id},
+                    dataType:"json",
+                    success:function(response1)
+                    {
+                      checkedproduk = response1;
+                      // var produk = document.getElementsByName('produkpilihan_edit[]');
+                      // for (var i=0, n=produk.length;i<n;i++) 
+                      // {
+                      //     produk[i].checked = false;
+                      //     for (var j = response.length - 1; j >= 0; j--) {
+                            
+                      //       if (produk[i].value == response[j].id_produk) 
+                      //       {
+                      //           produk[i].checked = true;
+                      //       }
+                      //     }
+                      // }
+
+                      if ( ! $.fn.DataTable.isDataTable( '#tablelistproduk_edit' ) ) {
+                        
+                      }else{
+                        $("#tablelistproduk_edit").DataTable().destroy();
+                      }
+                      $('#tablelistproduk_edit').DataTable().destroy();
+                      listprodukaddedit = $("#tablelistproduk_edit").dataTable({
+                            "aaData" : allproduk,
+                                "aoColumns": [
+                                    { "mDataProp": "id_produk" },
+                                    { "mDataProp": "nama_produk" },
+                                    { "mDataProp": "harga_jual" },
+                                    { "mDataProp": "id_produk" }
+                                ],
+                                oLanguage: {
+                                  sProcessing: "loading..."
+                                },
+                                responsive: true,
+                                // "scrollX": true,
+                                // "scrollY":"300px",
+                                // "scrollCollapse": true,
+                                'columnDefs': [{
+                                   'targets': 3,
+                                   'searchable': false,
+                                   'orderable': false,
+                                   'className': 'dt-body-center',
+                                   'render': function (data, type, full, meta){
+                                      var statusss = false;
+                                      for (var j = checkedproduk.length - 1; j >= 0; j--) {
+                            
+                                        if (full.id_produk == checkedproduk[j].id_produk) 
+                                        {
+                                            statusss = true;
+                                        }
+                                      }
+
+                                      if (statusss) {
+                                        // return full.id_produk+'v';
+                                        return '<input type="checkbox" name="produkpilihan_edit[]" value="' + $('<div/>').text(data).html() + '" checked>';
+                                      }else{
+                                        // return full.id_produk+'x';
+                                        return '<input type="checkbox" name="produkpilihan_edit[]" value="' + $('<div/>').text(data).html() + '">';
+                              
+                                      }
+                                    }
+                                }],
+                                'order': [[1, 'asc']]
+                          });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                      if (openall == true) {
+                        openall = false;
+                      }
+                      alert(errorThrown);
+                    }
                 }
-            }
+              );
           },
           error: function (jqXHR, textStatus, errorThrown)
           {
-            if (openall == true) {
-              openall = false;
-            }
             alert(errorThrown);
           }
-      }
-    );
-
-    $.ajax({
-          type:"post",
-          url: "<?php echo base_url('superadminfranchise/select_edit_datatable_stan_promo')?>/",
-          data:{ id:id},
-          dataType:"json",
-          success:function(response)
-          {
-            var stan = document.getElementsByName('stanpilihan_edit[]');
-            for (var i=0, n=stan.length;i<n;i++) 
-            {
-                stan[i].checked = false;
-                for (var j = response.length - 1; j >= 0; j--) {
-                  
-                  if (stan[i].value == response[j].id_stan) 
-                  {
-                      stan[i].checked = true;
-                  }
-                }
-            }
-          },
-          error: function (jqXHR, textStatus, errorThrown)
-          {
-            if (openall == true) {
-              openall = false;
-            }
-            alert(errorThrown);
-          }
-      }
-    );
+        });
 
     if (openall == true) {
       $("#modaledit").modal('toggle');
@@ -453,6 +480,18 @@ function status_diskon(id,status) {
       alert('ERROR');
     }
   }
+
+  $('#modaledit').on('hidden.bs.modal', function () {
+        $('#nama_promo_edit').removeClass('is-invalid');
+        $('#tanggal_mulai_edit').removeClass('is-invalid');
+        $('#tanggal_akhir_edit').removeClass('is-invalid');
+        $('#jam_mulai_edit').removeClass('is-invalid');
+        $('#jam_akhir_edit').removeClass('is-invalid');
+        $('#labelhari_edit').removeClass('red');
+        $('#labelstan_edit').removeClass('red');
+        $('#labelproduk_edit').removeClass('red');
+        $("#nilai_promo_edit").removeClass('is-invalid');
+  })
 
   function simpaneditpromo() {
     var status = false;
@@ -521,146 +560,289 @@ function status_diskon(id,status) {
         }
     }
 
-    alert(nama_promo_edit+" "+tanggal_mulai_edit+" "+tanggal_akhir_edit+" "+jam_mulai_edit+" "+jam_akhir_edit+" "+hariall_edit+" "+jenis_edit+" "+nilai_promo_edit+" "+stanall_edit+" "+produkall_edit+" "+nama_promo_edit);
-    // alert(hariall);
-    // alert(produkall);
+    var id_simpaneditpromo = $("#simpaneditpromo").val();
+    var status_simpaneditpromo = $("#statuseditpromo").val();
 
-    // if (nama_promo.length!=0 && tanggal_mulai=='undefined-undefined-' && tanggal_akhir=='undefined-undefined-' && jam_mulai.length!=0 && jam_akhir.length!=0 && hariall!='' && jenis.length!=0 && stanall!="" && produkall!="") {
-    //     $('#nama_promo').removeClass('is-invalid');
-    //     $('#tanggal_mulai').removeClass('is-invalid');
-    //     $('#tanggal_akhir').removeClass('is-invalid');
-    //     $('#jam_mulai').removeClass('is-invalid');
-    //     $('#jam_akhir').removeClass('is-invalid');
-    //     $('#labelhari').removeClass('red');
-    //     $('#labelstan').removeClass('red');
-    //     $('#labelproduk').removeClass('red');
-    //     if (jenis == 'buy1get1' || jenis == 'buy2get1') {
-    //       $("#nilai_promo").removeClass('is-invalid');
-    //       status = true;
-    //     }else if (nilai_promo == '') {
-    //       $("#nilai_promo").addClass('is-invalid');
-    //     }else{
-    //       $("#nilai_promo").removeClass('is-invalid');
-    //       status = true;
-    //     }
+    alert(nama_promo_edit+" "+tanggal_mulai_edit+" "+tanggal_akhir_edit+" "+jam_mulai_edit.length+" "+jam_akhir_edit+" "+hariall_edit+" "+jenis_edit+" "+nilai_promo_edit+" "+stanall_edit+" "+produkall_edit+" "+id_simpaneditpromo);
 
-    //     if (status == true) {
-    //       $.ajax({
-    //         type:"post",
-    //         url: "<?php echo base_url('superadminfranchise/tambah_promo')?>/",
-    //         data:{ nama_promo:nama_promo,tanggal_mulai:tanggal_mulai,tanggal_akhir:tanggal_akhir,jam_mulai:jam_mulai,jam_akhir:jam_akhir,hariall:hariall,jenis:jenis,nilai_promo:nilai_promo,stanall:stanall,produkall:produkall},
-    //         success:function(response)
-    //         {
-    //           if (response == '1') {
-    //             alert("Data berhasil ditambahkan");
-    //             $('#nama_promo').val('');
-    //             $('#tanggal_mulai').val('');
-    //             $('#tanggal_akhir').val('');
-    //             $('#jam_mulai').val('');
-    //             $('#jam_akhir').val('');
-    //             $("#jenispromo").val('buy1get1');
-    //             $("#nilai_promo").val('');
-    //             $("#labelnilaipromo").text('Nilai Promo');
-    //             $("#labelnilaipromo2").html('<span class="fa fa-exclamation"></span>');
+    if (nama_promo_edit.length!=0 && tanggal_mulai_edit!='undefined-undefined-' && tanggal_akhir_edit!='undefined-undefined-' && jam_mulai_edit.length!=0 && jam_akhir_edit.length!=0 && hariall_edit!='' && jenis_edit.length!=0 && stanall_edit!="" && produkall_edit!="") {
+        $('#nama_promo_edit').removeClass('is-invalid');
+        $('#tanggal_mulai_edit').removeClass('is-invalid');
+        $('#tanggal_akhir_edit').removeClass('is-invalid');
+        $('#jam_mulai_edit').removeClass('is-invalid');
+        $('#jam_akhir_edit').removeClass('is-invalid');
+        $('#labelhari_edit').removeClass('red');
+        $('#labelstan_edit').removeClass('red');
+        $('#labelproduk_edit').removeClass('red');
+        if (jenis_edit == 'buy1get1' || jenis_edit == 'buy2get1') {
+          $("#nilai_promo_edit").removeClass('is-invalid');
+          status = true;
+        }else if (nilai_promo_edit == '') {
+          $("#nilai_promo_edit").addClass('is-invalid');
+          alert("Silahkan periksa kembali inputan anda!");
+        }else{
+          $("#nilai_promo_edit").removeClass('is-invalid');
+          status = true;
+        }
 
-    //             for (var i=0, n=hari.length;i<n;i++) 
-    //             {
-    //                 if (hari[i].checked) 
-    //                 {
-    //                     hari[i].checked = false;
-    //                 }
-    //             }
+        if (status == true) {
+          $.ajax({
+            type:"post",
+            url: "<?php echo base_url('superadminfranchise/edit_promo')?>/",
+            data:{id_simpaneditpromo:id_simpaneditpromo, status_simpaneditpromo:status_simpaneditpromo, nama_promo_edit:nama_promo_edit,tanggal_mulai_edit:tanggal_mulai_edit,tanggal_akhir_edit:tanggal_akhir_edit,jam_mulai_edit:jam_mulai_edit,jam_akhir_edit:jam_akhir_edit,hariall_edit:hariall_edit,jenis_edit:jenis_edit,nilai_promo_edit:nilai_promo_edit,stanall_edit:stanall_edit,produkall_edit:produkall_edit},
+            success:function(response)
+            {
+              if (response == '1') {
+                alert("Data berhasil diubah");
+                $('#nama_promo_edit').val('');
+                $('#tanggal_mulai_edit').val('');
+                $('#tanggal_akhir_edit').val('');
+                $('#jam_mulai_edit').val('');
+                $('#jam_akhir_edit').val('');
+                $("#jenispromo_edit").val('buy1get1');
+                $("#nilai_promo_edit").val('');
+                $("#labelnilaipromo_edit").text('Nilai Promo');
+                $("#labelnilaipromo2_edit").html('<span class="fa fa-exclamation"></span>');
 
-    //             for (var i=0, n=stan.length;i<n;i++) 
-    //             {
-    //                 if (stan[i].checked) 
-    //                 {
-    //                     stan[i].checked = false;
-    //                 }
-    //             }
+                for (var i=0, n=hari_edit.length;i<n;i++) 
+                {
+                    if (hari_edit[i].checked) 
+                    {
+                        hari_edit[i].checked = false;
+                    }
+                }
 
-    //             for (var i=0, n=produk.length;i<n;i++) 
-    //             {
-    //                 if (produk[i].checked) 
-    //                 {
-    //                     produk[i].checked = false;
-    //                 }
-    //             }
+                for (var i=0, n=stan_edit.length;i<n;i++) 
+                {
+                    if (stan_edit[i].checked) 
+                    {
+                        stan_edit[i].checked = false;
+                    }
+                }
 
-    //             $("#modaltambah").modal('toggle');
-    //             reload_table();
-    //           }else{
-    //             alert("Gagal Menambahkan Data! Coba lagi!");
-    //           }
+                for (var i=0, n=produk_edit.length;i<n;i++) 
+                {
+                    if (produk_edit[i].checked) 
+                    {
+                        produk_edit[i].checked = false;
+                    }
+                }
+
+                $("#modaledit").modal('toggle');
+                reload_table();
+              }else{
+                alert("Gagal Melakukan Proses Edit Data! Coba lagi!");
+              }
               
-    //         },
-    //         error: function (jqXHR, textStatus, errorThrown)
-    //         {
-    //           alert(errorThrown);
-    //         }
-    //       }); 
-    //     }
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+              alert(errorThrown);
+            }
+          }); 
+        }
+    }else{
+        if (nama_promo_edit == '') {
+          $('#nama_promo_edit').addClass('is-invalid');
+        }else{
+          $('#nama_promo_edit').removeClass('is-invalid');
+        }
+
+        if (tanggal_mulai_edit == 'undefined-undefined-') {
+          $('#tanggal_mulai_edit').addClass('is-invalid');
+        }else{
+          $('#tanggal_mulai_edit').removeClass('is-invalid');
+        }
+
+        if (tanggal_akhir_edit == 'undefined-undefined-') {
+          $('#tanggal_akhir_edit').addClass('is-invalid');
+        }else{
+          $('#tanggal_akhir_edit').removeClass('is-invalid');
+        }
+        alert(jam_mulai_edit);
+        if (jam_mulai_edit == '') {
+          $('#jam_mulai_edit').addClass('is-invalid');
+        }else{
+          $('#jam_mulai_edit').removeClass('is-invalid');
+        }
+
+        if (jam_akhir_edit == '') {
+          $('#jam_akhir_edit').addClass('is-invalid');
+        }else{
+          $('#jam_akhir_edit').removeClass('is-invalid');
+        }
+
+        if (hariall_edit == '') {
+          $('#labelhari_edit').addClass('red');
+        }else{
+          $('#labelhari_edit').removeClass('red');
+        }
+
+        if (stanall_edit == '') {
+          $('#labelstan_edit').addClass('red');
+        }else{
+          $('#labelstan_edit').removeClass('red');
+        }
+
+        if (produkall_edit == '') {
+          $('#labelproduk_edit').addClass('red');
+        }else{
+          $('#labelproduk_edit').removeClass('red');
+        }
+
+        if (jenis_edit == 'buy1get1' || jenis_edit == 'buy2get1') {
+          $("#nilai_promo_edit").removeClass('is-invalid');
+        }else if (nilai_promo == '') {
+          $("#nilai_promo_edit").addClass('is-invalid');
+        }else{
+          $("#nilai_promo_edit").removeClass('is-invalid');
+        }
+
+        if (jenis_edit == 'buy1get1' || jenis_edit == 'buy2get1') {
+          $("#nilai_promo_edit").removeClass('is-invalid');
+        }else if (nilai_promo_edit == '') {
+          $("#nilai_promo_edit").addClass('is-invalid');
+        }else{
+          $("#nilai_promo_edit").removeClass('is-invalid');
+        }
+        
+        alert("Silahkan periksa kembali inputan anda!");
+    }
+        // $('#nama_promo').removeClass('is-invalid');
+        // $('#tanggal_mulai').removeClass('is-invalid');
+        // $('#tanggal_akhir').removeClass('is-invalid');
+        // $('#jam_mulai').removeClass('is-invalid');
+        // $('#jam_akhir').removeClass('is-invalid');
+        // $('#labelhari').removeClass('red');
+        // $('#labelstan').removeClass('red');
+        // $('#labelproduk').removeClass('red');
+        // if (jenis == 'buy1get1' || jenis == 'buy2get1') {
+        //   $("#nilai_promo").removeClass('is-invalid');
+        //   status = true;
+        // }else if (nilai_promo == '') {
+        //   $("#nilai_promo").addClass('is-invalid');
+        // }else{
+        //   $("#nilai_promo").removeClass('is-invalid');
+        //   status = true;
+        // }
+
+        // if (status == true) {
+        //   $.ajax({
+        //     type:"post",
+        //     url: "<?php echo base_url('superadminfranchise/tambah_promo')?>/",
+        //     data:{ nama_promo:nama_promo,tanggal_mulai:tanggal_mulai,tanggal_akhir:tanggal_akhir,jam_mulai:jam_mulai,jam_akhir:jam_akhir,hariall:hariall,jenis:jenis,nilai_promo:nilai_promo,stanall:stanall,produkall:produkall},
+        //     success:function(response)
+        //     {
+        //       if (response == '1') {
+        //         alert("Data berhasil ditambahkan");
+        //         $('#nama_promo').val('');
+        //         $('#tanggal_mulai').val('');
+        //         $('#tanggal_akhir').val('');
+        //         $('#jam_mulai').val('');
+        //         $('#jam_akhir').val('');
+        //         $("#jenispromo").val('buy1get1');
+        //         $("#nilai_promo").val('');
+        //         $("#labelnilaipromo").text('Nilai Promo');
+        //         $("#labelnilaipromo2").html('<span class="fa fa-exclamation"></span>');
+
+        //         for (var i=0, n=hari.length;i<n;i++) 
+        //         {
+        //             if (hari[i].checked) 
+        //             {
+        //                 hari[i].checked = false;
+        //             }
+        //         }
+
+        //         for (var i=0, n=stan.length;i<n;i++) 
+        //         {
+        //             if (stan[i].checked) 
+        //             {
+        //                 stan[i].checked = false;
+        //             }
+        //         }
+
+        //         for (var i=0, n=produk.length;i<n;i++) 
+        //         {
+        //             if (produk[i].checked) 
+        //             {
+        //                 produk[i].checked = false;
+        //             }
+        //         }
+
+        //         $("#modaltambah").modal('toggle');
+        //         reload_table();
+        //       }else{
+        //         alert("Gagal Menambahkan Data! Coba lagi!");
+        //       }
+              
+        //     },
+        //     error: function (jqXHR, textStatus, errorThrown)
+        //     {
+        //       alert(errorThrown);
+        //     }
+        //   }); 
+        // }
         
     // }else{
-    //   if (nama_promo == '') {
-    //     $('#nama_promo').addClass('is-invalid');
-    //   }else{
-    //     $('#nama_promo').removeClass('is-invalid');
-    //   }
+      // if (nama_promo == '') {
+      //   $('#nama_promo').addClass('is-invalid');
+      // }else{
+      //   $('#nama_promo').removeClass('is-invalid');
+      // }
 
       
 
-    //   if (tanggal_mulai == 'undefined-undefined-') {
-    //     $('#tanggal_mulai').addClass('is-invalid');
-    //   }else{
-    //     $('#tanggal_mulai').removeClass('is-invalid');
-    //   }
+      // if (tanggal_mulai == 'undefined-undefined-') {
+      //   $('#tanggal_mulai').addClass('is-invalid');
+      // }else{
+      //   $('#tanggal_mulai').removeClass('is-invalid');
+      // }
 
-    //   if (tanggal_akhir == 'undefined-undefined-') {
-    //     $('#tanggal_akhir').addClass('is-invalid');
-    //   }else{
-    //     $('#tanggal_akhir').removeClass('is-invalid');
-    //   }
-    //   alert(jam_mulai);
-    //   if (jam_mulai == '') {
-    //     $('#jam_mulai').addClass('is-invalid');
-    //   }else{
-    //     $('#jam_mulai').removeClass('is-invalid');
-    //   }
+      // if (tanggal_akhir == 'undefined-undefined-') {
+      //   $('#tanggal_akhir').addClass('is-invalid');
+      // }else{
+      //   $('#tanggal_akhir').removeClass('is-invalid');
+      // }
+      // alert(jam_mulai);
+      // if (jam_mulai == '') {
+      //   $('#jam_mulai').addClass('is-invalid');
+      // }else{
+      //   $('#jam_mulai').removeClass('is-invalid');
+      // }
 
-    //   if (jam_akhir == '') {
-    //     $('#jam_akhir').addClass('is-invalid');
-    //   }else{
-    //     $('#jam_akhir').removeClass('is-invalid');
-    //   }
+      // if (jam_akhir == '') {
+      //   $('#jam_akhir').addClass('is-invalid');
+      // }else{
+      //   $('#jam_akhir').removeClass('is-invalid');
+      // }
 
-    //   if (hariall == '') {
-    //     $('#labelhari').addClass('red');
-    //   }else{
-    //     $('#labelhari').removeClass('red');
-    //   }
+      // if (hariall == '') {
+      //   $('#labelhari').addClass('red');
+      // }else{
+      //   $('#labelhari').removeClass('red');
+      // }
 
-    //   if (stanall == '') {
-    //     $('#labelstan').addClass('red');
-    //   }else{
-    //     $('#labelstan').removeClass('red');
-    //   }
+      // if (stanall == '') {
+      //   $('#labelstan').addClass('red');
+      // }else{
+      //   $('#labelstan').removeClass('red');
+      // }
 
-    //   if (produkall == '') {
-    //     $('#labelproduk').addClass('red');
-    //   }else{
-    //     $('#labelproduk').removeClass('red');
-    //   }
+      // if (produkall == '') {
+      //   $('#labelproduk').addClass('red');
+      // }else{
+      //   $('#labelproduk').removeClass('red');
+      // }
 
-    //   if (jenis == 'buy1get1' || jenis == 'buy2get1') {
-    //     $("#nilai_promo").removeClass('is-invalid');
-    //   }else if (nilai_promo == '') {
-    //     $("#nilai_promo").addClass('is-invalid');
-    //   }else{
-    //     $("#nilai_promo").removeClass('is-invalid');
-    //   }
+      // if (jenis == 'buy1get1' || jenis == 'buy2get1') {
+      //   $("#nilai_promo").removeClass('is-invalid');
+      // }else if (nilai_promo == '') {
+      //   $("#nilai_promo").addClass('is-invalid');
+      // }else{
+      //   $("#nilai_promo").removeClass('is-invalid');
+      // }
       
-    //   alert("Silahkan periksa kembali inputan anda!");
+      // alert("Silahkan periksa kembali inputan anda!");
     // }
   }
 
@@ -872,28 +1054,51 @@ function status_diskon(id,status) {
     }
   }
 
-  function changeNilaiPromo(){
-    var jenis = document.getElementById("jenispromo");
-    var valjenis = jenis.options[jenis.selectedIndex].value;
-    if (valjenis == 'buy1get1' || valjenis == 'buy2get1') {
-      document.getElementById("nilai_promo").disabled = true;
-      $("#labelnilaipromo").text("Nilai Promo");
-      $("#labelnilaipromo2").html("<span class='fa fa-exclamation'></span>");
-      
-    }else if (valjenis =='nominal') {
-      document.getElementById("nilai_promo").disabled = false;
-      $("#labelnilaipromo").text("Nilai Promo (Rupiah)");
-      $("#labelnilaipromo2").text("Rp");
-    }else if(valjenis == 'persen'){
-      document.getElementById("nilai_promo").disabled = false;
-      $("#labelnilaipromo").text("Nilai Promo (%)");
-      $("#labelnilaipromo2").text("%");
+  function changeNilaiPromo(id){
+    if (id == 'jenispromo') {
+      var jenis = document.getElementById("jenispromo");
+      var valjenis = jenis.options[jenis.selectedIndex].value;
+      if (valjenis == 'buy1get1' || valjenis == 'buy2get1') {
+        document.getElementById("nilai_promo").disabled = true;
+        $("#labelnilaipromo").text("Nilai Promo");
+        $("#labelnilaipromo2").html("<span class='fa fa-exclamation'></span>");
+        
+      }else if (valjenis =='nominal') {
+        document.getElementById("nilai_promo").disabled = false;
+        $("#labelnilaipromo").text("Nilai Promo (Rupiah)");
+        $("#labelnilaipromo2").text("Rp");
+      }else if(valjenis == 'persen'){
+        document.getElementById("nilai_promo").disabled = false;
+        $("#labelnilaipromo").text("Nilai Promo (%)");
+        $("#labelnilaipromo2").text("%");
+      }
+      document.getElementById("nilai_promo").value = '';
+    }else{
+      var jenis = document.getElementById("jenispromo_edit");
+      var valjenis = jenis.options[jenis.selectedIndex].value;
+      if (valjenis == 'buy1get1' || valjenis == 'buy2get1') {
+        document.getElementById("nilai_promo_edit").disabled = true;
+        $("#labelnilaipromo_edit").text("Nilai Promo");
+        $("#labelnilaipromo2_edit").html("<span class='fa fa-exclamation'></span>");
+        
+      }else if (valjenis =='nominal') {
+        document.getElementById("nilai_promo_edit").disabled = false;
+        $("#labelnilaipromo_edit").text("Nilai Promo (Rupiah)");
+        $("#labelnilaipromo2_edit").text("Rp");
+      }else if(valjenis == 'persen'){
+        document.getElementById("nilai_promo_edit").disabled = false;
+        $("#labelnilaipromo_edit").text("Nilai Promo (%)");
+        $("#labelnilaipromo2_edit").text("%");
+      }
+      document.getElementById("nilai_promo_edit").value = '';
     }
-    document.getElementById("nilai_promo").value = '';
+    
   }
 
-  function currency(x) {
-      var jns = document.getElementById("jenispromo");
+  function currency(x,id) {
+
+        var jns = document.getElementById(id);
+      
       var valjenis = jns.options[jns.selectedIndex].value;
       if (valjenis == 'nominal') {
         var retVal=x.toString().replace(/[^\d]/g,'');
@@ -1041,3 +1246,149 @@ function status_diskon(id,status) {
   }
 
 </script>
+
+
+
+
+
+
+<!-- 
+    if ( ! $.fn.DataTable.isDataTable( '#tableliststan_edit' ) ) {
+      liststanadd = $("#tableliststan_edit").dataTable({
+          initComplete: function() {
+            var api = this.api();
+            $('#mytable_filter input')
+            .on('.DT')
+            .on('keyup.DT', function(e) {
+              if (e.keyCode == 13) {
+                api.search(this.value).draw();
+              }
+            });
+          },
+          oLanguage: {
+            sProcessing: "loading..."
+          },
+          responsive: true,
+          serverSide: true,
+          // "searching": false,
+          // paging:false,
+          // ordering:false,
+          // scrollX:true,
+          // "scrollY":"300px",
+          // "scrollCollapse": true,
+          ajax: {
+        "type"   : "POST",
+        "url"    : "<?php echo base_url('superadminfranchise/show_list_stan');?>",
+        "dataSrc": function (json) {
+          var return_data = new Array();
+          for(var i=0;i< json.data.length; i++){
+            return_data.push({
+              'id_stan': json.data[i].id_stan,
+              'nama_stan' : json.data[i].nama_stan,
+              'alamat' : json.data[i].alamat,
+              'pilih' : json.data[i].id_stan,
+            })
+          }
+          return return_data;
+        }
+      },
+      columns    : [
+        {'data': 'id_stan'},
+        {'data': 'nama_stan'},
+        {'data': 'alamat'},
+        {'data': 'pilih','orderable':false,'searchable':false},
+      ],
+      'columnDefs': [
+        {
+            "targets": 3, // your case first column
+            "className": "text-center",
+            'render': function (data, type, full, meta){
+                  var status = false;
+                  for (var j = response.length - 1; j >= 0; j--) {
+                    
+                    if (full[3] == response[j].id_stan) 
+                    {
+                       status = true;
+                    }
+                  }
+
+                  if (status == true) {
+                    return '<input type="checkbox" name="stanpilihan_edit[]" value="' + full[3] + '" checked="true">';
+                  }else{
+                    return '<input type="checkbox" name="stanpilihan_edit[]" value="' + full[3] + '">';
+                  }
+                 
+             }
+       }],
+
+          rowCallback: function(row, data, iDisplayIndex) {
+            var info = this.fnPagingInfo();
+            var page = info.iPage;
+            var length = info.iLength;
+            var index = page * length + (iDisplayIndex + 1);
+            // $('td:eq(0)', row).html(index);
+          }
+        });  
+    }
+
+
+    if ( ! $.fn.DataTable.isDataTable( '#tablelistproduk_edit' ) ) {
+      listprodukadd = $("#tablelistproduk_edit").dataTable({
+          initComplete: function() {
+            var api = this.api();
+            $('#mytable_filter input')
+            .on('.DT')
+            .on('keyup.DT', function(e) {
+              if (e.keyCode == 13) {
+                api.search(this.value).draw();
+              }
+            });
+          },
+          oLanguage: {
+            sProcessing: "loading..."
+          },
+          responsive: false,
+          serverSide: true,
+          "searching": false,
+          paging:false,
+          ordering:false,
+          "scrollX": true,
+          "scrollY":"300px",
+          "scrollCollapse": true,
+          ajax: {
+        "type"   : "POST",
+        "url"    : "<?php echo base_url('superadminfranchise/show_list_produk');?>",
+        "dataSrc": function (json) {
+          var return_data = new Array();
+          for(var i=0;i< json.data.length; i++){
+            return_data.push({
+              'id_produk': json.data[i].id_produk,
+              'nama_produk' : json.data[i].nama_produk,
+              'harga_jual' : json.data[i].harga_jual,
+              'pilih' : '<input type="checkbox" name="produkpilihan_edit[]" value="'+json.data[i].id_produk+'" class="">'
+            })
+          }
+          return return_data;
+        }
+      },
+      columns    : [
+        {'data': 'id_produk'},
+        {'data': 'nama_produk'},
+        {'data': 'harga_jual'},
+        {'data': 'pilih','orderable':false,'searchable':false},
+      ],
+      'columnDefs': [
+        {
+            "targets": 3, // your case first column
+            "className": "text-center",
+            // "width": "4%"
+       }],
+
+          rowCallback: function(row, data, iDisplayIndex) {
+            var info = this.fnPagingInfo();
+            var page = info.iPage;
+            var length = info.iLength;
+            var index = page * length + (iDisplayIndex + 1);
+            // $('td:eq(0)', row).html(index);
+          }
+        }); -->

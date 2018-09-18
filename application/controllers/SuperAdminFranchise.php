@@ -15,17 +15,106 @@ class SuperAdminFranchise extends CI_Controller {
 	    $this->load->helper('site_helper');
 	    $this->load->model('Post');
 	    $this->load->model('Produk');
+	    $this->load->library('session');
+  	}
+
+  	public function login()
+  	{
+  		$adminId = $this->session->userdata('aksessupadmin');
+        if(empty($adminId)){
+            $this->load->view('superadminfranchise/login');
+        }else{
+            redirect('dashboardsuperadmin');
+        }
+  	}
+
+  	public function gantipassword()
+  	{
+  		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('superadminfranchise/gantipassword');
+        }
+  		
+  	}
+
+  	public function prosesgantipassword()
+  	{
+  		$passlama = $this->input->post('passlama');
+  		$passlama = md5($passlama);
+  		$passbaru = $this->input->post('passbaru');
+  		$passbaru = md5($passbaru);
+  		$konfirmasipassbaru = $this->input->post('konfirmasipassbaru');
+  		$username = $this->input->post('username');
+  		$usertype = $this->input->post('usertype');
+
+  		$where = array('username' => $username,'password' => $passlama,'usertype' => $usertype );
+  		
+  		if ($this->Produk->getRowCount('alluser',$where) > 0) {
+  			$data = array(
+				'username' => $username,
+	        	'password' => $passbaru,
+	        	'usertype' => $usertype
+	        );
+			$success = $this->Post->Update('alluser',$data,$where);
+			if ($success) {
+				echo 'true';
+			}else{
+				echo "servererror";
+			}
+  		 	
+  		}else{
+  			echo "false";
+  		} 
+
+  	}
+
+  	public function logout()
+  	{
+  		$this->session->unset_userdata('aksessupadmin');
+  		$this->session->unset_userdata('usernamesupadmin');
+  		redirect('login');
+  	}
+
+  	public function prosesLogin()
+  	{
+  		$username = $this->input->post('username');
+  		$password = $this->input->post('password');
+  		$password = md5($password);
+  		$where = array('username' => $username,'password' => $password,'usertype' => 'superadminfranchise' );
+  		
+  		if ($this->Produk->getRowCount('alluser',$where) > 0) {
+  			$this->session->set_userdata('aksessupadmin', 'granted');
+  			$this->session->set_userdata('usernamesupadmin', $username);
+  		 	echo 'true';
+  		}else{
+  			echo "false";
+  			
+  		} 
   	}
   	
 	public function dashboard()
 	{
-		$this->load->view('superadminfranchise/dashboard');
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('superadminfranchise/dashboard');
+        }
+		
 	}
 
 	public function masterdataproduk()
 	{
-		$this->load->view('superadminfranchise/masterdataproduk');
-		$this->load->view('superadminfranchise/datatable_produk');
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('superadminfranchise/masterdataproduk');
+			$this->load->view('superadminfranchise/datatable_produk');
+        }
+		
 	}
 
 	public function tambah_produk(){
@@ -156,8 +245,14 @@ class SuperAdminFranchise extends CI_Controller {
   //     	array_push($data, array($value["id_stan"],$value["nama_stan"],$value["alamat"],$value["password"],"<button class='btn btn-warning'>Edit</button>","<button class='btn btn-danger'>Delete</button>"));
   //     }
       // var_dump(json_encode($data));
-		$this->load->view('superadminfranchise/masterdatastan');
-		$this->load->view('superadminfranchise/datatable_stan');
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('superadminfranchise/masterdatastan');
+			$this->load->view('superadminfranchise/datatable_stan');
+        }
+		
 	}
 
 	public function datastan(){
@@ -227,8 +322,14 @@ class SuperAdminFranchise extends CI_Controller {
 	}
 
 	public function skemapromo(){
-		$this->load->view('superadminfranchise/skemapromo');
-		$this->load->view('superadminfranchise/datatable_promo');
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('superadminfranchise/skemapromo');
+			$this->load->view('superadminfranchise/datatable_promo');
+        }
+		
 	}
 
 	//GET DATA PROMO YANG AKAN DIEDIT
@@ -267,6 +368,11 @@ class SuperAdminFranchise extends CI_Controller {
 
 		$tanggal_mulai = $this->input->post('tanggal_mulai');
 		$tanggal_akhir = $this->input->post('tanggal_akhir');
+
+		$parttanggalmulai = explode('/', $tanggal_mulai);
+		$parttanggalakhir = explode('/', $tanggal_akhir);
+		$tanggal_mulai = $parttanggalmulai[2].'/'.$parttanggalmulai[1].'/'.$parttanggalmulai[0];
+		$tanggal_akhir = $parttanggalakhir[2].'/'.$parttanggalakhir[1].'/'.$parttanggalakhir[0];
 
 		$tanggal_mulai = strtotime($tanggal_mulai);
 		$tanggal_mulai = date('Y-m-d',$tanggal_mulai);
@@ -336,47 +442,80 @@ class SuperAdminFranchise extends CI_Controller {
 	}
 
 	public function edit_promo(){
-		$id = $this->input->post('id');
+
+		$statusalladd = false;
+		$deleteall = false;
+		//add to promo table
+		$id = $this->input->post('id_simpaneditpromo');
 		$where = array('id_diskon' => $id);
 
-		$data = array(
-			'id_diskon' => $id,
-	        'nama_diskon' => $this->input->post('nama'),
-	        'jenis_diskonn' => $this->input->post('jenis'),
-	        'tanggal_mulai' => $this->input->post('tanggal_mulai'),
-	        'tanggal_akhir'=> $this->input->post('tanggal_akhir'),
-	        'jam_mulai'=> $this->input->post('jam_mulai'),
-	        'jam_akhir'=> $this->input->post('jam_akhir'),
-	        'hari'=> $this->input->post('hari'),
-	        'status'=> $this->input->post('status')
-	    );
-		$this->Produk->update('diskon',$data,$where);
-
-		$stan = $this->input->post('stan_list');
-		$produk = $this->input->post('produk_list');
-
-		$this->Produk->delete('detail_stan_diskon',$id);
-		$this->Produk->delete('detail_barang_diskon',$id);
-
-		//add to detail stan table
-		foreach ($stan as $value) {
-
-
-			$data = array(
-		        'id_diskon' => $id,
-		        'id_stan' => $value
-	        );
-			$this->Produk->insert('detail_stan_diskon',$data);
+		if ($this->input->post('jenis_edit') == 'nominal' || $this->input->post('jenis_edit') == 'persen') {
+			$jenis = $this->input->post('jenis_edit').$this->input->post('nilai_promo_edit');
+		}else{
+			$jenis = $this->input->post('jenis_edit');
 		}
 
-		//add to detail product table
+		$tanggal_mulai = $this->input->post('tanggal_mulai_edit');
+		$tanggal_akhir = $this->input->post('tanggal_akhir_edit');
 
-		foreach ($produk as $value) {
-			$data = array(
-		        'id_diskon' => $id,
-		        'id_produk' => $value
-	        );
-			$this->Produk->insert('detail_barang_diskon',$data);
+		$tanggal_mulai = strtotime($tanggal_mulai);
+		$tanggal_mulai = date('Y-m-d',$tanggal_mulai);
+
+		$tanggal_akhir = strtotime($tanggal_akhir);
+		$tanggal_akhir = date('Y-m-d',$tanggal_akhir);
+		
+		// nama_promo:nama_promo,tanggal_mulai:tanggal_mulai,tanggal_akhir:tanggal_akhir,jam_mulai:jam_mulai,jam_akhir:jam_akhir,hariall:hariall,jenis:jenis,nilai_promo:nilai_promo,stanall:stanall,produkall:produkall
+		$data = array(
+	        'id_diskon' => $id,
+	        'nama_diskon' => $this->input->post('nama_promo_edit'),
+	        'jenis_diskon' => $jenis,
+	        'tanggal_mulai' => $tanggal_mulai,
+	        'tanggal_akhir' => $tanggal_akhir,
+	        'jam_mulai' => $this->input->post('jam_mulai_edit'),
+	        'jam_akhir' => $this->input->post('jam_akhir_edit'),
+	        'hari' => $this->input->post('hariall_edit'),
+	        'status' => $this->input->post('status_simpaneditpromo')
+        );
+
+		$statusalladd = $this->Produk->update('diskon',$data,$where);
+
+			$stanall = $this->input->post('stanall_edit');
+			$produkall = $this->input->post('produkall_edit');
+
+			$this->Produk->delete('detail_stan_diskon',$id);
+			$this->Produk->delete('detail_barang_diskon',$id);
+
+			$stan = explode(",",$stanall);
+			$produk = explode(",",$produkall);
+			//add to detail stan table
+			foreach ($stan as $value) {
+				$data = array(
+			        'id_diskon' => $id,
+			        'id_stan' => $value
+		        );
+				$statusalladd = $this->Produk->insert('detail_stan_diskon',$data);
+				if ($statusalladd == false) {
+					$deleteall = true;
+				}
+			}
+
+			//add to detail product table
+
+			foreach ($produk as $value) {
+				$data = array(
+			        'id_diskon' => $id,
+			        'id_produk' => $value
+		        );
+				$statusalladd = $this->Produk->insert('detail_barang_diskon',$data);
+				if ($statusalladd == false) {
+					$deleteall = true;
+				}
+			}
+
+		if ($deleteall == true) {
+			echo false;
+		}else{
+			echo true;
 		}
 	}
 
@@ -416,13 +555,78 @@ class SuperAdminFranchise extends CI_Controller {
 		echo $this->datatables->generate();
 	}
 
+	public function get_list_stan()
+	{
+		$data = $this->Produk->getAllData('stan');
+		echo json_encode($data);
+	}
+
+	public function get_list_produk()
+	{
+		$data = $this->Produk->getAllData('produk');
+		echo json_encode($data);
+	}
+
 	public function masterdatakaryawan(){
-		$this->load->view('superadminfranchise/masterdatakaryawan');
-		$this->load->view('superadminfranchise/datatable_karyawan');
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('superadminfranchise/masterdatakaryawan');
+			$this->load->view('superadminfranchise/datatable_karyawan');
+        }
+		
 	}
 
 	public function lappenjstan(){
-		$this->load->view('superadminfranchise/lappenjstan');
-		$this->load->view('superadminfranchise/datatable_lappenjstan');
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('superadminfranchise/lappenjstan');
+			$this->load->view('superadminfranchise/datatable_lappenjstan');
+        }
+		
+	}
+
+	public function notaData(){
+		$tanggal_awal = $this->input->post('tanggal_awal');
+		$tanggal_akhir = $this->input->post('tanggal_akhir');
+		$id_nota = 'asdasd';
+
+		if ($tanggal_awal =='') {
+			$tanggal_awal = '01/01/1970';
+		}
+
+		if ($tanggal_akhir =='') {
+			$tanggal_akhir = '01/01/1970';
+		}
+
+		$parttanggalawal = explode('/', $tanggal_awal);
+		$parttanggalakhir = explode('/', $tanggal_akhir);
+
+		$tanggal_awal = $parttanggalawal[2].'/'.$parttanggalawal[1].'/'.$parttanggalawal[0];
+		$tanggal_akhir = $parttanggalakhir[2].'/'.$parttanggalakhir[1].'/'.$parttanggalakhir[0];
+		$tanggal_akhir = strtotime($tanggal_akhir);
+		$tanggal_akhir = date('Y-m-d',$tanggal_akhir);
+
+		$tanggal_awal = strtotime($tanggal_awal);
+		$tanggal_awal = date('Y-m-d',$tanggal_awal);
+
+		// var_dump($tanggal_akhir);
+
+		$array = array('id_nota' => $id_nota, 'tanggal_nota >=' => $tanggal_awal, 'tanggal_nota <=' => $tanggal_akhir);
+
+		$data = $this->Produk->getData($array,'nota');
+		// var_dump($data);
+		echo json_encode($data);
+	}
+
+	public function select_detail_nota()
+	{
+		$id = $this->input->post('id');
+		$array = array('id_nota' => $id);
+		$data = $this->Produk->getData($array,'nota');
+		//DETAIL
 	}
 }

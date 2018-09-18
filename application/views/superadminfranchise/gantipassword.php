@@ -42,14 +42,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 </head>
 <style type="text/css">
-    .error{
-    border: 2px solid red!important;
-}
-.easy-autocomplete{
-    width: auto!important;
-}
 .red{
     color: red !important;
+}
+.green{
+    color: green !important;
 }
 </style>
 <body>
@@ -95,7 +92,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </li>
 
                     <h3 class="menu-title">LAPORAN</h3><!-- /.menu-title -->
-                    <li  class="active">
+                    <li>
                         <a href="lappenjstan"> <i class="menu-icon ti-receipt"></i>Laporan Penjualan Stand</a>
                     </li>
                     <li>
@@ -175,7 +172,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Laporan Penjualan Stan</h1>
+                        <h1>Ganti Password</h1>
                     </div>
                 </div>
             </div>
@@ -188,45 +185,66 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Data Laporan Penjualan Stan</strong>
+                            <strong class="card-title">Ganti Password Super Admin Franchise</strong>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="id" class=" form-control-label">Stan</label>
-                                        <select name="select" id="select_stan" class="form-control" onchange="refreshTable()">
+                                        <input type="hidden" id="username" name="" value=<?php echo $this->session->userdata('usernamesupadmin'); ?>>
+                                        <label id="labelpasslama" for="id" class=" form-control-label">Password Lama</label>
+                                        <input type="password" style="display: none" placeholder="Masukkan Password Lama">
 
-                                        </select>
+                                        <div class="input-group">
+                                            <input type="password" id="passwordlama" placeholder="Masukkan Password Lama" class="form-control">
+                                            <div class="input-group-btn">
+                                                <button onclick="showpwd('passwordlama','eyelama')" class="btn btn-primary">
+                                                    <i id="eyelama" class="fa fa-eye"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="id" class=" form-control-label">Tanggal Awal</label>
-                                        <input type="text" id="tanggal_awal" placeholder="Masukkan Tanggal Awal" class="form-control">
+                                        <label id="labelpassbaru" for="id" class=" form-control-label">Password Baru</label>
+                                        
+
+                                        <div class="input-group">
+                                            <input type="password" id="passwordbaru" placeholder="Masukkan Password Baru" class="form-control">
+                                            <div class="input-group-btn">
+                                                <button onclick="showpwd('passwordbaru','eyebaru')" class="btn btn-primary">
+                                                    <i id="eyebaru" class="fa fa-eye"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="id" class=" form-control-label">Tanggal Akhir</label>
-                                        <input type="text" id="tanggal_akhir" placeholder="Masukkan Tanggal Akhir" class="form-control">
+                                        <label id="labelkonfpassbaru" for="id" class=" form-control-label">Konfirmasi Password Baru</label>
+                                        
+
+                                        <div class="input-group">
+                                            <input type="password" id="konfirmasipasswordbaru" placeholder="Masukkan Password Baru Lagi" class="form-control">
+                                            <div class="input-group-btn">
+                                                <button onclick="showpwd('konfirmasipasswordbaru','eyebaruconf')" class="btn btn-primary">
+                                                    <i id="eyebaruconf" class="fa fa-eye"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <br>
+                                <div class="col-md-12">
+                                    <b><p id="labelerror" class="red text-center"></p></b>
+                                    <button onclick="gantipassword()" class="btn btn-success btn-block">CHANGE PASSWORD</button>
                                 </div>
                             </div>
-                            <br>
-                                <table id="mytable" class="table table-striped table-bordered">
-                                    <thead>
-                                      <tr>
-                                        <th>ID Nota</th>
-                                        <th>Tanggal Nota</th>
-                                        <th>Total Harga Jual</th>
-                                        <th>Detail</th>
-                                      </tr>
-                                    </thead>
-                                </table>
+                            
                         </div>
                         <div class="card-footer">
-                            <h2 id="total_harga_akhir">Total Penjualan Rp ,-</h2>
                         </div>
                     </div> <!-- .card -->
 
@@ -235,24 +253,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
-    <div class="modal fade" id="modalDetail" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="mediumModalLabel">Medium Modal</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- DETAIL -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Right Panel -->
  
     <script src=<?php echo base_url("assets/js/jquery.min.js")?>></script>
@@ -264,58 +264,113 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src=<?php echo base_url("assets/js/popper.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/plugins.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/chosen/chosen.jquery.min.js"); ?>></script>
-    <script src=<?php echo base_url("assets/datatable/Buttons-1.5.2/js/dataTables.buttons.js")?>></script>
-    <script src=<?php echo base_url("assets/datatable/Buttons-1.5.2/js/buttons.print.js")?>></script>
-    <script src=<?php echo base_url("assets/datatable/Buttons-1.5.2/js/buttons.html5.js")?>></script>
-    <script src=<?php echo base_url("assets/datatable/Buttons-1.5.2/js/buttons.flash.js")?>></script>
-    <script src=<?php echo base_url("assets/datatable/JSZip-2.5.0/jszip.js")?>></script>
-    <script src=<?php echo base_url("assets/datatable/pdfmake-0.1.36/pdfmake.js")?>></script>
-    <script src=<?php echo base_url("assets/datatable/pdfmake-0.1.36/vfs_fonts.js")?>></script>
 
     <script src=<?php echo base_url("assets/vendors/bootstrap-4.1.3-dist/js/bootstrap.min.js")?>></script>
     <!-- <script src=></script> -->
     <!-- echo base_url("assets/js/main.js")?> -->
 
-    <!-- bootstrap-daterangepicker -->
-    <script src=<?php echo base_url("assets/vendors/moment/min/moment.min.js")?>></script>
-    <script src=<?php echo base_url("assets/vendors/bootstrap-daterangepicker/daterangepicker.js")?>></script>
-    <!-- bootstrap-datetimepicker -->    
-    <script src=<?php echo base_url("assets/vendors/Date-Time-Picker-Bootstrap-4/build/js/bootstrap-datetimepicker.min.js")?>></script>
     <script type="text/javascript">
-        // alert($("#tanggal_awal").val());
-        //TAMBAH DATA
-        $('#tanggal_awal').datetimepicker({
-            format: 'DD/MM/YYYY',
-            useCurrent: false
-        });
+        function showpwd(id,idicon) {
+            var pwd = document.getElementById(id);
 
-        $('#tanggal_akhir').datetimepicker({
-            format: 'DD/MM/YYYY',
-            useCurrent: false
-        });
-
-        $("#tanggal_awal").on("dp.change", function(e) {
-            refreshTable()
-            $('#tanggal_akhir').data("DateTimePicker").minDate(e.date);
-        });
-
-        $("#tanggal_akhir").on("dp.change", function(e) {
-            refreshTable()
-            $('#tanggal_awal').data("DateTimePicker").maxDate(e.date);
-        });
-
-        $("#tanggal_awal").click(function () {
-            if ($("#tanggal_akhir").val()!='') {
-                $('#tanggal_awal').data("DateTimePicker").maxDate($('#tanggal_akhir').data('date'));
+            if (pwd.type === "password") {
+                pwd.type = "text";
+                $("#"+idicon).addClass('fa-eye-slash');
+                $("#"+idicon).removeClass('fa-eye');
+            } else {
+                pwd.type = "password";
+                $("#"+idicon).addClass('fa-eye');
+                $("#"+idicon).removeClass('fa-eye-slash');
             }
-        });
+        }
+        
+        function gantipassword() {
+            var passlama = $("#passwordlama").val();
+            var passbaru = $("#passwordbaru").val();
+            var konfirmasipassbaru = $("#konfirmasipasswordbaru").val();
+            var username = $("#username").val();
+            $('#labelerror').addClass('red');
+            $('#labelerror').removeClass('green');
 
-        $('#tanggal_akhir').click(function () {
-            if ($("#tanggal_awal").val()!='') {
-                $('#tanggal_akhir').data("DateTimePicker").minDate($('#tanggal_awal').data('date'));
+            if (passlama == '' || passbaru == '' || konfirmasipassbaru == '') {
+                $('#labelerror').html('Pastikan seluruh isian terisi');
+                if(passlama == ''){
+
+                    $("#passwordlama").addClass('is-invalid');
+                    $("#labelpasslama").addClass('red');
+                }else{
+                    $("#passwordlama").removeClass('is-invalid');
+                    $("#labelpasslama").removeClass('red');
+                
+                }
+
+                if (passbaru == '') {
+                    $("#passwordbaru").addClass('is-invalid');
+                    $("#labelpassbaru").addClass('red');
+                }else{
+                    $("#passwordbaru").removeClass('is-invalid');
+                    $("#labelpassbaru").removeClass('red');
+                
+                }
+
+                if (konfirmasipassbaru == '') {
+                    $("#konfirmasipasswordbaru").addClass('is-invalid');
+                    $("#labelkonfpassbaru").addClass('red');
+                }else{
+                    $("#konfirmasipasswordbaru").removeClass('is-invalid');
+                    $("#labelkonfpassbaru").removeClass('red');
+                }
+            }else{
+                $("#passwordlama").removeClass('is-invalid');
+                $("#passwordbaru").removeClass('is-invalid');
+                $("#konfirmasipasswordbaru").removeClass('is-invalid');
+
+                $("#labelpasslama").removeClass('red');
+                $("#labelpassbaru").removeClass('red');
+                $("#labelkonfpassbaru").removeClass('red');
+
+                if (konfirmasipassbaru == passbaru) {
+                    if (passbaru.length < 6 || passbaru.length > 20) {
+                        $('#labelerror').html('Password baru harus mengandung 6 - 20 karakter');
+                    }else{
+                        $('#labelerror').html('');
+                        $.ajax({
+                              type:"post",
+                              url: "<?php echo base_url('superadminfranchise/prosesgantipassword')?>/",
+                              data:{ 
+                                passlama:passlama,
+                                passbaru:passbaru,
+                                konfirmasipassbaru:konfirmasipassbaru,
+                                username:username,
+                                usertype:"superadminfranchise"
+                              },
+                              dataType:"json",
+                              success:function(response)
+                              {
+                                if (response.toString() == 'false') {
+                                    $('#labelerror').html('Password lama salah');
+                                }else if (response.toString() == 'true') {
+                                    $('#labelerror').html('Sukses ganti password');
+                                    $('#labelerror').addClass('green');
+                                    $('#labelerror').removeClass('red');
+                                }else{
+                                    $('#labelerror').html('Server error! coba lagi nanti');
+                                }
+                              },
+                              error: function (jqXHR, textStatus, errorThrown)
+                              {
+                                alert(errorThrown);
+                              }
+                          }
+                        );
+                    }
+                }else{
+                    $('#labelerror').html('Password Baru harus sama dengan Konfirmasi Password Baru');
+                }
             }
-        });
 
+            
+        }
     </script>
 </body>
 </html>

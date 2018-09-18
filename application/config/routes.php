@@ -60,6 +60,9 @@ $route['gajibonusstan'] = 'superadminfranchise/gajibonusstan';
 $route['skemapromo'] = 'superadminfranchise/skemapromo';
 $route['masterdatakaryawan'] = 'superadminfranchise/masterdatakaryawan';
 $route['lappenjstan'] = 'superadminfranchise/lappenjstan';
+$route['login'] = 'superadminfranchise/login';
+$route['gantipassword'] = 'superadminfranchise/gantipassword';
+$route['logout'] = 'superadminfranchise/logout';
 
 $route['kasir'] = 'adminstand/kasir';
 

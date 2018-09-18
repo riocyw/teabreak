@@ -86,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     <h3 class="menu-title">LAPORAN</h3><!-- /.menu-title -->
                     <li>
-                        <a href=""> <i class="menu-icon ti-receipt"></i>Laporan Penjualan Stand</a>
+                        <a href="lappenjstan"> <i class="menu-icon ti-receipt"></i>Laporan Penjualan Stand</a>
                     </li>
                     <li>
                         <a href=""> <i class="menu-icon ti-receipt"></i>Laporan B</a>
@@ -198,23 +198,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="id" class=" form-control-label">ID Stan</label>
-                                            <input type="text" id="id" placeholder="Masukkan ID Stan" class="form-control">
+                                            <input type="text" name="fake" style="display: none">
+                                            <input type="text" id="id" placeholder="Masukkan ID Stan" class="form-control" autocomplete="none">
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="nama" class=" form-control-label">Nama Stan</label>
-                                            <input type="text" id="nama" placeholder="Masukkan Nama Stan" class="form-control">
+                                            
+                                            <input type="text" id="nama" placeholder="Masukkan Nama Stan" class="form-control" value="" autocomplete="none">
+                                            <input type="text" style="display: none">
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="password" class=" form-control-label">Password</label>
                                             <div class="input-group">
-                                                <input type="password" id="password" name="password" placeholder="Masukkan Password" class="form-control">
+                                                <input type="password" style="display: none">
+                                                <input type="password" id="password" name="password" placeholder="Masukkan Password Stan" class="form-control" value="" autocomplete="new-password">
+
                                                 <div class="input-group-btn">
-                                                    <button onclick="showpwd('password')" class="btn btn-primary">
-                                                        <i class="fa fa-eye"></i></button>
+                                                    <button onclick="showpwd('password','eye')" class="btn btn-primary">
+                                                        <i id="eye" class="fa fa-eye"></i></button>
                                                 </div>
                                             </div>
                                         </div>
