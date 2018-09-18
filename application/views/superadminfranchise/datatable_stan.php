@@ -114,13 +114,17 @@ function delete_stan(id){
     }
   }
 
-function showpwd(id){
+function showpwd(id,idicon){
     var pwd = document.getElementById(id);
 
     if (pwd.type === "password") {
         pwd.type = "text";
+        $("#"+idicon).addClass('fa-eye-slash');
+        $("#"+idicon).removeClass('fa-eye');
     } else {
         pwd.type = "password";
+        $("#"+idicon).addClass('fa-eye');
+        $("#"+idicon).removeClass('fa-eye-slash');
     }
 }
 

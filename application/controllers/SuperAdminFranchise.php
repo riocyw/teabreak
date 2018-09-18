@@ -15,17 +15,106 @@ class SuperAdminFranchise extends CI_Controller {
 	    $this->load->helper('site_helper');
 	    $this->load->model('Post');
 	    $this->load->model('Produk');
+	    $this->load->library('session');
+  	}
+
+  	public function login()
+  	{
+  		$adminId = $this->session->userdata('aksessupadmin');
+        if(empty($adminId)){
+            $this->load->view('superadminfranchise/login');
+        }else{
+            redirect('dashboardsuperadmin');
+        }
+  	}
+
+  	public function gantipassword()
+  	{
+  		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('superadminfranchise/gantipassword');
+        }
+  		
+  	}
+
+  	public function prosesgantipassword()
+  	{
+  		$passlama = $this->input->post('passlama');
+  		$passlama = md5($passlama);
+  		$passbaru = $this->input->post('passbaru');
+  		$passbaru = md5($passbaru);
+  		$konfirmasipassbaru = $this->input->post('konfirmasipassbaru');
+  		$username = $this->input->post('username');
+  		$usertype = $this->input->post('usertype');
+
+  		$where = array('username' => $username,'password' => $passlama,'usertype' => $usertype );
+  		
+  		if ($this->Produk->getRowCount('alluser',$where) > 0) {
+  			$data = array(
+				'username' => $username,
+	        	'password' => $passbaru,
+	        	'usertype' => $usertype
+	        );
+			$success = $this->Post->Update('alluser',$data,$where);
+			if ($success) {
+				echo 'true';
+			}else{
+				echo "servererror";
+			}
+  		 	
+  		}else{
+  			echo "false";
+  		} 
+
+  	}
+
+  	public function logout()
+  	{
+  		$this->session->unset_userdata('aksessupadmin');
+  		$this->session->unset_userdata('usernamesupadmin');
+  		redirect('login');
+  	}
+
+  	public function prosesLogin()
+  	{
+  		$username = $this->input->post('username');
+  		$password = $this->input->post('password');
+  		$password = md5($password);
+  		$where = array('username' => $username,'password' => $password,'usertype' => 'superadminfranchise' );
+  		
+  		if ($this->Produk->getRowCount('alluser',$where) > 0) {
+  			$this->session->set_userdata('aksessupadmin', 'granted');
+  			$this->session->set_userdata('usernamesupadmin', $username);
+  		 	echo 'true';
+  		}else{
+  			echo "false";
+  			
+  		} 
   	}
   	
 	public function dashboard()
 	{
-		$this->load->view('superadminfranchise/dashboard');
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('superadminfranchise/dashboard');
+        }
+		
 	}
 
 	public function masterdataproduk()
 	{
-		$this->load->view('superadminfranchise/masterdataproduk');
-		$this->load->view('superadminfranchise/datatable_produk');
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('superadminfranchise/masterdataproduk');
+			$this->load->view('superadminfranchise/datatable_produk');
+        }
+		
 	}
 
 	public function tambah_produk(){
@@ -156,8 +245,14 @@ class SuperAdminFranchise extends CI_Controller {
   //     	array_push($data, array($value["id_stan"],$value["nama_stan"],$value["alamat"],$value["password"],"<button class='btn btn-warning'>Edit</button>","<button class='btn btn-danger'>Delete</button>"));
   //     }
       // var_dump(json_encode($data));
-		$this->load->view('superadminfranchise/masterdatastan');
-		$this->load->view('superadminfranchise/datatable_stan');
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('superadminfranchise/masterdatastan');
+			$this->load->view('superadminfranchise/datatable_stan');
+        }
+		
 	}
 
 	public function datastan(){
@@ -227,8 +322,14 @@ class SuperAdminFranchise extends CI_Controller {
 	}
 
 	public function skemapromo(){
-		$this->load->view('superadminfranchise/skemapromo');
-		$this->load->view('superadminfranchise/datatable_promo');
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('superadminfranchise/skemapromo');
+			$this->load->view('superadminfranchise/datatable_promo');
+        }
+		
 	}
 
 	//GET DATA PROMO YANG AKAN DIEDIT
@@ -467,13 +568,25 @@ class SuperAdminFranchise extends CI_Controller {
 	}
 
 	public function masterdatakaryawan(){
-		$this->load->view('superadminfranchise/masterdatakaryawan');
-		$this->load->view('superadminfranchise/datatable_karyawan');
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('superadminfranchise/masterdatakaryawan');
+			$this->load->view('superadminfranchise/datatable_karyawan');
+        }
+		
 	}
 
 	public function lappenjstan(){
-		$this->load->view('superadminfranchise/lappenjstan');
-		$this->load->view('superadminfranchise/datatable_lappenjstan');
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('superadminfranchise/lappenjstan');
+			$this->load->view('superadminfranchise/datatable_lappenjstan');
+        }
+		
 	}
 
 	public function notaData(){
