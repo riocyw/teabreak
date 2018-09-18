@@ -224,6 +224,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                       </tr>
                                     </thead>
                                 </table>
+                                <br>
                         </div>
                         <div class="card-footer">
                             <h2 id="total_harga_akhir">Total Penjualan Rp ,-</h2>
@@ -239,13 +240,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="mediumModalLabel">Medium Modal</h5>
+                    <h5 class="modal-title" id="mediumModalLabel">Detail Nota</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <!-- DETAIL -->
+                    <div class="form-group">
+                        <label class=" form-control-label">Nota Pembelian</label>
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Nama Produk</th>
+                                <th>Kategori Produk</th>
+                                <th>Harga Produk</th>
+                              </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <h5 class="text-right">Total Harga Nota : Rp. 0,-</h5>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

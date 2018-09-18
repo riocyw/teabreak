@@ -60,5 +60,28 @@ class Produk extends CI_Model{
         $this->db->where($listpk[$table.""],$id);
         $this->db->delete($table);
     }
+
+    public function getSpecificColumn($table,$column){}
+    {
+        $this->db->select($column); 
+        $this->db->from($table);
+        return $this->db->get()->result();
+    }
+
+    public function getDistinctSpecificColumn($table,$column){}
+    {
+        $this->db->distinct();
+        $this->db->select($column); 
+        $this->db->from($table);
+        return $this->db->get()->result();
+    }
+
+    public function getSpecificColumnWhere($table,$column,$where)
+    {
+        $this->db->select($column); 
+        $this->db->from($table);
+        $this->db->where($where);
+        return $this->db->get()->result();
+    }
 }
 ?>

@@ -592,7 +592,7 @@ class SuperAdminFranchise extends CI_Controller {
 	public function notaData(){
 		$tanggal_awal = $this->input->post('tanggal_awal');
 		$tanggal_akhir = $this->input->post('tanggal_akhir');
-		$id_nota = 'asdasd';
+		$id_stan = $this->input->post('id_stan');
 
 		if ($tanggal_awal =='') {
 			$tanggal_awal = '01/01/1970';
@@ -615,7 +615,7 @@ class SuperAdminFranchise extends CI_Controller {
 
 		// var_dump($tanggal_akhir);
 
-		$array = array('id_nota' => $id_nota, 'tanggal_nota >=' => $tanggal_awal, 'tanggal_nota <=' => $tanggal_akhir);
+		$array = array('id_stan' => $id_stan, 'tanggal_nota >=' => $tanggal_awal, 'tanggal_nota <=' => $tanggal_akhir);
 
 		$data = $this->Produk->getData($array,'nota');
 		// var_dump($data);
@@ -627,6 +627,7 @@ class SuperAdminFranchise extends CI_Controller {
 		$id = $this->input->post('id');
 		$array = array('id_nota' => $id);
 		$data = $this->Produk->getData($array,'nota');
+		echo json_encode($data);
 		//DETAIL
 	}
 }
