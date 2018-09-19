@@ -39,7 +39,7 @@
 			    "data": function(data) {
 				  data.tanggal_awal = $('#tanggal_awal').val();
 				  data.tanggal_akhir = $('#tanggal_akhir').val();
-				  data.id_nota = $('#select_stan').val();
+				  data.id_stan = $('#select_stan').val();
 				},
 			    "url"    : "<?php echo base_url('superadminfranchise/notaData');?>",
 			    "dataSrc": function (json) {
@@ -124,7 +124,6 @@
     );
 
     function refreshTable() {
-    	
     	reload_table();
     }
 

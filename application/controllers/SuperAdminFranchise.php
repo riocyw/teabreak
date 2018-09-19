@@ -21,10 +21,16 @@ class SuperAdminFranchise extends CI_Controller {
   	public function login()
   	{
   		$adminId = $this->session->userdata('aksessupadmin');
-        if(empty($adminId)){
+  		$adminstan = $this->session->userdata('aksesadminstan');
+        if(empty($adminId) && empty($adminstan)){
             $this->load->view('superadminfranchise/login');
         }else{
-            redirect('dashboardsuperadmin');
+        	if (!empty($adminId)) {
+        		redirect('dashboardsuperadmin');
+        	}else{
+        		redirect('kasir');
+        	}
+            
         }
   	}
 
@@ -72,8 +78,9 @@ class SuperAdminFranchise extends CI_Controller {
 
   	public function logout()
   	{
+  		$this->session->unset_userdata('aksesadminstan');
   		$this->session->unset_userdata('aksessupadmin');
-  		$this->session->unset_userdata('usernamesupadmin');
+  		$this->session->unset_userdata('username');
   		redirect('login');
   	}
 
@@ -82,11 +89,16 @@ class SuperAdminFranchise extends CI_Controller {
   		$username = $this->input->post('username');
   		$password = $this->input->post('password');
   		$password = md5($password);
-  		$where = array('username' => $username,'password' => $password,'usertype' => 'superadminfranchise' );
+  		$where = array('username' => $username,'password' => $password);
+  		$data = $this->Produk->getData($where,'alluser');
   		
   		if ($this->Produk->getRowCount('alluser',$where) > 0) {
-  			$this->session->set_userdata('aksessupadmin', 'granted');
-  			$this->session->set_userdata('usernamesupadmin', $username);
+  			if ($data[0]->usertype == 'superadminfranchise') {
+  				$this->session->set_userdata('aksessupadmin', 'granted');
+  			}else if ($data[0]->usertype == 'adminstand') {
+  				$this->session->set_userdata('aksesadminstan', 'granted');
+  			}
+  			$this->session->set_userdata('username', $username);
   		 	echo 'true';
   		}else{
   			echo "false";
@@ -592,7 +604,7 @@ class SuperAdminFranchise extends CI_Controller {
 	public function notaData(){
 		$tanggal_awal = $this->input->post('tanggal_awal');
 		$tanggal_akhir = $this->input->post('tanggal_akhir');
-		$id_nota = 'asdasd';
+		$id_stan = $this->input->post('id_stan');
 
 		if ($tanggal_awal =='') {
 			$tanggal_awal = '01/01/1970';
@@ -615,7 +627,7 @@ class SuperAdminFranchise extends CI_Controller {
 
 		// var_dump($tanggal_akhir);
 
-		$array = array('id_nota' => $id_nota, 'tanggal_nota >=' => $tanggal_awal, 'tanggal_nota <=' => $tanggal_akhir);
+		$array = array('id_stan' => $id_stan, 'tanggal_nota >=' => $tanggal_awal, 'tanggal_nota <=' => $tanggal_akhir);
 
 		$data = $this->Produk->getData($array,'nota');
 		// var_dump($data);
@@ -627,6 +639,7 @@ class SuperAdminFranchise extends CI_Controller {
 		$id = $this->input->post('id');
 		$array = array('id_nota' => $id);
 		$data = $this->Produk->getData($array,'nota');
+		echo json_encode($data);
 		//DETAIL
 	}
 }

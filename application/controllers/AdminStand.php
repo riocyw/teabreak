@@ -23,9 +23,38 @@ class AdminStand extends CI_Controller {
 	    parent::__construct();
 	    $this->output->set_header("Access-Control-Allow-Origin: *");
 	    $this->load->helper('url');
+	    $this->load->model('Produk');
+	    $this->load->library('session');
   	}
 	public function kasir()
 	{
-		$this->load->view('adminstand/kasir');
+		$akses = $this->session->userdata('aksesadminstan');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('adminstand/kasir');
+        }
+		
+	}
+
+	public function getAllKategori()//GET KATEGORI
+	{
+		$data = $this->Produk->getDistinctSpecificColumn('produk','kategori');
+		echo json_encode($data);
+	}
+
+	public function getProdukInKategori() //GET PRODUK DI KATEGORI TERTENTU
+	{
+		$kategori = $this->input->post('kategori');
+		$where = array('kategori' => $kategori );
+		$data = $this->Produk->getData($where,'produk');
+		echo json_encode($data);
+	}
+
+	public function getListTopping() //GET LIST TOPPING SAJA
+	{
+		$where = array('kategori' => 'topping' );
+		$data = $this->Produk->getSpecificColumnWhere('produk','nama_produk',$where);
+		echo json_encode($data);
 	}
 }
