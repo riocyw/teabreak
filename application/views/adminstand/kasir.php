@@ -302,6 +302,7 @@ function pembayaran(){
         backdrop: 'static',
         keyboard: false
     });
+    hitungKembalian();
 }
 
 function resetbyr(){
@@ -514,14 +515,15 @@ function autobtn(){
 }
 
 function hitungKembalian(){
-    var total = parseInt($("#total_bayar").text().replace('.',''));
+
+    var total = parseInt($("#total_bayar").html().split('.').join(""));
     selisih = total-total_harus_byr;
-    if (selisih>0) {
+    if (selisih>=0) {
         $("#kembalian").text("Rp "+currency(total_harus_byr-total));
     }else{
-        $("#kembalian").text("Rp 0");
+        $("#kembalian").text("- Rp "+currency(total_harus_byr-total));
     }
-    alert(selisih);
+    // alert(selisih);
 }
 
 function selectTopping(id){
