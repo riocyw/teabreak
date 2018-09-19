@@ -39,7 +39,8 @@ class AdminStand extends CI_Controller {
 
 	public function getAllKategori()//GET KATEGORI
 	{
-		$data = $this->Produk->getDistinctSpecificColumn('produk','kategori');
+		$where = array('kategori !=' => ,'topping' );
+		$data = $this->Produk->getDistinctSpecificColumnWhere('produk','kategori');
 		echo json_encode($data);
 	}
 
@@ -54,7 +55,7 @@ class AdminStand extends CI_Controller {
 	public function getListTopping() //GET LIST TOPPING SAJA
 	{
 		$where = array('kategori' => 'topping' );
-		$data = $this->Produk->getSpecificColumnWhere('produk','nama_produk',$where);
+		$data = $this->Produk->getData($where,'produk');
 		echo json_encode($data);
 	}
 }
