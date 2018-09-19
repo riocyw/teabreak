@@ -77,42 +77,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 
 <div class="section">
-    <div id="kategorisection" class="col-lg-2 col-md-4 col-sm-12 section1">
+    <div class="col-lg-2 col-md-4 col-sm-12 section1">
         <div style="padding: 0px;" class="col-lg-8 offset-lg-4 col-md-6 offset-md-3 judul">
             KATEGORI
         </div>
-        <div class="kategori col-lg-8 offset-lg-4 col-sm-12 col-md-10 offset-md-1" onclick="pilih_kategori('Thai Tea')">
-            Thai Tea
-        </div>
-        <div class="kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1" onclick="pilih_kategori('Milk Tea')">
-            Milk Tea
-        </div>
-        <div class="kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1" onclick="pilih_kategori('Appetizer')">
-            Appetizer
-        </div>
-        <div class="kategori none-kategori col-lg-8 offset-lg-4 col-sm-12 col-md-8 col-md-10 offset-md-1 nouse">
+        <div id="kategorisection">
         </div>
     </div>
 
-    <div id="menusection" class="col-lg-3 col-md-6 col-sm-12 section2">
+    <div class="col-lg-3 col-md-6 col-sm-12 section2">
         <div class="col-md-11 offset-md-1 judul">
             MENU
         </div>
-        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1" onclick="pilih_topping('Teh Matcha')">Teh Matcha
-        </div>
-        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1" onclick="pilih_topping('Thai Tea')">
-            <a href="#">Thai Tea</a>
-        </div>
-        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1" onclick="pilih_topping('Thai Tea')">
-            <a href="#">Thai Tea</a>
-        </div>
-        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1" onclick="pilih_topping('Thai Tea')">
-            <a href="#">Thai Tea</a>
-        </div>
-        <div class="menu col-lg-5 offset-lg-1 col-md-5 offset-md-1" onclick="pilih_topping('Thai Tea')">
-            <a href="#">Thai Tea</a>
-        </div>
-        <div class="menu none-menu col-lg-5 offset-lg-1 col-md-5 offset-md-1 nouse">
+        <div id="menusection">
         </div>
     </div>
 
@@ -137,20 +114,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </tr>
                     </thead>
                     <tbody>
-                        <tr id="#p1">
-                            <td><p id="#nama_produk1">Teh Matcha</p></td>
-                            <td><p id="topping1">-</p></td>
-                            <td><button class="btn center btn-default btnmin btnqty" onclick="minus('qty1',this)">-</button><p id="qty1" class="qtyitem btnqty">2</p><button class="btn center btn-default btnplus btnqty" onclick="plus('qty1')">+</button></td>
-                            <td><p id="satuan1">Rp 50.000</p></td>
-                            <td><div class="row"><p class="col-lg-9" id="totalharga1">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove" onclick="removeBtn(this);">X</button></div></td>
-                        </tr>
-                        <tr id="#p2">
-                            <td><p id="#nama_produk2">Teh Matcha</p></td>
-                            <td><p id="topping2">-</p></td>
-                            <td><button class="btn center btn-default btnmin btnqty" onclick="minus('qty2',this)">-</button><p id="qty2" class="qtyitem btnqty">1</p><button class="btn center btn-default btnplus btnqty" onclick="plus('qty1')">+</button></td>
-                            <td><p id="satuan2">Rp 50.000</p></td>
-                            <td><div class="row"><p class="col-lg-9" id="totalharga2">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove" onclick="removeBtn(this);">X</button></div></td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -298,8 +261,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             Cheese
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-6">
                         <div class="kategori itemtopping">
                             Rumput Laut
@@ -379,7 +340,7 @@ function tambah_item(){
     var cell5 = row.insertCell(4);
     cell1.innerHTML = '<p id="#nama_produk'+table.rows.length+'">'+nama_produk+'</p>';
     cell2.innerHTML = '<p id="topping'+table.rows.length+'">'+topping.toString()+'</p>';
-    cell3.innerHTML = '<button class="btn center btn-default btnmin btnqty">-</button><p id="qty'+table.rows.length+'" class="qtyitem btnqty">1</p><button class="btn center btn-default btnplus btnqty">+</button>';
+    cell3.innerHTML = '<button class="btn center btn-default btnmin btnqty" onclick="minus(\'qty'+table.rows.length+'\',this)">-</button><p id="qty'+table.rows.length+'" class="qtyitem btnqty">1</p><button class="btn center btn-default btnplus btnqty" onclick="plus(\'qty'+table.rows.length+'\')">+</button>';
     cell4.innerHTML = '<p id="satuan'+table.rows.length+'">Rp 50.000</p>';
     cell5.innerHTML = '<div class="row"><p class="col-lg-9" id="totalharga'+table.rows.length+'">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove" onclick="removeBtn(this);">X</button></div>';
     $("#modal_topping").modal('hide');
@@ -420,16 +381,22 @@ function pilih_topping(produk){
     $("#modal_topping").modal('show');
 }
 
-function pilih_kategori(id){
-    alert(id);
+function pilih_kategori(kategori){
     $.ajax({
           type:"post",
-          url: "<?php echo base_url('')?>/",
-          data:{ id:id},
+          url: "<?php echo base_url('adminstand/getProdukInKategori')?>/",
+          data:{ kategori:kategori},
           dataType:"json",
           success:function(response)
           {
-
+            document.getElementById("menusection").innerHTML = "";
+            for(var i=0;i< response.length; i++){
+                var div = document.createElement('div');
+                div.className = "menu col-lg-5 offset-lg-1 col-md-5 offset-md-1";
+                div.setAttribute("onclick", "pilih_topping('"+response[i].nama_produk+"')");
+                div.innerHTML = response[i].nama_produk;
+                document.getElementById('menusection').appendChild(div);
+            }
           },
           error: function (jqXHR, textStatus, errorThrown)
           {
@@ -438,6 +405,32 @@ function pilih_kategori(id){
       }
     );
 }
+
+jQuery( document ).ready(function( $ ) {
+    $.ajax({
+          type:"post",
+          url: "<?php echo base_url('adminstand/getAllKategori')?>/",
+          dataType:"json",
+          success:function(response)
+          {
+            document.getElementById("kategorisection").innerHTML = "";
+            for(var i=0;i< response.length; i++){
+                var div = document.createElement('div');
+                div.className = "kategori col-lg-8 offset-lg-4 col-sm-12 col-md-10 offset-md-1";
+                div.setAttribute("onclick", "pilih_kategori('"+response[i].kategori+"')");
+                div.innerHTML = response[i].kategori;
+                document.getElementById('kategorisection').appendChild(div);
+            }
+            pilih_kategori(response[0].kategori);
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+            alert(errorThrown);
+          }
+      }
+    );
+});
+
 
 function kalkulatorkasir(number) {
     var nominal = $("#total_bayar").html();
