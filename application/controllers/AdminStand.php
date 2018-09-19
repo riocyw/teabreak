@@ -39,7 +39,7 @@ class AdminStand extends CI_Controller {
 
 	public function getAllKategori()//GET KATEGORI
 	{
-		$where = array('kategori !=' => ,'topping' );
+		$where = array('kategori !=' => 'topping' );
 		$data = $this->Produk->getDistinctSpecificColumnWhere('produk','kategori');
 		echo json_encode($data);
 	}
