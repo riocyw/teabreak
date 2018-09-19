@@ -199,7 +199,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <p class="totaljudul">Total :</p>
                         </div>
                         <div class="col-lg-6">
-                            <p id="harus_bayar">Rp 20.000</p>
+                            <p id="harus_bayar">Rp 0</p>
                         </div>
                     </div>
                     <div class="row">
@@ -207,7 +207,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <p class="kembalianjudul">Kembalian :</p>
                         </div>
                         <div class="col-lg-6">
-                            <p id="kembalian">Rp 80.000</p>
+                            <p id="kembalian">Rp 0</p>
                         </div>
                     </div>
                     <hr class="garis">
@@ -366,7 +366,7 @@ function tambah_item(){
         order[count].qty++;
         order[count].total = order[count].qty*order[count].harga_produk;
         $("#qty"+order[count].id_order).text(order[count].qty);
-        $("#totalharga"+order[count].id_order).text("RP "+currency(order[count].total));
+        $("#totalharga"+order[count].id_order).text("Rp "+currency(order[count].total));
         $("#modal_topping").modal('hide');
         
     }else{
@@ -413,7 +413,7 @@ function plus(id,rowid){
     value = parseInt(value)+1;
     satuan = parseInt($("#satuan"+id).text().substring(3).replace('.',''));
     $("#qty"+id).text(value);
-    $("#totalharga"+id).text("RP "+currency(value*satuan));
+    $("#totalharga"+id).text("Rp "+currency(value*satuan));
     row = rowid.parentNode.parentNode.id;
     for (var i = 0; i < order.length; i++) {
         if (order[i].id_order==row) {
@@ -439,7 +439,7 @@ function minus(id,rowid){
             }
         }
         $("#qty"+id).text(value);
-        $("#totalharga"+id).text("RP "+currency(value*satuan));
+        $("#totalharga"+id).text("Rp "+currency(value*satuan));
     }else{
         var i = rowid.parentNode.parentNode.rowIndex;
         document.getElementById("billtable").deleteRow(i);
@@ -461,9 +461,9 @@ function countTotal(){
         subtotal = subtotal+order[i].total;
     }
     total_harus_byr = subtotal-diskon;
-    $("#subtotal").text("RP "+currency(subtotal));
-    $("#total_harus_byr").text("RP "+currency(total_harus_byr));
-    console.log(order);
+    $("#subtotal").text("Rp "+currency(subtotal));
+    $("#total_harus_byr").text("Rp "+currency(total_harus_byr));
+    $("#harus_bayar").text("Rp "+currency(total_harus_byr));
 }
 
 function reset_topping(){
@@ -510,6 +510,18 @@ function pilih_kategori(kategori){
 
 function autobtn(){
     $("#total_bayar").text(currency(total_harus_byr));
+    hitungKembalian();
+}
+
+function hitungKembalian(){
+    var total = parseInt($("#total_bayar").text().replace('.',''));
+    selisih = total-total_harus_byr;
+    if (selisih>0) {
+        $("#kembalian").text("Rp "+currency(total_harus_byr-total));
+    }else{
+        $("#kembalian").text("Rp 0");
+    }
+    alert(selisih);
 }
 
 function selectTopping(id){
@@ -592,18 +604,22 @@ function kalkulatorkasir(number) {
         if (nominal != '0') {
             if (nominal.length == 1) {
                 $("#total_bayar").html('0');
+                hitungKembalian();
             }else{
                 nominal = nominal.slice(0,-1)
-                $("#total_bayar").html(nominal);
+                $("#total_bayar").html(currency(nominal));
+                hitungKembalian();
             }
         }
     }else{
         if (nominal == '0') {
             $("#total_bayar").html(currency(number));
+            hitungKembalian();
         }else{
             if (nominal.length<20) {
                 nominal = nominal + number;
                 $("#total_bayar").html(currency(nominal));
+                hitungKembalian();
             }
         }
         
