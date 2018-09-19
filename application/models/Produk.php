@@ -61,14 +61,14 @@ class Produk extends CI_Model{
         $this->db->delete($table);
     }
 
-    public function getSpecificColumn($table,$column){}
+    public function getSpecificColumn($table,$column)
     {
         $this->db->select($column); 
         $this->db->from($table);
         return $this->db->get()->result();
     }
 
-    public function getDistinctSpecificColumn($table,$column){}
+    public function getDistinctSpecificColumn($table,$column)
     {
         $this->db->distinct();
         $this->db->select($column); 

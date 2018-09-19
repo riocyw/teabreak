@@ -192,35 +192,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="modal-body">
                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="row">
-                        <button class="btn btn-calc col-lg-3">7
+                        <button class="btn btn-calc col-lg-3" onclick="kalkulatorkasir('7')">7
                         </button>
-                        <button class="btn btn-calc col-lg-3 offset-lg-1">8
+                        <button class="btn btn-calc col-lg-3 offset-lg-1" onclick="kalkulatorkasir('8')">8
                         </button>
-                        <button class="btn btn-calc col-lg-3 offset-lg-1">9
-                        </button>
-                    </div>
-                    <div class="row">
-                        <button class="btn btn-calc col-lg-3">4
-                        </button>
-                        <button class="btn btn-calc col-lg-3 offset-lg-1">5
-                        </button>
-                        <button class="btn btn-calc col-lg-3 offset-lg-1">6
+                        <button class="btn btn-calc col-lg-3 offset-lg-1" onclick="kalkulatorkasir('9')">9
                         </button>
                     </div>
                     <div class="row">
-                        <button class="btn btn-calc col-lg-3">1
+                        <button class="btn btn-calc col-lg-3" onclick="kalkulatorkasir('4')">4
                         </button>
-                        <button class="btn btn-calc col-lg-3 offset-lg-1">2
+                        <button class="btn btn-calc col-lg-3 offset-lg-1" onclick="kalkulatorkasir('5')">5
                         </button>
-                        <button class="btn btn-calc col-lg-3 offset-lg-1">3
+                        <button class="btn btn-calc col-lg-3 offset-lg-1" onclick="kalkulatorkasir('6')">6
                         </button>
                     </div>
                     <div class="row">
-                        <button class="btn btn-calc col-lg-3">0
+                        <button class="btn btn-calc col-lg-3" onclick="kalkulatorkasir('1')">1
                         </button>
-                        <button class="btn btn-calc col-lg-3 offset-lg-1">00
+                        <button class="btn btn-calc col-lg-3 offset-lg-1" onclick="kalkulatorkasir('2')">2
                         </button>
-                        <button class="btn btn-calc col-lg-3 offset-lg-1"><
+                        <button class="btn btn-calc col-lg-3 offset-lg-1" onclick="kalkulatorkasir('3')">3
+                        </button>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-calc col-lg-3" onclick="kalkulatorkasir('0')">0
+                        </button>
+                        <button class="btn btn-calc col-lg-3 offset-lg-1" onclick="kalkulatorkasir('00')">00
+                        </button>
+                        <button class="btn btn-calc col-lg-3 offset-lg-1" onclick="kalkulatorkasir('del')"><
                         </button>
                     </div>
                 </div>
@@ -229,7 +229,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         Jumlah Uang
                     </div>
                     <div class="row">
-                        <p id="total_bayar" class="form-control">100.000</p>
+                        <p id="total_bayar" class="form-control">0</p>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
@@ -250,13 +250,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <hr class="garis">
                     <div class="row">
                         <div class="col-lg-4">
-                            <input type="radio" name="tipe_bayar" checked="true" value="cash"><label> Cash</label>
+                            <input type="radio" name="tipe_bayar" checked="true" value="cash"><label>&nbsp Cash</label>
                         </div>
                         <div class="col-lg-4">
-                            <input type="radio" name="tipe_bayar" value="debit"><label> Debit</label>
+                            <input type="radio" name="tipe_bayar" value="debit"><label>&nbsp Debit</label>
                         </div>
                         <div class="col-lg-4">
-                            <input type="radio" name="tipe_bayar" value="ovo"><label> Ovo</label>
+                            <input type="radio" name="tipe_bayar" value="ovo"><label>&nbsp Ovo</label>
                         </div>
                     </div>
                     <div class="row">
@@ -267,7 +267,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <button class="btn btn-auto">Auto</button>
                         </div>
                         <div class="col-lg-3 offset-lg-1">
-                            <button class="btn btn-kembali">Kembali</button>
+                            <button class="btn btn-kembali" data-dismiss='modal'>Kembali</button>
                         </div>
                         <div class="col-lg-3">
                             <button class="btn btn-cetak-dis">Cetak Nota</button>
@@ -439,6 +439,76 @@ function pilih_kategori(id){
     );
 }
 
+function kalkulatorkasir(number) {
+    var nominal = $("#total_bayar").html();
+    nominal = nominal.replace('.','');
+
+    if (number == 'del') {
+        if (nominal != '0') {
+            if (nominal.length == 1) {
+                $("#total_bayar").html('0');
+            }else{
+                nominal = nominal.slice(0,-1)
+                $("#total_bayar").html(nominal);
+            }
+        }
+    }else{
+        if (nominal == '0') {
+            $("#total_bayar").html(currency(number));
+        }else{
+            nominal = nominal + number;
+            $("#total_bayar").html(currency(nominal));
+        }
+        
+        // switch(number) {
+        //     case '0':
+        //          nominal = nominal + number;
+        //          $("#total_bayar").val() = currency(nominal);
+        //         break;
+        //     case '1':
+        //         nominal = nominal + number;
+        //          $("#total_bayar").val() = currency(nominal);
+        //         break;
+        //     case '2':
+        //         code block
+        //         break;
+        //     case '3':
+        //         code block
+        //         break;
+        //     case '4':
+        //         code block
+        //         break;
+        //     case '5':
+        //         code block
+        //         break;
+        //     case '6':
+        //         code block
+        //         break;
+        //     case '7':
+        //         code block
+        //         break;
+        //     case '8':
+        //         code block
+        //         break;
+        //     case '9':
+        //         code block
+        //         break;
+        //     case '00':
+        //         code block
+        //         break;
+        //     default:
+        //         break;
+        // } 
+    }
+}
+
+function currency(x) {
+    var retVal=x.toString().replace(/[^\d]/g,'');
+    while(/(\d+)(\d{3})/.test(retVal)) {
+      retVal=retVal.replace(/(\d+)(\d{3})/,'$1'+'.'+'$2');
+    }
+    return retVal;
+}
 </script>
 </body>
 </html>

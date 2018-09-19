@@ -31,13 +31,13 @@ class AdminStand extends CI_Controller {
 		$this->load->view('adminstand/kasir');
 	}
 
-	public function getAllKategori()
+	public function getAllKategori()//GET KATEGORI
 	{
 		$data = $this->Produk->getDistinctSpecificColumn('produk','kategori');
 		echo json_encode($data);
 	}
 
-	public function getProdukInKategori()
+	public function getProdukInKategori() //GET PRODUK DI KATEGORI TERTENTU
 	{
 		$kategori = $this->input->post('kategori');
 		$where = array('kategori' => $kategori );
@@ -45,7 +45,7 @@ class AdminStand extends CI_Controller {
 		echo json_encode($data);
 	}
 
-	public function getListTopping()
+	public function getListTopping() //GET LIST TOPPING SAJA
 	{
 		$where = array('kategori' => 'topping' );
 		$data = $this->Produk->getSpecificColumnWhere('produk','nama_produk',$where);
