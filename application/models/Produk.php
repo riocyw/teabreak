@@ -76,6 +76,15 @@ class Produk extends CI_Model{
         return $this->db->get()->result();
     }
 
+    public function getDistinctSpecificColumnWhere($table,$column,$where)
+    {
+        $this->db->distinct();
+        $this->db->select($column); 
+        $this->db->from($table);
+        $this->db->where($where);
+        return $this->db->get()->result();
+    }
+
     public function getSpecificColumnWhere($table,$column,$where)
     {
         $this->db->select($column); 
