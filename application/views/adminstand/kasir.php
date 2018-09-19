@@ -125,17 +125,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <tr>
                             <td>Sub Total </td>
                             <td>:</td>
-                            <td>Rp 20.000</td>
+                            <td id="subtotal">Rp 0</td>
                         </tr>
                         <tr>
                             <td>Diskon </td>
                             <td>:</td>
-                            <td>Rp 0</td>
+                            <td id="diskon">Rp 0</td>
                         </tr>
                         <tr>
                             <td>TOTAL</td>
                             <td>:</td>
-                            <td><h4>Rp 20.000</h4></td>
+                            <td><h4 id="total_harus_byr">Rp 0</h4></td>
                         </tr>
                     </table>
                 </div>
@@ -246,35 +246,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="header modal-header">
-                <h4 class="modal-title">Edit</h4>
+                <h4 class="modal-title">Pilih Topping</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="kategori itemtopping">
-                            Buble
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="kategori itemtopping">
-                            Cheese
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="kategori itemtopping">
-                            Rumput Laut
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="kategori itemtopping">
-                            Tidak Pakai
-                        </div>
-                    </div>
+                <div class="row" id="toppingsection">
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
+                <button type="button" data-dismiss="modal" onclick="reset_topping()" class="btn btn-default">Batal</button>
                 <button type="button" onclick="tambah_item()" class="btn add_field_button btn-info">Tambah Item</button>
             </div>
         </div>
@@ -299,8 +279,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src=<?php echo base_url("assets/datatable/pdfmake-0.1.36/vfs_fonts.js")?>></script>
 <script type="text/javascript">
 var nama_produk;
+var harga_produk;
+var qty;
+var id_produk;
 var topping = new Array();
 var order = new Array();
+var total_harus_byr=0;
+var diskon = 0;
+var subtotal = 0;
 
 function myFunction() {
 var x = document.getElementById("myTopnav");
@@ -320,65 +306,132 @@ function removeBtn(rowid){
     document.getElementById("billtable").deleteRow(i);
 }
 
-$('.itemtopping').click(function(){
-    $(this).toggleClass("activetopping");
-});
-
 function tambah_item(){
+    var status_topping = false;
+    var count_topping = 0;
+    var count;
+
     var table = document.getElementById("billtable");
+    var list_idtopping = new Array();
     $.each($('.activetopping'), function (index, item) {
-        topping.push(item.innerHTML.trim());
-  });
+        topping.push(item.childNodes[2].value);
+        harga_produk = parseInt(harga_produk)+parseInt(item.childNodes[1].value);
+        list_idtopping.push(item.childNodes[1].id);
+    });
+
+    if (table.rows.length>1) {
+        for (var i = 0; i < order.length; i++) {
+            if (order[i].id_produk==id_produk) {
+                count = i;
+                for (var j = 0; j < list_idtopping.length; j++) {
+                    for (var k = 0; k < order[i].list_idtopping.length; k++) {
+                        if (list_idtopping[j]==order[i].list_idtopping[k]) {
+                            count_topping++;
+                        }
+                    }
+                }
+                alert(count_topping);
+                if (count_topping===order[i].list_idtopping.length) {
+                    status_topping = true;
+                }
+                count_topping=0;
+            }
+        }
+    }
+
     if (topping.length<1) {
         topping.push("-");   
     }
-    var row = table.insertRow(1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    var cell4 = row.insertCell(3);
-    var cell5 = row.insertCell(4);
-    cell1.innerHTML = '<p id="#nama_produk'+table.rows.length+'">'+nama_produk+'</p>';
-    cell2.innerHTML = '<p id="topping'+table.rows.length+'">'+topping.toString()+'</p>';
-    cell3.innerHTML = '<button class="btn center btn-default btnmin btnqty" onclick="minus(\'qty'+table.rows.length+'\',this)">-</button><p id="qty'+table.rows.length+'" class="qtyitem btnqty">1</p><button class="btn center btn-default btnplus btnqty" onclick="plus(\'qty'+table.rows.length+'\')">+</button>';
-    cell4.innerHTML = '<p id="satuan'+table.rows.length+'">Rp 50.000</p>';
-    cell5.innerHTML = '<div class="row"><p class="col-lg-9" id="totalharga'+table.rows.length+'">Rp 100.000</p><button class="col-lg-3 btn btn-danger btnremove" onclick="removeBtn(this);">X</button></div>';
-    $("#modal_topping").modal('hide');
-    // var item = new Array();
-    // item.nama_produk = nama_produk;
-    // item.topping = topping.toString();
-    // item.qty = 1;
-    // item.satuan = 50000;
-    // item.total = 50000;
-    // order.push(item);
-    // console.log(order);
+
+    if (status_topping) {
+        order[count].qty++;
+        order[count].total = order[count].qty*order[count].harga_produk;
+        alert(order[count].id_order);
+        $("#qty"+order[count].id_order).text(order[count].qty);
+        $("#totalharga"+order[count].id_order).text("RP "+currency(order[count].total));
+        $("#modal_topping").modal('hide');
+        
+    }else{
+        var row = table.insertRow(1);
+        row.id = table.rows.length;
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        cell1.innerHTML = '<p id="#nama_produk'+table.rows.length+'">'+nama_produk+'</p>';
+        cell2.innerHTML = '<p id="topping'+table.rows.length+'">'+topping.toString()+'</p>';
+        cell3.innerHTML = '<button class="btn center btn-default btnmin btnqty" onclick="minus(\''+table.rows.length+'\',this)">-</button><p id="qty'+table.rows.length+'" class="qtyitem btnqty">1</p><button class="btn center btn-default btnplus btnqty" onclick="plus(\''+table.rows.length+'\')">+</button>';
+        cell4.innerHTML = '<p id="satuan'+table.rows.length+'">Rp '+currency(harga_produk)+'</p>';
+        cell5.innerHTML = '<div class="row"><p class="col-lg-9" id="totalharga'+table.rows.length+'">Rp '+currency(qty*harga_produk)+'</p><button class="col-lg-3 btn btn-danger btnremove" onclick="removeBtn(this);">X</button></div>';
+        $("#modal_topping").modal('hide');
+        var item = new Array();
+        item.id_order = table.rows.length;
+        item.list_idtopping = list_idtopping;
+        item.nama_produk = nama_produk;
+        item.id_produk = id_produk;
+        item.topping = topping.toString();
+        item.qty = 1;
+        item.harga_produk = harga_produk;
+        item.total = qty*harga_produk;
+        order.push(item);
+    }
+    
+    console.log(order);
     nama_produk="";
     topping = [];
+    list_idtopping = [];
+    id_produk = "";
+    harga_produk = 0;
+    qty = 0;
     $.each($('.activetopping'), function (index, item) {
         $(this).toggleClass("activetopping");
     });
 }
 
 function plus(id){
-    var value = $("#"+id).text();
+    var value = $("#qty"+id).text();
     value = parseInt(value)+1;
-    $("#"+id).text(value);
+    satuan = parseInt($("#satuan"+id).text().substring(3).replace('.',''));
+    $("#qty"+id).text(value);
+    $("#totalharga"+id).text("RP "+currency(value*satuan));
 }
 
 function minus(id,rowid){
-    var value = $("#"+id).text();
+    var value = $("#qty"+id).text();
+
     if (parseInt(value)>1) {
         value = parseInt(value)-1;
-        $("#"+id).text(value);
+        satuan = parseInt($("#satuan"+id).text().substring(3).replace('.',''));
+        $("#qty"+id).text(value);
+        $("#totalharga"+id).text("RP "+currency(value*satuan));
     }else{
         var i = rowid.parentNode.parentNode.rowIndex;
         document.getElementById("billtable").deleteRow(i);
     }
 }
 
-function pilih_topping(produk){
+function countTotal(){
+    for (var i = 0;i < order.length; i++){
+        // subtotal = order[i].
+    }
+}
+
+function reset_topping(){
+    $.each($('.activetopping'), function (index, item) {
+        $(this).toggleClass("activetopping");
+    });
+}
+
+function pilih_topping(produk,harga_jual,produk_id){
     nama_produk = produk;
-    $("#modal_topping").modal('show');
+    harga_produk = harga_jual;
+    id_produk = produk_id;
+    qty = 1;
+    $("#modal_topping").modal({
+        backdrop: 'static',
+        keyboard: false
+    });
 }
 
 function pilih_kategori(kategori){
@@ -393,7 +446,7 @@ function pilih_kategori(kategori){
             for(var i=0;i< response.length; i++){
                 var div = document.createElement('div');
                 div.className = "menu col-lg-5 offset-lg-1 col-md-5 offset-md-1";
-                div.setAttribute("onclick", "pilih_topping('"+response[i].nama_produk+"')");
+                div.setAttribute("onclick", "pilih_topping('"+response[i].nama_produk+"','"+response[i].harga_jual+"','"+response[i].id_produk+"')");
                 div.innerHTML = response[i].nama_produk;
                 document.getElementById('menusection').appendChild(div);
             }
@@ -406,7 +459,15 @@ function pilih_kategori(kategori){
     );
 }
 
-jQuery( document ).ready(function( $ ) {
+function selectTopping(id){
+    if(id.childNodes[0].classList.contains('activetopping')){
+        id.childNodes[0].classList.remove('activetopping');
+    }else{
+        id.childNodes[0].classList.add('activetopping');
+    }
+}
+
+function reset_menu(){
     $.ajax({
           type:"post",
           url: "<?php echo base_url('adminstand/getAllKategori')?>/",
@@ -429,6 +490,44 @@ jQuery( document ).ready(function( $ ) {
           }
       }
     );
+
+    $.ajax({
+          type:"post",
+          url: "<?php echo base_url('adminstand/getListTopping')?>/",
+          dataType:"json",
+          success:function(response)
+          {
+            document.getElementById("toppingsection").innerHTML = "";
+            for(var i=0;i< response.length; i++){
+                var div = document.createElement('div');
+                var divchild = document.createElement('div');
+                var input = document.createElement('input');
+                var input2 = document.createElement('input');
+                input.setAttribute("type","hidden");
+                input.setAttribute("value",response[i].harga_jual);
+                input2.setAttribute("type","hidden");
+                input2.setAttribute("value",response[i].nama_produk);
+                input.id = response[i].id_produk;
+                div.className = "col-md-6";
+                divchild.className = "kategori itemtopping";
+                divchild.innerHTML = response[i].nama_produk;
+                divchild.appendChild(input);
+                divchild.appendChild(input2);
+                div.appendChild(divchild);
+                div.setAttribute("onclick", "selectTopping(this)");
+                document.getElementById('toppingsection').appendChild(div);
+            }
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+            alert(errorThrown);
+          }
+      }
+    );
+}
+
+jQuery( document ).ready(function( $ ) {
+    reset_menu();
 });
 
 
