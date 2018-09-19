@@ -68,8 +68,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="dropdown float-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rio Christian</i></a>
                     <div class="dropdown-menu">
-                        <a class="nav-link" href="#"><i class="fa fa-cog"></i> Setting</a>
-                        <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                        <a class="nav-link" href="#"><i class="fa fa-cog"></i> Ganti Password</a>
+                        <a class="nav-link" href="logout"><i class="fa fa-power-off"></i> Logout</a>
                     </div>
                 </div>
             </div>

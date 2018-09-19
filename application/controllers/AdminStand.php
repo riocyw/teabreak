@@ -28,7 +28,13 @@ class AdminStand extends CI_Controller {
   	}
 	public function kasir()
 	{
-		$this->load->view('adminstand/kasir');
+		$akses = $this->session->userdata('aksesadminstan');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+            $this->load->view('adminstand/kasir');
+        }
+		
 	}
 
 	public function getAllKategori()//GET KATEGORI

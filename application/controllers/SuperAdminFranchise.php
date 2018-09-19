@@ -21,10 +21,16 @@ class SuperAdminFranchise extends CI_Controller {
   	public function login()
   	{
   		$adminId = $this->session->userdata('aksessupadmin');
-        if(empty($adminId)){
+  		$adminstan = $this->session->userdata('aksesadminstan');
+        if(empty($adminId) && empty($adminstan)){
             $this->load->view('superadminfranchise/login');
         }else{
-            redirect('dashboardsuperadmin');
+        	if (!empty($adminId)) {
+        		redirect('dashboardsuperadmin');
+        	}else{
+        		redirect('kasir');
+        	}
+            
         }
   	}
 
@@ -72,8 +78,9 @@ class SuperAdminFranchise extends CI_Controller {
 
   	public function logout()
   	{
+  		$this->session->unset_userdata('aksesadminstan');
   		$this->session->unset_userdata('aksessupadmin');
-  		$this->session->unset_userdata('usernamesupadmin');
+  		$this->session->unset_userdata('username');
   		redirect('login');
   	}
 
@@ -82,11 +89,16 @@ class SuperAdminFranchise extends CI_Controller {
   		$username = $this->input->post('username');
   		$password = $this->input->post('password');
   		$password = md5($password);
-  		$where = array('username' => $username,'password' => $password,'usertype' => 'superadminfranchise' );
+  		$where = array('username' => $username,'password' => $password);
+  		$data = $this->Produk->getData($where,'alluser');
   		
   		if ($this->Produk->getRowCount('alluser',$where) > 0) {
-  			$this->session->set_userdata('aksessupadmin', 'granted');
-  			$this->session->set_userdata('usernamesupadmin', $username);
+  			if ($data[0]->usertype == 'superadminfranchise') {
+  				$this->session->set_userdata('aksessupadmin', 'granted');
+  			}else if ($data[0]->usertype == 'adminstand') {
+  				$this->session->set_userdata('aksesadminstan', 'granted');
+  			}
+  			$this->session->set_userdata('username', $username);
   		 	echo 'true';
   		}else{
   			echo "false";
