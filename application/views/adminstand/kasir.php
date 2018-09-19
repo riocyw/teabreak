@@ -319,34 +319,35 @@ function tambah_item(){
         list_idtopping.push(item.childNodes[1].id);
     });
 
+    if (topping.length<1) {
+        topping.push("-");   
+    }
+
     if (table.rows.length>1) {
         for (var i = 0; i < order.length; i++) {
+            console.log(order[i].id_produk);
             if (order[i].id_produk==id_produk) {
                 count = i;
-                for (var j = 0; j < list_idtopping.length; j++) {
-                    for (var k = 0; k < order[i].list_idtopping.length; k++) {
-                        if (list_idtopping[j]==order[i].list_idtopping[k]) {
+                for (var j = 0; j < topping.length; j++) {
+                    for (var k = 0; k < order[i].topping.length; k++) {
+                        console.log(topping[j]+" "+order[i].topping[k]);
+                        if (topping[j]===order[i].topping[k]) {
                             count_topping++;
                         }
                     }
                 }
-                alert(count_topping);
-                if (count_topping===order[i].list_idtopping.length) {
+                if (count_topping==order[i].topping.length) {
                     status_topping = true;
+                    break;
                 }
                 count_topping=0;
             }
         }
     }
 
-    if (topping.length<1) {
-        topping.push("-");   
-    }
-
     if (status_topping) {
         order[count].qty++;
         order[count].total = order[count].qty*order[count].harga_produk;
-        alert(order[count].id_order);
         $("#qty"+order[count].id_order).text(order[count].qty);
         $("#totalharga"+order[count].id_order).text("RP "+currency(order[count].total));
         $("#modal_topping").modal('hide');
@@ -370,7 +371,7 @@ function tambah_item(){
         item.list_idtopping = list_idtopping;
         item.nama_produk = nama_produk;
         item.id_produk = id_produk;
-        item.topping = topping.toString();
+        item.topping = topping;
         item.qty = 1;
         item.harga_produk = harga_produk;
         item.total = qty*harga_produk;
@@ -384,6 +385,7 @@ function tambah_item(){
     id_produk = "";
     harga_produk = 0;
     qty = 0;
+    count=null;
     $.each($('.activetopping'), function (index, item) {
         $(this).toggleClass("activetopping");
     });
