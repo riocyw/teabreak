@@ -92,5 +92,12 @@ class Produk extends CI_Model{
         $this->db->where($where);
         return $this->db->get()->result();
     }
+
+    public function getDataIn($table,$list)
+    {
+        $this->db->from($table);
+        $this->db->where_in('id_diskon', $list);
+        return $this->db->get()->result();
+    }
 }
 ?>

@@ -642,4 +642,47 @@ class SuperAdminFranchise extends CI_Controller {
 		echo json_encode($data);
 		//DETAIL
 	}
+
+	public function sendDataStan()
+	{
+		$data = $this->Produk->getAllData('stan');
+		echo json_encode($data);
+	}
+
+	public function sendDataProduk()
+	{
+		$data = $this->Produk->getAllData('produk');
+		echo json_encode($data);
+	}
+
+	public function sendDataDiskon()
+	{
+		$id = $this->input->post('id_stan');
+		$where = array('id_stan' => $id);
+		$listdiskon = array();
+		$datas = $this->Produk->getData($where,'detail_stan_diskon');
+
+		foreach ($datas as $data) {
+			array_push($listdiskon, $data->id_diskon);
+		}
+
+		$diskondata = $this->Produk->getDataIn('diskon',$listdiskon);
+		echo json_encode($diskondata);
+	}
+
+	public function sendDataDetailDiskonProduk()
+	{
+
+		$id = $this->input->post('id_stan');
+		$where = array('id_stan' => $id);
+		$listdiskon = array();
+		$datas = $this->Produk->getData($where,'detail_stan_diskon');
+
+		foreach ($datas as $data) {
+			array_push($listdiskon, $data->id_diskon);
+		}
+
+		$dataproduk = $this->Produk->getDataIn('detail_barang_diskon',$listdiskon);
+		echo json_encode($dataproduk);
+	}
 }

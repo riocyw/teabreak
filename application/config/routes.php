@@ -66,5 +66,10 @@ $route['logout'] = 'superadminfranchise/logout';
 
 $route['kasir'] = 'adminstand/kasir';
 
+$route['getDataStan'] = 'superadminfranchise/sendDataStan';
+$route['getDataProduk'] = 'superadminfranchise/sendDataProduk';
+$route['getDataDiskon'] = 'superadminfranchise/sendDataDiskon';
+$route['getDataDetailDiskonProduk'] = 'superadminfranchise/sendDataDetailDiskonProduk';
+
 $route['json'] = 'superadminfranchise/json';
 $route['translate_uri_dashes'] = FALSE;
