@@ -695,4 +695,11 @@ class SuperAdminFranchise extends CI_Controller {
 		$dataproduk = $this->Produk->getDataIn('detail_barang_diskon',$listdiskon);
 		echo json_encode($dataproduk);
 	}
+
+	public function insertDataNota()
+	{
+		$data_nota = json_decode($this->input->post('allnota'));
+		$data_detail_nota = json_decode($this->input->post('detailnota'));
+		// echo gettype($data_nota)." ".gettype($data_detail_nota);
+	}
 }
