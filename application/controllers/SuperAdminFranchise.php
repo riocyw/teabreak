@@ -663,7 +663,12 @@ class SuperAdminFranchise extends CI_Controller {
 		$datas = $this->Produk->getData($where,'detail_stan_diskon');
 
 		foreach ($datas as $data) {
-			array_push($listdiskon, $data->id_diskon);
+			$where2 = array('id_diskon' => $data->id_diskon);
+			$query = $this->Produk->getFirstRowData($where2,'diskon');
+			if ($query->status == 'active') {
+				array_push($listdiskon, $data->id_diskon);
+			}
+			
 		}
 
 		$diskondata = $this->Produk->getDataIn('diskon',$listdiskon);
@@ -679,7 +684,12 @@ class SuperAdminFranchise extends CI_Controller {
 		$datas = $this->Produk->getData($where,'detail_stan_diskon');
 
 		foreach ($datas as $data) {
-			array_push($listdiskon, $data->id_diskon);
+			$where2 = array('id_diskon' => $data->id_diskon);
+			$query = $this->Produk->getFirstRowData($where2,'diskon');
+			if ($query->status == 'active') {
+				array_push($listdiskon, $data->id_diskon);
+			}
+			
 		}
 
 		$dataproduk = $this->Produk->getDataIn('detail_barang_diskon',$listdiskon);
