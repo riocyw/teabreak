@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Tea Break Super Admin Franchise</title>
+    <title>Tea Break Super Admin Franchise - Laporan Penjualan Stand</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -249,12 +249,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <!-- DETAIL -->
                     <div class="form-group">
                         <label class=" form-control-label">Nota Pembelian</label>
-                        <table class="table table-striped table-bordered">
+                        <table id="detailnota" class="table table-striped table-bordered">
                             <thead>
                               <tr>
                                 <th>Nama Produk</th>
+                                <th>Jumlah Produk</th>
                                 <th>Kategori Produk</th>
                                 <th>Harga Produk</th>
+                                <th>Total Harga Produk</th>
                               </tr>
                             </thead>
                         </table>

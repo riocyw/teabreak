@@ -64,8 +64,6 @@ $route['login'] = 'superadminfranchise/login';
 $route['gantipassword'] = 'superadminfranchise/gantipassword';
 $route['logout'] = 'superadminfranchise/logout';
 
-$route['kasir'] = 'adminstand/kasir';
-
 $route['getDataStan'] = 'superadminfranchise/sendDataStan';
 $route['getDataProduk'] = 'superadminfranchise/sendDataProduk';
 $route['getDataDiskon'] = 'superadminfranchise/sendDataDiskon';

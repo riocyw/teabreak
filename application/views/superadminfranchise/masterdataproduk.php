@@ -13,7 +13,7 @@ header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encod
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Tea Break Super Admin Franchise</title>
+    <title>Tea Break Super Admin Franchise - Data Produk</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href=<?php echo base_url("apple-icon.png")?>>

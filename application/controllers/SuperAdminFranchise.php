@@ -1,9 +1,4 @@
 <?php
-
-
-
-
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
@@ -21,7 +16,7 @@ class SuperAdminFranchise extends CI_Controller {
   	public function login()
   	{
   		$adminId = $this->session->userdata('aksessupadmin');
-  		$adminstan = $this->session->userdata('aksesadminstan');
+  		// $adminstan = $this->session->userdata('aksesadminstan');
         if(empty($adminId) && empty($adminstan)){
             $this->load->view('superadminfranchise/login');
         }else{
@@ -78,7 +73,7 @@ class SuperAdminFranchise extends CI_Controller {
 
   	public function logout()
   	{
-  		$this->session->unset_userdata('aksesadminstan');
+  		// $this->session->unset_userdata('aksesadminstan');
   		$this->session->unset_userdata('aksessupadmin');
   		$this->session->unset_userdata('username');
   		redirect('login');
@@ -96,7 +91,7 @@ class SuperAdminFranchise extends CI_Controller {
   			if ($data[0]->usertype == 'superadminfranchise') {
   				$this->session->set_userdata('aksessupadmin', 'granted');
   			}else if ($data[0]->usertype == 'adminstand') {
-  				$this->session->set_userdata('aksesadminstan', 'granted');
+  				// $this->session->set_userdata('aksesadminstan', 'granted');
   			}
   			$this->session->set_userdata('username', $username);
   		 	echo 'true';
@@ -701,5 +696,6 @@ class SuperAdminFranchise extends CI_Controller {
 		$data_nota = json_decode($this->input->post('allnota'));
 		$data_detail_nota = json_decode($this->input->post('detailnota'));
 		// echo gettype($data_nota)." ".gettype($data_detail_nota);
+		echo 'true';
 	}
 }
