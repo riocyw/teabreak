@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href=<?php echo base_url("apple-icon.png")?>>
-    <link rel="shortcut icon" href=<?php echo base_url("favicon.ico")?>>
+    <link rel="shortcut icon" href=<?php echo base_url("assets/logo.ico")?>>
 
     <link rel="stylesheet" href=<?php echo base_url("assets/css/normalize.css")?>>
 

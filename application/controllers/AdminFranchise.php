@@ -13,6 +13,18 @@ class AdminFranchise extends CI_Controller {
 	    $this->load->library('session');
   	}
 
+  	public function dashboardadmin()
+  	{
+  		$akses = $this->session->userdata('aksesadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+        	$this->load->view('adminfranchise/navigationbar');
+            // $this->load->view('adminfranchise/');
+			// $this->load->view('adminfranchise/');
+        }
+  	}
+
   	public function stokproduk(){
   		$akses = $this->session->userdata('aksesadmin');
         if(empty($akses)){

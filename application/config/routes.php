@@ -85,6 +85,7 @@ $route['masterdataprodukkemasan'] = 'superadminfranchise/masterdataprodukkemasan
 
 
 //ADMIN WAREHOUSE (FRANCHISE)
+$route['dashboardadmin'] = 'adminfranchise/dashboardadmin';
 $route['stokproduk'] = 'adminfranchise/stokproduk';
 $route['pembelian'] = 'adminfranchise/pembelian';
 $route['pengeluaranlain'] = 'adminfranchise/pengeluaranlain';
