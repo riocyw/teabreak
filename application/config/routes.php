@@ -70,5 +70,27 @@ $route['getDataDiskon'] = 'superadminfranchise/sendDataDiskon';
 $route['getDataDetailDiskonProduk'] = 'superadminfranchise/sendDataDetailDiskonProduk';
 $route['insertDataNota'] = 'superadminfranchise/insertDataNota';
 
+$route['lapdist'] = 'superadminfranchise/lapdist';
+$route['lapgaji'] = 'superadminfranchise/lapgaji';
+$route['lapkeuntunganglobal'] = 'superadminfranchise/lapkeuntunganglobal';
+$route['lapkeuntunganstan'] = 'superadminfranchise/lapkeuntunganstan';
+$route['lappembelian'] = 'superadminfranchise/lappembelian';
+$route['lappengeluaranstok'] = 'superadminfranchise/lappengeluaranstok';
+$route['lapsisastok'] = 'superadminfranchise/lapsisastok';
+$route['presensi'] = 'superadminfranchise/presensi';
+$route['masterdataprodukkemasan'] = 'superadminfranchise/masterdataprodukkemasan';
+
+
+
+
+
+//ADMIN WAREHOUSE (FRANCHISE)
+$route['stokproduk'] = 'adminfranchise/stokproduk';
+$route['pembelian'] = 'adminfranchise/pembelian';
+$route['pengeluaranlain'] = 'adminfranchise/pengeluaranlain';
+$route['distribusi'] = 'adminfranchise/distribusi';
+$route['stokkeluar'] = 'adminfranchise/stokkeluar';
+
+
 $route['json'] = 'superadminfranchise/json';
 $route['translate_uri_dashes'] = FALSE;

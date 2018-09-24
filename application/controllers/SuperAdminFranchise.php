@@ -16,14 +16,14 @@ class SuperAdminFranchise extends CI_Controller {
   	public function login()
   	{
   		$adminId = $this->session->userdata('aksessupadmin');
-  		// $adminstan = $this->session->userdata('aksesadminstan');
-        if(empty($adminId) && empty($adminstan)){
+  		$admin = $this->session->userdata('aksesadmin');
+        if(empty($adminId) && empty($admin)){
             $this->load->view('superadminfranchise/login');
         }else{
         	if (!empty($adminId)) {
         		redirect('dashboardsuperadmin');
         	}else{
-        		redirect('kasir');
+        		redirect('dashboardadmin');
         	}
             
         }
@@ -35,6 +35,7 @@ class SuperAdminFranchise extends CI_Controller {
         if(empty($akses)){
             redirect('login');
         }else{
+        	$this->load->view('superadminfranchise/navigationbar');
             $this->load->view('superadminfranchise/gantipassword');
         }
   		
@@ -73,7 +74,7 @@ class SuperAdminFranchise extends CI_Controller {
 
   	public function logout()
   	{
-  		// $this->session->unset_userdata('aksesadminstan');
+  		$this->session->unset_userdata('aksesadmin');
   		$this->session->unset_userdata('aksessupadmin');
   		$this->session->unset_userdata('username');
   		redirect('login');
@@ -90,8 +91,8 @@ class SuperAdminFranchise extends CI_Controller {
   		if ($this->Produk->getRowCount('alluser',$where) > 0) {
   			if ($data[0]->usertype == 'superadminfranchise') {
   				$this->session->set_userdata('aksessupadmin', 'granted');
-  			}else if ($data[0]->usertype == 'adminstand') {
-  				// $this->session->set_userdata('aksesadminstan', 'granted');
+  			}else if ($data[0]->usertype == 'adminfranchise') {
+  				$this->session->set_userdata('aksesadmin', 'granted');
   			}
   			$this->session->set_userdata('username', $username);
   		 	echo 'true';
@@ -107,6 +108,7 @@ class SuperAdminFranchise extends CI_Controller {
         if(empty($akses)){
             redirect('login');
         }else{
+        	$this->load->view('superadminfranchise/navigationbar');
             $this->load->view('superadminfranchise/dashboard');
         }
 		
@@ -118,6 +120,7 @@ class SuperAdminFranchise extends CI_Controller {
         if(empty($akses)){
             redirect('login');
         }else{
+        	$this->load->view('superadminfranchise/navigationbar');
             $this->load->view('superadminfranchise/masterdataproduk');
 			$this->load->view('superadminfranchise/datatable_produk');
         }
@@ -256,6 +259,7 @@ class SuperAdminFranchise extends CI_Controller {
         if(empty($akses)){
             redirect('login');
         }else{
+        	$this->load->view('superadminfranchise/navigationbar');
             $this->load->view('superadminfranchise/masterdatastan');
 			$this->load->view('superadminfranchise/datatable_stan');
         }
@@ -325,7 +329,14 @@ class SuperAdminFranchise extends CI_Controller {
 	}
 
 	public function gajibonusstan(){
-		
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+        	$this->load->view('superadminfranchise/navigationbar');
+            $this->load->view('superadminfranchise/gajibonusstan');
+			// $this->load->view('superadminfranchise/datatable_promo');
+        }
 	}
 
 	public function skemapromo(){
@@ -333,6 +344,7 @@ class SuperAdminFranchise extends CI_Controller {
         if(empty($akses)){
             redirect('login');
         }else{
+        	$this->load->view('superadminfranchise/navigationbar');
             $this->load->view('superadminfranchise/skemapromo');
 			$this->load->view('superadminfranchise/datatable_promo');
         }
@@ -579,6 +591,7 @@ class SuperAdminFranchise extends CI_Controller {
         if(empty($akses)){
             redirect('login');
         }else{
+        	$this->load->view('superadminfranchise/navigationbar');
             $this->load->view('superadminfranchise/masterdatakaryawan');
 			$this->load->view('superadminfranchise/datatable_karyawan');
         }
@@ -590,6 +603,7 @@ class SuperAdminFranchise extends CI_Controller {
         if(empty($akses)){
             redirect('login');
         }else{
+        	$this->load->view('superadminfranchise/navigationbar');
             $this->load->view('superadminfranchise/lappenjstan');
 			$this->load->view('superadminfranchise/datatable_lappenjstan');
         }
