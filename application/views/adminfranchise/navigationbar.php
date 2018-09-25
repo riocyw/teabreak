@@ -81,44 +81,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li id="dashboardsuperadmin">
-                        <a href="dashboardsuperadmin"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <li id="dashboardadmin">
+                        <a href="dashboardadmin"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">PRODUK</h3><!-- /.menu-title -->
-                    <li id="masterdataproduk">
-                        <a href="masterdataproduk"> <i class="menu-icon fa fa-glass"></i>Master Data Produk </a>
+                    <li id="stokproduk">
+                        <a href="stokproduk"> <i class="menu-icon fa fa-glass"></i>Stok Produk </a>
                     </li>
-                    <h3 class="menu-title">STAN</h3><!-- /.menu-title -->
-                    <li id="masterdatastan">
-                        <a href="masterdatastan"> <i class="menu-icon ti-home"></i>Master Data Stan </a>
+                    <li id="pembelian">
+                        <a href="pembelian"> <i class="menu-icon ti-shopping-cart"></i>Pembelian Produk </a>
                     </li>
-                    <li id="gajibonusstan">
-                        <a href="gajibonusstan"> <i class="menu-icon ti-money"></i>Gaji Bonus Stan </a>
+                    <h3 class="menu-title">ADMINISTRASI</h3><!-- /.menu-title -->
+                    <li id="pengeluaranlain">
+                        <a href="pengeluaranlain"> <i class="menu-icon ti-money"></i>Pengeluaran Lain </a>
                     </li>
-                    <h3 class="menu-title">PROMO</h3><!-- /.menu-title -->
-                    <li id="skemapromo">
-                        <a href="skemapromo"> <i class="menu-icon fa fa-percent"></i>Skema Promo </a>
+                    <li id="distribusi">
+                        <a href="distribusi"> <i class="menu-icon ti-truck"></i>Distribusi </a>
                     </li>
-
-                    <h3 class="menu-title">KARYAWAN</h3><!-- /.menu-title -->
-                    <li id="masterdatakaryawan">
-                        <a href="masterdatakaryawan"> <i class="menu-icon fa fa-users"></i>Data Karyawan </a>
+                    <li id="stokkeluar">
+                        <a href="stokkeluar"> <i class="menu-icon ti-package"></i>Stok Keluar </a>
                     </li>
-
-                    <h3 class="menu-title">LAPORAN</h3><!-- /.menu-title -->
-                    <li id="lappenjstan">
-                        <a href="lappenjstan"> <i class="menu-icon ti-receipt"></i>Laporan Penjualan Stand</a>
-                    </li>
-                    <li>
-                        <a href=""> <i class="menu-icon ti-receipt"></i>Laporan B</a>
-                    </li>
-                    <li id="">
-                        <a href=""> <i class="menu-icon ti-receipt"></i>Laporan C</a>
-                    </li>
-                    <li id="">
-                        <a href=""> <i class="menu-icon ti-receipt"></i>Laporan D</a>
-                    </li>
-                    
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
