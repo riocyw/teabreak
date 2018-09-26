@@ -709,7 +709,57 @@ class SuperAdminFranchise extends CI_Controller {
 	{
 		$data_nota = json_decode($this->input->post('allnota'));
 		$data_detail_nota = json_decode($this->input->post('detailnota'));
+		$ress = true;
+
+		foreach ($data_nota as $pernota) {
+			$where = array('id_nota' => $pernota->id_nota);
+			$newdata = array(
+				'id_nota' => $idnota,
+				'tanggal_nota' => $datesave,
+				'waktu_nota' => $timesave, 
+				'nama_diskon' => implode(',', $arraynamadiskon),
+				'jenis_diskon' => implode(',', $arrayjenisdiskon),
+				'status' => 'novoid',
+				'total_harga' => $harga_akhir,
+				'pembayaran' => $tipe_pembayaran,
+				'keterangan' => $keterangan,
+				'status_upload' => 'not_upload'
+				// 'id_nota' => $pernota->id_nota,
+				// 'nama_produk' => $pernota->nama_produk,
+				// 'jumlah_produk' => $pernota->jumlah_produk,
+				// 'kategori_produk' => $pernota->kategori_produk,
+				// 'harga_produk' => $pernota->harga_produk,
+				// 'total_harga_produk' => $pernota->total_harga_produk
+			);
+			if ($this->Produk->checkExist('nota',$where)) {
+				$stat = $this->Produk->update('nota', $pernota, $where);
+			}else{
+				$stat = $this->Produk->insert('nota',$newdata);
+			}
+			
+			if (!$stat) {
+				$ress = false;
+			}
+			// var_dump($pernota);
+		}
+
+		foreach ($data_detail_nota as $perdetail) {
+			$where = array('id_nota' => $perdetail->id_nota);
+			if (!$this->Produk->checkExist('detail_nota',$where)) {
+				$stat2 = $this->Produk->insert('detail_nota',$perdetail);
+			}
+			
+			if (!$stat2) {
+				$ress = false;
+			}
+		}
+
 		// echo gettype($data_nota)." ".gettype($data_detail_nota);
-		echo 'true';
+		if ($ress) {
+			echo 'true';
+		}else{
+			echo 'false';
+		}
+		
 	}
 }
