@@ -677,34 +677,34 @@ class SuperAdminFranchise extends CI_Controller {
 	public function sendDataDiskon()
 	{
 		// $this->updateDiskon();
-		$datenow = date("Y/m/d");
-		$daynow = date("w");
-		switch ($daynow) {
-			case 0:
-				$daynow = 'minggu';
-				break;
-			case 1:
-				$daynow = 'senin';
-				break;
-			case 2:
-				$daynow = 'selasa';
-				break;
-			case 3:
-				$daynow = 'rabu';
-				break;
-			case 4:
-				$daynow = 'kamis';
-				break;
-			case 5:
-				$daynow = 'jumat';
-				break;
-			case 6:
-				$daynow = 'sabtu';
-				break;
+		// $datenow = date("Y/m/d");
+		// $daynow = date("w");
+		// switch ($daynow) {
+		// 	case 0:
+		// 		$daynow = 'minggu';
+		// 		break;
+		// 	case 1:
+		// 		$daynow = 'senin';
+		// 		break;
+		// 	case 2:
+		// 		$daynow = 'selasa';
+		// 		break;
+		// 	case 3:
+		// 		$daynow = 'rabu';
+		// 		break;
+		// 	case 4:
+		// 		$daynow = 'kamis';
+		// 		break;
+		// 	case 5:
+		// 		$daynow = 'jumat';
+		// 		break;
+		// 	case 6:
+		// 		$daynow = 'sabtu';
+		// 		break;
 			
-			default:
-				break;
-		}
+		// 	default:
+		// 		break;
+		// }
 
 		$id = $this->input->post('id_stan');
 		$where = array('id_stan' => $id);
@@ -715,19 +715,19 @@ class SuperAdminFranchise extends CI_Controller {
 			$where2 = array('id_diskon' => $data->id_diskon);
 			$query = $this->Produk->getFirstRowData($where2,'diskon');
 			if ($query->status == 'active') {
-				$days =  explode(",", $perdiskonaktif->hari);
-				$get = true;
-				if ($perdiskonaktif->tanggal_mulai > $datenow || $perdiskonaktif->tanggal_akhir < $datenow) {
-					$get = false;
-				}
+				// $days =  explode(",", $perdiskonaktif->hari);
+				// $get = true;
+				// if ($perdiskonaktif->tanggal_mulai > $datenow || $perdiskonaktif->tanggal_akhir < $datenow) {
+				// 	$get = false;
+				// }
 
-				if (!in_array($daynow, $days)) {
-					$get = false;
-				}
+				// if (!in_array($daynow, $days)) {
+				// 	$get = false;
+				// }
 
-				if ($get) {
+				// if ($get) {
 					array_push($listdiskon, $data->id_diskon);
-				}
+				// }
 				
 			}
 			
@@ -737,57 +737,57 @@ class SuperAdminFranchise extends CI_Controller {
 		echo json_encode($diskondata);
 	}
 
-	public function updateDiskon()
-	{
-		$whereact = array('status' => 'active');
-		$alldiskonactive = $this->Produk->getData($whereact,'diskon');
-		$datenow = date("Y/m/d");
-		$daynow = date("w");
-		switch ($daynow) {
-			case 0:
-				$daynow = 'minggu';
-				break;
-			case 1:
-				$daynow = 'senin';
-				break;
-			case 2:
-				$daynow = 'selasa';
-				break;
-			case 3:
-				$daynow = 'rabu';
-				break;
-			case 4:
-				$daynow = 'kamis';
-				break;
-			case 5:
-				$daynow = 'jumat';
-				break;
-			case 6:
-				$daynow = 'sabtu';
-				break;
+	// public function updateDiskon()
+	// {
+	// 	$whereact = array('status' => 'active');
+	// 	$alldiskonactive = $this->Produk->getData($whereact,'diskon');
+	// 	$datenow = date("Y/m/d");
+	// 	$daynow = date("w");
+	// 	switch ($daynow) {
+	// 		case 0:
+	// 			$daynow = 'minggu';
+	// 			break;
+	// 		case 1:
+	// 			$daynow = 'senin';
+	// 			break;
+	// 		case 2:
+	// 			$daynow = 'selasa';
+	// 			break;
+	// 		case 3:
+	// 			$daynow = 'rabu';
+	// 			break;
+	// 		case 4:
+	// 			$daynow = 'kamis';
+	// 			break;
+	// 		case 5:
+	// 			$daynow = 'jumat';
+	// 			break;
+	// 		case 6:
+	// 			$daynow = 'sabtu';
+	// 			break;
 			
-			default:
-				break;
-		}
+	// 		default:
+	// 			break;
+	// 	}
 
-		foreach ($alldiskonactive as $perdiskonaktif) {
-			$days =  explode(",", $perdiskonaktif->hari);
-			$update = false;
-			if ($perdiskonaktif->tanggal_mulai > $datenow || $perdiskonaktif->tanggal_akhir < $datenow) {
-				$update = true;
-			}
+	// 	foreach ($alldiskonactive as $perdiskonaktif) {
+	// 		$days =  explode(",", $perdiskonaktif->hari);
+	// 		$update = false;
+	// 		if ($perdiskonaktif->tanggal_mulai > $datenow || $perdiskonaktif->tanggal_akhir < $datenow) {
+	// 			$update = true;
+	// 		}
 
-			if (!in_array($daynow, $days)) {
-				$update = true;
-			}
+	// 		if (!in_array($daynow, $days)) {
+	// 			$update = true;
+	// 		}
 
-			if ($update) {
-				$wheretoinactive = array('id_diskon' => $perdiskonaktif->id_diskon);
-				$datatoinactive = array('status' => 'inactive');
-				$this->Produk->update('diskon', $datatoinactive, $wheretoinactive);
-			}
-		}
-	}
+	// 		if ($update) {
+	// 			$wheretoinactive = array('id_diskon' => $perdiskonaktif->id_diskon);
+	// 			$datatoinactive = array('status' => 'inactive');
+	// 			$this->Produk->update('diskon', $datatoinactive, $wheretoinactive);
+	// 		}
+	// 	}
+	// }
 
 	public function sendDataDetailDiskonProduk()
 	{
@@ -801,19 +801,19 @@ class SuperAdminFranchise extends CI_Controller {
 			$where2 = array('id_diskon' => $data->id_diskon);
 			$query = $this->Produk->getFirstRowData($where2,'diskon');
 			if ($query->status == 'active') {
-				$days =  explode(",", $perdiskonaktif->hari);
-				$get = true;
-				if ($perdiskonaktif->tanggal_mulai > $datenow || $perdiskonaktif->tanggal_akhir < $datenow) {
-					$get = false;
-				}
+				// $days =  explode(",", $perdiskonaktif->hari);
+				// $get = true;
+				// if ($perdiskonaktif->tanggal_mulai > $datenow || $perdiskonaktif->tanggal_akhir < $datenow) {
+				// 	$get = false;
+				// }
 
-				if (!in_array($daynow, $days)) {
-					$get = false;
-				}
+				// if (!in_array($daynow, $days)) {
+				// 	$get = false;
+				// }
 
-				if ($get) {
+				// if ($get) {
 					array_push($listdiskon, $data->id_diskon);
-				}
+				// }
 				
 			}
 			
