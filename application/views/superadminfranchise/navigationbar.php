@@ -107,16 +107,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     <h3 class="menu-title">LAPORAN</h3><!-- /.menu-title -->
                     <li id="lappenjstan">
-                        <a href="lappenjstan"> <i class="menu-icon ti-receipt"></i>Laporan Penjualan Stand</a>
+                        <a href="lappenjstan"> <i class="menu-icon ti-agenda"></i>Laporan Penjualan Stand</a>
                     </li>
                     <li>
-                        <a href=""> <i class="menu-icon ti-receipt"></i>Laporan B</a>
+                        <a href=""> <i class="menu-icon ti-agenda"></i>Laporan B</a>
                     </li>
                     <li id="">
-                        <a href=""> <i class="menu-icon ti-receipt"></i>Laporan C</a>
+                        <a href=""> <i class="menu-icon ti-agenda"></i>Laporan C</a>
                     </li>
                     <li id="">
-                        <a href=""> <i class="menu-icon ti-receipt"></i>Laporan D</a>
+                        <a href=""> <i class="menu-icon ti-agenda"></i>Laporan D</a>
                     </li>
                     
                 </ul>

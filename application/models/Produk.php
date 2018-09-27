@@ -105,5 +105,18 @@ class Produk extends CI_Model{
         $res = $this->db->get_where($table,$where);
         return $res->row();
     }
+
+    public function checkExist($table,$where)
+    {
+        $this->db->from($table);
+        $this->db->where($where);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0){
+            return true;    
+        }
+        else{
+            return false;
+        }
+    }
 }
 ?>

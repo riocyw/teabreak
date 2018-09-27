@@ -344,6 +344,7 @@ class SuperAdminFranchise extends CI_Controller {
         if(empty($akses)){
             redirect('login');
         }else{
+        	// $this->updateDiskon();
         	$this->load->view('superadminfranchise/navigationbar');
             $this->load->view('superadminfranchise/skemapromo');
 			$this->load->view('superadminfranchise/datatable_promo');
@@ -643,6 +644,15 @@ class SuperAdminFranchise extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	public function detailNotaData()
+	{
+		$id_nota = $this->input->post('id_nota');
+		$array = array('id_nota' => $id_nota);
+		$data = $this->Produk->getData($array,'detail_nota');
+		echo json_encode($data);
+
+	}
+
 	public function select_detail_nota()
 	{
 		$id = $this->input->post('id');
@@ -666,6 +676,36 @@ class SuperAdminFranchise extends CI_Controller {
 
 	public function sendDataDiskon()
 	{
+		// $this->updateDiskon();
+		$datenow = date("Y/m/d");
+		$daynow = date("w");
+		switch ($daynow) {
+			case 0:
+				$daynow = 'minggu';
+				break;
+			case 1:
+				$daynow = 'senin';
+				break;
+			case 2:
+				$daynow = 'selasa';
+				break;
+			case 3:
+				$daynow = 'rabu';
+				break;
+			case 4:
+				$daynow = 'kamis';
+				break;
+			case 5:
+				$daynow = 'jumat';
+				break;
+			case 6:
+				$daynow = 'sabtu';
+				break;
+			
+			default:
+				break;
+		}
+
 		$id = $this->input->post('id_stan');
 		$where = array('id_stan' => $id);
 		$listdiskon = array();
@@ -675,13 +715,78 @@ class SuperAdminFranchise extends CI_Controller {
 			$where2 = array('id_diskon' => $data->id_diskon);
 			$query = $this->Produk->getFirstRowData($where2,'diskon');
 			if ($query->status == 'active') {
-				array_push($listdiskon, $data->id_diskon);
+				$days =  explode(",", $perdiskonaktif->hari);
+				$get = true;
+				if ($perdiskonaktif->tanggal_mulai > $datenow || $perdiskonaktif->tanggal_akhir < $datenow) {
+					$get = false;
+				}
+
+				if (!in_array($daynow, $days)) {
+					$get = false;
+				}
+
+				if ($get) {
+					array_push($listdiskon, $data->id_diskon);
+				}
+				
 			}
 			
 		}
 
 		$diskondata = $this->Produk->getDataIn('diskon',$listdiskon);
 		echo json_encode($diskondata);
+	}
+
+	public function updateDiskon()
+	{
+		$whereact = array('status' => 'active');
+		$alldiskonactive = $this->Produk->getData($whereact,'diskon');
+		$datenow = date("Y/m/d");
+		$daynow = date("w");
+		switch ($daynow) {
+			case 0:
+				$daynow = 'minggu';
+				break;
+			case 1:
+				$daynow = 'senin';
+				break;
+			case 2:
+				$daynow = 'selasa';
+				break;
+			case 3:
+				$daynow = 'rabu';
+				break;
+			case 4:
+				$daynow = 'kamis';
+				break;
+			case 5:
+				$daynow = 'jumat';
+				break;
+			case 6:
+				$daynow = 'sabtu';
+				break;
+			
+			default:
+				break;
+		}
+
+		foreach ($alldiskonactive as $perdiskonaktif) {
+			$days =  explode(",", $perdiskonaktif->hari);
+			$update = false;
+			if ($perdiskonaktif->tanggal_mulai > $datenow || $perdiskonaktif->tanggal_akhir < $datenow) {
+				$update = true;
+			}
+
+			if (!in_array($daynow, $days)) {
+				$update = true;
+			}
+
+			if ($update) {
+				$wheretoinactive = array('id_diskon' => $perdiskonaktif->id_diskon);
+				$datatoinactive = array('status' => 'inactive');
+				$this->Produk->update('diskon', $datatoinactive, $wheretoinactive);
+			}
+		}
 	}
 
 	public function sendDataDetailDiskonProduk()
@@ -696,7 +801,20 @@ class SuperAdminFranchise extends CI_Controller {
 			$where2 = array('id_diskon' => $data->id_diskon);
 			$query = $this->Produk->getFirstRowData($where2,'diskon');
 			if ($query->status == 'active') {
-				array_push($listdiskon, $data->id_diskon);
+				$days =  explode(",", $perdiskonaktif->hari);
+				$get = true;
+				if ($perdiskonaktif->tanggal_mulai > $datenow || $perdiskonaktif->tanggal_akhir < $datenow) {
+					$get = false;
+				}
+
+				if (!in_array($daynow, $days)) {
+					$get = false;
+				}
+
+				if ($get) {
+					array_push($listdiskon, $data->id_diskon);
+				}
+				
 			}
 			
 		}
@@ -709,7 +827,68 @@ class SuperAdminFranchise extends CI_Controller {
 	{
 		$data_nota = json_decode($this->input->post('allnota'));
 		$data_detail_nota = json_decode($this->input->post('detailnota'));
+		$id_stan = $this->input->post('id_stan');
+		$ress = true;
+
+		foreach ($data_nota as $pernota) {
+			$where = array('id_nota' => $pernota->id_nota);
+			$newdata = array(
+				'id_nota' => $pernota->id_nota,
+				'id_stan' => $id_stan,
+				'tanggal_nota' => $pernota->tanggal_nota,
+				'waktu_nota' => $pernota->waktu_nota, 
+				'nama_diskon' => $pernota->nama_diskon,
+				'jenis_diskon' => $pernota->jenis_diskon,
+				'status' => $pernota->status,
+				'total_harga' => $pernota->total_harga,
+				'pembayaran' => $pernota->pembayaran,
+				'keterangan' => $pernota->keterangan
+				// 'id_nota' => $pernota->id_nota,
+				// 'nama_produk' => $pernota->nama_produk,
+				// 'jumlah_produk' => $pernota->jumlah_produk,
+				// 'kategori_produk' => $pernota->kategori_produk,
+				// 'harga_produk' => $pernota->harga_produk,
+				// 'total_harga_produk' => $pernota->total_harga_produk
+			);
+
+			// var_dump($newdata);
+			if ($this->Produk->checkExist('nota',$where)) {
+				$stat = $this->Produk->update('nota', $newdata, $where);
+			}else{
+				$stat = $this->Produk->insert('nota',$newdata);
+			}
+			
+			if (!$stat) {
+				$ress = false;
+			}
+			// var_dump($pernota);
+		}
+
+		foreach ($data_detail_nota as $perdetail) {
+			$where = array('id_nota' => $perdetail->id_nota,'nama_produk' => $perdetail->nama_produk);
+			// $newdetail = array(
+			// 	'id_nota' => $perdetail->id_nota,
+			// 	'nama_produk' => $perdetail->nama_produk,
+			// 	'jumlah_produk' => $perdetail->jumlah_produk,
+			// 	'kategori_produk' => $perdetail->kategori_produk,
+			// 	'harga_produk' => $perdetail->harga_produk,
+			// 	'total_harga_produk' => $perdetail->total_harga_produk
+			// );
+			if (!$this->Produk->checkExist('detail_nota',$where)) {
+				$stat2 = $this->Produk->insert('detail_nota',$perdetail);
+			}
+			
+			if (!$stat2) {
+				$ress = false;
+			}
+		}
+
 		// echo gettype($data_nota)." ".gettype($data_detail_nota);
-		echo 'true';
+		if ($ress) {
+			echo 'true';
+		}else{
+			echo 'false';
+		}
+		
 	}
 }

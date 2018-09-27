@@ -20,8 +20,7 @@ class AdminFranchise extends CI_Controller {
             redirect('login');
         }else{
         	$this->load->view('adminfranchise/navigationbar');
-            // $this->load->view('adminfranchise/');
-			// $this->load->view('adminfranchise/');
+          $this->load->view('adminfranchise/dashboard');
         }
   	}
 
@@ -31,8 +30,7 @@ class AdminFranchise extends CI_Controller {
             redirect('login');
         }else{
         	$this->load->view('adminfranchise/navigationbar');
-            // $this->load->view('adminfranchise/');
-			// $this->load->view('adminfranchise/');
+          $this->load->view('adminfranchise/stokproduk');
         }
   	}
 
@@ -42,8 +40,7 @@ class AdminFranchise extends CI_Controller {
             redirect('login');
         }else{
         	$this->load->view('adminfranchise/navigationbar');
-            // $this->load->view('adminfranchise/');
-			// $this->load->view('adminfranchise/');
+          $this->load->view('adminfranchise/pembelianproduk');
         }
   	}
 
@@ -53,8 +50,7 @@ class AdminFranchise extends CI_Controller {
             redirect('login');
         }else{
         	$this->load->view('adminfranchise/navigationbar');
-            // $this->load->view('adminfranchise/');
-			// $this->load->view('adminfranchise/');
+          $this->load->view('adminfranchise/pengeluaranlain');
         }
   	}
 
@@ -64,8 +60,7 @@ class AdminFranchise extends CI_Controller {
             redirect('login');
         }else{
         	$this->load->view('adminfranchise/navigationbar');
-            // $this->load->view('adminfranchise/');
-			// $this->load->view('adminfranchise/');
+          $this->load->view('adminfranchise/distribusi');
         }
   	}
 
@@ -75,8 +70,7 @@ class AdminFranchise extends CI_Controller {
             redirect('login');
         }else{
         	$this->load->view('adminfranchise/navigationbar');
-            // $this->load->view('adminfranchise/');
-			// $this->load->view('adminfranchise/');
+          $this->load->view('adminfranchise/stokkeluar');
         }
   	}
 
