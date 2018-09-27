@@ -2,7 +2,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Laporan Penjualan Stan</h1>
+                        <h1><?php echo CI_VERSION; ?>Laporan Penjualan Stan</h1>
                     </div>
                 </div>
             </div>
@@ -80,15 +80,15 @@
                             <thead>
                               <tr>
                                 <th>Nama Produk</th>
-                                <th>Jumlah Produk</th>
-                                <th>Kategori Produk</th>
+                                <th>Jumlah</th>
+                                <th>Kategori</th>
                                 <th>Harga Produk</th>
                                 <th>Total Harga Produk</th>
                               </tr>
                             </thead>
                         </table>
                     </div>
-                    <h5 class="text-right">Total Harga Nota : Rp. 0,-</h5>
+                    <h5 class="text-right" id="totalhargapernota">Total Harga Nota : Rp. 0,-</h5>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -105,6 +105,7 @@
     <script src=<?php echo base_url("assets/datatable/datatables.js")?>></script>
     <script src=<?php echo base_url("assets/js/popper.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/plugins.js"); ?>></script>
+    <script src=<?php echo base_url("assets/js/teabreak.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/lib/chosen/chosen.jquery.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/datatable/Buttons-1.5.2/js/dataTables.buttons.js")?>></script>
     <script src=<?php echo base_url("assets/datatable/Buttons-1.5.2/js/buttons.print.js")?>></script>
