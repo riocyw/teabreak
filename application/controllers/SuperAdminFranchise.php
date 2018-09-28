@@ -891,4 +891,16 @@ class SuperAdminFranchise extends CI_Controller {
 		}
 		
 	}
+
+	public function masterbahanjadi()
+	{
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+        	$this->load->view('superadminfranchise/navigationbar');
+            $this->load->view('superadminfranchise/masterbahanjadi');
+			// $this->load->view('superadminfranchise/datatable_produk');
+        }
+	}
 }

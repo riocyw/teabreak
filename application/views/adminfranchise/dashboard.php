@@ -10,7 +10,7 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li class="active">Dashboard</li>
+                            <!-- <li class="active">Semua Data Produk</li> -->
                         </ol>
                     </div>
                 </div>
@@ -18,14 +18,19 @@
         </div>
 
         <div class="content mt-3">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h1><span class="badge badge-warning">Fitur dalam tahap Pengembangan!</span></h1>
+                    </div>
+                </div>
+            </div>
 
-            
 
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
-
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.min.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.sampledata.js")?>></script>
@@ -41,16 +46,9 @@
     <script src=<?php echo base_url("assets/datatable/JSZip-2.5.0/jszip.js")?>></script>
     <script src=<?php echo base_url("assets/datatable/pdfmake-0.1.36/pdfmake.js")?>></script>
     <script src=<?php echo base_url("assets/datatable/pdfmake-0.1.36/vfs_fonts.js")?>></script>
+    
 
-    <script src=<?php echo base_url("assets/vendors/bootstrap-4.1.3-dist/js/bootstrap.min.js")?>></script>
-    <!-- <script src=></script> -->
-    <!-- echo base_url("assets/js/main.js")?> -->
-
-    <!-- bootstrap-daterangepicker -->
-    <script src=<?php echo base_url("assets/vendors/moment/min/moment.min.js")?>></script>
-    <script src=<?php echo base_url("assets/vendors/bootstrap-daterangepicker/daterangepicker.js")?>></script>
-    <!-- bootstrap-datetimepicker -->    
-    <script src=<?php echo base_url("assets/vendors/Date-Time-Picker-Bootstrap-4/build/js/bootstrap-datetimepicker.min.js")?>></script>
+    <script src=<?php echo base_url("assets/js/jquery.easy-autocomplete.js")?>></script>
 
 </body>
 </html>

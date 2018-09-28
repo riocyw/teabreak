@@ -121,7 +121,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
 
-                        <div class="dropdown for-notification">
+                        <!-- <div class="dropdown for-notification">
                           <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-bell"></i>
                             <span class="count bg-danger">3</span>
@@ -141,7 +141,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <p style="color: black">Stan GM meminta order</p>
                             </a>
                           </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 

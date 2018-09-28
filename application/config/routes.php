@@ -49,36 +49,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'superAdminFranchise/dashboard';
-$route['dashboardsuperadmin'] = 'superAdminFranchise/dashboard';
+$route['default_controller'] = 'superadminfranchise/dashboard';
+$route['dashboardsuperadmin'] = 'superadminfranchise/dashboard';
 $route['404_override'] = '';
 
-$route['masterdataproduk'] = 'superAdminFranchise/masterdataproduk';
-$route['masterdatastan'] = 'superAdminFranchise/masterdatastan';
-$route['datastan'] = 'superAdminFranchise/datastan';
-$route['gajibonusstan'] = 'superAdminFranchise/gajibonusstan';
-$route['skemapromo'] = 'superAdminFranchise/skemapromo';
-$route['masterdatakaryawan'] = 'superAdminFranchise/masterdatakaryawan';
-$route['lappenjstan'] = 'superAdminFranchise/lappenjstan';
-$route['login'] = 'superAdminFranchise/login';
-$route['gantipassword'] = 'superAdminFranchise/gantipassword';
-$route['logout'] = 'superAdminFranchise/logout';
+$route['masterdataproduk'] = 'superadminfranchise/masterdataproduk';
+$route['masterbahanjadi'] = 'superadminfranchise/masterbahanjadi';
+$route['masterdatastan'] = 'superadminfranchise/masterdatastan';
+$route['datastan'] = 'superadminfranchise/datastan';
+$route['gajibonusstan'] = 'superadminfranchise/gajibonusstan';
+$route['skemapromo'] = 'superadminfranchise/skemapromo';
+$route['masterdatakaryawan'] = 'superadminfranchise/masterdatakaryawan';
+$route['lappenjstan'] = 'superadminfranchise/lappenjstan';
+$route['login'] = 'superadminfranchise/login';
+$route['gantipassword'] = 'superadminfranchise/gantipassword';
+$route['logout'] = 'superadminfranchise/logout';
 
-$route['getDataStan'] = 'superAdminFranchise/sendDataStan';
-$route['getDataProduk'] = 'superAdminFranchise/sendDataProduk';
-$route['getDataDiskon'] = 'superAdminFranchise/sendDataDiskon';
-$route['getDataDetailDiskonProduk'] = 'superAdminFranchise/sendDataDetailDiskonProduk';
-$route['insertDataNota'] = 'superAdminFranchise/insertDataNota';
+$route['getDataStan'] = 'superadminfranchise/sendDataStan';
+$route['getDataProduk'] = 'superadminfranchise/sendDataProduk';
+$route['getDataDiskon'] = 'superadminfranchise/sendDataDiskon';
+$route['getDataDetailDiskonProduk'] = 'superadminfranchise/sendDataDetailDiskonProduk';
+$route['insertDataNota'] = 'superadminfranchise/insertDataNota';
 
-$route['lapdist'] = 'superAdminFranchise/lapdist';
-$route['lapgaji'] = 'superAdminFranchise/lapgaji';
-$route['lapkeuntunganglobal'] = 'superAdminFranchise/lapkeuntunganglobal';
-$route['lapkeuntunganstan'] = 'superAdminFranchise/lapkeuntunganstan';
-$route['lappembelian'] = 'superAdminFranchise/lappembelian';
-$route['lappengeluaranstok'] = 'superAdminFranchise/lappengeluaranstok';
-$route['lapsisastok'] = 'superAdminFranchise/lapsisastok';
-$route['presensi'] = 'superAdminFranchise/presensi';
-$route['masterdataprodukkemasan'] = 'superAdminFranchise/masterdataprodukkemasan';
+$route['lapdist'] = 'superadminfranchise/lapdist';
+$route['lapgaji'] = 'superadminfranchise/lapgaji';
+$route['lapkeuntunganglobal'] = 'superadminfranchise/lapkeuntunganglobal';
+$route['lapkeuntunganstan'] = 'superadminfranchise/lapkeuntunganstan';
+$route['lappembelian'] = 'superadminfranchise/lappembelian';
+$route['lappengeluaranstok'] = 'superadminfranchise/lappengeluaranstok';
+$route['lapsisastok'] = 'superadminfranchise/lapsisastok';
+$route['presensi'] = 'superadminfranchise/presensi';
+$route['masterdataprodukkemasan'] = 'superadminfranchise/masterdataprodukkemasan';
 
 
 

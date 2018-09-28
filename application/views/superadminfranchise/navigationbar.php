@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <link rel="stylesheet" href=<?php echo base_url("assets/css/normalize.css")?>>
 
-    <link rel="stylesheet" href=<?php echo base_url("assets/vendors/bootstrap-4.1.3-dist/css/bootstrap.min.css")?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/vendors/bootstrap-4.1.3-dist/css/bootstrap.css")?>>
 
     <link rel="stylesheet" href=<?php echo base_url("assets/css/font-awesome.min.css")?>>
 
@@ -34,6 +34,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href=<?php echo base_url("assets/vendors/Date-Time-Picker-Bootstrap-4/build/css/bootstrap-datetimepicker.min.css")?>>
     <!-- <link rel="stylesheet" href=<echo base_url("assets/css/bootstrap-select.less")?>> -->
     <link rel="stylesheet" href=<?php echo base_url("assets/scss/style.css")?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/css/cs-skin-elastic.css")?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/css/lib/chosen/chosen.min.css")?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/css/easy-autocomplete.min.css")?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/css/easy-autocomplete.themes.css")?>>
     <link href=<?php echo base_url("assets/css/lib/vector-map/jqvmap.min.css")?> rel="stylesheet">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
@@ -45,9 +49,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $(document).ready(function(){
             $('#'+location.pathname.split("/")[2]).addClass('active');
             // alert(location.pathname.split("/")[2]);
+            $('#menuToggle').on('click', function(event) {
+                $('body').toggleClass('open');
+            });
+
+            // window.onresize = function(event) {
+
+            //     if ($(window).width()>575 && $(window).width()<701) {
+            //         $("#bignav").addClass('hidden');
+            //         $("#littlenav").removeClass('hidden');
+            //     }
+
+            //     console.log($(window).width());
+            // };
+
         });
-        
-        
     </script>
 
 
@@ -75,8 +91,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="./">Tea Break</a>
-                <a class="navbar-brand hidden" href="./">T</a>
+                <a id= "bignav" class="navbar-brand" href="./">Tea Break</a>
+                <a id= "littlenav" class="navbar-brand hidden" href="./">T</a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -87,6 +103,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <h3 class="menu-title">PRODUK</h3><!-- /.menu-title -->
                     <li id="masterdataproduk">
                         <a href="masterdataproduk"> <i class="menu-icon fa fa-glass"></i>Master Data Produk </a>
+                    </li>
+
+                    <h3 class="menu-title">BAHAN JADI</h3><!-- /.menu-title -->
+                    <li id="masterbahanjadi">
+                        <a href="masterbahanjadi"> <i class="menu-icon ti-search"></i>Master Bahan Jadi </a>
                     </li>
                     <h3 class="menu-title">STAN</h3><!-- /.menu-title -->
                     <li id="masterdatastan">
@@ -110,13 +131,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a href="lappenjstan"> <i class="menu-icon ti-agenda"></i>Laporan Penjualan Stand</a>
                     </li>
                     <li>
-                        <a href=""> <i class="menu-icon ti-agenda"></i>Laporan B</a>
+                        <a style="pointer-events: none;" href="#"> <i class="menu-icon ti-agenda"></i>Laporan B</a>
                     </li>
                     <li id="">
-                        <a href=""> <i class="menu-icon ti-agenda"></i>Laporan C</a>
+                        <a style="pointer-events: none;" href="#"> <i class="menu-icon ti-agenda"></i>Laporan C</a>
                     </li>
                     <li id="">
-                        <a href=""> <i class="menu-icon ti-agenda"></i>Laporan D</a>
+                        <a style="pointer-events: none;" href="#"> <i class="menu-icon ti-agenda"></i>Laporan D</a>
                     </li>
                     
                 </ul>
@@ -139,7 +160,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
 
-                        <div class="dropdown for-notification">
+                        <!-- <div class="dropdown for-notification">
                           <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-bell"></i>
                             <span class="count bg-danger">3</span>
@@ -159,7 +180,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <p style="color: black">Stan GM meminta order</p>
                             </a>
                           </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
