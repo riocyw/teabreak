@@ -2145,7 +2145,8 @@ header .form-inline {
 @media (max-width: 992px) {
   [class*="col"].no-padding {
     flex: none; } }
-@media (max-width: 575.99px) {
+@media (max-width: 700.99px) {
+  /*575.99*/
   body {
     display: block; }
 

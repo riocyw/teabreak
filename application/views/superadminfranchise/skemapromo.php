@@ -530,8 +530,8 @@
             $('#jam_mulai_edit').data("DateTimePicker").maxDate(e.date);
         });
           
-        $('#tanggal_mulai_edit').data("DateTimePicker").minDate(output);
-        $('#tanggal_akhir_edit').data("DateTimePicker").minDate(output);
+        $('#tanggal_mulai_edit').data("DateTimePicker").maxDate($("#tanggal_akhir_edit").data("datetimepicker").getDate());
+        $('#tanggal_akhir_edit').data("DateTimePicker").minDate($("#tanggal_mulai_edit").data("datetimepicker").getDate());
     </script>
 </body>
 </html>

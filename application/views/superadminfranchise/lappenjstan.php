@@ -2,7 +2,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1><?php echo CI_VERSION; ?>Laporan Penjualan Stan</h1>
+                        <h1>Laporan Penjualan Stan</h1>
                     </div>
                 </div>
             </div>
@@ -73,9 +73,47 @@
                     </button>
                 </div>
                 <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            <div class="form-group">
+                                <label class=" form-control-label"><strong>Jenis Pembayaran</strong></label>
+                                
+                                <h4><span class="badge badge-primary" id="jenis_pembayaran">CASH</span></h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="form-group">
+                                <label class=" form-control-label"><strong>Status</strong></label>
+                                
+                                <h4><span class="badge badge-success" id="status">TIDAK VOID</span></h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label class=" form-control-label"><strong>List Diskon</strong></label>
+                                <div id="listdiskon">
+                                    <h6>- diskon 1 (haha)</h6>
+                                    <h6>- diskon 1 (haha)</h6>
+                                    <h6>- diskon 1 (haha)</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label class=" form-control-label"><strong>Keterangan</strong></label>
+                                
+                                <h6 id="keterangan">Keterangan yang ditulis di bagian keterangan</h6>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- DETAIL -->
                     <div class="form-group">
-                        <label class=" form-control-label">Nota Pembelian</label>
+                        <label class=" form-control-label"><strong>Nota Pembelian</strong></label>
                         <table id="detailnota" class="table table-striped table-bordered">
                             <thead>
                               <tr>

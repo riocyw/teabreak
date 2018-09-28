@@ -48,12 +48,15 @@
 			      var total_harga_akhir = 0;
 
 			      for(var i=0;i< json.length; i++){
-
+			      	var nama = json[i].nama_diskon;
+			      	var kett = json[i].keterangan;
+			      	nama = nama.split(' ').join('+');
+			      	kett = kett.split(' ').join('+');
 			        return_data.push({
 			          'id_nota': json[i].id_nota,
 			          'tanggal_nota'  : uidate(json[i].tanggal_nota),
 			          'total_harga_jual' : "Rp "+currency(json[i].total_harga),
-			          'detail' : '<button onclick=detail_nota("'+json[i].id_nota+'","'+json[i].total_harga+'") class="btn btn-warning" style="color:white;">Detail</button> '
+			          'detail' : '<button onclick=detail_nota("'+json[i].id_nota+'","'+json[i].total_harga+'","'+nama+'","'+json[i].jenis_diskon+'","'+json[i].status+'","'+json[i].pembayaran+'","'+kett+'") class="btn btn-warning" style="color:white;">Detail</button> '
 			        });
 		    		total_harga_akhir = total_harga_akhir + parseInt(json[i].total_harga);
 			      }
@@ -140,9 +143,70 @@
 	    return retVal;
 	  }
 
-	 function detail_nota(id,harga_total_akhir) {
+	 function detail_nota(id,harga_total_akhir,nama_diskon,jenis_diskon,status,pembayaran,keterangan) {
 	 	// console.log(harga_total_akhir);
+	 	$("#jenis_pembayaran").removeClass('badge-primary');
+	 	$("#jenis_pembayaran").removeClass('badge-success');
+	 	$("#jenis_pembayaran").removeClass('badge-warning');
+
+	 	$("#status").removeClass('badge-success');
+	 	$("#status").removeClass('badge-danger');
+
+	 	if (pembayaran == 'cash') {
+	 		$("#jenis_pembayaran").addClass('badge-success');
+	 	}else if (pembayaran == 'debit') {
+	 		$("#jenis_pembayaran").addClass('badge-warning');
+	 	}else{
+	 		$("#jenis_pembayaran").addClass('badge-primary');
+	 	}
+
 	 	$("#modalDetail").modal('toggle');
+	 	$("#jenis_pembayaran").html(pembayaran.toUpperCase());
+
+	 	if (status == 'void') {
+	 		$("#status").addClass('badge-danger');
+	 		var stat = 'VOID';
+	 	}else{
+	 		$("#status").addClass('badge-success');
+	 		var stat = 'TIDAK VOID';
+	 	}
+	 	$("#status").html(stat);
+
+	 	if (nama_diskon == 'none') {
+	 		var disc = 'tidak ada diskon'; 
+	 	}else{
+	 		var disc = '';
+	 		var jenishelp = '';
+	 		var nama = nama_diskon.split(",");
+	 		var jenis = jenis_diskon.split(",");
+
+	 		for (var i = nama.length - 1; i >= 0; i--) {
+	 			if (jenis[i].includes('nominal')) {
+	 				jenishelp = 'potongan Rp.'+currency(jenis[i]);
+	 			}else if (jenis[i].includes('persen')) {
+	 				jenishelp = 'potongan '+ jenis[i].replace("persen", "")+'%';
+	 			}else if (jenis[i].includes('buy1')) {
+	 				jenishelp = 'promo beli 1 gratis 1';
+	 			}else if (jenis[i].includes('buy2')) {
+	 				jenishelp = 'promo beli 2 gratis 1';
+	 			}
+
+	 			disc = disc+'<h6>- '+nama[i].split('+').join(' ')+' ( '+jenishelp+' )</h6>';
+	 			
+	 		}
+
+	 		
+	 	}
+	 	
+	 	$("#listdiskon").html(disc);
+
+	 	if (keterangan == 'none') {
+	 		var ket = 'tidak ada keterangan';
+	 	}else{
+	 		var ket = keterangan.split('+').join(' ');
+	 	}
+
+	 	$("#keterangan").html(ket);
 	 	$("#totalhargapernota").text("Total Harga Nota : Rp. "+currency(harga_total_akhir)+",-");
 	 	if ( $.fn.DataTable.isDataTable( '#detailnota' ) ) {
 	        $('#detailnota').DataTable().destroy();
