@@ -131,7 +131,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a href="lappenjstan"> <i class="menu-icon ti-agenda"></i>Laporan Penjualan Stand</a>
                     </li>
                     <li>
-                        <a style="pointer-events: none;" href="#"> <i class="menu-icon ti-agenda"></i>Laporan B</a>
+                        <a style="pointer-events: none;" href="#"> <i class="menu-icon ti-agenda"></i>Laporan Sisa Stock Stan</a>
                     </li>
                     <li id="">
                         <a style="pointer-events: none;" href="#"> <i class="menu-icon ti-agenda"></i>Laporan C</a>

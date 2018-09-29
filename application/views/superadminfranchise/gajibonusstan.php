@@ -20,8 +20,8 @@
         <div class="content mt-3">
             <div class="animated fadeIn">
                 <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h1><span class="badge badge-warning">Fitur dalam tahap Pengembangan!</span></h1>
+                    <div class="col-lg-12 col-sm-12 text-center">
+                        <h1 style="font-size: 4vw"><span class="badge badge-warning">Fitur dalam tahap Pengembangan!</span></h1>
                     </div>
                 </div>
             </div>

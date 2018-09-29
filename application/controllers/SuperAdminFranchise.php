@@ -901,6 +901,68 @@ class SuperAdminFranchise extends CI_Controller {
         	$this->load->view('superadminfranchise/navigationbar');
             $this->load->view('superadminfranchise/masterbahanjadi');
 			// $this->load->view('superadminfranchise/datatable_produk');
+
         }
+	}
+
+	public function tambahbahanjadi()
+	{
+		$id = $this->input->post('id');
+		$where = array('id_bahan_jadi' => $id);
+		$count = $this->Produk->getRowCount('bahan_jadi',$where);
+
+		if ($count>0) {
+			echo "ID Data Sudah ada di dalam database";
+		}else{
+			$data = array(
+		        'id_bahan_jadi' => $this->input->post('id'),
+		        'nama_bahan_jadi' => $this->input->post('nama'),
+	         );
+			$this->Produk->insert('bahan_jadi',$data);
+			echo "Berhasil Ditambahkan";
+		}
+	}
+
+	public function select_edit_bahanjadi()
+	{
+		$id = $this->input->post('id');
+		$data = $this->Produk->getData("id_bahan_jadi='".$id."'",'bahan_jadi');
+		echo json_encode($data);
+	}
+
+	public function delete_bahanjadi()
+	{
+		$id = $this->input->post('id');
+		$this->Produk->Delete('bahan_jadi',$id);
+	}
+
+	public function edit_bahanjadi()
+	{
+		$id = $this->input->post('idlama');
+		$where = array('id_bahan_jadi' => $id);
+
+		$idbaru = $this->input->post('id');
+		$wherebaru = array('id_bahan_jadi' => $idbaru);
+		$count = $this->Produk->getRowCount('bahan_jadi',$wherebaru);
+
+		if ($count>0 && $id != $idbaru) {
+			echo "Update Error! ID Data Sudah ada di dalam database";
+		}else{
+			$data = array(
+				'id_bahan_jadi' => $this->input->post('id'),
+		        'nama_bahan_jadi' => $this->input->post('nama'),
+	         );
+			$this->Post->Update('bahan_jadi',$data,$where);
+			echo "Berhasil Diupdate";
+		}
+	}
+
+	public function bahanjadi_data()
+	{
+		$this->load->library('datatables');
+		$this->datatables->select('id_bahan_jadi,nama_bahan_jadi');
+		$this->datatables->from('bahan_jadi');
+		
+		echo $this->datatables->generate();
 	}
 }
