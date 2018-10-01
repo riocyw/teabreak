@@ -898,6 +898,45 @@ class SuperAdminFranchise extends CI_Controller {
 		
 	}
 
+	public function insertDataStok()
+	{
+		$data_stok = json_decode($this->input->post('allstok'));
+		$id_stan = $this->input->post('id_stan');
+		$ress = true;
+
+		foreach ($data_stok as $perstok) {
+
+			$where = array('id_bahan_jadi' => $perstok->id_bahan_jadi,'id_stan' => $id_stan,'tanggal' => $perstok->tanggal);
+			$newdata = array(
+				'id_bahan_jadi' => $perstok->id_bahan_jadi,
+				'id_stan' => $id_stan,
+				'nama_bahan_jadi' => $perstok->nama_bahan_jadi,
+				'stok_masuk' => $perstok->stok_masuk, 
+				'stok_keluar' => $perstok->stok_keluar,
+				'stok_sisa' => $perstok->stok_sisa,
+				'tanggal' => $perstok->tanggal
+			);
+
+			if ($this->Produk->checkExist('stok_bahan_jadi',$where)) {
+				$stat = $this->Produk->update('stok_bahan_jadi', $newdata, $where);
+			}else{
+				$stat = $this->Produk->insert('stok_bahan_jadi',$newdata);
+			}
+			
+			if (!$stat) {
+				$ress = false;
+			}
+		}
+
+		// echo gettype($data_nota)." ".gettype($data_detail_nota);
+		if ($ress) {
+			echo 'true';
+		}else{
+			echo 'false';
+		}
+		
+	}
+
 	public function masterbahanjadi()
 	{
 		$akses = $this->session->userdata('aksessupadmin');
