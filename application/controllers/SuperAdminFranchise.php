@@ -389,10 +389,10 @@ class SuperAdminFranchise extends CI_Controller {
 		$tanggal_mulai = $this->input->post('tanggal_mulai');
 		$tanggal_akhir = $this->input->post('tanggal_akhir');
 
-		$parttanggalmulai = explode('/', $tanggal_mulai);
-		$parttanggalakhir = explode('/', $tanggal_akhir);
-		$tanggal_mulai = $parttanggalmulai[2].'/'.$parttanggalmulai[1].'/'.$parttanggalmulai[0];
-		$tanggal_akhir = $parttanggalakhir[2].'/'.$parttanggalakhir[1].'/'.$parttanggalakhir[0];
+		// $parttanggalmulai = explode('/', $tanggal_mulai);
+		// $parttanggalakhir = explode('/', $tanggal_akhir);
+		// $tanggal_mulai = $parttanggalmulai[2].'/'.$parttanggalmulai[1].'/'.$parttanggalmulai[0];
+		// $tanggal_akhir = $parttanggalakhir[2].'/'.$parttanggalakhir[1].'/'.$parttanggalakhir[0];
 
 		$tanggal_mulai = strtotime($tanggal_mulai);
 		$tanggal_mulai = date('Y-m-d',$tanggal_mulai);
@@ -821,6 +821,12 @@ class SuperAdminFranchise extends CI_Controller {
 
 		$dataproduk = $this->Produk->getDataIn('detail_barang_diskon',$listdiskon);
 		echo json_encode($dataproduk);
+	}
+
+	public function sendDataBahanJadi()
+	{
+		$data = $this->Produk->getAllData('bahan_jadi');
+		echo json_encode($data);
 	}
 
 	public function insertDataNota()

@@ -69,6 +69,8 @@ $route['getDataStan'] = 'superadminfranchise/sendDataStan';
 $route['getDataProduk'] = 'superadminfranchise/sendDataProduk';
 $route['getDataDiskon'] = 'superadminfranchise/sendDataDiskon';
 $route['getDataDetailDiskonProduk'] = 'superadminfranchise/sendDataDetailDiskonProduk';
+$route['getDataBahanJadi'] = 'superadminfranchise/sendDataBahanJadi';
+
 $route['insertDataNota'] = 'superadminfranchise/insertDataNota';
 
 $route['lapdist'] = 'superadminfranchise/lapdist';
