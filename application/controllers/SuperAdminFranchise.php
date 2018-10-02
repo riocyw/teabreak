@@ -922,10 +922,14 @@ class SuperAdminFranchise extends CI_Controller {
 			}else{
 				$stat = $this->Produk->insert('stok_bahan_jadi',$newdata);
 			}
+
+			// if (!$this->Produk->checkExist('stok_bahan_jadi',$where)) {
+			// 	$stat = $this->Produk->insert('stok_bahan_jadi',$newdata);
+			// }
 			
-			if (!$stat) {
-				$ress = false;
-			}
+			// if (!$stat) {
+			// 	$ress = false;
+			// }
 		}
 
 		// echo gettype($data_nota)." ".gettype($data_detail_nota);
@@ -1009,5 +1013,50 @@ class SuperAdminFranchise extends CI_Controller {
 		$this->datatables->from('bahan_jadi');
 		
 		echo $this->datatables->generate();
+	}
+
+	public function lapsisastok()
+	{
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+        	$this->load->view('superadminfranchise/navigationbar');
+            $this->load->view('superadminfranchise/lapsisastok');
+			$this->load->view('superadminfranchise/datatable_lapsisastok');
+        }
+	}
+
+	public function stokData(){
+		$tanggal_awal = $this->input->post('tanggal_awal');
+		$tanggal_akhir = $this->input->post('tanggal_akhir');
+		$id_stan = $this->input->post('id_stan');
+
+		if ($tanggal_awal =='') {
+			$tanggal_awal = '01/01/1970';
+		}
+
+		if ($tanggal_akhir =='') {
+			$tanggal_akhir = '01/01/1970';
+		}
+
+		$parttanggalawal = explode('/', $tanggal_awal);
+		$parttanggalakhir = explode('/', $tanggal_akhir);
+
+		$tanggal_awal = $parttanggalawal[2].'/'.$parttanggalawal[1].'/'.$parttanggalawal[0];
+		$tanggal_akhir = $parttanggalakhir[2].'/'.$parttanggalakhir[1].'/'.$parttanggalakhir[0];
+		$tanggal_akhir = strtotime($tanggal_akhir);
+		$tanggal_akhir = date('Y-m-d',$tanggal_akhir);
+
+		$tanggal_awal = strtotime($tanggal_awal);
+		$tanggal_awal = date('Y-m-d',$tanggal_awal);
+
+		// var_dump($tanggal_akhir);
+
+		$array = array('id_stan' => $id_stan, 'tanggal >=' => $tanggal_awal, 'tanggal <=' => $tanggal_akhir);
+
+		$data = $this->Produk->getData($array,'stok_bahan_jadi');
+		// var_dump($data);
+		echo json_encode($data);
 	}
 }
