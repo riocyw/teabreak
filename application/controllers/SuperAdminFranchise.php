@@ -233,10 +233,10 @@ class SuperAdminFranchise extends CI_Controller {
 			echo "Update Error! ID Data Sudah ada di dalam database";
 		}else{
 			$data = array(
-			'id_produk' => $this->input->post('id'),
-	        'nama_produk' => $this->input->post('nama'),
-	        'kategori' => $this->input->post('kategori'),
-	        'harga_jual' => $this->input->post('harga')
+				'id_produk' => $this->input->post('id'),
+		        'nama_produk' => $this->input->post('nama'),
+		        'kategori' => $this->input->post('kategori'),
+		        'harga_jual' => $this->input->post('harga')
 	         );
 			$this->Post->Update('produk',$data,$where);
 			echo "Berhasil Diupdate";
