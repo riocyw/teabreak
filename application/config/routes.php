@@ -73,6 +73,8 @@ $route['getDataBahanJadi'] = 'superadminfranchise/sendDataBahanJadi';
 
 $route['insertDataNota'] = 'superadminfranchise/insertDataNota';
 $route['insertDataStok']= 'superadminfranchise/insertDataStok';
+$route['insertDataPengeluaran']= 'superadminfranchise/insertDataPengeluaran';
+$route['insertDataKas']= 'superadminfranchise/insertDataKas';
 
 $route['lapdist'] = 'superadminfranchise/lapdist';
 $route['lapgaji'] = 'superadminfranchise/lapgaji';

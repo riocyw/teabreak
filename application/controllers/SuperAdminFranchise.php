@@ -1059,4 +1059,74 @@ class SuperAdminFranchise extends CI_Controller {
 		// var_dump($data);
 		echo json_encode($data);
 	}
+
+	public function insertDataPengeluaran()
+	{
+		$data_pengeluaran = json_decode($this->input->post('allpengeluaran'));
+		$id_stan = $this->input->post('id_stan');
+		$ress = true;
+
+		foreach ($data_pengeluaran as $perpengeluaran) {
+			$where = array('id_pengeluaran' => $perpengeluaran->id_pengeluaran, 'id_stan' => $id_stan);
+			$newdata = array(
+				'id_pengeluaran' => $perpengeluaran->id_pengeluaran,
+				'id_stan' => $id_stan,
+				'tanggal' => $perpengeluaran->tanggal,
+				'keterangan' => $perpengeluaran->keterangan, 
+				'pengeluaran' => $perpengeluaran->pengeluaran
+			);
+
+			// var_dump($newdata);
+			if ($this->Produk->checkExist('pengeluaran_lain',$where)) {
+				$stat = $this->Produk->update('pengeluaran_lain', $newdata, $where);
+			}else{
+				$stat = $this->Produk->insert('pengeluaran_lain',$newdata);
+			}
+			
+			if (!$stat) {
+				$ress = false;
+			}
+		}
+
+		// if ($ress) {
+			echo 'true';
+		// }else{
+		// 	echo 'false';
+		// }
+			// var_dump($pernota);
+	}
+
+	public function insertDataKas()
+	{
+		$data_kas = json_decode($this->input->post('allkas'));
+		$id_stan = $this->input->post('id_stan');
+		$ress = true;
+
+		foreach ($data_kas as $perkas) {
+			$where = array('tanggal' => $perkas->tanggal, 'id_stan' => $id_stan);
+			$newdata = array(
+				'tanggal' => $perkas->tanggal,
+				'id_stan' => $id_stan,
+				'kas_awal' => $perkas->kas_awal
+			);
+
+			// var_dump($newdata);
+			if ($this->Produk->checkExist('kas',$where)) {
+				$stat = $this->Produk->update('kas', $newdata, $where);
+			}else{
+				$stat = $this->Produk->insert('kas',$newdata);
+			}
+			
+			if (!$stat) {
+				$ress = false;
+			}
+		}
+
+		// if ($ress) {
+			echo 'true';
+		// }else{
+		// 	echo 'false';
+		// }
+			// var_dump($pernota);
+	}
 }
