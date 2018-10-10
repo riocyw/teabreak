@@ -61,6 +61,12 @@ class Produk extends CI_Model{
         $this->db->delete($table);
     }
 
+    public function DeleteWhere($table,$where)
+    {
+        $this->db->where($where);
+        $this->db->delete($table);
+    }
+
     public function getSpecificColumn($table,$column)
     {
         $this->db->select($column); 

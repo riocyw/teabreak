@@ -1129,4 +1129,14 @@ class SuperAdminFranchise extends CI_Controller {
 		// }
 			// var_dump($pernota);
 	}
+
+	public function deleteDataPengeluaran()
+	{
+		$pengeluaran_lain = $this->input->post('id_pengeluaran');
+		$id_stan = $this->input->post('id_stan');
+		$where = array('id_pengeluaran' => $pengeluaran_lain , 'id_stan' => $id_stan);
+
+		$this->Produk->DeleteWhere('pengeluaran_lain',$where);
+		echo "true";
+	}
 }

@@ -76,6 +76,8 @@ $route['insertDataStok']= 'superadminfranchise/insertDataStok';
 $route['insertDataPengeluaran']= 'superadminfranchise/insertDataPengeluaran';
 $route['insertDataKas']= 'superadminfranchise/insertDataKas';
 
+$route['deleteDataPengeluaran'] = 'superadminfranchise/deleteDataPengeluaran';
+
 $route['lapdist'] = 'superadminfranchise/lapdist';
 $route['lapgaji'] = 'superadminfranchise/lapgaji';
 $route['lapkeuntunganglobal'] = 'superadminfranchise/lapkeuntunganglobal';
