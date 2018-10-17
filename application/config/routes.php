@@ -75,6 +75,8 @@ $route['insertDataNota'] = 'superadminfranchise/insertDataNota';
 $route['insertDataStok']= 'superadminfranchise/insertDataStok';
 $route['insertDataPengeluaran']= 'superadminfranchise/insertDataPengeluaran';
 $route['insertDataKas']= 'superadminfranchise/insertDataKas';
+$route['insertDataKaryawanFingerspot']= 'superadminfranchise/insertDataKaryawanFingerspot';
+$route['insertDataPresensiKaryawan']= 'superadminfranchise/insertDataPresensiKaryawan';
 
 $route['deleteDataPengeluaran'] = 'superadminfranchise/deleteDataPengeluaran';
 

@@ -1139,4 +1139,63 @@ class SuperAdminFranchise extends CI_Controller {
 		$this->Produk->DeleteWhere('pengeluaran_lain',$where);
 		echo "true";
 	}
+
+	public function insertDataKaryawanFingerspot()
+	{
+		$data_karyawan = json_decode($this->input->post('allkaryawan'));
+		$id_stan = $this->input->post('id_stan');
+		$ress = true;
+
+		foreach ($data_karyawan as $perkaryawan) {
+			$where = array('pin' => $perkaryawan->pin, 'id_stan' => $id_stan);
+			$newdata = array(
+				'pin' => $perkaryawan->pin,
+				'id_stan' => $id_stan,
+				'nama' => $perkaryawan->nama
+			);
+
+			// var_dump($newdata);
+			if ($this->Produk->checkExist('karyawan_fingerspot',$where)) {
+				$stat = $this->Produk->update('karyawan_fingerspot', $newdata, $where);
+			}else{
+				$stat = $this->Produk->insert('karyawan_fingerspot',$newdata);
+			}
+			
+			if (!$stat) {
+				$ress = false;
+			}
+		}
+			echo 'true';
+	}
+
+	public function insertDataPresensiKaryawan()
+	{
+		$data_presensi = json_decode($this->input->post('allpresensi'));
+		$id_stan = $this->input->post('id_stan');
+		$ress = true;
+
+		foreach ($data_presensi as $perpresensi) {
+			$where = array('scan_date' => $perpresensi->scan_date, 'id_stan' => $id_stan, 'pin' => $perpresensi->pin);
+			$newdata = array(
+				'scan_date' => $perpresensi->scan_date,
+				'id_stan' => $id_stan,
+				'pin' => $perpresensi->pin,
+				'verify_mode' => $perpresensi->verify_mode,
+				'io_mode' => $perpresensi->io_mode,
+				'work_code' => $perpresensi->work_code
+			);
+
+			// var_dump($newdata);
+			if ($this->Produk->checkExist('presensi_karyawan',$where)) {
+				$stat = $this->Produk->update('presensi_karyawan', $newdata, $where);
+			}else{
+				$stat = $this->Produk->insert('presensi_karyawan',$newdata);
+			}
+			
+			if (!$stat) {
+				$ress = false;
+			}
+		}
+		echo 'true';
+	}
 }
