@@ -737,6 +737,13 @@ class SuperAdminFranchise extends CI_Controller {
 		echo json_encode($diskondata);
 	}
 
+	public function sendDataOrder()
+	{
+		$where = array('status' => 'done');
+		$data = $this->Produk->getData($where,'order_bahan_jadi_stan');
+		echo json_encode($data);
+	}
+
 	// public function updateDiskon()
 	// {
 	// 	$whereact = array('status' => 'active');
@@ -1197,5 +1204,47 @@ class SuperAdminFranchise extends CI_Controller {
 			}
 		}
 		echo 'true';
+	}
+
+	public function insertDataOrder()
+	{
+		$data_order = json_decode($this->input->post('allorder'));
+		$data_detail_order = json_decode($this->input->post('detailorder'));
+		$id_stan = $this->input->post('id_stan');
+		$ress = true;
+
+		foreach ($data_order as $perorder) {
+			$where = array('id_order' => $perorder->id_order);
+			$newdata = array(
+				'id_order' => $perorder->id_order,
+				'tanggal_order' => $perorder->tanggal_order,
+				'status' => $perorder->status
+			);
+			if ($this->Produk->checkExist('order_bahan_jadi_stan',$where)) {
+				$stat = $this->Produk->update('order_bahan_jadi_stan', $newdata, $where);
+			}else{
+				$stat = $this->Produk->insert('order_bahan_jadi_stan',$newdata);
+			}
+			
+			if (!$stat) {
+				$ress = false;
+			}
+		}
+
+		foreach ($data_detail_order as $perdetail) {
+			$where = array('id_detail_order' => $perdetail->id_detail_order);
+			if (!$this->Produk->checkExist('detail_order_bahan_jadi_stan',$where)) {
+				$stat2 = $this->Produk->insert('detail_order_bahan_jadi_stan',$perdetail);
+			}
+			
+			if (!$stat2) {
+				$ress = false;
+			}
+		}
+		if ($ress) {
+			echo 'true';
+		}else{
+			echo 'false';
+		}
 	}
 }

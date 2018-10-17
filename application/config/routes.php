@@ -70,6 +70,8 @@ $route['getDataProduk'] = 'superadminfranchise/sendDataProduk';
 $route['getDataDiskon'] = 'superadminfranchise/sendDataDiskon';
 $route['getDataDetailDiskonProduk'] = 'superadminfranchise/sendDataDetailDiskonProduk';
 $route['getDataBahanJadi'] = 'superadminfranchise/sendDataBahanJadi';
+$route['getDataOrder'] = 'superadminfranchise/sendDataOrder';
+
 
 $route['insertDataNota'] = 'superadminfranchise/insertDataNota';
 $route['insertDataStok']= 'superadminfranchise/insertDataStok';
@@ -77,6 +79,8 @@ $route['insertDataPengeluaran']= 'superadminfranchise/insertDataPengeluaran';
 $route['insertDataKas']= 'superadminfranchise/insertDataKas';
 $route['insertDataKaryawanFingerspot']= 'superadminfranchise/insertDataKaryawanFingerspot';
 $route['insertDataPresensiKaryawan']= 'superadminfranchise/insertDataPresensiKaryawan';
+$route['insertDataOrder']= 'superadminfranchise/insertDataOrder';
+
 
 $route['deleteDataPengeluaran'] = 'superadminfranchise/deleteDataPengeluaran';
 
@@ -101,6 +105,7 @@ $route['pembelian'] = 'adminfranchise/pembelian';
 $route['pengeluaranlain'] = 'adminfranchise/pengeluaranlain';
 $route['distribusi'] = 'adminfranchise/distribusi';
 $route['stokkeluar'] = 'adminfranchise/stokkeluar';
+$route['orderstan'] = 'adminfranchise/orderstan';
 
 
 $route['json'] = 'superadminfranchise/json';
