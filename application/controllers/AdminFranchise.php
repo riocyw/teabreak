@@ -72,7 +72,18 @@ class AdminFranchise extends CI_Controller {
         	$this->load->view('adminfranchise/navigationbar');
           $this->load->view('adminfranchise/stokkeluar');
         }
-  	}
+  }
+
+  public function orderstan()
+  {
+    $akses = $this->session->userdata('aksesadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+          $this->load->view('adminfranchise/navigationbar');
+          $this->load->view('adminfranchise/orderstan');
+        }
+  }
 
 }
 ?>

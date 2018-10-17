@@ -85,11 +85,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a href="dashboardadmin"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">PRODUK</h3><!-- /.menu-title -->
+
+                    ti-list-ol
                     <li id="stokproduk">
                         <a href="stokproduk"> <i class="menu-icon fa fa-glass"></i>Stok Produk </a>
                     </li>
                     <li id="pembelian">
                         <a href="pembelian"> <i class="menu-icon ti-shopping-cart"></i>Pembelian Produk </a>
+                    </li>
+                    <li id="orderstan">
+                        <a href="orderstan"> <i class="menu-icon ti-list-ol"></i>Order Stan </a>
                     </li>
                     <h3 class="menu-title">ADMINISTRASI</h3><!-- /.menu-title -->
                     <li id="pengeluaranlain">
