@@ -85,5 +85,40 @@ class AdminFranchise extends CI_Controller {
         }
   }
 
+  public function getAllOrder()
+  {
+    $this->load->library('datatables');
+    $this->datatables->select('id_order,tanggal_order,status');
+    $this->datatables->from('order_bahan_jadi_stan');
+    echo $this->datatables->generate();
+  }
+
+  public function getSpecificOrderDetail()
+  {
+    $id_order = $this->input->post('id_order');
+    $where = array('id_order' => $id_order);
+
+    $this->load->library('datatables');
+    $this->datatables->select('nama_bahan_jadi,jumlah');
+    $this->datatables->from('detail_order_bahan_jadi_stan');
+    $this->datatables->where($where);
+    echo $this->datatables->generate();
+    
+  }
+
+  public function changeStatusOrderToDone()
+  {
+    $id_order = $this->input->post('id_order');
+    $where = array('id_order' => $id_order);
+
+    $data = array(
+      'status' => 'done'
+    );
+
+    $this->Post->Update('order_bahan_jadi_stan',$data,$where);
+  }
+
+  
+
 }
 ?>
