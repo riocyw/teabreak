@@ -114,7 +114,7 @@
                     <!-- DETAIL -->
                     <div class="form-group">
                         <label class=" form-control-label"><strong>Nota Pembelian</strong></label>
-                        <table id="detailnota" class="table table-striped table-bordered">
+                        <table id="detailnota" class="table table-striped table-bordered" style="width: 100%" width="100%">
                             <thead>
                               <tr>
                                 <th>Nama Produk</th>

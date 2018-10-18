@@ -95,7 +95,7 @@
                             <strong class="card-title">Data Stan</strong>
                         </div>
                         <div class="card-body">
-                          <table id="mytable" class="table table-striped table-bordered">
+                          <table id="mytable" class="table table-striped table-bordered" style="width: 100%" width="100%">
                             <thead>
                               <tr>
                                 <th>ID Stan</th>
