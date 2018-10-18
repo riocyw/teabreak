@@ -1247,4 +1247,23 @@ class SuperAdminFranchise extends CI_Controller {
 			echo 'false';
 		}
 	}
+
+	public function sendUpdateOrder()
+	{
+		$list_data = $this->input->post('list_id_not_done');
+		$id_stan = $this->input->post('id_stan');
+		$where = array('status' => 'done');
+
+		$alldatanotdone = $this->Produk->getDataInTableAndSpecificWhere('order_bahan_jadi_stan',$list_data,'id_order',$where);
+
+		$data = array();
+
+		foreach ($alldatanotdone as $perdatanotdone) {
+			array_push($data, $perdatanotdone->id_order);
+		}
+
+		$stringfromdata = implode(",",$data);
+
+		echo $stringfromdata;
+	}
 }

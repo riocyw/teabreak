@@ -71,6 +71,7 @@ $route['getDataDiskon'] = 'superadminfranchise/sendDataDiskon';
 $route['getDataDetailDiskonProduk'] = 'superadminfranchise/sendDataDetailDiskonProduk';
 $route['getDataBahanJadi'] = 'superadminfranchise/sendDataBahanJadi';
 $route['getDataOrder'] = 'superadminfranchise/sendDataOrder';
+$route['getUpdateOrder'] = 'superadminfranchise/sendUpdateOrder';
 
 
 $route['insertDataNota'] = 'superadminfranchise/insertDataNota';
