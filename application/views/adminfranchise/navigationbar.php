@@ -27,6 +27,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href=<?php echo base_url("assets/css/flag-icon.min.css")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/css/cs-skin-elastic.css")?>>
     <link rel="stylesheet" href=<?php echo base_url("assets/datatable/datatables.css") ?>>
+
+    <link rel="stylesheet" href=<?php echo base_url("assets/vendors/select2-4.0.1/select2-4.0.1/dist/css/select2.css")?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/css/lib/chosen/chosen.min.css")?>>
+    
     <!-- bootstrap-daterangepicker -->
     <link rel="stylesheet" href=<?php echo base_url("assets/vendors/bootstrap-daterangepicker/daterangepicker.css")?> >
 

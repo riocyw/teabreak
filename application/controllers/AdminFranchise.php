@@ -115,10 +115,38 @@ class AdminFranchise extends CI_Controller {
       'status' => 'done'
     );
 
-    $this->Post->Update('order_bahan_jadi_stan',$data,$where);
+    $this->Produk->Update('order_bahan_jadi_stan',$data,$where);
   }
 
-  
+  public function saveDistribusi()
+  {
+    $namastan = $this->input->post('namastan');
+    $tanggal = $this->input->post('tanggal');
+    $arrayDistribusi = json_decode($this->input->post('arrayDistribusi'));
+    $stat = true;
+
+    $data = array(
+      'id_distribusi' => , 
+      'nama' => $namastan,
+      'tanggal' => $tanggal
+    );
+
+    if ($this->Produk->insert('order_bahan_jadi_stan',$data)) {
+      # code...
+    }else{
+      $stat = false;
+    }
+
+    
+
+    
+
+    if ($stat) {
+      echo "true";
+    }else{
+      echo "false";
+    }
+  }
 
 }
 ?>

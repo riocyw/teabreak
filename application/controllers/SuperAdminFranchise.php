@@ -1266,4 +1266,12 @@ class SuperAdminFranchise extends CI_Controller {
 
 		echo $stringfromdata;
 	}
+
+	public function get_list_bahan_jadi()
+	{
+		$data = $this->Produk->getAllData('bahan_jadi');
+		echo json_encode($data);
+	}
+
+	
 }
