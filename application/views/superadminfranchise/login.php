@@ -57,7 +57,7 @@
                             <input id="password" type="password" class="form-control" placeholder="Password">
                         </div>
                         <p class="green text-center" id="error"></p>
-                        <button onclick="proses_login()" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
+                        <button id="buttonlogin" onclick="proses_login()" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
                 </div>
             </div>
         </div>
@@ -70,6 +70,7 @@
     <script src="assets/js/main.js"></script> -->
     <script type="text/javascript">
         function proses_login() {
+            $('#buttonlogin').prop('disabled', true);
             if ($('#username').val() == '') {
                 $('#username').addClass('is-invalid');
                 $('#labelusername').addClass('red');
@@ -108,11 +109,15 @@
                         $('#error').addClass('red');
                         $('#error').removeClass('green');
                         $('#error').html('Username atau Password Salah !');
+                        $('#buttonlogin').prop('disabled', false);
                       }
                     },
                     error: function (jqXHR, textStatus, errorThrown)
                     {
                       alert(errorThrown);
+                    },
+                    complete: function () {
+                        $('#buttonlogin').prop('disabled', false);
                     }
                 });
             }

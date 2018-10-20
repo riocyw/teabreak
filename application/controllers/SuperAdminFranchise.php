@@ -733,6 +733,10 @@ class SuperAdminFranchise extends CI_Controller {
 			
 		}
 
+		if (count($listdiskon) == 0) {
+			array_push($listdiskon, '');
+		}
+
 		$diskondata = $this->Produk->getDataIn('diskon',$listdiskon);
 		echo json_encode($diskondata);
 	}
@@ -824,6 +828,10 @@ class SuperAdminFranchise extends CI_Controller {
 				
 			}
 			
+		}
+
+		if (count($listdiskon) == 0) {
+			array_push($listdiskon, '');
 		}
 
 		$dataproduk = $this->Produk->getDataIn('detail_barang_diskon',$listdiskon);

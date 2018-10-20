@@ -125,8 +125,10 @@ class AdminFranchise extends CI_Controller {
     $arrayDistribusi = json_decode($this->input->post('arrayDistribusi'));
     $stat = true;
 
+    $id_distribusi = IDDistribusiGenerator();
+
     $data = array(
-      'id_distribusi' => , 
+      'id_distribusi' => $id_distribusi, 
       'nama' => $namastan,
       'tanggal' => $tanggal
     );
