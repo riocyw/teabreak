@@ -1281,5 +1281,16 @@ class SuperAdminFranchise extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	public function rekapharianstan()
+	{
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+        	$this->load->view('superadminfranchise/navigationbar');
+            $this->load->view('superadminfranchise/rekapdataharian');
+        }
+	}
+
 	
 }

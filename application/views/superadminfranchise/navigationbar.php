@@ -116,6 +116,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <li id="gajibonusstan">
                         <a href="gajibonusstan"> <i class="menu-icon ti-money"></i>Gaji Bonus Stan </a>
                     </li>
+                    <li id="rekapharianstan">
+                        <a href="rekapharianstan"> <i class="menu-icon ti-book"></i>Rekap Harian Stan </a>
+                    </li>
                     <h3 class="menu-title">PROMO</h3><!-- /.menu-title -->
                     <li id="skemapromo">
                         <a href="skemapromo"> <i class="menu-icon fa fa-percent"></i>Skema Promo </a>
