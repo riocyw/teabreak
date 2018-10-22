@@ -40,7 +40,7 @@
                                     <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div>
                                     <div class="stat-content dib">
                                         <div class="stat-text"><b>Kas Awal</b></div>
-                                        <div class="stat-digit"><b>Rp. --.---,-</b></div>
+                                        <div class="stat-digit"><b id="kasawal">Rp. --.---,-</b></div>
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                             <button class="btn btn-sm btn-link" onclick="openmodaldetail()"><b><i class="fa fa-eye"></i> detail</b></button>
                                         </div>
                                         <div class="stat-digit">
-                                            <b>Rp. --.---,-</b>
+                                            <b id="hasilpenjualan">Rp. --.---,-</b>
 
                                         </div>
                                     </div>
@@ -71,7 +71,7 @@
                                     <div class="stat-icon dib"><i class="ti-money text-danger border-danger"></i></div>
                                     <div class="stat-content dib">
                                         <div class="stat-text"><b>Pengeluaran</b></div>
-                                        <div class="stat-digit"><b>Rp. --.---,-</b></div>
+                                        <div class="stat-digit"><b id="pengeluaran">Rp. --.---,-</b></div>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                     <!-- <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div> -->
                                     <div class="stat-content dib">
                                         <div class="stat-text"><h4><b>Total Pemasukan</b></h4></div>
-                                        <div class="stat-digit"><h2><b>Rp. --.---,-</b></h2></div>
+                                        <div class="stat-digit"><h2><b id="totalpemasukan">Rp. --.---,-</b></h2></div>
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                                     <!-- <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div> -->
                                     <div class="stat-content dib">
                                         <div class="stat-text"><h4><b>Total Uang pada Mesin Kasir</b></h4></div>
-                                        <div class="stat-digit"><h2><b>Rp. --.---,-</b></h2></div>
+                                        <div class="stat-digit"><h2><b id="totalkasir">Rp. --.---,-</b></h2></div>
                                     </div>
                                 </div>
                             </div>
@@ -107,10 +107,10 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-sm-6 text-right">
-                      <button class="btn btn-lg btn-primary"><i class="fa fa-print"></i> CETAK LAPORAN </button>
+                      <button class="btn btn-lg btn-primary" onclick="cetakrekap()"><i class="fa fa-print"></i> CETAK LAPORAN </button>
                     </div>
                     <div class="col-md-6 col-sm-6 text-left">
-                      <button class="btn btn-lg btn-success"><i class="fa fa-save"></i> SIMPAN LAPORAN </button>
+                      <button class="btn btn-lg btn-success" onclick="simpanrekap()"><i class="fa fa-save"></i> SIMPAN LAPORAN </button>
                       
                     </div>
                     <div class="col-md-12 col-sm-12 text-center" style="margin-top: 15px">
@@ -194,6 +194,32 @@
             });
         });
 
+        var tanggalfull = new Date();
+          var tanggal = tanggalfull.getDate();
+          var bulan = tanggalfull.getMonth()+1;
+          var tahun = tanggalfull.getFullYear();
+          var jam = tanggalfull.getHours();
+          var menit = tanggalfull.getMinutes();
+
+          if (parseInt(tanggal)<10) {
+            tanggal = "0"+tanggal;
+          }
+
+          if (parseInt(bulan)<10) {
+            bulan = "0"+bulan;
+          }
+
+          if (parseInt(jam)<10) {
+            jam = "0"+jam;
+          }
+
+          if (parseInt(menit)<10) {
+            menit = "0"+menit;
+          }
+
+          $('#tanggal').text("Tanggal : "+tanggal+"/"+bulan+"/"+tahun);
+          $('#waktu').text("Waktu : "+jam+":"+menit);
+
         function openmodaldetail() {
             $('#modalDetail').modal('toggle');
         }
@@ -222,6 +248,67 @@
               }
           }
         );
+
+        var id_stan = $('#stan').val();
+        ajaxSetData();
+
+        function ajaxSetData() {
+            $.ajax({
+              type:"post",
+              url: "<?php echo base_url('adminfranchise/getrekapdata')?>/",
+              data:{id_stan:id_stan},
+              success:function(response)
+              {
+                response = jQuery.parseJSON(response);
+                var kasawal = response.kasawal;
+                var hasilpenjualan = response.hasilpenjualan;
+                var pengeluaran = response.pengeluaran;
+                var cashdetail = response.cashdetail;
+                var ovodetail = response.ovodetail;
+                var debitdetail = response.debitdetail;
+                var totalkasir = response.totalkasir;
+                var totalpemasukan = response.totalpemasukan;
+
+                kasawal = "Rp. "+currency(kasawal)+",-";
+                hasilpenjualan = "Rp. "+currency(hasilpenjualan)+",-";
+                pengeluaran = "Rp. "+currency(pengeluaran)+",-";
+                cashdetail = "Rp. "+currency(cashdetail)+",-";
+                ovodetail = "Rp. "+currency(ovodetail)+",-";
+                debitdetail = "Rp. "+currency(debitdetail)+",-";
+                totalkasir = "Rp. "+currency(totalkasir)+",-";
+                totalpemasukan = "Rp. "+currency(totalpemasukan)+",-";
+
+                $('#kasawal').html(kasawal);
+                $('#hasilpenjualan').html(hasilpenjualan);
+                $('#pengeluaran').html(pengeluaran);
+                $('#cashdetail').html(cashdetail);
+                $('#ovodetail').html(ovodetail);
+                $('#debitdetail').html(debitdetail);
+                $('#totalkasir').html(totalkasir);
+                $('#totalpemasukan').html(totalpemasukan);
+              },
+              error: function (jqXHR, textStatus, errorThrown)
+              {
+                alert(errorThrown);
+              }
+            });
+        }
+
+      function currency(number1) {
+        var retVal=number1.toString().replace(/[^\d]/g,'');
+        while(/(\d+)(\d{3})/.test(retVal)) {
+          retVal=retVal.replace(/(\d+)(\d{3})/,'$1'+'.'+'$2');
+        }
+        return retVal;
+      }
+
+      function cetakrekap() {
+          alert("fitur masih dalam tahap pengembangan!");
+      }
+
+      function simpanrekap() {
+          alert("fitur masih dalam tahap pengembangan!");
+      }
     </script>
 </body>
 </html>

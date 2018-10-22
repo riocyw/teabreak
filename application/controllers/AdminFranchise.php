@@ -118,6 +118,70 @@ class AdminFranchise extends CI_Controller {
     $this->Produk->Update('order_bahan_jadi_stan',$data,$where);
   }
 
+  public function getrekapdata()
+  {
+    date_default_timezone_set("Asia/Bangkok");
+    $datenow = date("Y-m-d");
+    $id_stan = $this->input->post('id_stan');
+    $where = array('id_stan' => $id_stan, 'tanggal' => $datenow);
+    $wherenota = array('id_stan' => $id_stan, 'tanggal_nota' => $datenow);
+
+    $datapengeluaran = $this->Produk->getData($where,'pengeluaran_lain');
+    $datakas = $this->Produk->getData($where,'kas');
+    $datapenjualan = $this->Produk->getData($wherenota,'nota');
+
+    if (empty($datakas)) {
+      $kasawal = 0;
+    }else{
+      $kasawal = $datakas[0]->kas_awal;
+    }
+
+    if (empty($datapengeluaran)) {
+      $pengeluaran = 0;
+    }else{
+      $pengeluaran = 0;
+      foreach ($datapengeluaran as $perpengeluaran) {
+        $pengeluaran+=$perpengeluaran->pengeluaran;
+      }
+    }
+
+    $hasilpenjualan = 0;
+    $cashdetail = 0;
+    $ovodetail = 0;
+    $debitdetail = 0;
+    $totalkasir = 0;
+
+    if (!empty($datapenjualan)) {
+      foreach ($datapenjualan as $perpenjualan) {
+        if ($perpenjualan->pembayaran == 'cash') {
+          $cashdetail += $perpenjualan->total_harga;
+        }else if ($perpenjualan->pembayaran == 'debit') {
+          $debitdetail += $perpenjualan->total_harga;
+        }else if ($perpenjualan->pembayaran == 'ovo') {
+          $ovodetail += $perpenjualan->total_harga;
+        }
+      }
+
+      $hasilpenjualan = $cashdetail+$debitdetail+$ovodetail;
+    }
+
+    $totalkasir = $kasawal+$cashdetail-$pengeluaran;
+    $totalpemasukan = $kasawal+$hasilpenjualan-$pengeluaran;
+
+    $lastarraysend = array(
+      'kasawal' => $kasawal,
+      'pengeluaran' => $pengeluaran,
+      'hasilpenjualan' => $hasilpenjualan,
+      'cashdetail' => $cashdetail,
+      'ovodetail' => $ovodetail,
+      'debitdetail' => $debitdetail,
+      'totalkasir' => $totalkasir,
+      'totalpemasukan' => $totalpemasukan
+    );
+
+    echo json_encode($lastarraysend);
+  }
+
   public function saveDistribusi()
   {
     $namastan = $this->input->post('namastan');
