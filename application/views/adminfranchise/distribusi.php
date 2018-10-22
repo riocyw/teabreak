@@ -301,8 +301,27 @@
             alert('Fitur sedang dalam tahap pengembangan!');
         }
 
-        function hapus(id_distribusi) {
-            alert('Fitur sedang dalam tahap pengembangan!');
+        function hapusdistribusi(id_distribusi) {
+            if(confirm('Apakah anda yakin ingin menghapus data ini??')){
+              $.ajax({
+                      type:"post",
+                      url: "<?php echo base_url('adminfranchise/delete_distribusi')?>/",
+                      data:{ id:id_distribusi},
+                      success:function(response)
+                      {
+                           reload_table();
+                      },
+                      error: function (jqXHR, textStatus, errorThrown)
+                      {
+                        alert(errorThrown);
+                      }
+                  }
+              );
+            }
+        }
+
+        function reload_table() {
+            tabeldata.ajax.reload();
         }
 
         function tambahbahanjadi() {
@@ -461,6 +480,7 @@
                                 arrayDistribusi = new Array();
                                 sinkrontabel();
                                 $('#modaltambah').modal('toggle');
+                                reload_table();
 
                             }else{
                                 console.log(response);

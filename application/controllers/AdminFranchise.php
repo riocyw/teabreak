@@ -237,5 +237,13 @@ class AdminFranchise extends CI_Controller {
     echo $this->datatables->generate();
   }
 
+  public function delete_distribusi()
+  {
+    $id = $this->input->post('id');
+    $where = array('id_distribusi' => $id);
+
+    $this->Produk->DeleteWhere('distribusi',$where);
+  }
+
 }
 ?>
