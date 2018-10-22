@@ -22,32 +22,85 @@
     var kategori = $("#kategori").val();
     var harga = $("#harga").val();
     harga = harga.replace(".","");
-        $.ajax({
-          type:"post",
-          url: "<?php echo base_url('superadminfranchise/tambah_produk')?>/",
-          data:{ id:id,nama:nama,kategori:kategori,harga:harga},
-          success:function(response)
-          {
-            if(response == 'Berhasil Ditambahkan'){
-              reload_table();
-              $("#id").val('');
-              $("#nama").val('');
-              $("#kategori").val('');
-              $("#harga").val('');
-              $("#id").focus();
-              alert(response);
-            }else if(response =='ID Data Sudah ada di dalam database'){
-              alert(response);
-            }else{
-              alert('unknown error is happen! try again.');
+    if (id.replace(/\s/g, '').length>0&&nama.replace(/\s/g, '').length>0&&kategori.replace(/\s/g, '').length>0&&harga.replace(/\s/g, '').length>0) {
+        $.ajax(
+            {
+                type:"post",
+                url: "<?php echo base_url('superadminfranchise/tambah_produk')?>/",
+                data:{ id:id,nama:nama,kategori:kategori,harga:harga},
+                success:function(response)
+                {
+                  if(response == 'Berhasil Ditambahkan'){
+                    reload_table();
+                    if($('#id').has("error")){
+                      $('#id').removeClass("error");
+                    }
+                    if($('#nama').has("error")){
+                      $('#nama').removeClass("error");
+                    }
+                    if($('#kategori').has("error")){
+                      $('#kategori').removeClass("error");
+                    }
+                    if($('#harga').has("error")){
+                      $('#harga').removeClass("error");
+                    }
+                    $("#id").val('');
+                    $("#nama").val('');
+                    $("#kategori").val('');
+                    $("#harga").val('');
+                    $("#id").focus();
+                    alert(response);
+                  }else if(response =='ID Data Sudah ada di dalam database'){
+
+                    $('#id').addClass("error");
+                    
+                    alert(response);
+                  }else{
+                    alert('unknown error is happen! try again.');
+                  }
+                  
+                },
+                error: function (jqXHR, textStatus, errorThrown)
+                {
+                  alert(errorThrown);
+                }
             }
-            
-          },
-          error: function (jqXHR, textStatus, errorThrown)
-          {
-            alert(errorThrown);
-          }
-      });
+        );
+    }else{
+        if (id.replace(/\s/g, '').length<=0) {
+            $('#id').addClass("error");
+        }else{
+            if($('#id').has("error")){
+                $('#id').removeClass("error");
+            }
+        }
+
+        if (nama.replace(/\s/g, '').length<=0) {
+            $('#nama').addClass("error");
+        }else{
+            if($('#nama').has("error")){
+                $('#nama').removeClass("error");
+            }
+        }
+
+        if (harga.replace(/\s/g, '').length<=0) {
+            $('#harga').addClass("error");
+        }else{
+            if($('#harga').has("error")){
+                $('#harga').removeClass("error");
+            }
+        }
+
+        if (kategori.replace(/\s/g, '').length<=0) {
+            $('#kategori').addClass("error");
+        }else{
+            if($('#kategori').has("error")){
+                $('#kategori').removeClass("error");
+            }
+        }
+
+        alert("Silahkan periksa kembali inputan anda!");
+    }
   }
 
   function edit_produk(id){
@@ -80,6 +133,7 @@
     var nama =  $("#editnama").val();
     var harga = $("#editharga").val();
     harga = harga.replace(".","");
+    if (id.replace(/\s/g, '').length>0&&nama.replace(/\s/g, '').length>0&&kategori.replace(/\s/g, '').length>0&&harga>=0) {
     $.ajax({
           type:"post",
           url: "<?php echo base_url('superadminfranchise/edit_produk')?>/",
@@ -87,9 +141,23 @@
           success:function(response)
           {
             if(response == 'Berhasil Diupdate'){
+              $("#modal_edit").modal('hide');
+              if($('#editid').has("error")){
+                $('#editid').removeClass("error");
+              }
+              if($('#editnama').has("error")){
+                $('#editnama').removeClass("error");
+              }
+              if($('#editkategori').has("error")){
+                $('#editkategori').removeClass("error");
+              }
+              if($('#editharga').has("error")){
+                $('#editharga').removeClass("error");
+              }
               reload_table();
               alert(response);
             }else if(response=='Update Error! ID Data Sudah ada di dalam database'){
+
               $('#editid').addClass("error");
               alert(response);
             }else{
@@ -102,6 +170,37 @@
             alert(errorThrown);
           }
       });
+    }else{
+      if (id.replace(/\s/g, '').length<=0) {
+        $('#editid').addClass("error");
+      }else{
+        if($('#editid').has("error")){
+          $('#editid').removeClass("error");
+        }
+      }
+      if (nama.replace(/\s/g, '').length<=0) {
+        $('#editnama').addClass("error");
+      }else{
+        if($('#editnama').has("error")){
+          $('#editnama').removeClass("error");
+        }
+      }
+      if (kategori.replace(/\s/g, '').length<=0) {
+        $('#editkategori').addClass("error");
+      }else{
+        if($('#editkategori').has("error")){
+          $('#editkategori').removeClass("error");
+        }
+      }
+      if (harga.replace(/\s/g, '').length<=0) {
+        $('#editharga').addClass("error");
+      }else{
+        if($('#editharga').has("error")){
+          $('#editharga').removeClass("error");
+        }
+      }
+      alert("Silahkan periksa kembali inputan anda!");
+    }
   }
 
   function delete_produk(id){
