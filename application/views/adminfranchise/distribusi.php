@@ -36,9 +36,7 @@
                                 <table id="mytable" class="table table-striped table-bordered" style="width: 100%" width="100%">
                                     <thead>
                                       <tr>
-                                        <th>ID Stand</th>
-                                        <th>Nama Stand</th>
-                                        <th>Alamat</th>
+                                        <th>Nama Stand ( Alamat )</th>
                                         <th>Tanggal</th>
                                         <th>Edit</th>
                                         <th>Cetak Surat</th>
@@ -187,6 +185,7 @@
 
     <script type="text/javascript">
         var arrayDistribusi = new Array();
+        var tabeldata;
 
         $('.numeric').on('input', function (event) { 
             this.value = this.value.replace(/[^0-9]/g, '');
@@ -210,17 +209,115 @@
             });
         });
 
+        tabeldata = $("#mytable").DataTable({
+          initComplete: function() {
+            var api = this.api();
+            $('#mytable_filter input')
+            .on('.DT')
+            .on('keyup.DT', function(e) {
+              if (e.keyCode == 13) {
+                api.search(this.value).draw();
+              }
+            });
+          },
+          oLanguage: {
+            sProcessing: "loading..."
+          },
+          responsive: true,
+          ajax: {
+            "type"   : "POST",
+            "url"    : "<?php echo base_url('adminfranchise/datatabledistribusi');?>",
+            "dataSrc": function (json) {
+              var return_data = new Array();
+              var total_harga_akhir = 0;
+
+              for(var i=0;i< json.data.length; i++){
+                var nama = json.data[i].nama_stan;
+                nama = nama.split(' ').join('+');
+                return_data.push({
+                  'nama_stan': json.data[i].nama_stan,
+                  'tanggal'  : uidate(json.data[i].tanggal),
+                  'edit' : '<button onclick=editdistribusi("'+json.data[i].id_distribusi+'") class="btn btn-warning"><b>Detail/Edit</b></button> ',
+                  'cetaksurat' : '<button onclick=cetaksurat("'+json.data[i].id_distribusi+'") class="btn btn-primary"><b>Cetak Surat</b></button> ',
+                  'hapus' : '<button onclick=hapusdistribusi("'+json.data[i].id_distribusi+'") class="btn btn-danger"><b>Hapus</b></button> ',
+                });
+              }
+                
+              return return_data;
+            }
+          },
+            dom: 'Bfrtlip',
+            buttons: [
+                {
+                    extend: 'copyHtml5',
+                    text: 'Copy',
+                    filename: 'Produk Data',
+                    exportOptions: {
+                      columns:[0,1]
+                    }
+                },{
+                    extend: 'excelHtml5',
+                    text: 'Excel',
+                    className: 'exportExcel',
+                    filename: 'Produk Data',
+                    exportOptions: {
+                      columns:[0,1]
+                    }
+                },{
+                    extend: 'csvHtml5',
+                    filename: 'Produk Data',
+                    exportOptions: {
+                      columns:[0,1]
+                    }
+                },{
+                    extend: 'pdfHtml5',
+                    filename: 'Produk Data',
+                    exportOptions: {
+                      columns:[0,1]
+                    }
+                },{
+                    extend: 'print',
+                    filename: 'Produk Data',
+                    exportOptions: {
+                      columns:[0,1]
+                    }
+                }
+            ],
+            "lengthChange": true,
+              columns: [
+                {'data': 'nama_stan'},
+                {'data': 'tanggal'},
+                {'data': 'edit','orderable':false,'searchable':false},
+                {'data': 'cetaksurat','orderable':false,'searchable':false},
+                {'data': 'hapus','orderable':false,'searchable':false},
+              ],
+        });
+
+        function editdistribusi(id_distribusi) {
+            alert('Fitur sedang dalam tahap pengembangan!');
+        }
+
+        function cetaksurat(id_distribusi) {
+            alert('Fitur sedang dalam tahap pengembangan!');
+        }
+
+        function hapus(id_distribusi) {
+            alert('Fitur sedang dalam tahap pengembangan!');
+        }
+
         function tambahbahanjadi() {
             $('#jumlah').removeClass('is-invalid');
+
             var idbahanjadi = $('#nama_bahan_jadi').val();
             var namabahanjadi = $('#nama_bahan_jadi option:selected').text();
              
-            var jumlah = parseInt($('#jumlah').val());
+            var jumlah = $('#jumlah').val();
             var stat = false;
 
             if (jumlah == '') {
                 $('#jumlah').addClass('is-invalid');
             }else{
+                jumlah = parseInt(jumlah);
                 $('#jumlah').removeClass('is-invalid');
                 $('#datakosong').hide();
 
@@ -236,6 +333,7 @@
                 }
 
                 sinkrontabel();
+                $('#jumlah').val('');
             }
         }
 
@@ -267,10 +365,19 @@
                   {
 
                     $.each(response, function (i, item) {
-                        $('#tujuan').append($('<option>', {
-                            value: item.id_stan,
-                            text: item.nama_stan+' ( '+item.alamat+' )'
-                        }));
+                        if (i == 0) {
+                            $('#tujuan').append($('<option>', {
+                                value: item.id_stan,
+                                text: item.nama_stan+' ( '+item.alamat+' )',
+                                selected: "selected"
+                            }));
+                        }else{
+                            $('#tujuan').append($('<option>', {
+                                value: item.id_stan,
+                                text: item.nama_stan+' ( '+item.alamat+' )'
+                            }));
+                        }
+                        
                     });
                   },
                   error: function (jqXHR, textStatus, errorThrown)
@@ -292,10 +399,19 @@
                   {
 
                     $.each(response, function (i, item) {
-                        $('#nama_bahan_jadi').append($('<option>', {
-                            value: item.id_bahan_jadi,
-                            text: item.nama_bahan_jadi
-                        }));
+                        if (i==0) {
+                            $('#nama_bahan_jadi').append($('<option>', {
+                                value: item.id_bahan_jadi,
+                                text: item.nama_bahan_jadi,
+                                selected: "selected"
+                            }));
+                        }else{
+                            $('#nama_bahan_jadi').append($('<option>', {
+                                value: item.id_bahan_jadi,
+                                text: item.nama_bahan_jadi
+                            }));
+                        }
+                        
                     });
                     // $("#tujuan").html(htmlinsideselect);
                   },

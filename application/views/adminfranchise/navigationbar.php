@@ -44,6 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <!-- <script type="text/javascript" src=<echo base_url("https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js")?>></script> -->
     <script src=<?php echo base_url("assets/js/jquery.min.js")?>></script>
+    <script src=<?php echo base_url("assets/js/teabreak.js"); ?>></script>
     <script type="text/javascript">
 
         $(document).ready(function(){

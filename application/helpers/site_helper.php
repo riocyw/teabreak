@@ -8,3 +8,11 @@
         $id = "PR-".$date;
         return $id;
       }
+
+      function IDDistribusiGenerator()
+      {
+      	date_default_timezone_set("Asia/Bangkok");
+        $date = date("ymdHis");
+        $id = "DS-".$date;
+        return $id;
+      }

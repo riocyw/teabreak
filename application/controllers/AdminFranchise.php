@@ -193,18 +193,33 @@ class AdminFranchise extends CI_Controller {
 
     $data = array(
       'id_distribusi' => $id_distribusi, 
-      'nama' => $namastan,
+      'nama_stan' => $namastan,
       'tanggal' => $tanggal
     );
 
-    if ($this->Produk->insert('order_bahan_jadi_stan',$data)) {
-      # code...
+    if ($this->Produk->insert('distribusi',$data)) {
+      $stat = true;
     }else{
       $stat = false;
     }
 
-    
 
+    $angka = 0;
+    foreach ($arrayDistribusi as $perdistribusi) {
+      $angka++;
+      $data = array(
+        'id_detail_distribusi' => $id_distribusi."_".$angka,
+        'id_distribusi' => $id_distribusi,
+        'nama_bahan_jadi' => $perdistribusi->namabahanjadi,
+        'jumlah' => $perdistribusi->jumlah
+      );
+
+      if ($this->Produk->insert('detail_distribusi',$data)) {
+        
+      }else{
+        $stat = false;
+      }
+    }
     
 
     if ($stat) {
@@ -212,6 +227,14 @@ class AdminFranchise extends CI_Controller {
     }else{
       echo "false";
     }
+  }
+
+  public function datatabledistribusi()
+  {
+    $this->load->library('datatables');
+    $this->datatables->select('id_distribusi,nama_stan,tanggal');
+    $this->datatables->from('distribusi');
+    echo $this->datatables->generate();
   }
 
 }
