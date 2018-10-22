@@ -139,63 +139,35 @@
         function tambahbahanjadi(){
             var id = $("#id").val();
             var nama = $("#nama").val();
-            if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3) {
-                $.ajax(
+                $.ajax({
+                    type:"post",
+                    url: "<?php echo base_url('superadminfranchise/tambahbahanjadi')?>/",
+                    data:{ id:id,nama:nama},
+                    success:function(response)
                     {
-                        type:"post",
-                        url: "<?php echo base_url('superadminfranchise/tambahbahanjadi')?>/",
-                        data:{ id:id,nama:nama},
-                        success:function(response)
-                        {
-                          if(response == 'Berhasil Ditambahkan'){
-                            reload_table();
-                            if($('#id').has("error")){
-                              $('#id').removeClass("error");
-                            }
-                            if($('#nama').has("error")){
-                              $('#nama').removeClass("error");
-                            }
+                      if(response == 'Berhasil Ditambahkan'){
+                        reload_table();
 
-                            $("#id").val('');
-                            $("#nama").val('');
+                        $("#id").val('');
+                        $("#nama").val('');
 
-                            $("#id").focus();
-                            alert(response);
-                          }else if(response =='ID Data Sudah ada di dalam database'){
+                        $("#id").focus();
+                        alert(response);
+                      }else if(response =='ID Data Sudah ada di dalam database'){
 
-                            $('#id').addClass("error");
-                            
-                            alert(response);
-                          }else{
-                            alert('unknown error is happen! try again.');
-                          }
-                          
-                        },
-                        error: function (jqXHR, textStatus, errorThrown)
-                        {
-                          alert(errorThrown);
-                        }
+                        $('#id').addClass("error");
+                        
+                        alert(response);
+                      }else{
+                        alert('unknown error is happen! try again.');
+                      }
+                      
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                      alert(errorThrown);
                     }
-                );
-            }else{
-                if (id.replace(/\s/g, '').length<=3) {
-                    $('#id').addClass("error");
-                }else{
-                    if($('#id').has("error")){
-                        $('#id').removeClass("error");
-                    }
-                }
-
-                if (nama.replace(/\s/g, '').length<=3) {
-                    $('#nama').addClass("error");
-                }else{
-                    if($('#nama').has("error")){
-                        $('#nama').removeClass("error");
-                    }
-                }
-
-                alert("Silahkan periksa kembali inputan anda!");
-            }
+                });
           }
 
           function edit_bahanjadi(id){
@@ -242,7 +214,6 @@
                 var id = $("#editid").val();
                 var idlama = $("#id_lama").val();
                 var nama =  $("#editnama").val();
-                if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3) {
                 $.ajax({
                       type:"post",
                       url: "<?php echo base_url('superadminfranchise/edit_bahanjadi')?>/",
@@ -250,13 +221,7 @@
                       success:function(response)
                       {
                         if(response == 'Berhasil Diupdate'){
-                          $("#modal_edit").modal('hide');
-                          if($('#editid').has("error")){
-                            $('#editid').removeClass("error");
-                          }
-                          if($('#editnama').has("error")){
-                            $('#editnama').removeClass("error");
-                          }
+                          
                           reload_table();
                           alert(response);
                         }else if(response=='Update Error! ID Data Sudah ada di dalam database'){
@@ -273,23 +238,6 @@
                         alert(errorThrown);
                       }
                   });
-                }else{
-                  if (id.replace(/\s/g, '').length<=3) {
-                    $('#editid').addClass("error");
-                  }else{
-                    if($('#editid').has("error")){
-                      $('#editid').removeClass("error");
-                    }
-                  }
-                  if (nama.replace(/\s/g, '').length<=3) {
-                    $('#editnama').addClass("error");
-                  }else{
-                    if($('#editnama').has("error")){
-                      $('#editnama').removeClass("error");
-                    }
-                  }
-                  alert("Silahkan periksa kembali inputan anda!");
-                }
               }
 
 

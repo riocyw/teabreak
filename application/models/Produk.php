@@ -106,6 +106,14 @@ class Produk extends CI_Model{
         return $this->db->get()->result();
     }
 
+    public function getDataInTableAndSpecificWhere($table,$list,$id_table,$where)
+    {
+        $this->db->from($table);
+        $this->db->where($where);
+        $this->db->where_in($id_table, $list);
+        return $this->db->get()->result();
+    }
+
     public function getFirstRowData($where,$table)
     {
         $res = $this->db->get_where($table,$where);

@@ -733,6 +733,10 @@ class SuperAdminFranchise extends CI_Controller {
 			
 		}
 
+		if (count($listdiskon) == 0) {
+			array_push($listdiskon, '');
+		}
+
 		$diskondata = $this->Produk->getDataIn('diskon',$listdiskon);
 		echo json_encode($diskondata);
 	}
@@ -824,6 +828,10 @@ class SuperAdminFranchise extends CI_Controller {
 				
 			}
 			
+		}
+
+		if (count($listdiskon) == 0) {
+			array_push($listdiskon, '');
 		}
 
 		$dataproduk = $this->Produk->getDataIn('detail_barang_diskon',$listdiskon);
@@ -1247,4 +1255,42 @@ class SuperAdminFranchise extends CI_Controller {
 			echo 'false';
 		}
 	}
+
+	public function sendUpdateOrder()
+	{
+		$list_data = $this->input->post('list_id_not_done');
+		$id_stan = $this->input->post('id_stan');
+		$where = array('status' => 'done');
+
+		$alldatanotdone = $this->Produk->getDataInTableAndSpecificWhere('order_bahan_jadi_stan',$list_data,'id_order',$where);
+
+		$data = array();
+
+		foreach ($alldatanotdone as $perdatanotdone) {
+			array_push($data, $perdatanotdone->id_order);
+		}
+
+		$stringfromdata = implode(",",$data);
+
+		echo $stringfromdata;
+	}
+
+	public function get_list_bahan_jadi()
+	{
+		$data = $this->Produk->getAllData('bahan_jadi');
+		echo json_encode($data);
+	}
+
+	public function rekapharianstan()
+	{
+		$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+        	$this->load->view('superadminfranchise/navigationbar');
+            $this->load->view('superadminfranchise/rekapdataharian');
+        }
+	}
+
+	
 }

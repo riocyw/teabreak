@@ -58,6 +58,7 @@ $route['masterbahanjadi'] = 'superadminfranchise/masterbahanjadi';
 $route['masterdatastan'] = 'superadminfranchise/masterdatastan';
 $route['datastan'] = 'superadminfranchise/datastan';
 $route['gajibonusstan'] = 'superadminfranchise/gajibonusstan';
+$route['rekapharianstan'] = 'superadminfranchise/rekapharianstan';
 $route['skemapromo'] = 'superadminfranchise/skemapromo';
 $route['masterdatakaryawan'] = 'superadminfranchise/masterdatakaryawan';
 $route['lappenjstan'] = 'superadminfranchise/lappenjstan';
@@ -71,6 +72,7 @@ $route['getDataDiskon'] = 'superadminfranchise/sendDataDiskon';
 $route['getDataDetailDiskonProduk'] = 'superadminfranchise/sendDataDetailDiskonProduk';
 $route['getDataBahanJadi'] = 'superadminfranchise/sendDataBahanJadi';
 $route['getDataOrder'] = 'superadminfranchise/sendDataOrder';
+$route['getUpdateOrder'] = 'superadminfranchise/sendUpdateOrder';
 
 
 $route['insertDataNota'] = 'superadminfranchise/insertDataNota';
