@@ -24,7 +24,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <b><label class=" form-control-label">Stan</label></b>
-                            <select name="selectstan" id="stan" class="form-control" tabindex="1">
+                            <select name="selectstan" id="stan" class="form-control" tabindex="1" onchange="refreshrekap()">
 
                             </select>
                         </div>
@@ -231,13 +231,25 @@
               dataType:"json",
               success:function(response)
               {
-
+                var htmlinsideselect = '';
                 $.each(response, function (i, item) {
-                    $('#stan').append($('<option>', {
-                        value: item.id_stan,
-                        text: item.nama_stan+' ( '+item.alamat+' )'
-                    }));
+                    if (i == 0) {
+                        // $('#stan').append($('<option>', {
+                        //     value: item.id_stan,
+                        //     text: item.nama_stan+' ( '+item.alamat+' )',
+                        //     selected: true
+                        // }));
+                        htmlinsideselect = htmlinsideselect + '<option selected="selected" value="'+item.id_stan+'">'+item.nama_stan +' ( '+item.alamat+' )' +'</option>';
+                    }else{
+                        // $('#stan').append($('<option>', {
+                        //     value: item.id_stan,
+                        //     text: item.nama_stan+' ( '+item.alamat+' )'
+                        // }));
+                        htmlinsideselect = htmlinsideselect + '<option value="'+item.id_stan+'">'+item.nama_stan +' ( '+item.alamat+' )' +'</option>';
+                    }
+                    
                 });
+                $("#stan").html(htmlinsideselect);
               },
               error: function (jqXHR, textStatus, errorThrown)
               {
@@ -245,14 +257,16 @@
               },
               complete: function (argument) {
                   $('#stan').trigger("chosen:updated");
+                  var id_stan = $('#stan').val();
+                    // alert(id_stan);
+                    ajaxSetData(id_stan);
               }
           }
         );
 
-        var id_stan = $('#stan').val();
-        ajaxSetData();
+        
 
-        function ajaxSetData() {
+        function ajaxSetData(id_stan) {
             $.ajax({
               type:"post",
               url: "<?php echo base_url('adminfranchise/getrekapdata')?>/",
@@ -308,6 +322,12 @@
 
       function simpanrekap() {
           alert("fitur masih dalam tahap pengembangan!");
+      }
+
+      function refreshrekap() {
+        var id_stan = $('#stan').val();
+        // alert(id_stan);
+          ajaxSetData(id_stan);
       }
     </script>
 </body>
