@@ -22,7 +22,7 @@
     var kategori = $("#kategori").val();
     var harga = $("#harga").val();
     harga = harga.replace(".","");
-    if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3&&kategori.replace(/\s/g, '').length>3&&harga.replace(/\s/g, '').length>0) {
+    if (id.replace(/\s/g, '').length>0&&nama.replace(/\s/g, '').length>0&&kategori.replace(/\s/g, '').length>0&&harga.replace(/\s/g, '').length>0) {
         $.ajax(
             {
                 type:"post",
@@ -67,7 +67,7 @@
             }
         );
     }else{
-        if (id.replace(/\s/g, '').length<=3) {
+        if (id.replace(/\s/g, '').length<=0) {
             $('#id').addClass("error");
         }else{
             if($('#id').has("error")){
@@ -75,7 +75,7 @@
             }
         }
 
-        if (nama.replace(/\s/g, '').length<=3) {
+        if (nama.replace(/\s/g, '').length<=0) {
             $('#nama').addClass("error");
         }else{
             if($('#nama').has("error")){
@@ -83,7 +83,7 @@
             }
         }
 
-        if (harga.replace(/\s/g, '').length<=3) {
+        if (harga.replace(/\s/g, '').length<=0) {
             $('#harga').addClass("error");
         }else{
             if($('#harga').has("error")){
@@ -91,7 +91,7 @@
             }
         }
 
-        if (kategori.replace(/\s/g, '').length<=3) {
+        if (kategori.replace(/\s/g, '').length<=0) {
             $('#kategori').addClass("error");
         }else{
             if($('#kategori').has("error")){
@@ -133,7 +133,7 @@
     var nama =  $("#editnama").val();
     var harga = $("#editharga").val();
     harga = harga.replace(".","");
-    if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3&&kategori.replace(/\s/g, '').length>3&&harga>=0) {
+    if (id.replace(/\s/g, '').length>0&&nama.replace(/\s/g, '').length>0&&kategori.replace(/\s/g, '').length>0&&harga>=0) {
     $.ajax({
           type:"post",
           url: "<?php echo base_url('superadminfranchise/edit_produk')?>/",
@@ -171,28 +171,28 @@
           }
       });
     }else{
-      if (id.replace(/\s/g, '').length<=3) {
+      if (id.replace(/\s/g, '').length<=0) {
         $('#editid').addClass("error");
       }else{
         if($('#editid').has("error")){
           $('#editid').removeClass("error");
         }
       }
-      if (nama.replace(/\s/g, '').length<=3) {
+      if (nama.replace(/\s/g, '').length<=0) {
         $('#editnama').addClass("error");
       }else{
         if($('#editnama').has("error")){
           $('#editnama').removeClass("error");
         }
       }
-      if (kategori.replace(/\s/g, '').length<=3) {
+      if (kategori.replace(/\s/g, '').length<=0) {
         $('#editkategori').addClass("error");
       }else{
         if($('#editkategori').has("error")){
           $('#editkategori').removeClass("error");
         }
       }
-      if (harga.replace(/\s/g, '').length<=3) {
+      if (harga.replace(/\s/g, '').length<=0) {
         $('#editharga').addClass("error");
       }else{
         if($('#editharga').has("error")){

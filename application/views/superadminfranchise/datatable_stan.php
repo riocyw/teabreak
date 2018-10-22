@@ -30,7 +30,7 @@
     var nama =  $("#editnama").val();
     var id_lama = $("#editidlama").val();
     var password = $("#editpassword").val();
-    if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3&&alamat.replace(/\s/g, '').length>3&&password.replace(/\s/g, '').length>3) {
+    if (id.replace(/\s/g, '').length>0&&nama.replace(/\s/g, '').length>0&&alamat.replace(/\s/g, '').length>0&&password.replace(/\s/g, '').length>0) {
     $.ajax({
           type:"post",
           url: "<?php echo base_url('superadminfranchise/edit_stan')?>/",
@@ -63,28 +63,28 @@
           }
       });
     }else{
-      if (id.replace(/\s/g, '').length<=3) {
+      if (id.replace(/\s/g, '').length<=0) {
         $('#editid').addClass("error");
       }else{
         if($('#editid').has("error")){
           $('#editid').removeClass("error");
         }
       }
-      if (nama.replace(/\s/g, '').length<=3) {
+      if (nama.replace(/\s/g, '').length<=0) {
         $('#editnama').addClass("error");
       }else{
         if($('#editnama').has("error")){
           $('#editnama').removeClass("error");
         }
       }
-      if (alamat.replace(/\s/g, '').length<=3) {
+      if (alamat.replace(/\s/g, '').length<=0) {
         $('#editalamat').addClass("error");
       }else{
         if($('#editalamat').has("error")){
           $('#editalamat').removeClass("error");
         }
       }
-      if (password.replace(/\s/g, '').length<=3) {
+      if (password.replace(/\s/g, '').length<=0) {
         $('#editpassword').addClass("error");
       }else{
         if($('#editpassword').has("error")){
@@ -133,7 +133,7 @@ function tambahstan(){
     var nama = $("#nama").val();
     var alamat = $("#alamat").val();
     var password = $("#password").val();
-    if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3&&alamat.replace(/\s/g, '').length>3&&password.replace(/\s/g, '').length>0) {
+    if (id.replace(/\s/g, '').length>0&&nama.replace(/\s/g, '').length>0&&alamat.replace(/\s/g, '').length>0&&password.replace(/\s/g, '').length>0) {
         $.ajax(
             {
                 type:"post",
@@ -176,7 +176,7 @@ function tambahstan(){
             }
         );
     }else{
-        if (id.replace(/\s/g, '').length<=3) {
+        if (id.replace(/\s/g, '').length<=0) {
             $('#id').addClass("error");
         }else{
             if($('#id').has("error")){
@@ -184,7 +184,7 @@ function tambahstan(){
             }
         }
 
-        if (nama.replace(/\s/g, '').length<=3) {
+        if (nama.replace(/\s/g, '').length<=0) {
             $('#nama').addClass("error");
         }else{
             if($('#nama').has("error")){
@@ -192,7 +192,7 @@ function tambahstan(){
             }
         }
 
-        if (password.replace(/\s/g, '').length<=3) {
+        if (password.replace(/\s/g, '').length<=0) {
             $('#password').addClass("error");
         }else{
             if($('#password').has("error")){
@@ -200,7 +200,7 @@ function tambahstan(){
             }
         }
 
-        if (alamat.replace(/\s/g, '').length<=3) {
+        if (alamat.replace(/\s/g, '').length<=0) {
             $('#alamat').addClass("error");
         }else{
             if($('#alamat').has("error")){

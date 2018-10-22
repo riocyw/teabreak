@@ -139,7 +139,7 @@
         function tambahbahanjadi(){
             var id = $("#id").val();
             var nama = $("#nama").val();
-            if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3) {
+            if (id.replace(/\s/g, '').length>0&&nama.replace(/\s/g, '').length>0) {
                 $.ajax(
                     {
                         type:"post",
@@ -178,7 +178,7 @@
                     }
                 );
             }else{
-                if (id.replace(/\s/g, '').length<=3) {
+                if (id.replace(/\s/g, '').length<=0) {
                     $('#id').addClass("error");
                 }else{
                     if($('#id').has("error")){
@@ -186,7 +186,7 @@
                     }
                 }
 
-                if (nama.replace(/\s/g, '').length<=3) {
+                if (nama.replace(/\s/g, '').length<=0) {
                     $('#nama').addClass("error");
                 }else{
                     if($('#nama').has("error")){
@@ -242,7 +242,7 @@
                 var id = $("#editid").val();
                 var idlama = $("#id_lama").val();
                 var nama =  $("#editnama").val();
-                if (id.replace(/\s/g, '').length>3&&nama.replace(/\s/g, '').length>3) {
+                if (id.replace(/\s/g, '').length>0&&nama.replace(/\s/g, '').length>0) {
                 $.ajax({
                       type:"post",
                       url: "<?php echo base_url('superadminfranchise/edit_bahanjadi')?>/",
@@ -274,14 +274,14 @@
                       }
                   });
                 }else{
-                  if (id.replace(/\s/g, '').length<=3) {
+                  if (id.replace(/\s/g, '').length<=0) {
                     $('#editid').addClass("error");
                   }else{
                     if($('#editid').has("error")){
                       $('#editid').removeClass("error");
                     }
                   }
-                  if (nama.replace(/\s/g, '').length<=3) {
+                  if (nama.replace(/\s/g, '').length<=0) {
                     $('#editnama').addClass("error");
                   }else{
                     if($('#editnama').has("error")){
