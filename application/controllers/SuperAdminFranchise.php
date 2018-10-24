@@ -869,7 +869,8 @@ class SuperAdminFranchise extends CI_Controller {
 				'status' => $pernota->status,
 				'total_harga' => $pernota->total_harga,
 				'pembayaran' => $pernota->pembayaran,
-				'keterangan' => $pernota->keterangan
+				'keterangan' => $pernota->keterangan,
+				'shift' => $pernota->shift
 				// 'id_nota' => $pernota->id_nota,
 				// 'nama_produk' => $pernota->nama_produk,
 				// 'jumlah_produk' => $pernota->jumlah_produk,
