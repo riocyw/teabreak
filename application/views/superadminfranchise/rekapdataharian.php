@@ -29,6 +29,12 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <b><label class=" form-control-label">Tanggal</label></b>
+                            <input type="text" name="tanggal" id="tanggalrekap" class="form-control" >
+                        </div>
+                    </div>
                 </div>
 
 
@@ -39,7 +45,9 @@
                                 <div class="stat-widget-one">
                                     <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div>
                                     <div class="stat-content dib">
-                                        <div class="stat-text"><b>Kas Awal</b></div>
+                                        <div class="stat-text"><b>Kas Awal</b>
+                                            <button class="btn btn-sm btn-link" onclick="openmodaldetailkas()"><b><i class="fa fa-eye"></i> detail</b></button>
+                                        </div>
                                         <div class="stat-digit"><b id="kasawal">Rp. --.---,-</b></div>
                                     </div>
                                 </div>
@@ -70,7 +78,9 @@
                                 <div class="stat-widget-one">
                                     <div class="stat-icon dib"><i class="ti-money text-danger border-danger"></i></div>
                                     <div class="stat-content dib">
-                                        <div class="stat-text"><b>Pengeluaran</b></div>
+                                        <div class="stat-text"><b>Pengeluaran</b>
+                                            <button class="btn btn-sm btn-link" onclick="openmodaldetailpengeluaran()"><b><i class="fa fa-eye"></i> detail</b></button>
+                                        </div>
                                         <div class="stat-digit"><b id="pengeluaran">Rp. --.---,-</b></div>
                                     </div>
                                 </div>
@@ -164,6 +174,77 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modalDetailPengeluaran" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mediumModalLabel">Detail Pengeluaran</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <table id="mytable" class="table table-striped table-bordered">
+                                <thead>
+                                  <tr>
+                                    <th style="width: 70%;">Keterangan</th>
+                                    <th style="width: 20%;">Pengeluaran</th>
+                                    <th style="width: 10%;">Shift</th>
+                                    <!-- <th style="width: 12.5%;">Edit</th> -->
+                                  </tr>
+                                </thead>
+                                <tbody id="detailpengeluaran">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalDetailKas" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mediumModalLabel">Detail Kas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            <div class="form-group">
+                                <label class=" form-control-label"><strong>Shift Pagi</strong></label>
+                                
+                                <h4><span class="badge badge-warning" id="kaspagidetail">Rp. -.---.---,-</span></h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="form-group">
+                                <label class=" form-control-label"><strong>Shift Malam</strong></label>
+                                
+                                <h4><span class="badge badge-secondary" id="kasmalamdetail">Rp. -.---.---,-</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Right Panel -->
  
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.js")?>></script>
@@ -182,6 +263,11 @@
     <script src=<?php echo base_url("assets/datatable/pdfmake-0.1.36/pdfmake.js")?>></script>
     <script src=<?php echo base_url("assets/datatable/pdfmake-0.1.36/vfs_fonts.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/chosen/chosen.jquery.min.js")?>></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src=<?php echo base_url("assets/vendors/moment/min/moment.min.js")?>></script>
+    <script src=<?php echo base_url("assets/vendors/bootstrap-daterangepicker/daterangepicker.js")?>></script>
+    <!-- bootstrap-datetimepicker -->    
+    <script src=<?php echo base_url("assets/vendors/Date-Time-Picker-Bootstrap-4/build/js/bootstrap-datetimepicker.min.js")?>></script>
     <script type="text/javascript">
 
         $(document).ready(function() {
@@ -192,6 +278,17 @@
                     width: "100%"
                 });
             });
+        });
+
+        $('#tanggalrekap').datetimepicker({
+            format: 'DD/MM/YYYY',
+            useCurrent: false
+        });
+
+
+
+        $("#tanggalrekap").on("dp.change", function(e) {
+            refreshrekap();
         });
 
         var tanggalfull = new Date();
@@ -219,9 +316,18 @@
 
           $('#tanggal').text("Tanggal : "+tanggal+"/"+bulan+"/"+tahun);
           $('#waktu').text("Waktu : "+jam+":"+menit);
+          $('#tanggalrekap').val(tanggal+"/"+bulan+"/"+tahun);
 
         function openmodaldetail() {
             $('#modalDetail').modal('toggle');
+        }
+
+        function openmodaldetailpengeluaran() {
+            $('#modalDetailPengeluaran').modal('toggle');
+        }
+
+        function openmodaldetailkas() {
+            $('#modalDetailKas').modal('toggle');
         }
 
         $.ajax({
@@ -241,10 +347,6 @@
                         // }));
                         htmlinsideselect = htmlinsideselect + '<option selected="selected" value="'+item.id_stan+'">'+item.nama_stan +' ( '+item.alamat+' )' +'</option>';
                     }else{
-                        // $('#stan').append($('<option>', {
-                        //     value: item.id_stan,
-                        //     text: item.nama_stan+' ( '+item.alamat+' )'
-                        // }));
                         htmlinsideselect = htmlinsideselect + '<option value="'+item.id_stan+'">'+item.nama_stan +' ( '+item.alamat+' )' +'</option>';
                     }
                     
@@ -258,19 +360,20 @@
               complete: function (argument) {
                   $('#stan').trigger("chosen:updated");
                   var id_stan = $('#stan').val();
+                  var tanggal_rekap = $('#tanggalrekap').val();
                     // alert(id_stan);
-                    ajaxSetData(id_stan);
+                    ajaxSetData(id_stan,tanggal_rekap);
               }
           }
         );
 
         
 
-        function ajaxSetData(id_stan) {
+        function ajaxSetData(id_stan,tanggal_rekap) {
             $.ajax({
               type:"post",
-              url: "<?php echo base_url('adminfranchise/getrekapdata')?>/",
-              data:{id_stan:id_stan},
+              url: "<?php echo base_url('superadminfranchise/getrekapdata')?>/",
+              data:{id_stan:id_stan,tanggal_rekap:tanggal_rekap},
               success:function(response)
               {
                 response = jQuery.parseJSON(response);
@@ -282,6 +385,8 @@
                 var debitdetail = response.debitdetail;
                 var totalkasir = response.totalkasir;
                 var totalpemasukan = response.totalpemasukan;
+                var kaspagi = response.kaspagi;
+                var kasmalam = response.kasmalam;
 
                 kasawal = "Rp. "+currency(kasawal)+",-";
                 hasilpenjualan = "Rp. "+currency(hasilpenjualan)+",-";
@@ -291,6 +396,8 @@
                 debitdetail = "Rp. "+currency(debitdetail)+",-";
                 totalkasir = "Rp. "+currency(totalkasir)+",-";
                 totalpemasukan = "Rp. "+currency(totalpemasukan)+",-";
+                kaspagi = "Rp. "+currency(kaspagi)+",-";
+                kasmalam = "Rp. "+currency(kasmalam)+",-";
 
                 $('#kasawal').html(kasawal);
                 $('#hasilpenjualan').html(hasilpenjualan);
@@ -300,12 +407,38 @@
                 $('#debitdetail').html(debitdetail);
                 $('#totalkasir').html(totalkasir);
                 $('#totalpemasukan').html(totalpemasukan);
+                $('#kaspagidetail').html(kaspagi);
+                $('#kasmalamdetail').html(kasmalam);
               },
               error: function (jqXHR, textStatus, errorThrown)
               {
                 alert(errorThrown);
               }
             });
+
+
+            $.ajax({
+              type:"post",
+              url: "<?php echo base_url('superadminfranchise/getdetailpengeluaranrekap')?>/",
+              data:{id_stan:id_stan,tanggal_rekap:tanggal_rekap},
+              success:function(response)
+              {
+                $('#detailpengeluaran').html('');
+                // console.log(response);
+                response = jQuery.parseJSON(response);
+                $.each(response, function (i,item) {
+                    $('#detailpengeluaran').append(
+                        '<tr><td>'+item.keterangan+'</td><td>'+item.pengeluaran+'</td><td>'+item.shift+'</td></tr>'
+                    );
+                });
+              },
+              error: function (jqXHR, textStatus, errorThrown)
+              {
+                alert(errorThrown);
+              }
+            });
+
+
         }
 
       function currency(number1) {
@@ -326,8 +459,9 @@
 
       function refreshrekap() {
         var id_stan = $('#stan').val();
+        var tanggal_rekap = $('#tanggalrekap').val();
         // alert(id_stan);
-          ajaxSetData(id_stan);
+          ajaxSetData(id_stan,tanggal_rekap);
       }
     </script>
 </body>

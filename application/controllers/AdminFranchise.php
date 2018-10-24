@@ -117,71 +117,7 @@ class AdminFranchise extends CI_Controller {
 
     $this->Produk->Update('order_bahan_jadi_stan',$data,$where);
   }
-
-  public function getrekapdata()
-  {
-    date_default_timezone_set("Asia/Bangkok");
-    $datenow = date("Y-m-d");
-    $id_stan = $this->input->post('id_stan');
-    $where = array('id_stan' => $id_stan, 'tanggal' => $datenow);
-    $wherenota = array('id_stan' => $id_stan, 'tanggal_nota' => $datenow);
-
-    $datapengeluaran = $this->Produk->getData($where,'pengeluaran_lain');
-    $datakas = $this->Produk->getData($where,'kas');
-    $datapenjualan = $this->Produk->getData($wherenota,'nota');
-
-    if (empty($datakas)) {
-      $kasawal = 0;
-    }else{
-      $kasawal = $datakas[0]->kas_awal;
-    }
-
-    if (empty($datapengeluaran)) {
-      $pengeluaran = 0;
-    }else{
-      $pengeluaran = 0;
-      foreach ($datapengeluaran as $perpengeluaran) {
-        $pengeluaran+=$perpengeluaran->pengeluaran;
-      }
-    }
-
-    $hasilpenjualan = 0;
-    $cashdetail = 0;
-    $ovodetail = 0;
-    $debitdetail = 0;
-    $totalkasir = 0;
-
-    if (!empty($datapenjualan)) {
-      foreach ($datapenjualan as $perpenjualan) {
-        if ($perpenjualan->pembayaran == 'cash') {
-          $cashdetail += $perpenjualan->total_harga;
-        }else if ($perpenjualan->pembayaran == 'debit') {
-          $debitdetail += $perpenjualan->total_harga;
-        }else if ($perpenjualan->pembayaran == 'ovo') {
-          $ovodetail += $perpenjualan->total_harga;
-        }
-      }
-
-      $hasilpenjualan = $cashdetail+$debitdetail+$ovodetail;
-    }
-
-    $totalkasir = $kasawal+$cashdetail-$pengeluaran;
-    $totalpemasukan = $kasawal+$hasilpenjualan-$pengeluaran;
-
-    $lastarraysend = array(
-      'kasawal' => $kasawal,
-      'pengeluaran' => $pengeluaran,
-      'hasilpenjualan' => $hasilpenjualan,
-      'cashdetail' => $cashdetail,
-      'ovodetail' => $ovodetail,
-      'debitdetail' => $debitdetail,
-      'totalkasir' => $totalkasir,
-      'totalpemasukan' => $totalpemasukan
-    );
-
-    echo json_encode($lastarraysend);
-  }
-
+  
   public function saveDistribusi()
   {
     $namastan = $this->input->post('namastan');
@@ -245,5 +181,61 @@ class AdminFranchise extends CI_Controller {
     $this->Produk->DeleteWhere('distribusi',$where);
   }
 
+  public function get_list_bahan_jadi_distribusi()
+  {
+    $id = $this->input->post('id');
+    $where = array('id_distribusi' => $id);
+
+    $datalist = $this->Produk->getData($where,'detail_distribusi');
+
+    echo json_encode($datalist);
+  }
+
+  public function saveUpdateDistribusi()
+  {
+    $namastan = $this->input->post('namastan');
+    $tanggal = $this->input->post('tanggal');
+    $editarrayDistribusi = json_decode($this->input->post('editarrayDistribusi'));
+    $stat = true;
+
+    $id_distribusi = $this->input->post('id_distribusi');
+
+    $data = array(
+      'nama_stan' => $namastan,
+      'tanggal' => $tanggal
+    );
+    $where = array('id_distribusi' => $id_distribusi);
+
+    if ($this->Produk->update('distribusi', $data, $where)) {
+      $stat = true;
+    }else{
+      // $stat = false;
+    }
+
+    $this->Produk->DeleteWhere('detail_distribusi',$where);
+    $angka = 0;
+    foreach ($editarrayDistribusi as $perdistribusi) {
+      $angka++;
+      $data = array(
+        'id_detail_distribusi' => $id_distribusi."_".$angka,
+        'id_distribusi' => $id_distribusi,
+        'nama_bahan_jadi' => $perdistribusi->namabahanjadi,
+        'jumlah' => $perdistribusi->jumlah
+      );
+
+      if ($this->Produk->insert('detail_distribusi',$data)) {
+        
+      }else{
+        $stat = false;
+      }
+    }
+    
+
+    if ($stat) {
+      echo "true";
+    }else{
+      echo "false";
+    }
+  }
 }
 ?>

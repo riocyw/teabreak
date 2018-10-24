@@ -1,8 +1,8 @@
-        <div class="breadcrumbs">
+         <div class="breadcrumbs">
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Pengeluaran Lain</h1>
+                        <h1>Master Bahan Jadi</h1>
                     </div>
                 </div>
             </div>
@@ -20,15 +20,103 @@
         <div class="content mt-3">
             <div class="animated fadeIn">
                 <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h1><span class="badge badge-warning">Fitur dalam tahap Pengembangan!</span></h1>
-                    </div>
+                  <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Tambah Pengeluaran</strong>
+                        </div>
+                        <div class="card-body">
+                          <!-- Credit Card -->
+                          <div id="pay-invoice">
+                            <div class="card-body card-block">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="id" class=" form-control-label">Keterangan</label>
+                                            <input type="text" id="keterangan" placeholder="Masukkan Keterangan" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="nama" class=" form-control-label">Jumlah Pengeluaran</label>
+                                            <input type="text" id="jumlah" placeholder="Masukkan Jumlah Pengeluaran" class="form-control numeric">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            
+                                            <div class="input-group-btn"><button onclick="tambahpengeluaran()" class="btn btn-success">Tambah Pengeluaran</button></div>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>    
+                          </div>
+
+                        </div>
+                    </div> <!-- .card -->
+
+                  </div><!--/.col-->
+
+                  <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Data Pengeluaran</strong>
+                        </div>
+                        <div class="card-body">
+                          <table id="mytable" class="table table-striped table-bordered" style="width: 100%" width="100%">
+                            <thead>
+                              <tr>
+                                <th>Tanggal</th>
+                                <th>Keterangan</th>
+                                <th>Jumlah Pengeluaran</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                              </tr>
+                            </thead>
+                          </table>
+                        </div>
+                    </div> <!-- .card -->
+
+                  </div><!--/.col-->
                 </div>
             </div>
 
 
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
+        <div class="modal fade" id="modal_edit" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="header modal-header">
+                        <h4 class="modal-title">Edit</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="editid" class=" form-control-label">Kode Bahan Jadi</label>
+                                    <input type="text" id="editid" placeholder="Masukkan Kode Barang" class="form-control">
+                                    <input type="hidden" name="id_lama" id="id_lama">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="editnama" class=" form-control-label">Nama Bahan Jadi</label>
+                                    <input type="text" id="editnama" placeholder="Masukkan Nama Barang" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Batal</button>
+                        <button type="button" onclick="simpaneditbahanjadi()" class="btn add_field_button btn-info">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <!-- Right Panel -->
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.js")?>></script>
