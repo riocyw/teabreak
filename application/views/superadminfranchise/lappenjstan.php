@@ -39,6 +39,16 @@
                                         <input type="text" id="tanggal_akhir" placeholder="Masukkan Tanggal Akhir" class="form-control">
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="id" class=" form-control-label">Shift</label>
+                                        <select name="select" id="shift" class="form-control" onchange="refreshTable()">
+                                            <option value="pagi">Pagi</option>
+                                            <option value="malam">Malam</option>
+                                            <option value="all">Semua Shift</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <br>
                                 <table id="mytable" class="table table-striped table-bordered">
@@ -46,6 +56,7 @@
                                       <tr>
                                         <th>ID Nota</th>
                                         <th>Tanggal Nota</th>
+                                        <th>Shift</th>
                                         <th>Total Harga Jual</th>
                                         <th>Detail</th>
                                       </tr>
@@ -176,12 +187,12 @@
         });
 
         $("#tanggal_awal").on("dp.change", function(e) {
-            refreshTable()
+            refreshTable();
             $('#tanggal_akhir').data("DateTimePicker").minDate(e.date);
         });
 
         $("#tanggal_akhir").on("dp.change", function(e) {
-            refreshTable()
+            refreshTable();
             $('#tanggal_awal').data("DateTimePicker").maxDate(e.date);
         });
 

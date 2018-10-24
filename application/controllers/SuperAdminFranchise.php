@@ -615,6 +615,7 @@ class SuperAdminFranchise extends CI_Controller {
 		$tanggal_awal = $this->input->post('tanggal_awal');
 		$tanggal_akhir = $this->input->post('tanggal_akhir');
 		$id_stan = $this->input->post('id_stan');
+		$shift = $this->input->post('shift');
 
 		if ($tanggal_awal =='') {
 			$tanggal_awal = '01/01/1970';
@@ -637,7 +638,12 @@ class SuperAdminFranchise extends CI_Controller {
 
 		// var_dump($tanggal_akhir);
 
-		$array = array('id_stan' => $id_stan, 'tanggal_nota >=' => $tanggal_awal, 'tanggal_nota <=' => $tanggal_akhir);
+		if ($shift == 'all') {
+			$array = array('id_stan' => $id_stan, 'tanggal_nota >=' => $tanggal_awal, 'tanggal_nota <=' => $tanggal_akhir);
+		}else{
+			$array = array('id_stan' => $id_stan, 'tanggal_nota >=' => $tanggal_awal, 'tanggal_nota <=' => $tanggal_akhir, 'shift' => $shift);
+		}
+		
 
 		$data = $this->Produk->getData($array,'nota');
 		// var_dump($data);
@@ -1088,7 +1094,8 @@ class SuperAdminFranchise extends CI_Controller {
 				'id_stan' => $id_stan,
 				'tanggal' => $perpengeluaran->tanggal,
 				'keterangan' => $perpengeluaran->keterangan, 
-				'pengeluaran' => $perpengeluaran->pengeluaran
+				'pengeluaran' => $perpengeluaran->pengeluaran,
+				'shift' => $perpengeluaran->shift
 			);
 
 			// var_dump($newdata);
@@ -1118,10 +1125,11 @@ class SuperAdminFranchise extends CI_Controller {
 		$ress = true;
 
 		foreach ($data_kas as $perkas) {
-			$where = array('tanggal' => $perkas->tanggal, 'id_stan' => $id_stan);
+			$where = array('tanggal' => $perkas->tanggal, 'id_stan' => $id_stan, 'shift' => $perkas->shift);
 			$newdata = array(
 				'tanggal' => $perkas->tanggal,
 				'id_stan' => $id_stan,
+				'shift' => $perkas->shift,
 				'kas_awal' => $perkas->kas_awal
 			);
 
@@ -1292,5 +1300,102 @@ class SuperAdminFranchise extends CI_Controller {
         }
 	}
 
-	
+	public function getdetailpengeluaranrekap()
+	{
+	    $id_stan = $this->input->post('id_stan');
+	    $tanggal_rekap = $this->input->post('tanggal_rekap');
+	    $tanggal_rekap = explode("/", $tanggal_rekap);
+	    $tanggal_rekap = $tanggal_rekap[2]."-".$tanggal_rekap[1]."-".$tanggal_rekap[0];
+
+	    $where = array(
+	    	'id_stan' => $id_stan,
+	    	'tanggal' => $tanggal_rekap
+	    );
+
+	    $datalist = $this->Produk->getData($where,'pengeluaran_lain');
+
+	    echo json_encode($datalist);
+	}
+
+	public function getrekapdata()
+  {
+    date_default_timezone_set("Asia/Bangkok");
+    $datenow = date("Y-m-d");
+    $id_stan = $this->input->post('id_stan');
+    $tanggal_rekap = $this->input->post('tanggal_rekap');
+    $tanggal_rekap = explode("/", $tanggal_rekap);
+    $tanggal_rekap = $tanggal_rekap[2]."-".$tanggal_rekap[1]."-".$tanggal_rekap[0];
+
+    $where = array('id_stan' => $id_stan, 'tanggal' => $tanggal_rekap);
+    $wherenota = array('id_stan' => $id_stan, 'tanggal_nota' => $tanggal_rekap);
+
+    $datapengeluaran = $this->Produk->getData($where,'pengeluaran_lain');
+    $datakas = $this->Produk->getData($where,'kas');
+    $datapenjualan = $this->Produk->getData($wherenota,'nota');
+
+    $kasawal = 0;
+    
+
+    if (empty($datakas)) {
+      $kaspagi = 0;
+      $kasmalam = 0;
+    }else{
+
+      foreach ($datakas as $perkas) {
+        if ($perkas->shift == 'pagi') {
+          $kaspagi = $perkas->kas_awal;
+        }else{
+          $kasmalam = $perkas->kas_awal;
+        }
+        $kasawal += $perkas->kas_awal;
+      }
+    }
+
+    if (empty($datapengeluaran)) {
+      $pengeluaran = 0;
+    }else{
+      $pengeluaran = 0;
+      foreach ($datapengeluaran as $perpengeluaran) {
+        $pengeluaran+=$perpengeluaran->pengeluaran;
+      }
+    }
+
+    $hasilpenjualan = 0;
+    $cashdetail = 0;
+    $ovodetail = 0;
+    $debitdetail = 0;
+    $totalkasir = 0;
+
+    if (!empty($datapenjualan)) {
+      foreach ($datapenjualan as $perpenjualan) {
+        if ($perpenjualan->pembayaran == 'cash') {
+          $cashdetail += $perpenjualan->total_harga;
+        }else if ($perpenjualan->pembayaran == 'debit') {
+          $debitdetail += $perpenjualan->total_harga;
+        }else if ($perpenjualan->pembayaran == 'ovo') {
+          $ovodetail += $perpenjualan->total_harga;
+        }
+      }
+
+      $hasilpenjualan = $cashdetail+$debitdetail+$ovodetail;
+    }
+
+    $totalkasir = $kasawal+$cashdetail-$pengeluaran;
+    $totalpemasukan = $kasawal+$hasilpenjualan-$pengeluaran;
+
+    $lastarraysend = array(
+      'kasawal' => $kasawal,
+      'pengeluaran' => $pengeluaran,
+      'hasilpenjualan' => $hasilpenjualan,
+      'cashdetail' => $cashdetail,
+      'ovodetail' => $ovodetail,
+      'debitdetail' => $debitdetail,
+      'totalkasir' => $totalkasir,
+      'totalpemasukan' => $totalpemasukan,
+      'kaspagi' => $kaspagi,
+      'kasmalam' => $kasmalam
+    );
+
+    echo json_encode($lastarraysend);
+  }
 }

@@ -41,6 +41,7 @@
 				  data.tanggal_awal = $('#tanggal_awal').val();
 				  data.tanggal_akhir = $('#tanggal_akhir').val();
 				  data.id_stan = $('#select_stan').val();
+				  data.shift = $('#shift').val();
 				},
 			    "url"    : "<?php echo base_url('superadminfranchise/notaData');?>",
 			    "dataSrc": function (json) {
@@ -55,6 +56,7 @@
 			        return_data.push({
 			          'id_nota': json[i].id_nota,
 			          'tanggal_nota'  : uidate(json[i].tanggal_nota),
+			          'shift' : json[i].shift.charAt(0).toUpperCase() + json[i].shift.slice(1),
 			          'total_harga_jual' : "Rp "+currency(json[i].total_harga),
 			          'detail' : '<button onclick=detail_nota("'+json[i].id_nota+'","'+json[i].total_harga+'","'+nama+'","'+json[i].jenis_diskon+'","'+json[i].status+'","'+json[i].pembayaran+'","'+kett+'") class="btn btn-warning" style="color:white;">Detail</button> '
 			        });
@@ -81,7 +83,7 @@
 		                text: 'Copy',
 		                filename: 'Produk Data',
 		                exportOptions: {
-		                  columns:[0,1,2]
+		                  columns:[0,1,2,3]
 		                }
 		            },{
 		                extend: 'excelHtml5',
@@ -89,25 +91,25 @@
 		                className: 'exportExcel',
 		                filename: 'Produk Data',
 		                exportOptions: {
-		                  columns:[0,1,2]
+		                  columns:[0,1,2,3]
 		                }
 		            },{
 		                extend: 'csvHtml5',
 		                filename: 'Produk Data',
 		                exportOptions: {
-		                  columns:[0,1,2]
+		                  columns:[0,1,2,3]
 		                }
 		            },{
 		                extend: 'pdfHtml5',
 		                filename: 'Produk Data',
 		                exportOptions: {
-		                  columns:[0,1,2]
+		                  columns:[0,1,2,3]
 		                }
 		            },{
 		                extend: 'print',
 		                filename: 'Produk Data',
 		                exportOptions: {
-		                  columns:[0,1,2]
+		                  columns:[0,1,2,3]
 		                }
 		            }
 		        ],
@@ -115,6 +117,7 @@
 				  columns: [
 				    {'data': 'id_nota'},
 				    {'data': 'tanggal_nota'},
+				    {'data': 'shift'},
 				    {'data': 'total_harga_jual'},
 				    {'data': 'detail','orderable':false,'searchable':false}
 				  ],
