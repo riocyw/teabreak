@@ -1335,11 +1335,12 @@ class SuperAdminFranchise extends CI_Controller {
     $datapenjualan = $this->Produk->getData($wherenota,'nota');
 
     $kasawal = 0;
+    $kaspagi = 0;
+      $kasmalam = 0;
     
 
     if (empty($datakas)) {
-      $kaspagi = 0;
-      $kasmalam = 0;
+      
     }else{
 
       foreach ($datakas as $perkas) {
