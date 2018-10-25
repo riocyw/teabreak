@@ -30,24 +30,25 @@
                           <div id="pay-invoice">
                             <div class="card-body card-block">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="id" class=" form-control-label">Keterangan</label>
                                             <input type="text" id="keterangan" placeholder="Masukkan Keterangan" class="form-control">
                                         </div>
                                     </div>
+                                    
+                                </div>
+                                <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="nama" class=" form-control-label">Jumlah Pengeluaran</label>
                                             <input type="text" id="jumlah" placeholder="Masukkan Jumlah Pengeluaran" class="form-control numeric">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-6">
-                                        <div class="input-group">
-                                            
-                                            <div class="input-group-btn"><button onclick="tambahpengeluaran()" class="btn btn-success">Tambah Pengeluaran</button></div>
+                                        <div class="form-group">
+                                            <label for="nama" class=" form-control-label">Action</label>
+                                            <div class="form-group-btn "><button onclick="tambahpengeluaran()" class="btn btn-success ">Tambah Pengeluaran</button></div>
                                         </div> 
                                     </div>
                                 </div>
@@ -137,6 +138,12 @@
     
 
     <script src=<?php echo base_url("assets/js/jquery.easy-autocomplete.js")?>></script>
+
+    <script type="text/javascript">
+        $('.numeric').on('input', function (event) { 
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    </script>
 
 </body>
 </html>
