@@ -20,14 +20,29 @@
         <div class="content mt-3">
             <div class="animated fadeIn">
                 <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h1><span class="badge badge-warning">Fitur dalam tahap Pengembangan!</span></h1>
+                    <div class="col-lg-12">
+                        <!-- <h1><span class="badge badge-warning">Fitur dalam tahap Pengembangan!</span></h1> -->
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <strong class="card-title">List Stock Produk</strong>
+                            </div>
+                            <div class="card-body">
+                              <table id="mytable" class="table table-striped table-bordered">
+                                <thead>
+                                  <tr>
+                                    <th>Kode Barang</th>
+                                    <th>Nama Barang</th>
+                                    <th>Sisa Stok</th>
+                                    <th>Hapus</th>
+                                  </tr>
+                                </thead>
+                              </table>
+                            </div>
+                        </div> <!-- .card -->
                     </div>
                 </div>
             </div>
-
-
-        </div> <!-- .content -->
+        </div>
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
@@ -52,3 +67,123 @@
 
 </body>
 </html>
+<script type="text/javascript">
+    tabeldata = $("#mytable").DataTable({
+      initComplete: function() {
+        var api = this.api();
+        $('#mytable_filter input')
+        .on('.DT')
+        .on('keyup.DT', function(e) {
+          if (e.keyCode == 13) {
+            api.search(this.value).draw();
+          }
+        });
+      },
+      oLanguage: {
+        sProcessing: "loading..."
+      },
+      responsive: true,
+      ajax: {
+                "type"   : "POST",
+                // "data": function(data) {
+                //   // data.tanggal_awal = $('#tanggal_awal').val();
+                //   // data.tanggal_akhir = $('#tanggal_akhir').val();
+                //   // data.id_stan = $('#select_stan').val();
+                // },
+                "url"    : "<?php echo base_url('adminfranchise/getAllOrder');?>",
+                "dataSrc": function (json) {
+                  // var return_data = new Array();
+
+                  // for(var i=0;i< json.data.length; i++){
+                  //   var id =json.data[i].id_order;
+                  //   var res = id.split("ST");
+                  //   var stan = "ST"+res[1];
+                  //   var setdone = "";
+
+                  //   if (json.data[i].status != 'not_done') {
+                  //       setdone = '<div style="color:green">SELESAI</div>'
+                  //   }else{
+                  //       setdone = '<button onclick=set_done("'+json.data[i].id_order+'") class="btn btn-success">Order Selesai</button> '
+                  //   }
+
+                  //   return_data.push({
+                  //     'id_order': json.data[i].id_order,
+                  //     'id_stan'  : stan,
+                  //     'tanggal_order' : uidate(json.data[i].tanggal_order),
+                  //     'detail' : '<button onclick=detail_order("'+json.data[i].status+'","'+json.data[i].id_order+'") class="btn btn-primary">Detail</button> ',
+                  //     'set_done' : setdone
+                  //   });
+                  // }
+                  // return return_data;
+                }
+              },
+        dom: 'Bfrtlip',
+        buttons: [
+            {
+                extend: 'copyHtml5',
+                text: 'Copy',
+                filename: 'Order Data',
+                exportOptions: {
+                  columns:[0,1,2]
+                }
+            },{
+                extend: 'excelHtml5',
+                text: 'Excel',
+                className: 'exportExcel',
+                filename: 'Order Data',
+                exportOptions: {
+                  columns:[0,1,2]
+                }
+            },{
+                extend: 'csvHtml5',
+                filename: 'Order Data',
+                exportOptions: {
+                  columns:[0,1,2]
+                }
+            },{
+                extend: 'pdfHtml5',
+                filename: 'Order Data',
+                exportOptions: {
+                  columns:[0,1,2]
+                }
+            },{
+                extend: 'print',
+                filename: 'Order Data',
+                exportOptions: {
+                  columns:[0,1,2]
+                }
+            }
+        ],
+        "lengthChange": true,
+          columns: [
+            {'data': 'kode_barang'},
+            {'data': 'nama_barang'},
+            {'data': 'sisa_stok'},
+            {'data': 'hapus'}
+          ],
+    });
+
+    function reload_table(){
+      tabeldata.ajax.reload();
+    }
+
+    function hapus(id)
+    {
+        if (confirm("Apakah anda yakin ingin menghapus data "+id+"?")) {
+            $.ajax({
+                    type:"post",
+                    url: "<?php echo base_url('')?>/",
+                    data:{ id:id},
+                    success:function(response)
+                    {
+                         reload_table();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                      alert(errorThrown);
+                    }
+                }
+            );
+        }
+    }
+</script>
