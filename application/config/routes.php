@@ -108,7 +108,7 @@ $route['pengeluaranlain'] = 'adminfranchise/pengeluaranlain';
 $route['distribusi'] = 'adminfranchise/distribusi';
 $route['stokkeluar'] = 'adminfranchise/stokkeluar';
 $route['orderstan'] = 'adminfranchise/orderstan';
-
+$route['supply'] = 'adminfranchise/orderstan';
 
 $route['json'] = 'superadminfranchise/json';
 $route['translate_uri_dashes'] = FALSE;
