@@ -19,6 +19,44 @@ class AdminFranchise extends CI_Controller {
         if(empty($akses)){
             redirect('login');
         }else{
+
+          $list_bahan_jadi = $this->Produk->getAllData('bahan_jadi');
+          $datenow = date("Y-m-d");
+
+          foreach ($list_bahan_jadi as $perbahanjadi) {
+            $where = array('id_bahan_jadi' => $perbahanjadi->id_bahan_jadi );
+
+            $lastData = $this->Produk->getDataWhereDesc('stok_bahan_jadi_gudang',$where,'tanggal');
+            $sisa = 0;
+            if (!empty($lastData)) {
+              if ($lastData[0]->tanggal != $datenow) {
+                $sisa = $lastData[0]->stok_sisa;
+
+                $data = array(
+                  'id_bahan_jadi' => $perbahanjadi->id_bahan_jadi,
+                  'nama_bahan_jadi' => $perbahanjadi->nama_bahan_jadi,
+                  'stok_masuk' => 0,
+                  'stok_keluar' => 0,
+                  'stok_sisa' => $sisa,
+                  'tanggal' => $datenow
+                );
+
+                $this->Produk->insert('stok_bahan_jadi_gudang',$data);
+              }
+            }else{
+              $data = array(
+                'id_bahan_jadi' => $perbahanjadi->id_bahan_jadi,
+                'nama_bahan_jadi' => $perbahanjadi->nama_bahan_jadi,
+                'stok_masuk' => 0,
+                'stok_keluar' => 0,
+                'stok_sisa' => 0,
+                'tanggal' => $datenow
+              );
+
+              $this->Produk->insert('stok_bahan_jadi_gudang',$data);
+            }
+
+          }
         	$this->load->view('adminfranchise/navigationbar');
           $this->load->view('adminfranchise/dashboard');
         }
@@ -124,13 +162,14 @@ class AdminFranchise extends CI_Controller {
     $tanggal = $this->input->post('tanggal');
     $arrayDistribusi = json_decode($this->input->post('arrayDistribusi'));
     $stat = true;
+    $datenow = date("Y-m-d");
 
     $id_distribusi = IDDistribusiGenerator();
 
     $data = array(
       'id_distribusi' => $id_distribusi, 
       'nama_stan' => $namastan,
-      'tanggal' => $tanggal
+      'tanggal' => $datenow
     );
 
     if ($this->Produk->insert('distribusi',$data)) {
@@ -151,14 +190,64 @@ class AdminFranchise extends CI_Controller {
       );
 
       if ($this->Produk->insert('detail_distribusi',$data)) {
-        
+
+        $where = array(
+          'tanggal' => $datenow,
+          'id_bahan_jadi' => $perdistribusi->idbahanjadi
+        );
+
+        $StokDataToday = $this->Produk->getData($where,'stok_bahan_jadi_gudang');
+
+        if (empty($StokDataToday)) {
+            $where = array('id_bahan_jadi' => $perdistribusi->idbahanjadi );
+
+            $lastData = $this->Produk->getDataWhereDesc('stok_bahan_jadi_gudang',$where,'tanggal');
+            $sisa = 0;
+            if (!empty($lastData)) {
+              if ($lastData[0]->tanggal != $datenow) {
+                $sisa = $lastData[0]->stok_sisa;
+
+                $data = array(
+                  'id_bahan_jadi' => $perdistribusi->idbahanjadi,
+                  'nama_bahan_jadi' => $perdistribusi->namabahanjadi,
+                  'stok_masuk' => 0,
+                  'stok_keluar' => $perdistribusi->jumlah,
+                  'stok_sisa' => $sisa - $perdistribusi->jumlah,
+                  'tanggal' => $datenow
+                );
+
+                $this->Produk->insert('stok_bahan_jadi_gudang',$data);
+              }
+            }else{
+              $data = array(
+                'id_bahan_jadi' => $perdistribusi->idbahanjadi,
+                'nama_bahan_jadi' => $perdistribusi->namabahanjadi,
+                'stok_masuk' => 0,
+                'stok_keluar' => $perdistribusi->jumlah,
+                'stok_sisa' => 0- $perdistribusi->jumlah,
+                'tanggal' => $datenow
+              );
+
+              $this->Produk->insert('stok_bahan_jadi_gudang',$data);
+            }
+        }else{
+          $data = array(
+            'stok_keluar' => $StokDataToday[0]->stok_keluar + $perdistribusi->jumlah,
+            'stok_sisa' => $StokDataToday[0]->stok_sisa -$perdistribusi->jumlah
+          );
+
+          $this->Produk->update('stok_bahan_jadi_gudang',$data,$where);
+        }
       }else{
         $stat = false;
       }
+
+
     }
     
 
     if ($stat) {
+
       echo "true";
     }else{
       echo "false";
@@ -182,6 +271,21 @@ class AdminFranchise extends CI_Controller {
   }
 
   public function get_list_bahan_jadi_distribusi()
+  {
+    $id = $this->input->post('id_distribusi');
+    $where = array('id_distribusi' => $id);
+
+    // $datalist = $this->Produk->getData($where,'detail_distribusi');
+    $this->load->library('datatables');
+    $this->datatables->select('nama_bahan_jadi,jumlah');
+    $this->datatables->from('detail_distribusi');
+    $this->datatables->where($where);
+    echo $this->datatables->generate();
+
+    // echo json_encode($datalist);
+  }
+
+  public function get_list_bahan_jadi_distribusi_cetak()
   {
     $id = $this->input->post('id');
     $where = array('id_distribusi' => $id);

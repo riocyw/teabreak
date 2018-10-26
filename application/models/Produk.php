@@ -25,8 +25,14 @@ class Produk extends CI_Model{
         return $res->result();
     }
 
-    public function getAllDataDesc($table){
-        $res = $this->db->order_by("update_at", "desc")->get($table);
+    public function getAllDataDesc($table,$kolomto){
+        $res = $this->db->order_by($kolomto, "desc")->get($table);
+        return $res->result();
+    }
+
+    public function getDataWhereDesc($table,$where,$kolomto)
+    {
+        $res=$this->db->order_by($kolomto, "desc")->get_where($table,$where);
         return $res->result();
     }
  

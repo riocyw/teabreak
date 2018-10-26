@@ -38,9 +38,9 @@
                                       <tr>
                                         <th>Nama Stand ( Alamat )</th>
                                         <th>Tanggal</th>
-                                        <th>Edit</th>
+                                        <th>Detail</th>
                                         <th>Cetak Surat</th>
-                                        <th>Hapus</th>
+                                        <!-- <th>Hapus</th> -->
                                       </tr>
                                     </thead>
                                 </table>
@@ -83,12 +83,12 @@
                                 </select>
                             </div>
                         </div>    
-                        <div class="col-md-3 col-sm-12">
+                        <!-- <div class="col-md-3 col-sm-12">
                             <div class="form-group">
                                 <label class=" form-control-label">Tanggal Kirim</label>
                                 <input type="text" id="tanggal_kirim" placeholder="Tanggal Distribusi" class="form-control">
                             </div>
-                        </div>  
+                        </div>   -->
                     </div>
 
                     <div class="row">
@@ -153,7 +153,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+    <!-- <div class="modal fade" id="modaledit" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -244,6 +244,71 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-success" onclick="editdistribusifix()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="modal fade" id="modaldetail" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Tambah Promo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-control-label" id="edit_label_data_tujuan" style="font-weight: bold">Data Pengiriman</label>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-md-9 col-sm-12">
+                            <div class="form-group">
+                                <label class=" form-control-label">Kirim Ke</label>
+                                <h5 id="wadahstan" ><b id="detailtujuan"></b></h5>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-sm-12  text-right">
+                            <div class="form-group">
+                                <label class=" form-control-label">Hari, Tanggal</label>
+                                <h6 class="" id="" ><b id="detailtanggal"></b></h6>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-control-label" id="label_data_tujuan" style="font-weight: bold">Data Order Bahan Jadi</label>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table style="width: 100%" width="100%" id="detailtabellistbahan" class="table table-striped table-bordered">
+                                <col width="75%">
+                                <col width="25%">
+                                <thead>
+                                  <tr>
+                                    <th>Nama Bahan Jadi</th>
+                                    <th>Jumlah</th>
+                                  </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="cek()">Simpan</button>
                 </div>
             </div>
         </div>
@@ -445,9 +510,9 @@
                 return_data.push({
                   'nama_stan': json.data[i].nama_stan,
                   'tanggal'  : uidate(json.data[i].tanggal),
-                  'edit' : '<button onclick=editdistribusi("'+json.data[i].id_distribusi+'","'+nama+'","'+json.data[i].tanggal+'") class="btn btn-warning"><b>Detail/Edit</b></button> ',
+                  'detail' : '<button onclick=detaildistribusi("'+json.data[i].id_distribusi+'","'+nama+'","'+json.data[i].tanggal+'") class="btn btn-warning"><b>Detail</b></button> ',
                   'cetaksurat' : '<button onclick=cetaksurat("'+json.data[i].id_distribusi+'","'+nama+'","'+json.data[i].tanggal+'") class="btn btn-primary"><b>Cetak Surat</b></button> ',
-                  'hapus' : '<button onclick=hapusdistribusi("'+json.data[i].id_distribusi+'") class="btn btn-danger"><b>Hapus</b></button> ',
+                  // 'hapus' : '<button onclick=hapusdistribusi("'+json.data[i].id_distribusi+'") class="btn btn-danger"><b>Hapus</b></button> ',
                 });
               }
                 
@@ -495,183 +560,245 @@
               columns: [
                 {'data': 'nama_stan'},
                 {'data': 'tanggal'},
-                {'data': 'edit','orderable':false,'searchable':false},
+                {'data': 'detail','orderable':false,'searchable':false},
                 {'data': 'cetaksurat','orderable':false,'searchable':false},
-                {'data': 'hapus','orderable':false,'searchable':false},
+                // {'data': 'hapus','orderable':false,'searchable':false},
               ],
+              "order": [[ 1, "desc" ]]
         });
 
-        function editdistribusi(id_distribusi,nama_stan,tanggal) {
-            idtoedit = id_distribusi;
-            $('#modaledit').modal('toggle');
-            $('#edit_label_data_tujuan').html("Data Pengiriman ("+nama_stan.split('+').join(' ')+")");
-            tanggal = tanggal.split('-');
-            $('#edittanggal_kirim').datetimepicker({
-                format: 'DD/MM/YYYY',
-                useCurrent: false
-            });
-            $('#edittanggal_kirim').val(tanggal[2]+"/"+tanggal[1]+"/"+tanggal[0]);
+        // function editdistribusi(id_distribusi,nama_stan,tanggal) {
+        //     idtoedit = id_distribusi;
+        //     $('#modaledit').modal('toggle');
+        //     $('#edit_label_data_tujuan').html("Data Pengiriman ("+nama_stan.split('+').join(' ')+")");
+        //     tanggal = tanggal.split('-');
+        //     // $('#edittanggal_kirim').datetimepicker({
+        //     //     format: 'DD/MM/YYYY',
+        //     //     useCurrent: false
+        //     // });
+        //     // $('#edittanggal_kirim').val(tanggal[2]+"/"+tanggal[1]+"/"+tanggal[0]);
 
-            editarrayDistribusi = new Array();
-            ideditlist = 0;
+        //     editarrayDistribusi = new Array();
+        //     ideditlist = 0;
 
 
-            $.ajax({
-                  type:"post",
-                  url: "<?php echo base_url('adminfranchise/get_list_bahan_jadi_distribusi')?>/",
-                  data:{id:id_distribusi},
-                  dataType:"json",
-                  success:function(response)
-                  {
+        //     $.ajax({
+        //           type:"post",
+        //           url: "<?php echo base_url('adminfranchise/get_list_bahan_jadi_distribusi')?>/",
+        //           data:{id:id_distribusi},
+        //           dataType:"json",
+        //           success:function(response)
+        //           {
 
-                    $.each(response, function (i, item) {
-                        editarrayDistribusi.push({idbahanjadi: ideditlist, namabahanjadi: item.nama_bahan_jadi, jumlah: item.jumlah})
-                        ideditlist++;
+        //             $.each(response, function (i, item) {
+        //                 editarrayDistribusi.push({idbahanjadi: ideditlist, namabahanjadi: item.nama_bahan_jadi, jumlah: item.jumlah})
+        //                 ideditlist++;
+        //             });
+        //           },
+        //           error: function (jqXHR, textStatus, errorThrown)
+        //           {
+        //             alert(errorThrown);
+        //           },
+        //           complete: function (argument) {
+        //               sinkrontabeledit();
+        //           }
+        //       }
+        //     );
+        //     sinkrontabeledit();
+
+
+        //     // alert('Fitur sedang dalam tahap pengembangan!');
+        // }
+            var width = 0;
+            var tabeldetail;
+        function detaildistribusi(id_distribusi,nama_stan,tanggal) {
+            $('#modaldetail').modal('toggle');
+            $('#detailtujuan').text(nama_stan.split('+').join(" "));
+            $('#detailtanggal').html(uidate(tanggal));
+            
+            setTimeout(function(){
+                 width = $('#detailtujuan').width();  
+                 if (width > $('#wadahstan').width()) {
+
+                 } 
+            },0);
+
+            if ( $.fn.DataTable.isDataTable( '#detailtabellistbahan' ) ) {
+                $('#detailtabellistbahan').DataTable().destroy();
+            }
+
+            tabeldetail = $('#detailtabellistbahan').DataTable({
+                  initComplete: function() {
+                    var api = this.api();
+                    $('#mytable_filter input')
+                    .on('.DT')
+                    .on('keyup.DT', function(e) {
+                      if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                      }
                     });
                   },
-                  error: function (jqXHR, textStatus, errorThrown)
-                  {
-                    alert(errorThrown);
+                  oLanguage: {
+                    sProcessing: "loading..."
                   },
-                  complete: function (argument) {
-                      sinkrontabeledit();
-                  }
-              }
-            );
-            sinkrontabeledit();
+                  responsive: true,
+                  ajax: {
+                    "type"   : "POST",
+                    "url"    : "<?php echo base_url('adminfranchise/get_list_bahan_jadi_distribusi');?>",
+                    "data": function(data) {
+                      data.id_distribusi = id_distribusi;
+                    },
+                    "dataSrc": function (json) {
+                      var return_data = new Array();
 
-
-            // alert('Fitur sedang dalam tahap pengembangan!');
-        }
-
-
-        function sinkrontabeledit() {
-            $("#editbodytabel").empty();
-
-            $.each(editarrayDistribusi, function (i,item) {
-                $('#editbodytabel').append(
-                    '<tr><td>'+item.namabahanjadi+'</td><td><input type="text" placeholder="Jumlah" id="'+item.idbahanjadi+'" oninput="cekangkaedit(\''+item.idbahanjadi+'\')" class="form-control numeric" value="'+item.jumlah+'"></td><td><button class="btn btn-danger" onclick="deletebahanjadiedit(\''+item.idbahanjadi+'\')"><i class="fa fa-times"></i></button></td></tr>'
-                );
-            });
-
-            if (editarrayDistribusi.length == 0) {
-                $('#editdatakosong').show();
-            }else{
-                $('#editdatakosong').hide();
-            }
-        }
-
-        function edittambahbahanjadi() {
-            $('#edit_jumlah').removeClass('is-invalid');
-
-            var idbahanjadi = $('#editnama_bahan_jadi').val();
-            var namabahanjadi = $('#editnama_bahan_jadi option:selected').text();
-             
-            var jumlah = $('#edit_jumlah').val();
-            var stat = false;
-
-            if (jumlah == '') {
-                $('#edit_jumlah').addClass('is-invalid');
-            }else{
-                jumlah = parseInt(jumlah);
-                $('#edit_jumlah').removeClass('is-invalid');
-                $('#editdatakosong').hide();
-
-                $.each(editarrayDistribusi, function (i,item) {
-                    if (namabahanjadi == item.namabahanjadi) {
-                        item.jumlah = parseInt(item.jumlah) + jumlah;
-                        stat = true;
-                    }
-                });
-
-                if (!stat) {
-                    editarrayDistribusi.push({idbahanjadi: ideditlist, namabahanjadi: namabahanjadi, jumlah: jumlah});
-                    ideditlist++;
-                }
-
-                sinkrontabeledit();
-                $('#edit_jumlah').val('');
-                console.log(editarrayDistribusi);
-            }
-        }
-
-        function cekangkaedit(id) {
-            $('#'+id).val($('#'+id).val().replace(/[^0-9]/g, ''));
-            if ($('#'+id).val() == '0' || $('#'+id).val() == '') {
-                $('#'+id).val('1');
-            }
-            //ubah array
-
-            $.each(editarrayDistribusi, function (i,item) {
-                if (id == item.idbahanjadi) {
-                    item.jumlah = parseInt($('#'+id).val());
-                }
-            });
-        }
-
-        function deletebahanjadiedit(id) {
-            var tempdata = new Array();
-            console.log(id);
-            $.each(editarrayDistribusi, function (i,item) {
-                if (id != item.idbahanjadi) {
-                    tempdata.push({idbahanjadi: item.idbahanjadi, namabahanjadi: item.namabahanjadi, jumlah: item.jumlah});
-                }
-            });
-            editarrayDistribusi = new Array();
-            editarrayDistribusi = tempdata;
-            sinkrontabeledit();
-        }
-
-        function editdistribusifix() {
-            $('#edittanggal_kirim').removeClass('is-invalid');
-            if ($('#edittanggal_kirim').val() == '') {
-                $('#edittanggal_kirim').addClass('is-invalid');
-            }else{
-                if (editarrayDistribusi.length == 0) {
-                    alert('tidak ada bahan jadi!');
-                }else{
-                    var nama_stan = $('#edittujuan option:selected').text();
-                    var tanggal = $('#edittanggal_kirim').val();
-                    tanggal = tanggal.split('/');
-                    tanggal = tanggal[2]+"-"+tanggal[1]+"-"+tanggal[0];
-
-                    $.ajax({
-                          type:"post",
-                          url: "<?php echo base_url('adminfranchise/saveUpdateDistribusi')?>/",
-                          data:{
-                            id_distribusi:idtoedit,
-                            namastan:nama_stan,
-                            tanggal:tanggal,
-                            editarrayDistribusi:JSON.stringify(editarrayDistribusi)
-                          },
-                          dataType:"text",
-                          success:function(response)
-                          {
-                            if (response == 'true') {
-                                alert('sudah disimpan!');
-
-                                $('#edittanggal_kirim').val('');
-                                $('#editjumlah').val('');
-                                editarrayDistribusi = new Array();
-                                sinkrontabeledit();
-                                $('#modaledit').modal('toggle');
-                                reload_table();
-
-                            }else{
-                                console.log(response);
-                                alert('sambungan internet bermasalah, coba lagi!');
-                            }
-                          },
-                          error: function (jqXHR, textStatus, errorThrown)
-                          {
-                            alert(errorThrown);
-                          }                      
+                      for(var i=0;i< json.data.length; i++){
+                        return_data.push({
+                          'nama_bahan_jadi': json.data[i].nama_bahan_jadi,
+                          'jumlah'  : json.data[i].jumlah
+                        });
                       }
-                    );
-                }
-                
-            }
+                        
+                      return return_data;
+                    }
+                  },
+                    "lengthChange": true,
+                      columns: [
+                        {'data': 'nama_bahan_jadi'},
+                        {'data': 'jumlah'}
+                      ],
+                      "order": [[ 0, "asc" ]]
+                });
         }
+
+
+        // function sinkrontabeledit() {
+        //     $("#editbodytabel").empty();
+
+        //     $.each(editarrayDistribusi, function (i,item) {
+        //         $('#editbodytabel').append(
+        //             '<tr><td>'+item.namabahanjadi+'</td><td><input type="text" placeholder="Jumlah" id="'+item.idbahanjadi+'" oninput="cekangkaedit(\''+item.idbahanjadi+'\')" class="form-control numeric" value="'+item.jumlah+'"></td><td><button class="btn btn-danger" onclick="deletebahanjadiedit(\''+item.idbahanjadi+'\')"><i class="fa fa-times"></i></button></td></tr>'
+        //         );
+        //     });
+
+        //     if (editarrayDistribusi.length == 0) {
+        //         $('#editdatakosong').show();
+        //     }else{
+        //         $('#editdatakosong').hide();
+        //     }
+        // }
+
+        // function edittambahbahanjadi() {
+        //     $('#edit_jumlah').removeClass('is-invalid');
+
+        //     var idbahanjadi = $('#editnama_bahan_jadi').val();
+        //     var namabahanjadi = $('#editnama_bahan_jadi option:selected').text();
+             
+        //     var jumlah = $('#edit_jumlah').val();
+        //     var stat = false;
+
+        //     if (jumlah == '') {
+        //         $('#edit_jumlah').addClass('is-invalid');
+        //     }else{
+        //         jumlah = parseInt(jumlah);
+        //         $('#edit_jumlah').removeClass('is-invalid');
+        //         $('#editdatakosong').hide();
+
+        //         $.each(editarrayDistribusi, function (i,item) {
+        //             if (namabahanjadi == item.namabahanjadi) {
+        //                 item.jumlah = parseInt(item.jumlah) + jumlah;
+        //                 stat = true;
+        //             }
+        //         });
+
+        //         if (!stat) {
+        //             editarrayDistribusi.push({idbahanjadi: ideditlist, namabahanjadi: namabahanjadi, jumlah: jumlah});
+        //             ideditlist++;
+        //         }
+
+        //         sinkrontabeledit();
+        //         $('#edit_jumlah').val('');
+        //         console.log(editarrayDistribusi);
+        //     }
+        // }
+
+        // function cekangkaedit(id) {
+        //     $('#'+id).val($('#'+id).val().replace(/[^0-9]/g, ''));
+        //     if ($('#'+id).val() == '0' || $('#'+id).val() == '') {
+        //         $('#'+id).val('1');
+        //     }
+        //     //ubah array
+
+        //     $.each(editarrayDistribusi, function (i,item) {
+        //         if (id == item.idbahanjadi) {
+        //             item.jumlah = parseInt($('#'+id).val());
+        //         }
+        //     });
+        // }
+
+        // function deletebahanjadiedit(id) {
+        //     var tempdata = new Array();
+        //     console.log(id);
+        //     $.each(editarrayDistribusi, function (i,item) {
+        //         if (id != item.idbahanjadi) {
+        //             tempdata.push({idbahanjadi: item.idbahanjadi, namabahanjadi: item.namabahanjadi, jumlah: item.jumlah});
+        //         }
+        //     });
+        //     editarrayDistribusi = new Array();
+        //     editarrayDistribusi = tempdata;
+        //     sinkrontabeledit();
+        // }
+
+        // function editdistribusifix() {
+        //     // $('#edittanggal_kirim').removeClass('is-invalid');
+        //     // if ($('#edittanggal_kirim').val() == '') {
+        //     //     $('#edittanggal_kirim').addClass('is-invalid');
+        //     // }else{
+        //         if (editarrayDistribusi.length == 0) {
+        //             alert('tidak ada bahan jadi!');
+        //         }else{
+        //             var nama_stan = $('#edittujuan option:selected').text();
+        //             // var tanggal = $('#edittanggal_kirim').val();
+        //             // var tanggal = tanggal.split('/');
+        //             var tanggal = date('Y-m-d');
+        //             // tanggal = tanggal[2]+"-"+tanggal[1]+"-"+tanggal[0];
+
+        //             $.ajax({
+        //                   type:"post",
+        //                   url: "<?php echo base_url('adminfranchise/saveUpdateDistribusi')?>/",
+        //                   data:{
+        //                     id_distribusi:idtoedit,
+        //                     namastan:nama_stan,
+        //                     tanggal:tanggal,
+        //                     editarrayDistribusi:JSON.stringify(editarrayDistribusi)
+        //                   },
+        //                   dataType:"text",
+        //                   success:function(response)
+        //                   {
+        //                     if (response == 'true') {
+        //                         alert('sudah disimpan!');
+
+        //                         // $('#edittanggal_kirim').val('');
+        //                         $('#editjumlah').val('');
+        //                         editarrayDistribusi = new Array();
+        //                         sinkrontabeledit();
+        //                         $('#modaledit').modal('toggle');
+        //                         reload_table();
+
+        //                     }else{
+        //                         console.log(response);
+        //                         alert('sambungan internet bermasalah, coba lagi!');
+        //                     }
+        //                   },
+        //                   error: function (jqXHR, textStatus, errorThrown)
+        //                   {
+        //                     alert(errorThrown);
+        //                   }                      
+        //               }
+        //             );
+        //         }
+                
+        //     // }
+        // }
 
         function cetaksurat(id_distribusi,tujuan,tanggal) {
             var isFirefox = typeof InstallTrigger !== 'undefined';
@@ -712,7 +839,7 @@
             var rows1;
             $.ajax({
                       type:"post",
-                      url: "<?php echo base_url('adminfranchise/get_list_bahan_jadi_distribusi')?>/",
+                      url: "<?php echo base_url('adminfranchise/get_list_bahan_jadi_distribusi_cetak')?>/",
                       data:{ id:id_distribusi},
                       dataType: 'json',
                       success:function(response)
@@ -860,25 +987,41 @@
 
         function dataModal() {
 
-            $('#tanggal_kirim').datetimepicker({
-                format: 'DD/MM/YYYY',
-                useCurrent: false
-            });
+            // $('#tanggal_kirim').datetimepicker({
+            //     format: 'DD/MM/YYYY',
+            //     useCurrent: false
+            // });
         }
 
         function tambahdistribusi() {
             
-            $('#tanggal_kirim').removeClass('is-invalid');
-            if ($('#tanggal_kirim').val() == '') {
-                $('#tanggal_kirim').addClass('is-invalid');
-            }else{
+            // $('#tanggal_kirim').removeClass('is-invalid');
+            // if ($('#tanggal_kirim').val() == '') {
+            //     $('#tanggal_kirim').addClass('is-invalid');
+            // }else{
                 if (arrayDistribusi.length == 0) {
                     alert('tidak ada bahan jadi!');
                 }else{
                     var nama_stan = $('#tujuan option:selected').text();
-                    var tanggal = $('#tanggal_kirim').val();
-                    tanggal = tanggal.split('/');
-                    tanggal = tanggal[2]+"-"+tanggal[1]+"-"+tanggal[0];
+                    // var tanggal = $('#tanggal_kirim').val();
+                    // tanggal = tanggal.split('/');
+                    // tanggal = tanggal[2]+"-"+tanggal[1]+"-"+tanggal[0];
+                    var d = new Date();
+                    var bulan = '';
+                    var tanggal = '';
+                    if (d.getMonth()+1 < 10) {
+                        bulan = "0"+(d.getMonth()+1);
+                    }else{
+                        bulan = ""+(d.getMonth()+1);
+                    }
+
+                    if (d.getDate() < 10) {
+                        tanggal = "0"+d.getDate();
+                    }else{
+                        tanggal = ""+d.getDate();
+                    }
+
+                    var tanggal = d.getFullYear()+"/"+bulan+"/"+tanggal;
 
                     $.ajax({
                           type:"post",
@@ -894,7 +1037,7 @@
                             if (response == 'true') {
                                 alert('sudah disimpan!');
 
-                                $('#tanggal_kirim').val('');
+                                // $('#tanggal_kirim').val('');
                                 $('#jumlah').val('');
                                 arrayDistribusi = new Array();
                                 sinkrontabel();
@@ -913,7 +1056,7 @@
                     );
                 }
                 
-            }
+            // }
         }
 
         function sinkrontabel() {
