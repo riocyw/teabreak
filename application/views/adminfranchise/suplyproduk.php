@@ -104,7 +104,7 @@ tabeldata = $("#mytable").DataTable({
             {
                 extend: 'copyHtml5',
                 text: 'Copy',
-                filename: 'Order Data',
+                filename: 'Supply Data',
                 exportOptions: {
                   columns:[0,1,2]
                 }
@@ -112,25 +112,25 @@ tabeldata = $("#mytable").DataTable({
                 extend: 'excelHtml5',
                 text: 'Excel',
                 className: 'exportExcel',
-                filename: 'Order Data',
+                filename: 'Supply Data',
                 exportOptions: {
                   columns:[0,1,2]
                 }
             },{
                 extend: 'csvHtml5',
-                filename: 'Order Data',
+                filename: 'Supply Data',
                 exportOptions: {
                   columns:[0,1,2]
                 }
             },{
                 extend: 'pdfHtml5',
-                filename: 'Order Data',
+                filename: 'Supply Data',
                 exportOptions: {
                   columns:[0,1,2]
                 }
             },{
                 extend: 'print',
-                filename: 'Order Data',
+                filename: 'Supply Data',
                 exportOptions: {
                   columns:[0,1,2]
                 }
