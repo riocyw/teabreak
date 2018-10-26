@@ -237,5 +237,76 @@ class AdminFranchise extends CI_Controller {
       echo "false";
     }
   }
+
+  public function tambah_pengeluaran_lain()
+  {
+    $keterangan = $this->input->post('keterangan');
+    $jumlahpengeluaran = $this->input->post('jumlahpengeluaran');
+
+    $datenow = date("Y-m-d");
+    
+    $data = array(
+      'tanggal' => $datenow,
+      'keterangan' => $keterangan,
+      'pengeluaran' => $jumlahpengeluaran
+     );
+
+    $success = $this->Produk->insert('pengeluaran_lain_gudang',$data);
+
+    if ($success) {
+      echo "Berhasil Ditambahkan";
+    }
+    
+  }
+
+  public function getpengeluaranlain()
+  {
+    $this->load->library('datatables');
+    $this->datatables->select('id_pengeluaran,tanggal,keterangan,pengeluaran');
+    $this->datatables->from('pengeluaran_lain_gudang');
+    echo $this->datatables->generate();
+  }
+
+  public function delete_pengeluaran()
+  {
+    $id_pengeluaran = $this->input->post('id');
+
+    $wheredel = array('id_pengeluaran' => $id_pengeluaran);
+    $sst = $this->Produk->deleteWhere('pengeluaran_lain_gudang',$wheredel);
+
+    if ($sst) {
+      echo "SUCCESSSAVE";
+    }else{
+      echo "ERROR";
+    }
+  }
+
+  public function edit_pengeluaran_lain()
+  {
+    $keteranganbaru = $this->input->post('keteranganbaru');
+    $pengeluaranbaru = $this->input->post('pengeluaranbaru');
+    $id_pengeluaran = $this->input->post('id_pengeluaran');
+
+    $where = array('id_pengeluaran' => $id_pengeluaran);
+
+    $data = array(
+      'keterangan' => $keteranganbaru,
+      'pengeluaran' => $pengeluaranbaru
+     );
+
+    $realdata = $this->Produk->getData($where,'pengeluaran_lain_gudang');
+
+    if ($realdata[0]->keterangan != $keteranganbaru || $realdata[0]->pengeluaran != $pengeluaranbaru ) {
+      $cek = $this->Produk->Update('pengeluaran_lain_gudang',$data,$where);
+    }else{
+      $cek = true;
+    }
+
+    if ($cek) {
+      echo "Berhasil Diupdate";
+    }else{
+      echo "gagal";
+    }
+  }
 }
 ?>
