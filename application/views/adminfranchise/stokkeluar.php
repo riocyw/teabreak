@@ -239,17 +239,17 @@ tabeldata = $("#mytable").DataTable({
                     {
                       if(response == 'Berhasil Ditambahkan'){
                         reload_table();
-                        if($('#nama').has("error")){
-                          $('#nama').removeClass("error");
+                        if($('#nama').has("is-invalid")){
+                          $('#nama').removeClass("is-invalid");
                         }
-                        if($('#jumlah').has("error")){
-                          $('#jumlah').removeClass("error");
+                        if($('#jumlah').has("is-invalid")){
+                          $('#jumlah').removeClass("is-invalid");
                         }
-                        if($('#keterangan').has("error")){
-                          $('#keterangan').removeClass("error");
+                        if($('#keterangan').has("is-invalid")){
+                          $('#keterangan').removeClass("is-invalid");
                         }
-                        if($('#tgl').has("error")){
-                          $('#tgl').removeClass("error");
+                        if($('#tgl').has("is-invalid")){
+                          $('#tgl').removeClass("is-invalid");
                         }
                         $("#nama").val('');
                         $("#jumlah").val('');
@@ -270,34 +270,34 @@ tabeldata = $("#mytable").DataTable({
             );
         }else{
             if (nama.replace(/\s/g, '').length<=0) {
-                $('#nama').addClass("error");
+                $('#nama').addClass("is-invalid");
             }else{
-                if($('#nama').has("error")){
-                    $('#nama').removeClass("error");
+                if($('#nama').has("is-invalid")){
+                    $('#nama').removeClass("is-invalid");
                 }
             }
 
             if (jumlah.replace(/\s/g, '').length<=0) {
-                $('#jumlah').addClass("error");
+                $('#jumlah').addClass("is-invalid");
             }else{
-                if($('#jumlah').has("error")){
-                    $('#jumlah').removeClass("error");
+                if($('#jumlah').has("is-invalid")){
+                    $('#jumlah').removeClass("is-invalid");
                 }
             }
 
             if (keterangan.replace(/\s/g, '').length<=0) {
-                $('#keterangan').addClass("error");
+                $('#keterangan').addClass("is-invalid");
             }else{
-                if($('#keterangan').has("error")){
-                    $('#keterangan').removeClass("error");
+                if($('#keterangan').has("is-invalid")){
+                    $('#keterangan').removeClass("is-invalid");
                 }
             }
 
             if (tgl.replace(/\s/g, '').length<=0) {
-                $('#tgl').addClass("error");
+                $('#tgl').addClass("is-invalid");
             }else{
-                if($('#tgl').has("error")){
-                    $('#tgl').removeClass("error");
+                if($('#tgl').has("is-invalid")){
+                    $('#tgl').removeClass("is-invalid");
                 }
             }
         }

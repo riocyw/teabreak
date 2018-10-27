@@ -53,6 +53,78 @@
         </div>
     </div><!-- /#right-panel -->
 
+        <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Tambah Nota</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-control-label" id="label_data_nota" style="font-weight: bold">Data Nota</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="nama_bahan" class=" form-control-label">Nama Barang</label>
+                                <input type="text" id="nama_bahan" placeholder="Masukkan Nama Bahan Jadi" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="stock_masuk" class="form-control-label">Stock Masuk</label>
+                                <input type="text" id="stock_masuk" placeholder="Masukkan Jumlah Bahan Jadi" class="form-control numeric">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="harga_total" class=" form-control-label">Harga Total</label>
+                                <input type="text" onkeyup="this.value=currency(this.value);" id="harga_total" placeholder="Masukkan Keterangan" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <button onclick="tambahbarang()" class="btn btn-success">Tambah Barang</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table style="width: 100%" width="100%" id="tabellistbahan" class="table table-striped table-bordered">
+                                <col width="60%">
+                                <col width="25%">
+                                <col width="15%">
+                                <thead>
+                                  <tr>
+                                    <th>Nama Bahan Jadi</th>
+                                    <th>Jumlah</th>
+                                    <th>Hapus</th>
+                                  </tr>
+                                  <tr>
+                                        <td colspan="4" class="text-center" id="datakosong">Tidak Ada Data</td>
+                                      </tr>
+                                </thead>
+                                <tbody id="bodytabel">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="tambahdistribusi()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Right Panel -->
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.js")?>></script>
     <script src=<?php echo base_url("assets/js/lib/vector-map/jquery.vmap.min.js")?>></script>
@@ -72,8 +144,6 @@
     <script src=<?php echo base_url("assets/vendors/moment/min/moment.min.js")?>></script>
     <script src=<?php echo base_url("assets/vendors/bootstrap-daterangepicker/daterangepicker.js")?>></script>
     <script src=<?php echo base_url("assets/vendors/Date-Time-Picker-Bootstrap-4/build/js/bootstrap-datetimepicker.min.js")?>></script>
-
-    <script src=<?php echo base_url("assets/js/jquery.easy-autocomplete.js")?>></script>
 
 </body>
 </html>
@@ -183,6 +253,6 @@ tabeldata = $("#mytable").DataTable({
 
     function tambahstokkeluar()
     {
-        
+        $("#modaltambah").modal('show');
     }
 </script>
