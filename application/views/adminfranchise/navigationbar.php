@@ -10,8 +10,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Tea Break Super Admin Franchise - Skema Promo</title>
-    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <title>Tea Break Admin Gudang</title>
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href=<?php echo base_url("apple-icon.png")?>>
@@ -42,6 +42,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
+
+
     <!-- <script type="text/javascript" src=<echo base_url("https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js")?>></script> -->
     <script src=<?php echo base_url("assets/js/jquery.min.js")?>></script>
     <script src=<?php echo base_url("assets/js/teabreak.js"); ?>></script>
@@ -67,6 +69,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 .red{
     color: red !important;
 }
+
+
 </style>
 <body>
 
@@ -96,7 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a href="stokproduk"> <i class="menu-icon fa fa-glass"></i>Stok Produk </a>
                     </li>
                     <li id="pembelian">
-                        <a href="pembelian"> <i class="menu-icon ti-shopping-cart"></i>Pembelian Produk </a>
+                        <a href="pembelian" style="pointer-events: none;"> <i class="menu-icon ti-shopping-cart"></i>Pembelian Produk </a>
                     </li>
                     <li id="orderstan">
                         <a href="orderstan"> <i class="menu-icon ti-list-ol"></i>Order Stan </a>

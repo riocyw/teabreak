@@ -10,8 +10,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Tea Break Super Admin Franchise - Skema Promo</title>
-    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <title>Tea Break Super Admin Franchise</title>
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href=<?php echo base_url("apple-icon.png")?>>
@@ -137,10 +137,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a href="lapsisastok"> <i class="menu-icon ti-agenda"></i>Laporan Sisa Stock Stan</a>
                     </li>
                     <li id="">
-                        <a style="pointer-events: none;" href="#"> <i class="menu-icon ti-agenda"></i>Laporan C</a>
+                        <a style="pointer-events: none;" href="#"> <i class="menu-icon ti-agenda"></i>Laporan Pembelian</a>
                     </li>
                     <li id="">
-                        <a style="pointer-events: none;" href="#"> <i class="menu-icon ti-agenda"></i>Laporan D</a>
+                        <a style="pointer-events: none;" href="#"> <i class="menu-icon ti-agenda"></i>Laporan Dist Warehouse</a>
+                    </li>
+                    <li id="">
+                        <a style="pointer-events: none;" href="#"> <i class="menu-icon ti-agenda"></i>Laporan Gaji Karyawan</a>
+                    </li>
+                    <li id="">
+                        <a style="pointer-events: none;" href="#"> <i class="menu-icon ti-agenda"></i>Laporan Keuntungan Stand</a>
                     </li>
                     
                 </ul>
