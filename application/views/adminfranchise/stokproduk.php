@@ -19,21 +19,31 @@
 
         <div class="content mt-3">
             <div class="animated fadeIn">
+                
                 <div class="row">
                     <div class="col-lg-12">
                         <!-- <h1><span class="badge badge-warning">Fitur dalam tahap Pengembangan!</span></h1> -->
                         <div class="card">
-                            <div class="card-header text-center">
+                            <div class="card-header">
                                 <strong class="card-title">List Stock Produk</strong>
                             </div>
                             <div class="card-body">
-                              <table id="mytable" class="table table-striped table-bordered">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="" class=" form-control-label">Tanggal</label>
+                                            <input type="text" id="tanggal" placeholder="Masukkan Tanggal" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                              <table style="width: 100%" width="100%" id="mytable" class="table table-striped table-bordered">
                                 <thead>
                                   <tr>
-                                    <th>Kode Barang</th>
-                                    <th>Nama Barang</th>
+                                    <th>ID Bahan Jadi</th>
+                                    <th>Nama Bahan Jadi</th>
+                                    <th>Stok Masuk</th>
+                                    <th>Stok Keluar</th>
                                     <th>Sisa Stok</th>
-                                    <th>Hapus</th>
                                   </tr>
                                 </thead>
                               </table>
@@ -61,6 +71,9 @@
     <script src=<?php echo base_url("assets/datatable/JSZip-2.5.0/jszip.js")?>></script>
     <script src=<?php echo base_url("assets/datatable/pdfmake-0.1.36/pdfmake.js")?>></script>
     <script src=<?php echo base_url("assets/datatable/pdfmake-0.1.36/vfs_fonts.js")?>></script>
+    <script src=<?php echo base_url("assets/vendors/moment/min/moment.min.js")?>></script>
+    <script src=<?php echo base_url("assets/vendors/bootstrap-daterangepicker/daterangepicker.js")?>></script>
+    <script src=<?php echo base_url("assets/vendors/Date-Time-Picker-Bootstrap-4/build/js/bootstrap-datetimepicker.min.js")?>></script>
     
 
     <script src=<?php echo base_url("assets/js/jquery.easy-autocomplete.js")?>></script>
@@ -68,6 +81,31 @@
 </body>
 </html>
 <script type="text/javascript">
+    var tanggalfull = new Date();
+    var tanggal = tanggalfull.getDate();
+    var bulan = tanggalfull.getMonth()+1;
+    var tahun = tanggalfull.getFullYear();
+
+    if (parseInt(tanggal)<10) {
+        tanggal = "0"+tanggal;
+    }
+
+    if (parseInt(bulan)<10) {
+        bulan = "0"+bulan;
+    }
+
+    $('#tanggal').val(tanggal+"/"+bulan+"/"+tahun);
+
+
+    $('#tanggal').datetimepicker({
+        format: 'DD/MM/YYYY',
+        useCurrent: false
+    });
+
+    $("#tanggal").on("dp.change", function(e) {
+        reload_table();
+    });
+
     tabeldata = $("#mytable").DataTable({
       initComplete: function() {
         var api = this.api();
@@ -85,36 +123,26 @@
       responsive: true,
       ajax: {
                 "type"   : "POST",
-                // "data": function(data) {
-                //   // data.tanggal_awal = $('#tanggal_awal').val();
-                //   // data.tanggal_akhir = $('#tanggal_akhir').val();
-                //   // data.id_stan = $('#select_stan').val();
-                // },
-                "url"    : "<?php echo base_url('adminfranchise/getAllOrder');?>",
+                "data": function(data) {
+                    var res = $("#tanggal").val().split("/");
+                  data.tanggal = res[2]+"-"+res[1]+"-"+res[0];
+                },
+                "url"    : "<?php echo base_url('adminfranchise/datatablestokbahanjadigudang');?>",
                 "dataSrc": function (json) {
-                  // var return_data = new Array();
+                  var return_data = new Array();
 
-                  // for(var i=0;i< json.data.length; i++){
-                  //   var id =json.data[i].id_order;
-                  //   var res = id.split("ST");
-                  //   var stan = "ST"+res[1];
-                  //   var setdone = "";
+                  for(var i=0;i< json.data.length; i++){
 
-                  //   if (json.data[i].status != 'not_done') {
-                  //       setdone = '<div style="color:green">SELESAI</div>'
-                  //   }else{
-                  //       setdone = '<button onclick=set_done("'+json.data[i].id_order+'") class="btn btn-success">Order Selesai</button> '
-                  //   }
+                    return_data.push({
+                      'id_bahan_jadi': json.data[i].id_bahan_jadi,
+                      'nama_bahan_jadi'  : json.data[i].nama_bahan_jadi,
+                      'stok_masuk' : json.data[i].stok_masuk,
+                      'stok_keluar' : json.data[i].stok_keluar,
+                      'sisa_stok' : json.data[i].stok_sisa
+                    });
+                  }
 
-                  //   return_data.push({
-                  //     'id_order': json.data[i].id_order,
-                  //     'id_stan'  : stan,
-                  //     'tanggal_order' : uidate(json.data[i].tanggal_order),
-                  //     'detail' : '<button onclick=detail_order("'+json.data[i].status+'","'+json.data[i].id_order+'") class="btn btn-primary">Detail</button> ',
-                  //     'set_done' : setdone
-                  //   });
-                  // }
-                  // return return_data;
+                  return return_data;
                 }
               },
         dom: 'Bfrtlip',
@@ -122,44 +150,45 @@
             {
                 extend: 'copyHtml5',
                 text: 'Copy',
-                filename: 'Order Data',
+                filename: 'Data Stock Gudang',
                 exportOptions: {
-                  columns:[0,1,2]
+                  columns:[0,1,2,3,4]
                 }
             },{
                 extend: 'excelHtml5',
                 text: 'Excel',
                 className: 'exportExcel',
-                filename: 'Order Data',
+                filename: 'Data Stock Gudang',
                 exportOptions: {
-                  columns:[0,1,2]
+                  columns:[0,1,2,3,4]
                 }
             },{
                 extend: 'csvHtml5',
-                filename: 'Order Data',
+                filename: 'Data Stock Gudang',
                 exportOptions: {
-                  columns:[0,1,2]
+                  columns:[0,1,2,3,4]
                 }
             },{
                 extend: 'pdfHtml5',
-                filename: 'Order Data',
+                filename: 'Data Stock Gudang',
                 exportOptions: {
-                  columns:[0,1,2]
+                  columns:[0,1,2,3,4]
                 }
             },{
                 extend: 'print',
-                filename: 'Order Data',
+                filename: 'Data Stock Gudang',
                 exportOptions: {
-                  columns:[0,1,2]
+                  columns:[0,1,2,3,4]
                 }
             }
         ],
         "lengthChange": true,
           columns: [
-            {'data': 'kode_barang'},
-            {'data': 'nama_barang'},
-            {'data': 'sisa_stok'},
-            {'data': 'hapus'}
+            {'data': 'id_bahan_jadi'},
+            {'data': 'nama_bahan_jadi'},
+            {'data': 'stok_masuk'},
+            {'data': 'stok_keluar'},
+            {'data': 'sisa_stok'}
           ],
     });
 
@@ -167,23 +196,23 @@
       tabeldata.ajax.reload();
     }
 
-    function hapus(id)
-    {
-        if (confirm("Apakah anda yakin ingin menghapus data "+id+"?")) {
-            $.ajax({
-                    type:"post",
-                    url: "<?php echo base_url('')?>/",
-                    data:{ id:id},
-                    success:function(response)
-                    {
-                         reload_table();
-                    },
-                    error: function (jqXHR, textStatus, errorThrown)
-                    {
-                      alert(errorThrown);
-                    }
-                }
-            );
-        }
-    }
+    // function hapus(id)
+    // {
+    //     if (confirm("Apakah anda yakin ingin menghapus data "+id+"?")) {
+    //         $.ajax({
+    //                 type:"post",
+    //                 url: "<?php echo base_url('')?>/",
+    //                 data:{ id:id},
+    //                 success:function(response)
+    //                 {
+    //                      reload_table();
+    //                 },
+    //                 error: function (jqXHR, textStatus, errorThrown)
+    //                 {
+    //                   alert(errorThrown);
+    //                 }
+    //             }
+    //         );
+    //     }
+    // }
 </script>
