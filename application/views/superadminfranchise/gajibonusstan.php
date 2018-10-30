@@ -39,19 +39,19 @@
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="nama" class=" form-control-label">Omset Minimal</label>
-                                            <input type="text" id="omset" placeholder="Minimum Omset" class="form-control">
+                                            <input type="text" id="omset" placeholder="Minimum Omset" class="form-control numeric">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="id" class=" form-control-label">Bonus ( dalam % )</label>
-                                            <input type="text" id="id" placeholder="Persentase Bonus" class="form-control">
+                                            <input type="text" id="id" placeholder="Persentase Bonus" class="form-control numeric_persen">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="id" class=" form-control-label">Action</label>
-                                            <button onclick="tambahbonus()" class="btn btn-success form-control">Tambah Bahan Jadi</button>
+                                            <button onclick="tambahbonus()" class="btn btn-success form-control">Tambah Bonus</button>
                                         </div>  
                                     </div>
                                 </div>
@@ -66,14 +66,16 @@
                   <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Data Bahan Jadi</strong>
+                            <strong class="card-title">Data Gaji Bonus</strong>
                         </div>
                         <div class="card-body">
                           <table id="mytable" class="table table-striped table-bordered" style="width: 100%" width="100%">
                             <thead>
                               <tr>
-                                <th>ID Bahan Jadi</th>
-                                <th>Nama Bahan Jadi</th>
+                                <th>ID Stan</th>
+                                <th>Nama Stan</th>
+                                <th>Omset Minimal</th>
+                                <th>Bonus ( % )</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                               </tr>
@@ -138,6 +140,74 @@
     
 
     <script src=<?php echo base_url("assets/js/jquery.easy-autocomplete.js")?>></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            jQuery(document).ready(function() {
+                jQuery("#namastan").chosen({
+                    disable_search_threshold: 10,
+                    no_results_text: "Oops, nothing found!",
+                    width: "100%"
+                });
+            });
+        });
+
+        $.ajax({
+              type:"post",
+              url: "<?php echo base_url('superadminfranchise/get_list_stan')?>/",
+              data:{},
+              dataType:"json",
+              success:function(response)
+              {
+                var htmlinsideselect = '';
+                $.each(response, function (i, item) {
+                    if (i == 0) {
+                        htmlinsideselect = htmlinsideselect + '<option selected="selected" value="'+item.id_stan+'">'+item.nama_stan +' ( '+item.alamat+' )' +'</option>';
+                    }else{
+                        htmlinsideselect = htmlinsideselect + '<option value="'+item.id_stan+'">'+item.nama_stan +' ( '+item.alamat+' )' +'</option>';
+                    }
+                    
+                });
+                $("#namastan").html(htmlinsideselect);
+              },
+              error: function (jqXHR, textStatus, errorThrown)
+              {
+                alert(errorThrown);
+              },
+              complete: function (argument) {
+                  $('#namastan').trigger("chosen:updated");
+                  var id_stan = $('#namastan').val();
+                  var tanggal_rekap = $('#tanggalrekap').val();
+                    // alert(id_stan);
+                    // ajaxSetData(id_stan,tanggal_rekap);
+              }
+          }
+        );
+
+            $('.numeric').on('input', function (event) { 
+                this.value = this.value.replace(/[^0-9]/g, '');
+                
+            });
+
+            $('.numeric_persen').on('input', function (event) { 
+                this.value = this.value.replace(/[^.0-9]/g, '');
+                if ($(this).val().indexOf('.') == 0) {
+                  $(this).val($(this).val().substring(1));
+                }
+
+                if ($(this).val().indexOf('0') == 0) {
+                  $(this).val($(this).val().substring(1));
+                }
+
+                if ($(this).val().split(".").length > 2) {
+                    this.value = this.value.slice(0,-1);
+                }
+
+                if ($(this).val()>100) {
+                    this.value = 100;
+                }
+            });
+    </script>
 
 </body>
 </html>
