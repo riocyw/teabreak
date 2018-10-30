@@ -239,6 +239,7 @@ function status_diskon(id,status) {
             $("#labelnilaipromo_edit").text(labelnilaipromo);
 
             var hari = document.getElementsByName('hari_edit[]');
+            var statcheckall = 0;
             for (var i=0, n=hari.length;i<n;i++) 
             {
                 hari[i].checked = false;
@@ -247,9 +248,19 @@ function status_diskon(id,status) {
                   if (hari[i].value == allhari[j]) 
                   {
                       hari[i].checked = true;
+                      statcheckall++;
                   }
                 }
                 
+            }
+
+            if (statcheckall == 7) {
+              alert('all');
+              $("#buttoncheckiconedit").html('<i class="fa fa-check-square-o"></i> uncheck all');
+
+            }else{
+              alert('not all');
+              $("#buttoncheckiconedit").html('<i class="fa fa-square-o"></i> check all');
             }
 
             var stan = document.getElementsByName('stanpilihan[]');
@@ -289,6 +300,7 @@ function status_diskon(id,status) {
           dataType:"json",
           success:function(responsealldata)
           {
+              var checkstanall = true;
               allstan = responsealldata;
               $.ajax({
                     type:"post",
@@ -348,15 +360,22 @@ function status_diskon(id,status) {
                                   }
 
                                   if (statuss) {
-                                    return '<input type="checkbox" name="stanpilihan_edit[]" value="' + $('<div/>').text(data).html() + '" checked>';
+                                    return '<input type="checkbox" name="stanpilihan_edit[]" value="' + $('<div/>').text(data).html() + '" checked onchange="check_stat_check_stan_edit()">';
                                   }else{
-                                    return '<input type="checkbox" name="stanpilihan_edit[]" value="' + $('<div/>').text(data).html() + '">';
-                          
+                                    checkstanall = false;
+                                    return '<input type="checkbox" name="stanpilihan_edit[]" value="' + $('<div/>').text(data).html() + '" onchange="check_stat_check_stan_edit()">';
+                                    
                                   }
                                 }
                             }],
                             'order': [[1, 'asc']]
-                          });  
+                          });
+
+                          if (checkstanall) {
+                            $('[name="checkerstan_edit"]').prop('checked', true);
+                          }else{
+                            $('[name="checkerstan_edit"]').prop('checked', false);
+                          }
 
                     },
                     error: function (jqXHR, textStatus, errorThrown)
@@ -373,6 +392,9 @@ function status_diskon(id,status) {
           error: function (jqXHR, textStatus, errorThrown)
           {
             alert(errorThrown);
+          },
+          complete: function (argument) {
+            // body...
           }
         });
 
@@ -386,6 +408,7 @@ function status_diskon(id,status) {
           dataType:"json",
           success:function(responsealldata1)
           {
+            var checkprodukall = true;
               allproduk = responsealldata1;
 
               $.ajax({
@@ -447,16 +470,23 @@ function status_diskon(id,status) {
 
                                       if (statusss) {
                                         // return full.id_produk+'v';
-                                        return '<input type="checkbox" name="produkpilihan_edit[]" value="' + $('<div/>').text(data).html() + '" checked>';
+                                        return '<input type="checkbox" name="produkpilihan_edit[]" value="' + $('<div/>').text(data).html() + '" checked onchange="check_stat_check_produk_edit()">';
                                       }else{
                                         // return full.id_produk+'x';
-                                        return '<input type="checkbox" name="produkpilihan_edit[]" value="' + $('<div/>').text(data).html() + '">';
+                                        checkprodukall = false;
+                                        return '<input type="checkbox" name="produkpilihan_edit[]" value="' + $('<div/>').text(data).html() + '" onchange="onchange="check_stat_check_produk_edit()">';
                               
                                       }
                                     }
                                 }],
                                 'order': [[1, 'asc']]
                           });
+
+                      if (checkprodukall) {
+                            $('[name="checkerproduk_edit"]').prop('checked', true);
+                          }else{
+                            $('[name="checkerproduk_edit"]').prop('checked', false);
+                          }
                     },
                     error: function (jqXHR, textStatus, errorThrown)
                     {
@@ -1151,7 +1181,7 @@ function status_diskon(id,status) {
               'id_stan': json.data[i].id_stan,
               'nama_stan' : json.data[i].nama_stan,
               'alamat' : json.data[i].alamat,
-              'pilih' : '<input type="checkbox" name="stanpilihan[]" value="'+json.data[i].id_stan+'" class="">',
+              'pilih' : '<input type="checkbox" name="stanpilihan[]" value="'+json.data[i].id_stan+'" class="" onchange="check_stat_check_stan()">',
               // 'hari' : json.data[i].hari,
               // 'waktu' : json.data[i].jam_mulai+' - '+json.data[i].jam_akhir,
               // 'edit' : '<button onclick=edit_diskon("'+json.data[i].id_diskon+'") class="btn btn-warning" style="color:white;">Edit</button> ',
@@ -1211,7 +1241,7 @@ function status_diskon(id,status) {
               'id_produk': json.data[i].id_produk,
               'nama_produk' : json.data[i].nama_produk,
               'harga_jual' : json.data[i].harga_jual,
-              'pilih' : '<input type="checkbox" name="produkpilihan[]" value="'+json.data[i].id_produk+'" class="">'
+              'pilih' : '<input type="checkbox" name="produkpilihan[]" value="'+json.data[i].id_produk+'" class="" onchange="check_stat_check_produk()">'
               // 'hari' : json.data[i].hari,
               // 'waktu' : json.data[i].jam_mulai+' - '+json.data[i].jam_akhir,
               // 'edit' : '<button onclick=edit_diskon("'+json.data[i].id_diskon+'") class="btn btn-warning" style="color:white;">Edit</button> ',
