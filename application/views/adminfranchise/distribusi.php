@@ -354,7 +354,18 @@
         $('#editdatakosong').hide();
 
         $('.numeric').on('input', function (event) { 
-            this.value = this.value.replace(/[^0-9]/g, '');
+            this.value = this.value.replace(/[^.0-9]/g, '');
+            if ($(this).val().indexOf('.') == 0) {
+              $(this).val($(this).val().substring(1));
+            }
+
+            if ($(this).val().indexOf('0') == 0) {
+              $(this).val($(this).val().substring(1));
+            }
+
+            if ($(this).val().split(".").length > 2) {
+                this.value = this.value.slice(0,-1);
+            }
         });
 
         $.ajax({
@@ -953,7 +964,7 @@
             if (jumlah == '') {
                 $('#jumlah').addClass('is-invalid');
             }else{
-                jumlah = parseInt(jumlah);
+                jumlah = parseFloat(jumlah);
                 $('#jumlah').removeClass('is-invalid');
                 $('#datakosong').hide();
 
@@ -1074,9 +1085,22 @@
         }
 
         function cekangka(id) {
-            $('#'+id).val($('#'+id).val().replace(/[^0-9]/g, ''));
+            $('#'+id).val($('#'+id).val().replace(/[^.0-9]/g, ''));
+
             if ($('#'+id).val() == '0' || $('#'+id).val() == '') {
                 $('#'+id).val('1');
+            }
+
+            if ($('#'+id).val().indexOf('.') == 0) {
+              $('#'+id).val($('#'+id).val().substring(1));
+            }
+
+            if ($('#'+id).val().indexOf('0') == 0) {
+              $('#'+id).val($('#'+id).val().substring(1));
+            }
+
+            if ($('#'+id).val().split(".").length > 2) {
+                $('#'+id).val($('#'+id).val().slice(0,-1));
             }
             //ubah array
 

@@ -139,29 +139,37 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class=" form-control-label" id="labelhari">Hari</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class=" form-control-label" id="labelhari">Hari</label>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <button  class="btn btn-sm btn-link" id="buttoncheckicon" onclick="checkallhari()"><i class="fa fa-square-o" id="checkicon"></i> check all</button>
+                                        </div>
+                                    </div>
+                                    
 
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-check">
                                                 <div class="checkbox">
                                                   <label for="checkbox1" class="form-check-label ">
-                                                    <input type="checkbox" id="senin" name="hari[]" value="senin" class="form-check-input"> Senin
+                                                    <input type="checkbox" id="senin" name="hari[]" value="senin" class="form-check-input" onchange="check_hari_checked()"> Senin
                                                   </label>
                                                 </div>
                                                 <div class="checkbox">
                                                   <label for="checkbox2" class="form-check-label ">
-                                                    <input type="checkbox" id="selasa" name="hari[]" value="selasa" class="form-check-input"> Selasa
+                                                    <input type="checkbox" id="selasa" name="hari[]" value="selasa" class="form-check-input" onchange="check_hari_checked()"> Selasa
                                                   </label>
                                                 </div>
                                                 <div class="checkbox">
                                                   <label for="checkbox3" class="form-check-label ">
-                                                    <input type="checkbox" id="rabu" name="hari[]" value="rabu" class="form-check-input"> Rabu
+                                                    <input type="checkbox" id="rabu" name="hari[]" value="rabu" class="form-check-input" onchange="check_hari_checked()"> Rabu
                                                   </label>
                                                 </div>
                                                 <div class="checkbox">
                                                   <label for="checkbox3" class="form-check-label ">
-                                                    <input type="checkbox" id="kamis" name="hari[]" value="kamis" class="form-check-input"> Kamis
+                                                    <input type="checkbox" id="kamis" name="hari[]" value="kamis" class="form-check-input" onchange="check_hari_checked()"> Kamis
                                                   </label>
                                                 </div>
                                             </div>
@@ -170,17 +178,17 @@
                                             <div class="form-check">
                                                 <div class="checkbox">
                                                   <label for="checkbox1" class="form-check-label ">
-                                                    <input type="checkbox" id="jumat" name="hari[]" value="jumat" class="form-check-input"> Jumat
+                                                    <input type="checkbox" id="jumat" name="hari[]" value="jumat" class="form-check-input" onchange="check_hari_checked()"> Jumat
                                                   </label>
                                                 </div>
                                                 <div class="checkbox">
                                                   <label for="checkbox2" class="form-check-label ">
-                                                    <input type="checkbox" id="sabtu" name="hari[]" value="sabtu" class="form-check-input"> Sabtu
+                                                    <input type="checkbox" id="sabtu" name="hari[]" value="sabtu" class="form-check-input" onchange="check_hari_checked()"> Sabtu
                                                   </label>
                                                 </div>
                                                 <div class="checkbox">
                                                   <label for="checkbox3" class="form-check-label ">
-                                                    <input type="checkbox" id="minggu" name="hari[]" value="minggu" class="form-check-input"> Minggu
+                                                    <input type="checkbox" id="minggu" name="hari[]" value="minggu" class="form-check-input" onchange="check_hari_checked()"> Minggu
                                                   </label>
                                                 </div>
                                             </div>
@@ -208,7 +216,8 @@
                                 
                             </div>
                             <div class="col-md-8 col-sm-12">
-                                <label class="form-control-label" id="labelstan" style="font-weight: bold">List Stan</label>
+                                <label class="form-control-label" id="labelstan" style="font-weight: bold">List Stan </label>
+
                                 <div class="row">
                                     <div class="col-md-12">
                                         <table style="width: 100%" width="100%" id="tableliststan" class="table table-striped table-bordered">
@@ -221,10 +230,17 @@
                                                 <th>ID Stan</th>
                                                 <th>Nama Stan</th>
                                                 <th>Alamat</th>
-                                                <th>Pilih</th>
+                                                <th>
+                                                    <input type="checkbox" id="checkerstan" class="" onchange="checkallstan()" name="checkerstan">
+                                                </th>
                                               </tr>
                                             </thead>
                                         </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        
                                     </div>
                                 </div>
                                 
@@ -241,7 +257,9 @@
                                         <th>Nama Barang</th>
                                         <!-- <th>Harga Beli</th> -->
                                         <th>Harga Jual</th>
-                                        <th>Pilih</th>
+                                        <th>
+                                            <input type="checkbox" id="checkerproduk" class="" onchange="checkallproduk()" name="checkerproduk">
+                                        </th>
                                       </tr>
                                     </thead>
                                 </table>
@@ -297,29 +315,37 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class=" form-control-label" id="labelhari_edit">Hari</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class=" form-control-label" id="labelhari_edit">Hari</label>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <button  class="btn btn-sm btn-link" id="buttoncheckiconedit" onclick="checkallhari_edit()"><i class="fa fa-square-o" id="checkiconedit"></i> check all</button>
+                                        </div>
+                                    </div>
+                                    
 
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-check">
                                                 <div class="checkbox">
                                                   <label for="checkbox1" class="form-check-label ">
-                                                    <input type="checkbox" id="senin" name="hari_edit[]" value="senin" class="form-check-input"> Senin
+                                                    <input type="checkbox" id="senin" name="hari_edit[]" value="senin" class="form-check-input" onchange="check_hari_checked_edit()"> Senin
                                                   </label>
                                                 </div>
                                                 <div class="checkbox">
                                                   <label for="checkbox2" class="form-check-label ">
-                                                    <input type="checkbox" id="selasa" name="hari_edit[]" value="selasa" class="form-check-input"> Selasa
+                                                    <input type="checkbox" id="selasa" name="hari_edit[]" value="selasa" class="form-check-input" onchange="check_hari_checked_edit()"> Selasa
                                                   </label>
                                                 </div>
                                                 <div class="checkbox">
                                                   <label for="checkbox3" class="form-check-label ">
-                                                    <input type="checkbox" id="rabu" name="hari_edit[]" value="rabu" class="form-check-input"> Rabu
+                                                    <input type="checkbox" id="rabu" name="hari_edit[]" value="rabu" class="form-check-input" onchange="check_hari_checked_edit()"> Rabu
                                                   </label>
                                                 </div>
                                                 <div class="checkbox">
                                                   <label for="checkbox3" class="form-check-label ">
-                                                    <input type="checkbox" id="kamis" name="hari_edit[]" value="kamis" class="form-check-input"> Kamis
+                                                    <input type="checkbox" id="kamis" name="hari_edit[]" value="kamis" class="form-check-input" onchange="check_hari_checked_edit()"> Kamis
                                                   </label>
                                                 </div>
                                             </div>
@@ -328,17 +354,17 @@
                                             <div class="form-check">
                                                 <div class="checkbox">
                                                   <label for="checkbox1" class="form-check-label ">
-                                                    <input type="checkbox" id="jumat" name="hari_edit[]" value="jumat" class="form-check-input"> Jumat
+                                                    <input type="checkbox" id="jumat" name="hari_edit[]" value="jumat" class="form-check-input" onchange="check_hari_checked_edit()"> Jumat
                                                   </label>
                                                 </div>
                                                 <div class="checkbox">
                                                   <label for="checkbox2" class="form-check-label ">
-                                                    <input type="checkbox" id="sabtu" name="hari_edit[]" value="sabtu" class="form-check-input"> Sabtu
+                                                    <input type="checkbox" id="sabtu" name="hari_edit[]" value="sabtu" class="form-check-input" onchange="check_hari_checked_edit()"> Sabtu
                                                   </label>
                                                 </div>
                                                 <div class="checkbox">
                                                   <label for="checkbox3" class="form-check-label ">
-                                                    <input type="checkbox" id="minggu" name="hari_edit[]" value="minggu" class="form-check-input"> Minggu
+                                                    <input type="checkbox" id="minggu" name="hari_edit[]" value="minggu" class="form-check-input" onchange="check_hari_checked_edit()"> Minggu
                                                   </label>
                                                 </div>
                                             </div>
@@ -379,7 +405,9 @@
                                                 <th>ID Stan</th>
                                                 <th>Nama Stan</th>
                                                 <th>Alamat</th>
-                                                <th>Pilih</th>
+                                                <th>
+                                                    <input type="checkbox" id="checkerstan_edit" class="" onchange="checkallstanedit()" name="checkerstan_edit">
+                                                </th>
                                               </tr>
                                             </thead>
                                         </table>
@@ -399,7 +427,9 @@
                                         <th>Nama Barang</th>
                                         <!-- <th>Harga Beli</th> -->
                                         <th>Harga Jual</th>
-                                        <th>Pilih</th>
+                                        <th>
+                                            <input type="checkbox" id="checkerproduk_edit" class="" onchange="checkallprodukedit()" name="checkerproduk_edit">
+                                        </th>
                                       </tr>
                                     </thead>
                                 </table>
@@ -529,9 +559,128 @@
         $("#jam_akhir_edit").on("dp.change", function(e) {
             $('#jam_mulai_edit').data("DateTimePicker").maxDate(e.date);
         });
+
+        
           
         $('#tanggal_mulai_edit').data("DateTimePicker").maxDate($("#tanggal_akhir_edit").data("datetimepicker").getDate());
         $('#tanggal_akhir_edit').data("DateTimePicker").minDate($("#tanggal_mulai_edit").data("datetimepicker").getDate());
+
+        function checkallstan() {
+            
+
+            if ($('[name="checkerstan"]:checked').length == $('[name="checkerstan"]').length) {
+                $('[name="stanpilihan[]"]').prop('checked', true);
+            }else{
+                $('[name="stanpilihan[]"]').prop('checked', false);
+            }
+        }
+
+        function check_stat_check_stan() {
+            if ($('[name="stanpilihan[]"]:checked').length == $('[name="stanpilihan[]"]').length) {
+                $('[name="checkerstan"]').prop('checked', true);
+            }else{
+                $('[name="checkerstan"]').prop('checked', false);
+            }
+        }
+
+        function checkallproduk() {
+            
+
+            if ($('[name="checkerproduk"]:checked').length == $('[name="checkerproduk"]').length) {
+                $('[name="produkpilihan[]"]').prop('checked', true);
+            }else{
+                $('[name="produkpilihan[]"]').prop('checked', false);
+            }
+        }
+        
+        function check_stat_check_produk() {
+            if ($('[name="produkpilihan[]"]:checked').length == $('[name="produkpilihan[]"]').length) {
+                $('[name="checkerproduk"]').prop('checked', true);
+            }else{
+                $('[name="checkerproduk"]').prop('checked', false);
+            }
+        }
+
+        
+
+        function checkallstanedit() {
+            
+
+            if ($('[name="checkerstan_edit"]:checked').length == $('[name="checkerstan_edit"]').length) {
+                $('[name="stanpilihan_edit[]"]').prop('checked', true);
+            }else{
+                $('[name="stanpilihan_edit[]"]').prop('checked', false);
+            }
+        }
+
+        function check_stat_check_stan_edit() {
+            if ($('[name="stanpilihan_edit[]"]:checked').length == $('[name="stanpilihan_edit[]"]').length) {
+                $('[name="checkerstan_edit"]').prop('checked', true);
+            }else{
+                $('[name="checkerstan_edit"]').prop('checked', false);
+            }
+        }
+
+        function checkallprodukedit() {
+            
+
+            if ($('[name="checkerproduk_edit"]:checked').length == $('[name="checkerproduk_edit"]').length) {
+                $('[name="produkpilihan_edit[]"]').prop('checked', true);
+            }else{
+                $('[name="produkpilihan_edit[]"]').prop('checked', false);
+            }
+        }
+        
+        function check_stat_check_produk_edit() {
+            if ($('[name="produkpilihan_edit[]"]:checked').length == $('[name="produkpilihan_edit[]"]').length) {
+                $('[name="checkerproduk_edit"]').prop('checked', true);
+            }else{
+                $('[name="checkerproduk_edit"]').prop('checked', false);
+            }
+        }
+
+        function checkallhari() {
+
+            if ($("#buttoncheckicon").text() == ' check all') {
+                $("#buttoncheckicon").html('<i class="fa fa-check-square-o"></i> uncheck all');
+                $('[name="hari[]"]').prop('checked', true);
+            }else{
+                $("#buttoncheckicon").html('<i class="fa fa-square-o"></i> check all');
+                $('[name="hari[]"]').prop('checked', false);
+            }
+            // if ($("#buttoncheckicon").) {}
+            // buttoncheckicon checkicon
+        }
+
+        function check_hari_checked() {
+            if ($('[name="hari[]"]:checked').length == $('[name="hari[]"]').length) {
+                $("#buttoncheckicon").html('<i class="fa fa-check-square-o"></i> uncheck all');
+            }else{
+                $("#buttoncheckicon").html('<i class="fa fa-square-o"></i> check all');
+            }
+        }
+
+        function checkallhari_edit() {
+
+            if ($("#buttoncheckiconedit").text() == ' check all') {
+                $("#buttoncheckiconedit").html('<i class="fa fa-check-square-o"></i> uncheck all');
+                $('[name="hari_edit[]"]').prop('checked', true);
+            }else{
+                $("#buttoncheckiconedit").html('<i class="fa fa-square-o"></i> check all</button>');
+                $('[name="hari_edit[]"]').prop('checked', false);
+            }
+
+            // if ($("#buttoncheckicon").) {}
+            // buttoncheckicon checkicon
+        }
+
+        function check_hari_checked_edit() {
+            if ($('[name="hari_edit[]"]:checked').length == $('[name="hari_edit[]"]').length) {
+                $("#buttoncheckiconedit").html('<i class="fa fa-check-square-o"></i> uncheck all');
+            }else{
+                $("#buttoncheckiconedit").html('<i class="fa fa-square-o"></i> check all');
+            }
+        }
     </script>
 </body>
 </html>
