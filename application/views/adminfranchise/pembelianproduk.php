@@ -118,7 +118,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="stock_masuk" class="form-control-label">Stock Masuk</label>
-                                <input type="text" id="stock_masuk" placeholder="Masukkan Jumlah Bahan Jadi" class="form-control numeric">
+                                <input type="text" id="stock_masuk" placeholder="Masukkan Jumlah Bahan Jadi" class="form-control numericncoma">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -235,7 +235,25 @@ function checkmetode() {
 
 $('.numeric').on('input', function (event) { 
         this.value = this.value.replace(/[^0-9]/g, '');
+        if ($(this).val().indexOf('.') == 0) {
+              $(this).val($(this).val().substring(1));
+            }
     });
+$('.numericncoma').on('input', function (event) { 
+        this.value = this.value.replace(/[^.0-9]/g, '');
+        if ($(this).val().indexOf('.') == 0) {
+              $(this).val($(this).val().substring(1));
+            }
+
+            if ($(this).val().indexOf('0') == 0) {
+              $(this).val($(this).val().substring(1));
+            }
+
+            if ($(this).val().split(".").length > 2) {
+                this.value = this.value.slice(0,-1);
+            }
+    });
+
 
         $(document).ready(function() {
                 jQuery(document).ready(function() {
