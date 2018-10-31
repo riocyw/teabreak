@@ -51,7 +51,7 @@
         </div>
     </div><!-- /#right-panel -->
 
-        <div class="modal fade" id="modaltambah" tabindex="1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+    <div class="modal fade" id="modaltambah" tabindex="1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -167,6 +167,52 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-success" onclick="savenota()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modaldetail" tabindex="1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Tambah Nota</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table style="width: 100%" width="100%" id="detaillistbahan" class="table table-striped table-bordered">
+                                <col width="15%">
+                                <col width="30%">
+                                <col width="15%">
+                                <col width="20%">
+                                <col width="15%">
+                                <thead>
+                                  <tr>
+                                    <th>ID Bahan</th>
+                                    <th>Nama Bahan</th>
+                                    <th>Jumlah</th>
+                                    <th>Harga Satuan</th>
+                                    <th>Harga Total</th>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="6" class="text-center" id="datadetailkosong">Tidak Ada Data</td>
+                                  </tr>
+                                </thead>
+                                <tbody id="bodydetailtabel">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
@@ -415,9 +461,6 @@ tabeldata = $("#mytable").DataTable({
 
     function sinkrontabel() {
         $("#bodytabel").empty();
-
-        
-
         if (arrProduk.length == 0) {
             $('#datakosong').show();
         }else{
@@ -444,6 +487,31 @@ tabeldata = $("#mytable").DataTable({
             arrProduk = new Array();
         }
         sinkrontabel();
+    }
+
+    function detail(keterangan,no_nota)
+    {
+        $("#bodydetailtabel").empty();
+        $.ajax({
+              type:"post",
+              url: "<?php echo base_url('adminfranchise/datatabledetailnotagudang')?>/",
+              data:{no_nota:no_nota},
+              dataType:"json",
+              success:function(response)
+              {
+                if (response.data.length==0) {
+                    $('#datadetailkosong').show();
+                }else{
+                    for(var i=0;i<response.data.length;i++){
+                        $('#bodydetailtabel').append(
+                        '<tr><td id="kodebarang">'+response.data[i].id_bahan_jadi+'</td><td id="namabarang">'+response.data[i].nama_bahan_jadi+'</td><td id="stokmasuk">'+response.data[i].stok_masuk+'</td><td id="hargasatuan">'+response.data[i].harga_satuan+'</td><td id="hargatotal">'+response.data[i].harga_total+'</td></tr>');
+                    }
+                    $('#datadetailkosong').hide();
+                }
+              },
+          }
+        );
+        $("#modaldetail").modal("toggle");
     }
 
     function tambahbarang() {
