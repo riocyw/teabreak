@@ -114,7 +114,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a href="masterdatastan"> <i class="menu-icon ti-home"></i>Master Data Stan </a>
                     </li>
                     <li id="gajibonusstan">
-                        <a href="gajibonusstan"> <i class="menu-icon ti-money"></i>Gaji Bonus Stan </a>
+                        <a style="pointer-events: none;" href="gajibonusstan"> <i class="menu-icon ti-money"></i>Gaji Bonus Stan </a>
                     </li>
                     <li id="rekapharianstan">
                         <a href="rekapharianstan"> <i class="menu-icon ti-book"></i>Rekap Harian Stan </a>
