@@ -177,12 +177,30 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Tambah Nota</h5>
+                    <h5 class="modal-title" id="modalLabel">Detail Nota</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            <div class="form-group">
+                                <label class=" form-control-label"><strong>ID Nota</strong></label>
+                                
+                                <h4 id="id_detail_nota">SELESAI</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            <div class="form-group">
+                                <label class=" form-control-label"><strong>Keterangan</strong></label>
+                                
+                                <h4 id="detailketerangan">SELESAI</h4>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <table style="width: 100%" width="100%" id="detaillistbahan" class="table table-striped table-bordered">
@@ -492,6 +510,8 @@ tabeldata = $("#mytable").DataTable({
     function detail(keterangan,no_nota)
     {
         $("#bodydetailtabel").empty();
+        $("#id_detail_nota").html(no_nota);
+        $("#detailketerangan").html(keterangan);
         $.ajax({
               type:"post",
               url: "<?php echo base_url('adminfranchise/datatabledetailnotagudang')?>/",
