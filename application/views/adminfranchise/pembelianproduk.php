@@ -34,6 +34,7 @@
                               <table id="mytable" class="table table-striped table-bordered">
                                 <thead>
                                   <tr>
+                                    <th>Date Data Sort</th>
                                     <th>No Nota</th>
                                     <th>Tanggal</th>
                                     <th>Total Harga</th>
@@ -399,6 +400,7 @@ tabeldata = $("#mytable").DataTable({
               }
 
             return_data.push({
+                'date_sort':json.data[i].tanggal,
               'no_nota': json.data[i].no_nota,
               'tanggal_nota': uidate(json.data[i].tanggal),
               'total'  : "Rp. "+currency(json.data[i].total_harga)+",-",
@@ -418,7 +420,7 @@ tabeldata = $("#mytable").DataTable({
                 text: 'Copy',
                 filename: 'Nota Gudang',
                 exportOptions: {
-                  columns:[0,1,2,3,4]
+                  columns:[1,2,3,4,5]
                 }
             },{
                 extend: 'excelHtml5',
@@ -426,30 +428,31 @@ tabeldata = $("#mytable").DataTable({
                 className: 'exportExcel',
                 filename: 'Nota Gudang',
                 exportOptions: {
-                  columns:[0,1,2,3,4]
+                  columns:[1,2,3,4,5]
                 }
             },{
                 extend: 'csvHtml5',
                 filename: 'Nota Gudang',
                 exportOptions: {
-                  columns:[0,1,2,3,4]
+                  columns:[1,2,3,4,5]
                 }
             },{
                 extend: 'pdfHtml5',
                 filename: 'Nota Gudang',
                 exportOptions: {
-                  columns:[0,1,2,3,4]
+                  columns:[1,2,3,4,5]
                 }
             },{
                 extend: 'print',
                 filename: 'Nota Gudang',
                 exportOptions: {
-                  columns:[0,1,2,3,4]
+                  columns:[1,2,3,4,5]
                 }
             }
         ],
         "lengthChange": true,
           columns: [
+          {'data':'date_sort'},
             {'data': 'no_nota'},
             {'data': 'tanggal_nota'},
             {'data': 'total'},
@@ -457,6 +460,7 @@ tabeldata = $("#mytable").DataTable({
             {'data': 'jatuh_tempo'},
             {'data': 'detail',searchable:false,orderable:false}
           ],
+          "order": [[ 0, "desc" ]]
     });
 
     function reload_table(){
