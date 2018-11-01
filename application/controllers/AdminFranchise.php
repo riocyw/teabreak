@@ -598,8 +598,8 @@ class AdminFranchise extends CI_Controller {
                 $sisa = $StokDataToday[0]->stok_sisa;
 
                 $data = array(
-                  'id_bahan_jadi' => $id_bahan_jadi,
-                  'nama_bahan_jadi' => $nama_bahan_jadi,
+                  'id_bahan_jadi' => $perbahanjadi->$id_bahan_jadi,
+                  'nama_bahan_jadi' => $perbahanjadi->$nama_bahan_jadi,
                   'stok_masuk' => $perbahanjadi->stokmasuk,
                   'stok_keluar' => 0,
                   'stok_sisa' => $sisa + $perbahanjadi->stokmasuk,
