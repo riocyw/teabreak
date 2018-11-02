@@ -45,7 +45,7 @@
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="id" class=" form-control-label">Bonus ( dalam % )</label>
-                                            <input type="text" id="id" placeholder="Persentase Bonus" class="form-control numeric_persen">
+                                            <input type="text" id="persentase" placeholder="Persentase Bonus" class="form-control numeric_persen">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -194,9 +194,12 @@
                 if ($(this).val().indexOf('.') == 0) {
                   $(this).val($(this).val().substring(1));
                 }
-
-                if ($(this).val().indexOf('0') == 0) {
-                  $(this).val($(this).val().substring(1));
+                if ($(this).val().length > 1) {
+                    if ($(this).val().charAt(0) == '0') {
+                        if ($(this).val().charAt(1) != '.') {
+                            $(this).val($(this).val().slice(0,-1));
+                        }
+                    }
                 }
 
                 if ($(this).val().split(".").length > 2) {
@@ -207,6 +210,145 @@
                     this.value = 100;
                 }
             });
+
+            function tambahbonus() {
+                var persen = $("#persentase").val();
+                var idstan = $("#namastan").val();
+                var omset = $("#omset").val();
+
+                $("#persentase").removeClass("is-invalid");
+                $("#omset").removeClass("is-invalid");
+                
+                if (persen == '') {
+                    $("#persentase").addClass("is-invalid");
+                }
+
+                if (omset == '') {
+                    $("#omset").addClass("is-invalid");
+                }
+
+                if (omset!= '' && persen!= '') {
+                    $.ajax({
+                          type:"post",
+                          url: "<?php echo base_url('superadminfranchise/savegajibonus')?>/",
+                          data:{
+                            persen:persen,
+                            idstan:idstan,
+                            omset:omset
+                          },
+                          dataType:"text",
+                          success:function(response)
+                          {
+                            if (response == 'sukses') {
+                                reload_table();
+                                $("#persentase").val('');
+                                $("#omset").val('');
+                                alert('Data Berhasil ditambahkan!');
+                            }else{
+                                alert('Data gagal disimpan. periksa koneksi internet anda!');
+                            }
+                          },
+                          error: function (jqXHR, textStatus, errorThrown)
+                          {
+                            alert('periksa koneksi internet anda!');
+                          },
+                          complete: function (argument) {
+
+                          }
+                      }
+                    );
+                }
+            }
+
+
+            tabeldata = $("#mytable").DataTable({
+                  initComplete: function() {
+                    var api = this.api();
+                    $('#mytable_filter input')
+                    .on('.DT')
+                    .on('keyup.DT', function(e) {
+                      if (e.keyCode == 13) {
+                        api.search(this.value).draw();
+                      }
+                    });
+                  },
+                  oLanguage: {
+                    sProcessing: "loading..."
+                  },
+                  responsive: true,
+                  ajax: {
+                    "type"   : "POST",
+                    "url"    : "<?php echo base_url('superadminfranchise/datatablegajibonus');?>",
+                    "dataSrc": function (json) {
+                      var return_data = new Array();
+
+                      for(var i=0;i< json.data.length; i++){
+
+                        return_data.push({
+                          'id_stan':json.data[i].id_stan,
+                          'nama_stan': json.data[i].nama_stan,
+                          'omset_minimal': json.data[i].omset_minimal,
+                          'bonus'  : json.data[i].persentase_bonus,
+                          'edit' : '<button onclick="edit(\''+json.data[i].keterangan+'\',\''+json.data[i].no_nota+'\')" class="btn btn-primary">Edit</button> ',
+                          // .split(' ').join('+')
+                          'delete' : '<button onclick="delete(\''+json.data[i].keterangan+'\',\''+json.data[i].no_nota+'\')" class="btn btn-primary">Delete</button> '
+                        })
+                      }
+                      return return_data;
+                    }
+                  },
+                    dom: 'Bfrtlip',
+                    buttons: [
+                        {
+                            extend: 'copyHtml5',
+                            text: 'Copy',
+                            filename: 'Gaji Bonus Stan',
+                            exportOptions: {
+                              columns:[0,1,2,3]
+                            }
+                        },{
+                            extend: 'excelHtml5',
+                            text: 'Excel',
+                            className: 'exportExcel',
+                            filename: 'Gaji Bonus Stan',
+                            exportOptions: {
+                              columns:[0,1,2,3]
+                            }
+                        },{
+                            extend: 'csvHtml5',
+                            filename: 'Gaji Bonus Stan',
+                            exportOptions: {
+                              columns:[0,1,2,3]
+                            }
+                        },{
+                            extend: 'pdfHtml5',
+                            filename: 'Gaji Bonus Stan',
+                            exportOptions: {
+                              columns:[0,1,2,3]
+                            }
+                        },{
+                            extend: 'print',
+                            filename: 'Gaji Bonus Stan',
+                            exportOptions: {
+                              columns:[0,1,2,3]
+                            }
+                        }
+                    ],
+                    "lengthChange": true,
+                      columns: [
+                      {'data':'id_stan'},
+                        {'data': 'nama_stan'},
+                        {'data': 'omset_minimal'},
+                        {'data': 'bonus'},
+                        {'data': 'edit',searchable:false,orderable:false},
+                        {'data': 'delete',searchable:false,orderable:false}
+                      ],
+                      "order": [[ 1, "desc" ]]
+                });
+
+                function reload_table(){
+                  tabeldata.ajax.reload();
+                }
     </script>
 
 </body>

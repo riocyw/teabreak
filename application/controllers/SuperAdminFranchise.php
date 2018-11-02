@@ -1349,7 +1349,8 @@ class SuperAdminFranchise extends CI_Controller {
         }else{
           $kasmalam = $perkas->kas_awal;
         }
-        $kasawal += $perkas->kas_awal;
+        $kasawal = $perkas->kas_awal;
+        //+
       }
     }
 
@@ -1383,7 +1384,7 @@ class SuperAdminFranchise extends CI_Controller {
     }
 
     $totalkasir = $kasawal+$cashdetail-$pengeluaran;
-    $totalpemasukan = $kasawal+$hasilpenjualan-$pengeluaran;
+    $totalpemasukan = $hasilpenjualan-$pengeluaran;
 
     $lastarraysend = array(
       'kasawal' => $kasawal,
@@ -1399,5 +1400,23 @@ class SuperAdminFranchise extends CI_Controller {
     );
 
     echo json_encode($lastarraysend);
+  }
+
+  public function savegajibonus()
+  {
+  	$persen = $this->input->post('persen');
+  	$idstan = $this->input->post('idstan');
+  	$omset = $this->input->post('omset');
+  	$id_gaji_bonus = 'IDGajiBonusGenerator()';
+
+  	$data = array(
+  		'id_gaji_bonus' => $id_gaji_bonus,
+  		'id_stan' => $idstan,
+  		'omset_minimal' => $omset,
+  		'persentase_bonus' => $persen,
+  		'status' => 'active'
+  	);
+
+  	echo "sukses";
   }
 }
