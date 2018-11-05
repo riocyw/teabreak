@@ -2,7 +2,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Laporan Pembelian</h1>
+                        <h1>Laporan Distribusi</h1>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                   <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Pilih Tanggal Pembelian</strong>
+                            <strong class="card-title">Pilih Tanggal Distribusi</strong>
                         </div>
                         <div class="card-body">
                           <!-- Credit Card -->
@@ -54,7 +54,7 @@
                   <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Laporan Pembelian</strong>
+                            <strong class="card-title">Laporan Distribusi</strong>
                         </div>
                         <div class="card-body">
                           <table id="mytable" class="table table-striped table-bordered" style="width: 100%" width="100%">
@@ -64,9 +64,9 @@
                                 <th>Nama Barang</th>
                                 <th>No Nota</th>
                                 <th>Kode Barang</th>
+                                <th>Tujuan Pengiriman</th>
                                 <th>Jumlah</th>
-                                <th>Harga Beli</th>
-                                <th>Total</th>
+                                <th>Detail</th>
                               </tr>
                             </thead>
                           </table>
@@ -197,10 +197,12 @@
                         ],
                         "lengthChange": true,
                   columns: [
-                    {'data': 'id_bahan_jadi'},
-                    {'data': 'nama_bahan_jadi'},
-                    {'data': 'edit','orderable':false,'searchable':false},
-                    {'data': 'hapus','orderable':false,'searchable':false}
+                    {'data': 'tgl'},
+                    {'data': 'nama_barang'},
+                    {'data': 'no_nota'},
+                    {'data': 'kode_barang'},
+                    {'data': 'tujuan_pengiriman'},
+                    {'data': 'detail'},
                   ],
                       rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();

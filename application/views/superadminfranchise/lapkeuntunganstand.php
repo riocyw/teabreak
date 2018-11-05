@@ -2,7 +2,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Laporan Pembelian</h1>
+                        <h1>Laporan Keuntungan Stand</h1>
                     </div>
                 </div>
             </div>
@@ -23,23 +23,25 @@
                   <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Pilih Tanggal Pembelian</strong>
+                            <strong class="card-title">Data Stand</strong>
                         </div>
                         <div class="card-body">
                           <!-- Credit Card -->
                           <div id="pay-invoice">
                             <div class="card-body card-block">
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <b><label class=" form-control-label">Tanggal Awal</label></b>
-                                            <input type="text" name="tanggal_awal" id="tanggal_awal" class="form-control" >
+                                            <b><label class=" form-control-label">Stan</label></b>
+                                            <select name="selectstan" id="stan" class="form-control" tabindex="1" onchange="">
+
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <b><label class=" form-control-label">Tanggal Akhir</label></b>
-                                            <input type="text" name="tanggal_akhir" id="tanggal_akhir" class="form-control" >
+                                            <b><label class=" form-control-label">Bulan</label></b>
+                                            <input type="text" name="bulan" id="bulan" class="form-control" >
                                         </div>
                                     </div>
                                 </div>
@@ -54,23 +56,23 @@
                   <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Laporan Pembelian</strong>
+                            <strong class="card-title">Laporan Distribusi</strong>
                         </div>
                         <div class="card-body">
                           <table id="mytable" class="table table-striped table-bordered" style="width: 100%" width="100%">
                             <thead>
                               <tr>
                                 <th>Tanggal</th>
-                                <th>Nama Barang</th>
-                                <th>No Nota</th>
-                                <th>Kode Barang</th>
-                                <th>Jumlah</th>
-                                <th>Harga Beli</th>
-                                <th>Total</th>
+                                <th>Keterangan</th>
+                                <th>No Invoice</th>
+                                <th>Debet</th>
+                                <th>Kredit</th>
+                                <th>Saldo</th>
                               </tr>
                             </thead>
                           </table>
                         </div>
+                        <h5 class="text-right" id="totalhargapernota">Total Keuntungan : Rp. 400.000,-</h5>
                     </div> <!-- .card -->
 
                   </div><!--/.col-->
@@ -105,14 +107,49 @@
     <script type="text/javascript">
             jQuery( document ).ready(function( $ ) {
 
-                      $('#tanggal_awal').datetimepicker({
-                          format: 'DD/MM/YYYY',
+                      $('#bulan').datetimepicker({
+                          format: "mm-yyyy",
+                          startView: "months", 
+                          minViewMode: "months",
                           useCurrent: false
                       });
-                      $('#tanggal_akhir').datetimepicker({
-                          format: 'DD/MM/YYYY',
-                          useCurrent: false
-                      });
+
+                      $.ajax({
+                          type:"post",
+                          url: "<?php echo base_url('superadminfranchise/get_list_stan')?>/",
+                          data:{},
+                          dataType:"json",
+                          success:function(response)
+                          {
+                            var htmlinsideselect = '';
+                            $.each(response, function (i, item) {
+                                if (i == 0) {
+                                    // $('#stan').append($('<option>', {
+                                    //     value: item.id_stan,
+                                    //     text: item.nama_stan+' ( '+item.alamat+' )',
+                                    //     selected: true
+                                    // }));
+                                    htmlinsideselect = htmlinsideselect + '<option selected="selected" value="'+item.id_stan+'">'+item.nama_stan +' ( '+item.alamat+' )' +'</option>';
+                                }else{
+                                    htmlinsideselect = htmlinsideselect + '<option value="'+item.id_stan+'">'+item.nama_stan +' ( '+item.alamat+' )' +'</option>';
+                                }
+                                
+                            });
+                            $("#stan").html(htmlinsideselect);
+                          },
+                          error: function (jqXHR, textStatus, errorThrown)
+                          {
+                            alert(errorThrown);
+                          },
+                          complete: function (argument) {
+                              $('#stan').trigger("chosen:updated");
+                              var id_stan = $('#stan').val();
+                              var tanggal_rekap = $('#tanggalrekap').val();
+                                // alert(id_stan);
+                                ajaxSetData(id_stan,tanggal_rekap);
+                          }
+                      }
+                    );
 
                     $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
                     {
@@ -197,10 +234,12 @@
                         ],
                         "lengthChange": true,
                   columns: [
-                    {'data': 'id_bahan_jadi'},
-                    {'data': 'nama_bahan_jadi'},
-                    {'data': 'edit','orderable':false,'searchable':false},
-                    {'data': 'hapus','orderable':false,'searchable':false}
+                    {'data': 'tgl'},
+                    {'data': 'nama_barang'},
+                    {'data': 'no_nota'},
+                    {'data': 'kode_barang'},
+                    {'data': 'tujuan_pengiriman'},
+                    {'data': 'detail'},
                   ],
                       rowCallback: function(row, data, iDisplayIndex) {
                         var info = this.fnPagingInfo();
