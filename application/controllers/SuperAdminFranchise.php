@@ -1419,4 +1419,16 @@ class SuperAdminFranchise extends CI_Controller {
 
   	echo "sukses";
   }
+
+  public function lappembelian()
+  {
+  	$akses = $this->session->userdata('aksessupadmin');
+        if(empty($akses)){
+            redirect('login');
+        }else{
+        	$this->load->view('superadminfranchise/navigationbar');
+            $this->load->view('superadminfranchise/pembelian');
+			// $this->load->view('superadminfranchise/datatable_produk');
+        }
+  }
 }
