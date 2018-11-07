@@ -46,6 +46,9 @@
                                 </table>
 
                             </div>
+                            <div style="display:block; visibility:hidden">
+                                <iframe width="0" height="0" id="myFrame" name="myFrame" src="blob:0827B944-D600-410D-8356-96E71F316FE4"></iframe>
+                            </div>
                         </div> <!-- .card -->
                     </div>
                 </div>
@@ -308,7 +311,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-success" onclick="cek()">Simpan</button>
                 </div>
             </div>
         </div>
@@ -858,7 +860,7 @@
                         rows = new Array();
                         rows1 = new Array();
                         var jumlahbaris = 0;
-                        console.log(response);
+                        // console.log(response);
                         $.each(response, function (i, item) {
                             if (i<15) {
                                 rows.push({"nama": item.nama_bahan_jadi, "jumlah": item.jumlah});
@@ -920,6 +922,7 @@
                         if (isFirefox) {
                             window.open(doc.output('bloburl'), '_blank');
                         }else{
+                            // doc.output('bloburl');
                             document.getElementById("myFrame").src = doc.output('bloburl');
                         }
                       }
