@@ -3,7 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  
 class Produk extends CI_Model{
 
-    
+    public function getDataWhereDesc2column($table,$where,$order)
+    {
+        $res=$this->db->order_by($order)->get_where($table,$where);
+        return $res->result();
+    }
 
     public function getAllData($table){
         $res=$this->db->get($table);

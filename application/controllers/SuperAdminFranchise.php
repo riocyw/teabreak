@@ -645,7 +645,7 @@ class SuperAdminFranchise extends CI_Controller {
 		}
 		
 
-		$data = $this->Produk->getData($array,'nota');
+		$data = $this->Produk->getDataWhereDesc2column('nota',$array,"tanggal_nota DESC, waktu_nota DESC");
 		// var_dump($data);
 		echo json_encode($data);
 	}
@@ -988,6 +988,7 @@ class SuperAdminFranchise extends CI_Controller {
 			$data = array(
 		        'id_bahan_jadi' => $this->input->post('id'),
 		        'nama_bahan_jadi' => $this->input->post('nama'),
+		        'harga_bahan_jadi' => $this->input->post('hargabeli')
 	         );
 			$this->Produk->insert('bahan_jadi',$data);
 			echo "Berhasil Ditambahkan";
@@ -1022,6 +1023,7 @@ class SuperAdminFranchise extends CI_Controller {
 			$data = array(
 				'id_bahan_jadi' => $this->input->post('id'),
 		        'nama_bahan_jadi' => $this->input->post('nama'),
+		        'harga_bahan_jadi' => $this->input->post('hargabeli')
 	         );
 			$this->Post->Update('bahan_jadi',$data,$where);
 			echo "Berhasil Diupdate";
@@ -1031,7 +1033,7 @@ class SuperAdminFranchise extends CI_Controller {
 	public function bahanjadi_data()
 	{
 		$this->load->library('datatables');
-		$this->datatables->select('id_bahan_jadi,nama_bahan_jadi');
+		$this->datatables->select('id_bahan_jadi,nama_bahan_jadi,harga_bahan_jadi');
 		$this->datatables->from('bahan_jadi');
 		
 		echo $this->datatables->generate();
@@ -1323,12 +1325,18 @@ class SuperAdminFranchise extends CI_Controller {
     date_default_timezone_set("Asia/Bangkok");
     $datenow = date("Y-m-d");
     $id_stan = $this->input->post('id_stan');
+    $shift = $this->input->post('shift');
     $tanggal_rekap = $this->input->post('tanggal_rekap');
     $tanggal_rekap = explode("/", $tanggal_rekap);
     $tanggal_rekap = $tanggal_rekap[2]."-".$tanggal_rekap[1]."-".$tanggal_rekap[0];
 
-    $where = array('id_stan' => $id_stan, 'tanggal' => $tanggal_rekap);
-    $wherenota = array('id_stan' => $id_stan, 'tanggal_nota' => $tanggal_rekap);
+    if ($shift == 'all') {
+    	$where = array('id_stan' => $id_stan, 'tanggal' => $tanggal_rekap);
+    	$wherenota = array('id_stan' => $id_stan, 'tanggal_nota' => $tanggal_rekap);
+    }else{
+    	$where = array('id_stan' => $id_stan, 'tanggal' => $tanggal_rekap, 'shift' => $shift);
+    	$wherenota = array('id_stan' => $id_stan, 'tanggal_nota' => $tanggal_rekap, 'shift' => $shift);
+    }
 
     $datapengeluaran = $this->Produk->getData($where,'pengeluaran_lain');
     $datakas = $this->Produk->getData($where,'kas');

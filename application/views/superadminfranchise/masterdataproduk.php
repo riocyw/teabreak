@@ -42,12 +42,14 @@
                                             <input type="text" id="nama" placeholder="Masukkan Nama Barang" class="form-control">
                                         </div>
                                     </div>
+                                    
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="harga" class=" form-control-label">Harga Jual</label>
-                                            <input type="text" id="harga" onkeyup="this.value=currency(this.value);" placeholder="Masukkan Harga Barang" class="form-control">
+                                            <input type="text" id="harga" onkeyup="this.value=currency(this.value);" placeholder="Masukkan Harga Jual" class="form-control">
                                         </div>
                                     </div>
+                                    
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">

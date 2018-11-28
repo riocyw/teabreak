@@ -100,7 +100,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <a href="stokproduk"> <i class="menu-icon fa fa-glass"></i>Stok Produk </a>
                     </li>
                     <li id="pembelian">
-                        <a href="pembelian" style="pointer-events: none;"> <i class="menu-icon ti-shopping-cart"></i>Pembelian Produk </a>
+                        <a href="pembelian"> <i class="menu-icon ti-shopping-cart"></i>Pembelian Produk </a>
+                         <!-- style="pointer-events: none;" -->
                     </li>
                     <li id="orderstan">
                         <a href="orderstan"> <i class="menu-icon ti-list-ol"></i>Order Stan </a>

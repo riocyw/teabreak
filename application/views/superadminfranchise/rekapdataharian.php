@@ -35,6 +35,16 @@
                             <input type="text" name="tanggal" id="tanggalrekap" class="form-control" >
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <b><label class=" form-control-label">Shift</label></b>
+                            <select name="select" id="shift" class="form-control" onchange="refreshrekap()">
+                                <option value="pagi">Pagi</option>
+                                <option value="malam">Malam</option>
+                                <option value="all">Semua Shift</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -88,7 +98,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 text-center">
+                    <div class="col-md-12 text-center">
                         <div class="card">
                             <div class="card-body">
                                 <div class="stat-widget-one">
@@ -101,19 +111,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 text-center">
+                    <!-- <div class="col-md-6 text-center">
                         <div class="card">
                             <div class="card-body">
-                                <div class="stat-widget-one">
+                                <div class="stat-widget-one"> -->
                                     <!-- <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div> -->
-                                    <div class="stat-content dib">
+                                    <!-- <div class="stat-content dib">
                                         <div class="stat-text"><h4><b>Total Uang pada Mesin Kasir</b></h4></div>
                                         <div class="stat-digit"><h2><b id="totalkasir">Rp. --.---,-</b></h2></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-sm-6 text-right">
@@ -361,19 +371,20 @@
                   $('#stan').trigger("chosen:updated");
                   var id_stan = $('#stan').val();
                   var tanggal_rekap = $('#tanggalrekap').val();
+                  var shift = $('#shift').val();
                     // alert(id_stan);
-                    ajaxSetData(id_stan,tanggal_rekap);
+                    ajaxSetData(id_stan,tanggal_rekap,shift);
               }
           }
         );
 
         
 
-        function ajaxSetData(id_stan,tanggal_rekap) {
+        function ajaxSetData(id_stan,tanggal_rekap,shift) {
             $.ajax({
               type:"post",
               url: "<?php echo base_url('superadminfranchise/getrekapdata')?>/",
-              data:{id_stan:id_stan,tanggal_rekap:tanggal_rekap},
+              data:{id_stan:id_stan,tanggal_rekap:tanggal_rekap,shift:shift},
               success:function(response)
               {
                 response = jQuery.parseJSON(response);
@@ -383,7 +394,7 @@
                 var cashdetail = response.cashdetail;
                 var ovodetail = response.ovodetail;
                 var debitdetail = response.debitdetail;
-                var totalkasir = response.totalkasir;
+                // var totalkasir = response.totalkasir;
                 var totalpemasukan = response.totalpemasukan;
                 var kaspagi = response.kaspagi;
                 var kasmalam = response.kasmalam;
@@ -394,7 +405,7 @@
                 cashdetail = "Rp. "+currency(cashdetail)+",-";
                 ovodetail = "Rp. "+currency(ovodetail)+",-";
                 debitdetail = "Rp. "+currency(debitdetail)+",-";
-                totalkasir = "Rp. "+currency(totalkasir)+",-";
+                // totalkasir = "Rp. "+currency(totalkasir)+",-";
                 totalpemasukan = "Rp. "+currency(totalpemasukan)+",-";
                 kaspagi = "Rp. "+currency(kaspagi)+",-";
                 kasmalam = "Rp. "+currency(kasmalam)+",-";
@@ -405,7 +416,7 @@
                 $('#cashdetail').html(cashdetail);
                 $('#ovodetail').html(ovodetail);
                 $('#debitdetail').html(debitdetail);
-                $('#totalkasir').html(totalkasir);
+                // $('#totalkasir').html(totalkasir);
                 $('#totalpemasukan').html(totalpemasukan);
                 $('#kaspagidetail').html(kaspagi);
                 $('#kasmalamdetail').html(kasmalam);
@@ -460,8 +471,9 @@
       function refreshrekap() {
         var id_stan = $('#stan').val();
         var tanggal_rekap = $('#tanggalrekap').val();
+        var shift = $('#shift').val();
         // alert(id_stan);
-          ajaxSetData(id_stan,tanggal_rekap);
+          ajaxSetData(id_stan,tanggal_rekap,shift);
       }
     </script>
 </body>

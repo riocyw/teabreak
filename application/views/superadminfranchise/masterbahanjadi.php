@@ -42,6 +42,12 @@
                                             <input type="text" id="nama" placeholder="Masukkan Nama Barang" class="form-control">
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="nama" class=" form-control-label">Harga Beli Bahan Jadi</label>
+                                            <input type="text" id="hargabeli" placeholder="Masukkan Harga Beli" class="form-control numeric">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -70,6 +76,7 @@
                               <tr>
                                 <th>ID Bahan Jadi</th>
                                 <th>Nama Bahan Jadi</th>
+                                <th>Harga Bahan Jadi</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                               </tr>
@@ -94,17 +101,23 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label for="editid" class=" form-control-label">Kode Bahan Jadi</label>
                                     <input type="text" id="editid" placeholder="Masukkan Kode Barang" class="form-control">
                                     <input type="hidden" name="id_lama" id="id_lama">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label for="editnama" class=" form-control-label">Nama Bahan Jadi</label>
                                     <input type="text" id="editnama" placeholder="Masukkan Nama Barang" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="editnama" class=" form-control-label">Harga Beli Bahan Jadi</label>
+                                    <input type="text" id="edithargabeli" placeholder="Masukkan Harga Beli" class="form-control numeric">
                                 </div>
                             </div>
                         </div>
@@ -136,15 +149,31 @@
 
     <script src=<?php echo base_url("assets/js/jquery.easy-autocomplete.js")?>></script>
     <script type="text/javascript">
+      $('.numeric').on('input', function (event) { 
+        this.value = this.value.replace(/[^0-9]/g, '');
+        // if ($(this).val().indexOf('.') == 0) {
+        //       $(this).val($(this).val().substring(1));
+        //     }
+
+            if ($(this).val().indexOf('0') == 0) {
+              $(this).val($(this).val().substring(1));
+            }
+
+            // if ($(this).val().split(".").length > 2) {
+            //     this.value = this.value.slice(0,-1);
+            // }
+    });
+
         function tambahbahanjadi(){
             var id = $("#id").val();
             var nama = $("#nama").val();
-            if (id.replace(/\s/g, '').length>0&&nama.replace(/\s/g, '').length>0) {
+            var hargabeli = $("#hargabeli").val();
+            if (id.replace(/\s/g, '').length>0&&nama.replace(/\s/g, '').length>0&&hargabeli.replace(/\s/g, '').length>0) {
                 $.ajax(
                     {
                         type:"post",
                         url: "<?php echo base_url('superadminfranchise/tambahbahanjadi')?>/",
-                        data:{ id:id,nama:nama},
+                        data:{ id:id.replace(/\s/g, '_'),nama:nama,hargabeli:hargabeli},
                         success:function(response)
                         {
                           if(response == 'Berhasil Ditambahkan'){
@@ -155,9 +184,13 @@
                             if($('#nama').has("error")){
                               $('#nama').removeClass("error");
                             }
+                            if($('#hargabeli').has("error")){
+                              $('#hargabeli').removeClass("error");
+                            }
 
                             $("#id").val('');
                             $("#nama").val('');
+                            $("#hargabeli").val("");
 
                             $("#id").focus();
                             alert(response);
@@ -194,6 +227,14 @@
                     }
                 }
 
+                if (hargabeli.replace(/\s/g, '').length<=0) {
+                    $('#hargabeli').addClass("error");
+                }else{
+                    if($('#hargabeli').has("error")){
+                        $('#hargabeli').removeClass("error");
+                    }
+                }
+
                 alert("Silahkan periksa kembali inputan anda!");
             }
           }
@@ -209,6 +250,7 @@
                     $("#editid").val(response[0].id_bahan_jadi);
                     $("#id_lama").val(response[0].id_bahan_jadi);
                     $("#editnama").val(response[0].nama_bahan_jadi);
+                    $("#edithargabeli").val(response[0].harga_bahan_jadi);
                     $("#modal_edit").modal('show');
                   },
                   error: function (jqXHR, textStatus, errorThrown)
@@ -242,11 +284,12 @@
                 var id = $("#editid").val();
                 var idlama = $("#id_lama").val();
                 var nama =  $("#editnama").val();
-                if (id.replace(/\s/g, '').length>0&&nama.replace(/\s/g, '').length>0) {
+                var hargabeli = $("#edithargabeli").val();
+                if (id.replace(/\s/g, '').length>0&&nama.replace(/\s/g, '').length>0&&hargabeli.replace(/\s/g, '').length>0) {
                 $.ajax({
                       type:"post",
                       url: "<?php echo base_url('superadminfranchise/edit_bahanjadi')?>/",
-                      data:{ id:id,nama:nama,idlama:idlama},
+                      data:{ id:id.replace(/\s/g, '_'),nama:nama,idlama:idlama,hargabeli:hargabeli},
                       success:function(response)
                       {
                         if(response == 'Berhasil Diupdate'){
@@ -256,6 +299,9 @@
                           }
                           if($('#editnama').has("error")){
                             $('#editnama').removeClass("error");
+                          }
+                          if($('#edithargabeli').has("error")){
+                            $('#edithargabeli').removeClass("error");
                           }
                           reload_table();
                           alert(response);
@@ -286,6 +332,14 @@
                   }else{
                     if($('#editnama').has("error")){
                       $('#editnama').removeClass("error");
+                    }
+                  }
+
+                  if (hargabeli.replace(/\s/g, '').length<=0) {
+                    $('#edithargabeli').addClass("error");
+                  }else{
+                    if($('#edithargabeli').has("error")){
+                      $('#edithargabeli').removeClass("error");
                     }
                   }
                   alert("Silahkan periksa kembali inputan anda!");
@@ -331,6 +385,7 @@
                         return_data.push({
                           'id_bahan_jadi': json.data[i].id_bahan_jadi,
                           'nama_bahan_jadi'  : json.data[i].nama_bahan_jadi,
+                          'harga_bahan_jadi' : json.data[i].harga_bahan_jadi,
                           'edit' : '<button onclick=edit_bahanjadi("'+json.data[i].id_bahan_jadi+'") class="btn btn-warning" style="color:white;">Edit</button> ',
                           'hapus' : '<button onclick=delete_bahanjadi("'+json.data[i].id_bahan_jadi+'") class="btn btn-danger" style="color:white;">Delete</button>'
                         })
@@ -343,35 +398,35 @@
                             {
                                 extend: 'copyHtml5',
                                 text: 'Copy',
-                                filename: 'Produk Data',
+                                filename: 'Bahan Jadi Data',
                                 exportOptions: {
-                                  columns:[0,1]
+                                  columns:[0,1,2]
                                 }
                             },{
                                 extend: 'excelHtml5',
                                 text: 'Excel',
                                 className: 'exportExcel',
-                                filename: 'Produk Data',
+                                filename: 'Bahan Jadi Data',
                                 exportOptions: {
-                                  columns:[0,1]
+                                  columns:[0,1,2]
                                 }
                             },{
                                 extend: 'csvHtml5',
-                                filename: 'Produk Data',
+                                filename: 'Bahan Jadi Data',
                                 exportOptions: {
-                                  columns:[0,1]
+                                  columns:[0,1,2]
                                 }
                             },{
                                 extend: 'pdfHtml5',
-                                filename: 'Produk Data',
+                                filename: 'Bahan Jadi Data',
                                 exportOptions: {
-                                  columns:[0,1]
+                                  columns:[0,1,2]
                                 }
                             },{
                                 extend: 'print',
-                                filename: 'Produk Data',
+                                filename: 'Bahan Jadi Data',
                                 exportOptions: {
-                                  columns:[0,1]
+                                  columns:[0,1,2]
                                 }
                             }
                         ],
@@ -379,6 +434,7 @@
                   columns: [
                     {'data': 'id_bahan_jadi'},
                     {'data': 'nama_bahan_jadi'},
+                    {'data': 'harga_bahan_jadi'},
                     {'data': 'edit','orderable':false,'searchable':false},
                     {'data': 'hapus','orderable':false,'searchable':false}
                   ],

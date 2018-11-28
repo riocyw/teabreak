@@ -47,6 +47,7 @@
 			    "dataSrc": function (json) {
 			      var return_data = new Array();
 			      var total_harga_akhir = 0;
+			      var no = 1;
 
 			      for(var i=0;i< json.length; i++){
 			      	var nama = json[i].nama_diskon;
@@ -54,13 +55,16 @@
 			      	nama = nama.split(' ').join('+');
 			      	kett = kett.split(' ').join('+');
 			        return_data.push({
+			        	'no': no,
 			          'id_nota': json[i].id_nota,
 			          'tanggal_nota'  : uidate(json[i].tanggal_nota),
+			          'waktu_nota' : json[i].waktu_nota,
 			          'shift' : json[i].shift.charAt(0).toUpperCase() + json[i].shift.slice(1),
 			          'total_harga_jual' : "Rp "+currency(json[i].total_harga),
 			          'detail' : '<button onclick=detail_nota("'+json[i].id_nota+'","'+json[i].total_harga+'","'+nama+'","'+json[i].jenis_diskon+'","'+json[i].status+'","'+json[i].pembayaran+'","'+kett+'") class="btn btn-warning" style="color:white;">Detail</button> '
 			        });
 		    		total_harga_akhir = total_harga_akhir + parseInt(json[i].total_harga);
+		    		no++;
 			      }
 			      $("#total_harga_akhir").html('Total Penjualan Rp '+currency(parseInt(total_harga_akhir))+',-');
 
@@ -81,42 +85,44 @@
 		            {
 		                extend: 'copyHtml5',
 		                text: 'Copy',
-		                filename: 'Produk Data',
+		                filename: 'Nota Penjualan Stand',
 		                exportOptions: {
-		                  columns:[0,1,2,3]
+		                  columns:[0,1,2,3,4,5]
 		                }
 		            },{
 		                extend: 'excelHtml5',
 		                text: 'Excel',
 		                className: 'exportExcel',
-		                filename: 'Produk Data',
+		                filename: 'Nota Penjualan Stand',
 		                exportOptions: {
-		                  columns:[0,1,2,3]
+		                  columns:[0,1,2,3,4,5]
 		                }
 		            },{
 		                extend: 'csvHtml5',
-		                filename: 'Produk Data',
+		                filename: 'Nota Penjualan Stand',
 		                exportOptions: {
-		                  columns:[0,1,2,3]
+		                  columns:[0,1,2,3,4,5]
 		                }
 		            },{
 		                extend: 'pdfHtml5',
-		                filename: 'Produk Data',
+		                filename: 'Nota Penjualan Stand',
 		                exportOptions: {
-		                  columns:[0,1,2,3]
+		                  columns:[0,1,2,3,4,5]
 		                }
 		            },{
 		                extend: 'print',
-		                filename: 'Produk Data',
+		                filename: 'Nota Penjualan Stand',
 		                exportOptions: {
-		                  columns:[0,1,2,3]
+		                  columns:[0,1,2,3,4,5]
 		                }
 		            }
 		        ],
 		        "lengthChange": true,
 				  columns: [
+				  {'data' : 'no'},
 				    {'data': 'id_nota'},
 				    {'data': 'tanggal_nota'},
+				    {'data' : 'waktu_nota'},
 				    {'data': 'shift'},
 				    {'data': 'total_harga_jual'},
 				    {'data': 'detail','orderable':false,'searchable':false}

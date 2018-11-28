@@ -51,11 +51,22 @@
                                 </div>
                             </div>
                             <br>
-                                <table id="mytable" class="table table-striped table-bordered">
+                                <table style="width: 100%" width="100%"  id="mytable" class="table table-striped table-bordered">
+                                    <col width="10%">
+                                <col width="25%">
+                                <col width="15%">
+                                <col width="10%">
+                                <col width="10%">
+                                <col width="15%">
+                                <col width="15%">
                                     <thead>
                                       <tr>
+
+                                
+                                        <th>No</th>
                                         <th>ID Nota</th>
                                         <th>Tanggal Nota</th>
+                                        <th>Jam Nota</th>
                                         <th>Shift</th>
                                         <th>Total Harga Jual</th>
                                         <th>Detail</th>
